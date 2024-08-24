@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Home = () => {
   return (
     <S.Container>
-      <S.TestText>여기는 홈 페이지입니다.</S.TestText>
+      <S.TestText>여기는 홈 페이지입니다. 수정</S.TestText>
     </S.Container>
   );
 };
