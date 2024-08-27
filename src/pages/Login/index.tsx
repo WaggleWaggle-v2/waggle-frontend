@@ -22,14 +22,13 @@ const S = {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-
     position: relative;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #434343;
+    color: var(--gray800);
     padding: 3.2rem 2rem;
 
     @media ${device.mobile} {
