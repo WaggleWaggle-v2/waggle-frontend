@@ -5,7 +5,7 @@ html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
+small, strike, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
@@ -22,6 +22,8 @@ time, mark, audio, video {
     box-sizing: border-box;
 }
 
+
+
 *,
 *::before,
 *::after {
@@ -32,12 +34,13 @@ html {
   font-size: 62.5%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  background-color: #F6F3EE;
 }
 
 body {
     line-height: 1;
     font-size: 1.6rem;
-    font-family: 'Arial', sans-serif;
+    font-family: 'EBSHMJESaeron';
 }
 
 article, aside, details, figcaption, figure, 
