@@ -76,7 +76,8 @@ button {
 } 
 
 textarea {
-  all: unset;
+  font-family: unset;
+  border: none;
 }
 
 img, picture, video, canvas, svg {
