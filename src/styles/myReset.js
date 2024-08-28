@@ -75,9 +75,11 @@ button {
   all: unset;
 } 
 
-textarea {
+textarea, input {
   font-family: unset;
   border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 img, picture, video, canvas, svg {

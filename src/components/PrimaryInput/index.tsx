@@ -1,49 +1,29 @@
 /* eslint-disable no-unused-vars */
-import { FormEventHandler, useRef } from 'react';
 import styled from 'styled-components';
-import { adjustTextareaHeight } from './utils/adjustTextareaHeight';
 
 interface TPrimaryInputProps {
   placeholder: string;
-  value: string;
   onChange: (value: string) => void;
   invalidMsg: string;
 }
 
 const PrimaryInput = (props: TPrimaryInputProps) => {
-  const { placeholder, value, onChange, invalidMsg } = props;
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const { placeholder, onChange, invalidMsg } = props;
 
-  const onInput: FormEventHandler<HTMLTextAreaElement> = e => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-    const inputValue = (e.target as HTMLTextAreaElement).value;
-    if (inputValue.match(/^\s+/)) {
-      textarea.value = '';
-      return;
-    }
+  const onInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputValue = e.currentTarget.value;
     onChange(inputValue);
-    adjustTextareaHeight(textareaRef);
   };
 
-  const onBlur = () => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-    const trimmedValue = textarea.value.trim();
-    onChange(trimmedValue);
-    adjustTextareaHeight(textareaRef);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === ' ') {
+      e.preventDefault();
+    }
   };
 
   return (
     <S.Container>
-      <S.TextArea
-        $isInvalid={!!invalidMsg}
-        placeholder={placeholder}
-        value={value}
-        onInput={onInput}
-        onBlur={onBlur}
-        ref={textareaRef}
-      />
+      <S.Input $isInvalid={!!invalidMsg} placeholder={placeholder} onInput={onInput} onKeyDown={handleKeyDown} />
       {invalidMsg && <S.InvalidMsg>{invalidMsg}</S.InvalidMsg>}
     </S.Container>
   );
@@ -56,27 +36,18 @@ const S = {
     position: relative;
   `,
 
-  TextArea: styled.textarea<{ $isInvalid: boolean }>`
-    border-bottom: ${({ $isInvalid }) => ($isInvalid ? '#E75752' : '#bebebe')} 1px solid;
-
-    color: #434343;
-    background-color: transparent;
+  Input: styled.input<{ $isInvalid: boolean }>`
+    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 1px solid;
+    color: var(--gray800);
     width: 100%;
-    display: block;
-    outline: none;
-    resize: none;
-    overflow: hidden;
     font-size: 1.8rem;
+    font-weight: 600;
     padding: 2.15rem 0.6rem;
-    height: 6.4rem;
-    line-height: 150%;
-
     &:focus {
-      border-bottom: ${({ $isInvalid }) => ($isInvalid ? '#E75752 1px' : '#6c9460 2px')} solid;
+      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--green600)')} 1px solid;
     }
-
     &::placeholder {
-      color: #bebebe;
+      color: var(--gray400);
       font-size: 1.4rem;
     }
   `,
@@ -85,6 +56,6 @@ const S = {
     position: absolute;
     bottom: -2.2rem;
     font-size: 1.4rem;
-    color: #e75752;
+    color: var(--red400);
   `,
 };

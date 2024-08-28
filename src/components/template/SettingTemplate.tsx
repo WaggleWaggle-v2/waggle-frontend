@@ -23,21 +23,22 @@ export default SettingTemplate;
 
 const S = {
   Container: styled.section`
+    position: relative;
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 464px;
   `,
 
   Step: styled.p`
     font-family: 'EBSHunminjeongeum';
-    color: #6c9460;
+    color: var(--green600);
     font-size: 1.6rem;
     margin-bottom: 1.2rem;
   `,
 
   Title: styled.h1`
     font-family: 'EBSHunminjeongeum';
-    color: #222222;
+    color: var(--gray900);
     font-weight: 900;
     font-size: 3.2rem;
   `,
