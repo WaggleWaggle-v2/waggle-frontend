@@ -41,6 +41,7 @@ const S = {
     text-align: center;
     margin-bottom: 1.6rem;
     font-family: 'Pretendard';
+    color: var(--gray800);
 
     @media ${device.tablet} {
       font-size: 1.6rem;
