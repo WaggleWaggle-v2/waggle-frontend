@@ -27,11 +27,13 @@ const S = {
     width: 100%;
     line-height: 3rem;
     font-size: 2rem;
-    padding: 1.7rem 0;
+    padding: 1.4rem 0;
     border-radius: 0.6rem;
     @media ${device.mobile} {
       font-size: 1.6rem;
-      padding: 1.4rem 0;
+      position: absolute;
+      bottom: 3rem;
+      right: 0;
     }
   `,
 };

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TSettingTemplateProps {
@@ -26,7 +27,15 @@ const S = {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 464px;
+    min-width: 46.4rem;
+    @media ${device.mobile} {
+      width: 100%;
+      min-width: 0;
+      margin: 3rem 2rem;
+      height: 100vh;
+      display: fex;
+      justify-content: center;
+    }
   `,
 
   Step: styled.p`
@@ -38,7 +47,6 @@ const S = {
 
   Title: styled.h1`
     font-family: 'EBSHunminjeongeum';
-    color: var(--gray900);
     font-weight: 900;
     font-size: 3.2rem;
   `,

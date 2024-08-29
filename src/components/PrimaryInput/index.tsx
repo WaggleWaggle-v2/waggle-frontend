@@ -37,6 +37,7 @@ const S = {
   `,
 
   Input: styled.input<{ $isInvalid: boolean }>`
+    font-family: 'Pretendard';
     border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 1px solid;
     color: var(--gray800);
     width: 100%;
@@ -49,10 +50,12 @@ const S = {
     &::placeholder {
       color: var(--gray400);
       font-size: 1.4rem;
+      font-weight: 100;
     }
   `,
 
   InvalidMsg: styled.p`
+    font-family: 'Pretendard';
     position: absolute;
     bottom: -2.2rem;
     font-size: 1.4rem;

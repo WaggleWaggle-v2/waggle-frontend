@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { device } from '@styles/breakpoints';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
@@ -9,11 +10,10 @@ import { TPublicity } from './types/type';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [nickname, setNickname] = useState('');
   const [publicity, setPublicity] = useState<TPublicity>(null);
   const navigate = useNavigate();
-
-  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleNextButtonClick = () => {
     setStep(step + 1);
@@ -40,7 +40,7 @@ const SetUp = () => {
           <SetPublicity setPublicity={setPublicity} publicity={publicity} />
           {publicity && <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>}
           <PrimaryButton disabled={isDisabled} onClick={handleSubmitButtonClick}>
-            나만의 책장 만들기
+            나의 책장 만들기
           </PrimaryButton>
         </SettingTemplate>
       )}
@@ -60,6 +60,7 @@ const S = {
   `,
 
   PublicityResetText: styled.p`
+    font-family: 'Pretendard';
     position: absolute;
     bottom: 6.4rem;
     margin-bottom: 1rem;
@@ -67,5 +68,8 @@ const S = {
     color: var(--gray600);
     width: 100%;
     text-align: center;
+    @media ${device.mobile} {
+      bottom: 8.6rem;
+    }
   `,
 };
