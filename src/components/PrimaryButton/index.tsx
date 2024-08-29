@@ -67,12 +67,6 @@ const S = {
     @media ${device.mobile} {
       font-size: 1.6rem;
       padding: 1.2rem 0;
-      position: fixed;
-      bottom: ${({ $bottomOffset }) => `calc(2rem + ${$bottomOffset}px)`};
-      right: 0;
-      left: 0;
-      margin: 0 2rem;
-      width: auto;
     }
   `,
 };
