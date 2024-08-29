@@ -35,6 +35,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   background-color: var(--background);
+  color: var(--gray900);
 }
 
 body {

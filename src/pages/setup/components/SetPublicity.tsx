@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import { PUBLICITY_SELECT } from '../constants/publicitySelect';
 import { TPublicity } from '../types/type';
@@ -56,35 +57,48 @@ export default SetPublicity;
 
 const S = {
   Container: styled.div`
-    margin: 40px 0 60px;
+    margin: 4rem 0 6rem;
   `,
 
   SelectorWrapper: styled.div`
     display: flex;
-    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 2.4rem;
     cursor: pointer;
+    @media ${device.mobile} {
+      gap: 1.6rem;
+    }
   `,
 
   PublicitySelector: styled.div<{ $isSelected: boolean; $hasSelected: boolean }>`
     opacity: ${({ $isSelected, $hasSelected }) => ($hasSelected ? ($isSelected ? 1 : 0.4) : 1)};
-    padding: 33px 19px;
+    padding: 3.3rem 1.9rem;
     border: 1px solid var(--green600);
     border-radius: 2px;
-    width: 220px;
+    @media ${device.mobile} {
+      padding: 1.6rem 1.1rem 2.8rem;
+    }
 
     p {
       text-align: center;
       line-height: 150%;
-      color: var(--gray900);
       font-size: 1.8rem;
       font-weight: 900;
+      @media ${device.mobile} {
+        font-size: 1.6rem;
+      }
     }
   `,
 
   ImageWrapper: styled.div`
-    width: 180px;
-    height: 100px;
-    margin-bottom: 24px;
+    width: 18rem;
+    height: 10rem;
+    margin-bottom: 2.4rem;
+    @media ${device.mobile} {
+      width: 13rem;
+      height: 7.4rem;
+    }
   `,
 
   PublicityGuideText: styled.div`
@@ -93,13 +107,19 @@ const S = {
     p {
       &:first-child {
         font-size: 2.4rem;
-        font-weight: 400;
+        font-weight: 600;
         color: var(--green700);
         margin-bottom: 1.2rem;
+        @media ${device.mobile} {
+          font-size: 1.6rem;
+        }
       }
       &:last-child {
         font-size: 2rem;
         color: var(--gray700);
+        @media ${device.mobile} {
+          font-size: 1.3rem;
+        }
       }
     }
   `,

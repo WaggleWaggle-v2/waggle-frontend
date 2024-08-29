@@ -17,7 +17,7 @@ const SetNickname = ({ setNickname, setIsDisabled }: TSetNicknameProps) => {
     if (value === '') {
       setInvalidMsg('');
       setIsDisabled(true);
-    } else if (value.length > 7) {
+    } else if (value.length > 6) {
       setInvalidMsg('최대 6글자만 사용할 수 있습니다.');
       setIsDisabled(true);
     } else if (isCompleteKoreanWord(value)) {
