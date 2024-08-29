@@ -31,9 +31,13 @@ const S = {
     border-radius: 0.6rem;
     @media ${device.mobile} {
       font-size: 1.6rem;
-      position: absolute;
-      bottom: 3rem;
+      padding: 1.2rem 0;
+      position: fixed;
+      bottom: 2rem;
       right: 0;
+      left: 0;
+      margin: 0 2rem;
+      width: auto;
     }
   `,
 };

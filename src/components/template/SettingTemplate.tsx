@@ -31,7 +31,7 @@ const S = {
     @media ${device.mobile} {
       width: 100%;
       min-width: 0;
-      margin: 3rem 2rem;
+      margin: 2rem;
       height: 100vh;
       display: fex;
       justify-content: center;
