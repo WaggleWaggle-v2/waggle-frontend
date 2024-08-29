@@ -9,34 +9,34 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
   }
 
   return (
-    <S.Label>
+    <S.Label isOpen={isOpen}>
       <S.LabelTop>
         {isOpen ? (
-          <S.Container>
-            <S.Item>
+          <S.Container isLogin={isLogin} isOpen={isOpen}>
+            <S.NavItem>
               <S.CloseIcon onClick={handleMenuToggle} src="/src/assets/icons/cross-line.svg" alt="네비게이션 바 닫기" />
-            </S.Item>
+            </S.NavItem>
             {isLogin ? (
-              <S.Item
+              <S.NavItem
                 position={`
-              display : flex;
-              flex-direction : column;
-              gap : 1rem;
-            `}>
+                  display : flex;
+                  flex-direction : column;
+                  gap : 1rem;
+                `}>
                 <S.TitleText>안녕하신가~!</S.TitleText>
                 <S.TitleText color={'#E75852'}>
                   {nickName} <S.TitleText>님</S.TitleText>
                 </S.TitleText>
-              </S.Item>
+              </S.NavItem>
             ) : (
-              <S.Item>
+              <S.NavItem>
                 <S.NavTitleBox as="div">
                   로그인하세요
                   <img src="/src/assets/icons/right-arrow.svg" alt="로그인 하기" />
                 </S.NavTitleBox>
-              </S.Item>
+              </S.NavItem>
             )}
-            <S.Item>
+            <S.NavItem>
               <S.MenuBox>
                 <S.MenuTitle as="button" type="button" disabled={isLogin ? false : true}>
                   마이페이지
@@ -48,10 +48,12 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
                   문의하기
                 </S.MenuTitle>
               </S.MenuBox>
-            </S.Item>
+            </S.NavItem>
           </S.Container>
         ) : (
-          <S.KebabIcon onClick={handleMenuToggle} src="/src/assets/icons/kebab.svg" alt="메뉴 열기" />
+          <S.Container>
+            <S.KebabIcon onClick={handleMenuToggle} src="/src/assets/icons/kebab.svg" alt="메뉴 열기" />
+          </S.Container>
         )}
       </S.LabelTop>
       <S.LabelBottom />
@@ -61,7 +63,7 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
 
 export default Nav;
 
-const Item = styled.li<{ position?: string }>`
+export const NavItem = styled.li<{ position?: string }>`
   padding: 2rem 1rem;
   list-style: none;
 
@@ -81,8 +83,11 @@ const TitleText = styled.p<{ color?: string }>`
 `;
 
 const S = {
-  Label: styled.div`
+  Label: styled.div<{ isOpen: boolean }>`
     position: relative;
+
+    transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-32rem)')};
+    transition: transform 0.3s;
   `,
 
   LabelTop: styled.div`
@@ -94,6 +99,7 @@ const S = {
     z-index: 1;
     background-color: #071b34;
     min-height: 7rem;
+
     &:before {
       content: '';
       position: absolute;
@@ -109,6 +115,7 @@ const S = {
     width: 20rem;
     background-color: #486080;
     height: 1rem;
+
     &:before {
       content: '';
       position: absolute;
@@ -119,17 +126,20 @@ const S = {
     }
   `,
 
-  Container: styled.ul`
+  Container: styled.ul<{ isLogin?: boolean; isOpen?: boolean }>`
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #071a34;
     padding: 0 1.3rem;
+
+    height: ${({ isOpen, isLogin }) => (!isOpen ? '39.6rem' : !isLogin && '33rem')};
   `,
 
   KebabIcon: styled.img`
     width: 2.4rem;
     height: 1.8rem;
+    margin-top: 33rem;
     cursor: pointer;
   `,
 
@@ -145,7 +155,7 @@ const S = {
     aspect-ratio: 1 /1;
   `,
 
-  LoginButton: styled(Item)`
+  LoginButton: styled(NavItem)`
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -186,7 +196,6 @@ const S = {
     display: flex;
     flex-direction: column;
   `,
-
-  Item,
+  NavItem,
   TitleText,
 };
