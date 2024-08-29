@@ -17,5 +17,10 @@ const S = {
   Container: styled.div`
     background-color: #f6f4ee;
     height: 100vh;
+    display: grid;
+    grid-template-rows: 9.6rem 1fr;
+    grid-template-areas:
+      'a'
+      'b';
   `,
 };
