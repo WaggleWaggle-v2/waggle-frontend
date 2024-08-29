@@ -1,8 +1,11 @@
 import { SOCIAL_LOGIN_INFO } from '@pages/Login/constants/socialLoginInfo';
 import { device } from '@styles/breakpoints';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SocialLoginButtonList = () => {
+  const navigate = useNavigate();
+
   return (
     <S.Container>
       <S.Title>
@@ -10,7 +13,7 @@ const SocialLoginButtonList = () => {
       </S.Title>
       <S.LoginList>
         {SOCIAL_LOGIN_INFO.map(social => (
-          <S.LoginItem key={social.name} $background={social.background}>
+          <S.LoginItem key={social.name} $background={social.background} onClick={() => navigate('/setup')}>
             <S.LogoImage src={social.logo} alt="소셜 로그인 아이콘" />
             <S.Name $color={social.color}>{social.name}</S.Name>
           </S.LoginItem>
@@ -41,6 +44,7 @@ const S = {
     text-align: center;
     margin-bottom: 1.6rem;
     font-family: 'Pretendard';
+    color: var(--gray800);
 
     @media ${device.tablet} {
       font-size: 1.6rem;

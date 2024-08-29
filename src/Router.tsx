@@ -10,6 +10,7 @@ const Router = () => {
           <Route index element={<Page.Home />} />
           <Route path="login" element={<Page.Login />} />
           <Route path="/createUser" element={<CreateUser />} />
+          <Route path="setup" element={<Page.SetUp />} />
           {/* <Route index element={<Page.Home />} /> */}
         </Route>
       </Routes>

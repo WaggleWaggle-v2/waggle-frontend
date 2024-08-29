@@ -34,7 +34,8 @@ html {
   font-size: 62.5%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  background-color: #F6F3EE;
+  background-color: var(--background);
+  color: var(--gray900);
 }
 
 body {
@@ -75,8 +76,11 @@ button {
   all: unset;
 } 
 
-textarea {
-  all: unset;
+textarea, input {
+  font-family: unset;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 img, picture, video, canvas, svg {

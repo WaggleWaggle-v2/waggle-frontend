@@ -3,56 +3,58 @@ import { createGlobalStyle } from 'styled-components';
 const Colors = createGlobalStyle`
   :root {
     --black: #000000;
-    --white: #ffffff;
-    --lightWhite: #e8e8e8;
+    --white: #FFFFFF;
+    --background: #F6F3EE;
+    --button-active: #6C9460;
+    --button-disabled: #D1E1CE;
 
-    //red color
-    --red01: #e74133;
-    --red02: #f0cecd;
+    // Red
+    --red900: #AF2620;
+    --red800: #BD302B;
+    --red700: #CA3632;
+    --red600: #DC4038;
+    --red500: #EB4939;
+    --red400: #E75752;
+    --red300: #DE7574;
+    --red200: #EA9B9A;
+    --red100: #FCCDD2;
+    --red50: #FDEBEE
 
-    //point color
-    --blue01: #3e82f1;
-    --blue02: #d2e3ed;
-    --blue03: #edf7f8;
-    --blue04: #a6c4d5;
-    --blue05: #132f5c;
+    //Green
+    --green900: #44523F;
+    --green800: #56714D;
+    --green700: #608256;
+    --green600: #6C9460;
+    --green500: #76A369;
+    --green400: #87B07E;
+    --green300: #9ABD93;
+    --green200: #B5CFB0;
+    --green100: #D1E1CE;
+    --green50: #ECF3EB;
 
-    //point yellow
-    --yellow01: #efc229;
-    --yellow02: #e2b728;
-    --yellow03: #a08016;
-    --yellow04: #8e7523;
+    //Brown
+    --brown900: #695545;
+    --brown800: #796451;
+    --brown700: #87725B;
+    --brown600: #988166;
+    --brown500: #A58D6F;
+    --brown400: #B5A087;
+    --brown300: #C5B4A0;
+    --brown200: #D7CABD;
+    --brown100: #E7DFD6;
+    --brown50: #F6F3EE;
 
-    //point indigo
-    --indigo01: #101322;
-    --indigo02: #171b2d;
-    --indigo03: #232539;
-    --indigo04: #2c2e45;
-    --indigo05: #363750;
-    --indigo06: #40405b;
-    --indigo07: #4c4c63;
-    --indigo08: #6b6b89;
-
-    //gray
-    --gray01: #9e9e9e;
-    --gray02: #bdbdbd;
-    --gray03: #f3f3f3;
-    --gray04: #f9f9f9;
-    --gray05: #a6a6a6;
-    --gray06: #404040;
-    --gray07: #c5c5c5;
-
-    //dark color
-    --dark01: #222222;
-    --dark02: #313338;
-    --dark03: #45474c;
-    --dark04: #404040;
-    --dark05: #484848;
-    --dark06: #525354;
-    --dark07: #d6d6d7;
-    --dark08: #fbfbfb;
-    --dark09: #0c0e19;
-    --dark10: #07080f;
+    //Gray
+    --gray900: #222222;
+    --gray800: #434343;
+    --gray700: #626262;
+    --gray600: #767676;
+    --gray500: #9F9F9F;
+    --gray400: #BEBEBE;
+    --gray300: #E1E1E1;
+    --gray200: #EFEFEF;
+    --gray100: #F5F5F5;
+    --gray50: #FAFAFA;
   }
 `;
 export default Colors;
