@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <S.Container>
       <S.MainLogo src="/src/assets/images/symbol-logo.png" alt="메인 로고" />
-      <Nav isLogin={false} nickName={'홍길동동동동'} />
+      <Nav isLogin={true} nickName={'홍길동동동동'} />
     </S.Container>
   );
 };
