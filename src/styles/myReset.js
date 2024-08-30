@@ -50,7 +50,8 @@ footer, header, hgroup, menu, nav, section {
 }
 
 ol,
-ul {
+ul,
+li {
   list-style: none;
 }
 

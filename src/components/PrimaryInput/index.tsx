@@ -33,11 +33,11 @@ export default PrimaryInput;
 
 const S = {
   Container: styled.div`
+    font-family: 'Pretendard';
     position: relative;
   `,
 
   Input: styled.input<{ $isInvalid: boolean }>`
-    font-family: 'Pretendard';
     border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 1px solid;
     color: var(--gray800);
     width: 100%;
@@ -55,7 +55,6 @@ const S = {
   `,
 
   InvalidMsg: styled.p`
-    font-family: 'Pretendard';
     position: absolute;
     bottom: -2.2rem;
     font-size: 1.4rem;
