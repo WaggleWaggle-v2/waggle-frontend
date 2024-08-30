@@ -20,6 +20,7 @@ const S = {
     grid-area: 'a';
     display: flex;
     justify-content: space-between;
+    z-index: 20;
 
     @media ${device.tablet} {
     }
