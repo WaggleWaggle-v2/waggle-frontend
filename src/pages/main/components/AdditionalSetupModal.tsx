@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import ModalTemplate from '@components/template/ModalTemplate';
 import SettingTemplate from '@components/template/SettingTemplate';
@@ -7,7 +8,11 @@ import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
 import SetTheme from './SetTheme';
 
-const AdditionalSetupModal = () => {
+interface TAdditionalSetupModalProps {
+  setIsOpen: (value: boolean) => void;
+}
+
+const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
   const [profile, setProfile] = useState('');
@@ -29,7 +34,7 @@ const AdditionalSetupModal = () => {
   return (
     <S.Container>
       <S.Nav>GNB</S.Nav>
-      <ModalTemplate>
+      <ModalTemplate setIsOpen={setIsOpen}>
         {step === 1 && (
           <SettingTemplate
             step={step}

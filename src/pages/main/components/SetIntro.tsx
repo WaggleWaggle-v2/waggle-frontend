@@ -51,7 +51,7 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 30rem;
+    height: 28.5rem;
     margin-bottom: 14rem;
     @media ${device.mobile} {
       height: auto;

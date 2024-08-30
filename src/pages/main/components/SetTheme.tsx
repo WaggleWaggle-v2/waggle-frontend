@@ -39,7 +39,6 @@ const S = {
   Container: styled.div`
     width: calc(76.8rem - 4.8rem * 2);
     margin: 6rem 0 8.4rem;
-    height: 30rem;
     @media ${device.mobile} {
       width: 100%;
     }

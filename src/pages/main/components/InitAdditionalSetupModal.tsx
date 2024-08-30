@@ -6,11 +6,12 @@ import styled from 'styled-components';
 
 interface TInitAdditionalSetupModalProps {
   setDoSetup: (doSetup: boolean) => void;
+  setIsOpen: (value: boolean) => void;
 }
 
-const InitAdditionalSetupModal = ({ setDoSetup }: TInitAdditionalSetupModalProps) => {
+const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetupModalProps) => {
   return (
-    <ModalTemplate>
+    <ModalTemplate setIsOpen={setIsOpen} isInit>
       <S.MainText>
         <p>추가 꾸미기를&nbsp;</p>
         <p>진행하겠소?</p>

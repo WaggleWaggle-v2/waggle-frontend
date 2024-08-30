@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode, useEffect, useState } from 'react';
-import { size } from '@styles/breakpoints';
+import closeIcon from '@assets/icons/modal-close.svg';
+import { device, size } from '@styles/breakpoints';
 import ReactModal from 'react-modal';
 import styled from 'styled-components';
 
 interface TModalTemplateProps {
   children: ReactNode;
+  setIsOpen: (value: boolean) => void;
+  isInit?: boolean;
 }
 
-const ModalTemplate = ({ children }: TModalTemplateProps) => {
+const ModalTemplate = ({ children, setIsOpen, isInit }: TModalTemplateProps) => {
   const [modalOpen, setModalOpen] = useState(true);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
 
@@ -30,13 +33,26 @@ const ModalTemplate = ({ children }: TModalTemplateProps) => {
       {pageWidth > size.mobile && (
         <S.StyledModal
           isOpen={modalOpen}
-          onRequestClose={() => setModalOpen(false)}
+          onRequestClose={() => {
+            setModalOpen(false);
+            setIsOpen(false);
+          }}
           ariaHideApp={false}
           style={customModalStyles}>
+          <button onClick={() => setIsOpen(false)}>
+            <S.CloseIcon src={closeIcon} $isInit={isInit as boolean} alt="모달 닫기 아이콘" />
+          </button>
           {children}
         </S.StyledModal>
       )}
-      {pageWidth <= size.mobile && children}
+      {pageWidth <= size.mobile && (
+        <>
+          <button onClick={() => setIsOpen(false)}>
+            <S.CloseIcon src={closeIcon} $isInit={isInit as boolean} alt="모달 닫기 아이콘" />
+          </button>
+          {children}
+        </>
+      )}
     </>
   );
 };
@@ -52,13 +68,14 @@ const customModalStyles: ReactModal.Styles = {
     left: '0',
     right: '0',
     bottom: '0',
-    backdropFilter: 'blur(4px)',
+    backdropFilter: 'blur(3px)',
   },
   content: {
     position: 'absolute',
     top: '50%',
     left: '50%',
     height: 'fit-content',
+    minHeight: '28.4rem',
     maxHeight: '64rem',
     transform: 'translate(-50%, -50%)',
     borderRadius: '1rem',
@@ -70,14 +87,28 @@ const customModalStyles: ReactModal.Styles = {
   },
 };
 
-//768 464
-
 const S = {
   StyledModal: styled(ReactModal)`
     overflow: auto;
     outline: none;
     &::-webkit-scrollbar {
       display: none;
+    }
+  `,
+
+  CloseIcon: styled.img<{ $isInit: boolean }>`
+    cursor: pointer;
+    width: 3.6rem;
+    position: absolute;
+    z-index: 100;
+
+    top: ${({ $isInit }) => ($isInit ? '1.2rem' : '4rem')};
+    right: ${({ $isInit }) => ($isInit ? '1.2rem' : '4.6rem')};
+
+    @media ${device.mobile} {
+      width: 2.4rem;
+      top: ${({ $isInit }) => ($isInit ? '2rem' : '1.5rem')};
+      right: ${({ $isInit }) => ($isInit ? '2rem' : '1.5rem')};
     }
   `,
 };
