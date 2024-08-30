@@ -1,14 +1,16 @@
 import { ReactNode } from 'react';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
+import ProgressBar from './ProgressBar';
 
 interface TSettingTemplateProps {
   children: ReactNode;
   step: number;
+  totalStep: number;
   title: string;
 }
 
-const SettingTemplate = ({ children, step, title }: TSettingTemplateProps) => {
+const SettingTemplate = ({ children, step, title, totalStep }: TSettingTemplateProps) => {
   const stepStr = step === 1 ? '하나' : step === 2 ? '둘' : '셋';
 
   return (
@@ -16,6 +18,7 @@ const SettingTemplate = ({ children, step, title }: TSettingTemplateProps) => {
       <S.Step>{stepStr}.</S.Step>
       <S.Title>{title}</S.Title>
       {children}
+      <ProgressBar totalStep={totalStep} currentStep={step} />
     </S.Container>
   );
 };

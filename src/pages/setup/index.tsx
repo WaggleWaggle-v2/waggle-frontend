@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
 import SetPublicity from './components/SetPublicity';
 import { TPublicity } from './types/type';
+import { USER_SETUP_TOTAL_STEP } from './constants/totalStepNumber';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);
@@ -26,7 +27,7 @@ const SetUp = () => {
   return (
     <S.Container>
       {step === 1 && (
-        <SettingTemplate step={step} title="호패를 만드시오">
+        <SettingTemplate step={step} title="호패를 만드시오" totalStep={USER_SETUP_TOTAL_STEP}>
           <SetNickname setNickname={setNickname} setIsDisabled={setIsDisabled} />
           <S.ButtonWrapper>
             {!isDisabled && <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>}
@@ -38,7 +39,7 @@ const SetUp = () => {
       )}
 
       {step === 2 && (
-        <SettingTemplate step={step} title="공개 하겠소?">
+        <SettingTemplate step={step} title="공개 하겠소?" totalStep={USER_SETUP_TOTAL_STEP}>
           <SetPublicity setPublicity={setPublicity} publicity={publicity} />
           <S.ButtonWrapper>
             {publicity && <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>}
