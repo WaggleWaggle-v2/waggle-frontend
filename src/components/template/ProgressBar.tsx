@@ -17,7 +17,7 @@ const ProgressBar = ({ totalStep, currentStep }: TProgressBarProp) => {
 
   return (
     <S.Container>
-      <S.CurrentStep $totalStep={totalStep} $width={width} />
+      <S.CurrentStep $width={width} />
     </S.Container>
   );
 };
@@ -32,6 +32,7 @@ const S = {
     right: 0;
     height: 1rem;
     background: var(--button-disabled);
+    z-index: 100;
 
     @media ${device.tablet} {
       position: fixed;
@@ -41,18 +42,10 @@ const S = {
     }
   `,
 
-  CurrentStep: styled.div<{ $width: number; $totalStep: number }>`
+  CurrentStep: styled.div<{ $width: number }>`
     background: var(--button-active);
-    width: 100%;
-    ${({ $totalStep, $width }) => {
-      switch ($totalStep) {
-        case 2:
-          return `transform: ${$width > 50 ? 'translateX(0%)' : 'translateX(-50%)'};`;
-        case 3:
-          return `${$width > 33.3 ? ($width > 66.6 ? 'translateX(0%)' : `translateX(-66.6%)`) : 'translateX(-33.3%)'};`;
-      }
-    }}
-    transition: transform 0.5s ease-in-out;
+    width: ${({ $width }) => $width}%;
+    transition: width 0.5s ease-in-out;
     height: 1rem;
 
     @media ${device.tablet} {

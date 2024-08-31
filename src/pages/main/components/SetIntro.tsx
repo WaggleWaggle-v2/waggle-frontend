@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import PrimaryTextarea from '@components/PrimaryTextarea';
-import { MAX_LENGTH } from '@constants/MaxLength';
+import { MAX_LENGTH } from '@constants/maxLength';
 import { isCompleteKoreanWord } from '@pages/setup/utils/isCompleteKoreanWord';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';

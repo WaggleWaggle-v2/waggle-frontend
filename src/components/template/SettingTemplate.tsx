@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import ProgressBar from './ProgressBar';
 
 interface TSettingTemplateProps {
   children: ReactNode;
@@ -12,7 +11,6 @@ interface TSettingTemplateProps {
   buttonText?: string;
   handleButtonClick: () => void;
   isDisabled: boolean;
-  totalStep: number;
 }
 
 const SettingTemplate = ({
@@ -23,7 +21,6 @@ const SettingTemplate = ({
   handleButtonClick,
   isDisabled,
   buttonText = '다음',
-  totalStep,
 }: TSettingTemplateProps) => {
   const stepStr = step === 1 ? '하나' : step === 2 ? '둘' : '셋';
 
@@ -41,7 +38,6 @@ const SettingTemplate = ({
           {buttonText}
         </PrimaryButton>
       </S.ButtonWrapper>
-      <ProgressBar totalStep={totalStep} currentStep={step} />
     </S.Container>
   );
 };

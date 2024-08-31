@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
 import SetPublicity from './components/SetPublicity';
 import { TPublicity } from './types/type';
-import { USER_SETUP_TOTAL_STEP } from './constants/totalStepNumber';
+import ProgressBar from '@components/template/ProgressBar';
+import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);
@@ -28,7 +29,6 @@ const SetUp = () => {
         <SettingTemplate
           step={step}
           titleTop="호패를 만드시오"
-          totalStep={USER_SETUP_TOTAL_STEP}
           handleButtonClick={handleNextButtonClick}
           isDisabled={isDisabled}>
           <SetNickname setNickname={setNickname} setIsDisabled={setIsDisabled} />
@@ -39,12 +39,12 @@ const SetUp = () => {
         <SettingTemplate
           step={step}
           titleTop="공개 하겠소?"
-          totalStep={USER_SETUP_TOTAL_STEP}
           handleButtonClick={handleSubmitButtonClick}
           isDisabled={isDisabled}>
           <SetPublicity setPublicity={setPublicity} publicity={publicity} />
         </SettingTemplate>
       )}
+      <ProgressBar totalStep={USER_SETUP_TOTAL_STEP} currentStep={step} />
     </S.Container>
   );
 };

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { FormEventHandler, useRef, useState } from 'react';
 import { adjustTextareaHeight } from '@components/PrimaryTextarea/utils/adjustTextareaHeight';
-import { MAX_LENGTH } from '@constants/MaxLength';
+import { MAX_LENGTH } from '@constants/maxLength';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
