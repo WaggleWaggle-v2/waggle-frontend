@@ -1,6 +1,7 @@
+import { device } from '@styles/breakpoints';
+import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
 import Nav from './nav';
-import { device } from '@styles/breakpoints';
 
 const Header = () => {
   return (
@@ -20,6 +21,7 @@ const S = {
     grid-area: 'a';
     display: flex;
     justify-content: space-between;
+    z-index: ${zIndex.header};
 
     @media ${device.tablet} {
     }
