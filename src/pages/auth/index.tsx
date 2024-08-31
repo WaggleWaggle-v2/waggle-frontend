@@ -10,7 +10,7 @@ const Auth = () => {
   const code = params.get('code');
 
   const handleSetCookie = async (code: string | null) => {
-    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}unius/member/login/google?code=${code}`);
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/member/login/google?code=${code}`);
     if (response.status === 200) {
       const accessToken = response.headers?.authorization.split(' ')[1];
       setCookie('accessToken', accessToken, {
