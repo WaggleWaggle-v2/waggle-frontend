@@ -8,7 +8,7 @@ export interface TAxiosError {
 }
 
 const instance = axios.create({
-  baseURL: 'https://io.sfer.app/',
+  baseURL: 'https://io.sfer.app/unius',
   timeout: 5000,
   withCredentials: true,
 });
