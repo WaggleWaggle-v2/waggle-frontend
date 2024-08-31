@@ -9,7 +9,7 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
   }
 
   return (
-    <S.Label isOpen={isOpen} isLogin={isLogin}>
+    <S.Label $isOpen={isOpen} $isLogin={isLogin}>
       <S.LabelTop>
         {isOpen ? (
           <S.Container>
@@ -18,13 +18,13 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
             </S.NavItem>
             {isLogin ? (
               <S.NavItem
-                position={`
+                $position={`
                   display : flex;
                   flex-direction : column;
                   gap : 1rem;
                 `}>
                 <S.TitleText>안녕하신가~!</S.TitleText>
-                <S.TitleText color={'#E75852'}>
+                <S.TitleText $color={'#E75852'}>
                   {nickName} <S.TitleText>님</S.TitleText>
                 </S.TitleText>
               </S.NavItem>
@@ -63,19 +63,19 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
 
 export default Nav;
 
-export const NavItem = styled.li<{ position?: string }>`
+export const NavItem = styled.li<{ $position?: string }>`
   padding: 2rem 1rem;
   list-style: none;
 
-  ${({ position }) => position}
+  ${({ $position }) => $position}
 
   &:not(:last-child) {
     border-bottom: 0.1rem solid #304055;
   }
 `;
 
-const TitleText = styled.p<{ color?: string }>`
-  color: ${({ color }) => (color ? color : '#fff')};
+const TitleText = styled.p<{ $color?: string }>`
+  color: ${({ $color }) => ($color ? $color : '#fff')};
   font-family: 'EBSHMJESaeron';
   font-size: 1.8rem;
   font-weight: 400;
@@ -83,11 +83,11 @@ const TitleText = styled.p<{ color?: string }>`
 `;
 
 const S = {
-  Label: styled.div<{ isOpen: boolean; isLogin: boolean }>`
+  Label: styled.div<{ $isOpen: boolean; $isLogin: boolean }>`
     position: relative;
 
-    transform: ${({ isOpen, isLogin }) =>
-      isOpen ? (isLogin ? 'translateY(-3rem)' : 'translateY(-6rem)') : 'translateY(-32rem)'};
+    transform: ${({ $isOpen, $isLogin }) =>
+      $isOpen ? ($isLogin ? 'translateY(-3rem)' : 'translateY(-6rem)') : 'translateY(-32rem)'};
     transition: transform 0.3s;
   `,
 
