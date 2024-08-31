@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
 import SetPublicity from './components/SetPublicity';
 import { TPublicity } from './types/type';
+import ProgressBar from '@components/template/ProgressBar';
+import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);
@@ -42,6 +44,7 @@ const SetUp = () => {
           <SetPublicity setPublicity={setPublicity} publicity={publicity} />
         </SettingTemplate>
       )}
+      <ProgressBar totalStep={USER_SETUP_TOTAL_STEP} currentStep={step} />
     </S.Container>
   );
 };
@@ -52,6 +55,6 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
   `,
 };
