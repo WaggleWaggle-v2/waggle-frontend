@@ -4,7 +4,7 @@ import PrimaryTextarea from '@components/PrimaryTextarea';
 import { isCompleteKoreanWord } from '@pages/setup/utils/isCompleteKoreanWord';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { MAX_LENGTH } from '@constants/textLength';
+import { MAX_LENGTH } from '@constants/MaxLength';
 
 interface TSetIntroProps {
   setIntro: (intro: string) => void;
