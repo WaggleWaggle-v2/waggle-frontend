@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
@@ -42,6 +44,7 @@ const SetUp = () => {
           <SetPublicity setPublicity={setPublicity} publicity={publicity} />
         </SettingTemplate>
       )}
+      <ProgressBar totalStep={USER_SETUP_TOTAL_STEP} currentStep={step} />
     </S.Container>
   );
 };

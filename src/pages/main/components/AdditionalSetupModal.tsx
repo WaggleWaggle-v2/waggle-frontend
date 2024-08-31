@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
 import SetTheme from './SetTheme';
+import ProgressBar from '@components/template/ProgressBar';
+import { ADDITIONAL_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 
 interface TAdditionalSetupModalProps {
   setIsOpen: (value: boolean) => void;
@@ -66,6 +68,7 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
           </SettingTemplate>
         )}
       </ModalTemplate>
+      <ProgressBar totalStep={ADDITIONAL_SETUP_TOTAL_STEP} currentStep={step} />
     </S.Container>
   );
 };

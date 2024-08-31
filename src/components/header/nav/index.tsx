@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import closeIcon from '@assets/icons/cross-line.svg';
+import rightArrowIcon from '@assets/icons/right-arrow.svg';
+import kebabIcon from '@assets/icons/kebab.svg';
 
 const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,22 +12,22 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
   }
 
   return (
-    <S.Label isOpen={isOpen} isLogin={isLogin}>
+    <S.Label $isOpen={isOpen} $isLogin={isLogin}>
       <S.LabelTop>
         {isOpen ? (
           <S.Container>
             <S.NavItem>
-              <S.CloseIcon onClick={handleMenuToggle} src="/src/assets/icons/cross-line.svg" alt="네비게이션 바 닫기" />
+              <S.CloseIcon onClick={handleMenuToggle} src={closeIcon} alt="네비게이션 바 닫기" />
             </S.NavItem>
             {isLogin ? (
               <S.NavItem
-                position={`
+                $position={`
                   display : flex;
                   flex-direction : column;
                   gap : 1rem;
                 `}>
                 <S.TitleText>안녕하신가~!</S.TitleText>
-                <S.TitleText color={'#E75852'}>
+                <S.TitleText $color={'#E75852'}>
                   {nickName} <S.TitleText>님</S.TitleText>
                 </S.TitleText>
               </S.NavItem>
@@ -32,7 +35,7 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
               <S.NavItem>
                 <S.NavTitleBox as="div">
                   로그인하세요
-                  <img src="/src/assets/icons/right-arrow.svg" alt="로그인 하기" />
+                  <img src={rightArrowIcon} alt="로그인 하기" />
                 </S.NavTitleBox>
               </S.NavItem>
             )}
@@ -52,7 +55,7 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
           </S.Container>
         ) : (
           <S.Container>
-            <S.KebabIcon onClick={handleMenuToggle} src="/src/assets/icons/kebab.svg" alt="메뉴 열기" />
+            <S.KebabIcon onClick={handleMenuToggle} src={kebabIcon} alt="메뉴 열기" />
           </S.Container>
         )}
       </S.LabelTop>
@@ -63,31 +66,29 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
 
 export default Nav;
 
-export const NavItem = styled.li<{ position?: string }>`
+export const NavItem = styled.li<{ $position?: string }>`
   padding: 2rem 1rem;
-  list-style: none;
 
-  ${({ position }) => position}
+  ${({ $position }) => $position}
 
   &:not(:last-child) {
     border-bottom: 0.1rem solid #304055;
   }
 `;
 
-const TitleText = styled.p<{ color?: string }>`
-  color: ${({ color }) => (color ? color : '#fff')};
+const TitleText = styled.p<{ $color?: string }>`
+  color: ${({ $color }) => ($color ? $color : '#fff')};
   font-family: 'EBSHMJESaeron';
   font-size: 1.8rem;
-  font-weight: 400;
   display: inline;
 `;
 
 const S = {
-  Label: styled.div<{ isOpen: boolean; isLogin: boolean }>`
+  Label: styled.div<{ $isOpen: boolean; $isLogin: boolean }>`
     position: relative;
 
-    transform: ${({ isOpen, isLogin }) =>
-      isOpen ? (isLogin ? 'translateY(-3rem)' : 'translateY(-6rem)') : 'translateY(-32rem)'};
+    transform: ${({ $isOpen, $isLogin }) =>
+      $isOpen ? ($isLogin ? 'translateY(-3rem)' : 'translateY(-6rem)') : 'translateY(-32rem)'};
     transition: transform 0.3s;
   `,
 
