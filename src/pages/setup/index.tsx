@@ -52,6 +52,6 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: calc(100vh - 9.6rem);
   `,
 };
