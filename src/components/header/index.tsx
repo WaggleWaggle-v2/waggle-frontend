@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import goBackIcon from '@assets/icons/left-arrow.svg';
+import { device, size } from '@styles/breakpoints';
+import { zIndex } from '@styles/zIndex';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { device, size } from '@styles/breakpoints';
-import MainLogo from '@/assets/images/symbol-logo.png';
-import goBackIcon from '@assets/icons/left-arrow.svg';
 import Nav from './nav';
+import MainLogo from '@/assets/images/symbol-logo.png';
 
 const Header = () => {
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
@@ -45,7 +46,8 @@ const S = {
     grid-area: 'a';
     display: flex;
     justify-content: space-between;
-    z-index: 20;
+    z-index: ${zIndex.header};
+    background-color: var(--background);
 
     @media ${device.tablet} {
       align-items: center;

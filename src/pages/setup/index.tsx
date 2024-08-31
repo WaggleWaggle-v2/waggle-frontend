@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
+import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
 import SetPublicity from './components/SetPublicity';
 import { TPublicity } from './types/type';
-import ProgressBar from '@components/template/ProgressBar';
-import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);
@@ -55,6 +57,12 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: calc(100vh - ${HEADER_HEIGHT.PC});
+    @media ${device.tablet} {
+      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+    }
+    @media ${device.mobile} {
+      height: calc(76vh - ${HEADER_HEIGHT.MOBILE});
+    }
   `,
 };

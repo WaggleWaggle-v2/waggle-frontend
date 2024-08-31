@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import { useState, useEffect } from 'react';
+import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
 
 interface TProgressBarProp {
@@ -32,7 +33,7 @@ const S = {
     right: 0;
     height: 1rem;
     background: var(--button-disabled);
-    z-index: 100;
+    z-index: calc(${zIndex.modal} + 1);
 
     @media ${device.tablet} {
       position: fixed;
