@@ -28,8 +28,6 @@ export default SettingTemplate;
 const S = {
   Container: styled.section`
     position: relative;
-    display: flex;
-    flex-direction: column;
     min-width: 46.4rem;
     @media ${device.mobile} {
       width: 100%;
