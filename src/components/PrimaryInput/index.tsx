@@ -33,19 +33,19 @@ export default PrimaryInput;
 
 const S = {
   Container: styled.div`
+    font-family: 'Pretendard';
     position: relative;
   `,
 
   Input: styled.input<{ $isInvalid: boolean }>`
-    font-family: 'Pretendard';
-    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 1px solid;
+    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 0.1rem solid;
     color: var(--gray800);
     width: 100%;
     font-size: 1.8rem;
     font-weight: 600;
     padding: 2.15rem 0.6rem;
     &:focus {
-      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--green600)')} 1px solid;
+      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--green600)')} 0.1rem solid;
     }
     &::placeholder {
       color: var(--gray400);
@@ -55,7 +55,6 @@ const S = {
   `,
 
   InvalidMsg: styled.p`
-    font-family: 'Pretendard';
     position: absolute;
     bottom: -2.2rem;
     font-size: 1.4rem;

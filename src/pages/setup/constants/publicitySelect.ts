@@ -1,5 +1,5 @@
-import doorCloseIcon from '@assets/icons/door-close.svg';
-import doorOpenIcon from '@assets/icons/door-open.svg';
+import doorOpenIcon from '@assets/images/publicity/open.png';
+import doorCloseIcon from '@assets/images/publicity/private.png';
 
 export const PUBLICITY_SELECT = [
   {

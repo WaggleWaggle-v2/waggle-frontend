@@ -6,10 +6,9 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Page.Root />}>
-          <Route index element={<Page.Home />} />
+          <Route index element={<Page.Main />} />
           <Route path="login" element={<Page.Login />} />
           <Route path="setup" element={<Page.SetUp />} />
-          {/* <Route index element={<Page.Home />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
