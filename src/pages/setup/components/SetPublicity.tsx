@@ -74,8 +74,8 @@ const S = {
   PublicitySelector: styled.div<{ $isSelected: boolean; $hasSelected: boolean }>`
     opacity: ${({ $isSelected, $hasSelected }) => ($hasSelected ? ($isSelected ? 1 : 0.4) : 1)};
     padding: 3.3rem 1.9rem;
-    border: 1px solid var(--green600);
-    border-radius: 2px;
+    border: 0.1rem solid var(--green600);
+    border-radius: 0.2rem;
     @media ${device.mobile} {
       padding: 1.6rem 1.1rem 2.8rem;
     }
