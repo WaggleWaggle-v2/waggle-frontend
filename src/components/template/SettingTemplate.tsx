@@ -52,6 +52,8 @@ const S = {
   Container: styled.section`
     position: relative;
     min-width: 46.4rem;
+    display: flex;
+    flex-direction: column;
     @media ${device.mobile} {
       height: fit-content;
       display: flex;
