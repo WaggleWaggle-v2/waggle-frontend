@@ -34,10 +34,11 @@ const S = {
     height: 1rem;
     background: var(--button-disabled);
 
-    @media ${device.mobile} {
+    @media ${device.tablet} {
       position: fixed;
       top: ${HEADER_HEIGHT.MOBILE};
       bottom: none;
+      height: 0.5rem;
     }
   `,
 
@@ -46,5 +47,9 @@ const S = {
     width: ${({ $width }) => $width}%;
     transition: width 0.5s;
     height: 1rem;
+
+    @media ${device.tablet} {
+      height: 0.5rem;
+    }
   `,
 };
