@@ -1,6 +1,15 @@
 import googleLogo from '@assets/icons/social-login/symbol-google.svg';
 import kakaoLogo from '@assets/icons/social-login/symbol-kakao.svg';
-import naverLogo from '@assets/icons/social-login/symbol-naver.svg';
+// import naverLogo from '@assets/icons/social-login/symbol-naver.svg';
+
+const handleGoogleLoginClick = () => {
+  window.location.href =
+    'https://accounts.google.com/o/oauth2/auth?' +
+    `&client_id=${import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}` +
+    `&redirect_uri=${import.meta.env.VITE_REDIRECT_URL}` +
+    '&response_type=code' +
+    '&scope=email profile';
+};
 
 export const SOCIAL_LOGIN_INFO = [
   {
@@ -8,17 +17,20 @@ export const SOCIAL_LOGIN_INFO = [
     logo: kakaoLogo,
     background: '#FAE100',
     color: '#371D1E',
+    onClick: handleGoogleLoginClick,
   },
-  {
-    name: '네이버',
-    logo: naverLogo,
-    background: '#00C300',
-    color: '#FFFFFF',
-  },
+  // {
+  //   name: '네이버',
+  //   logo: naverLogo,
+  //   background: '#00C300',
+  //   color: '#FFFFFF',
+  //   onClick: handleGoogleLoginClick,
+  // },
   {
     name: '구글',
     logo: googleLogo,
     background: '#FFFFFF',
     color: '#222222',
+    onClick: handleGoogleLoginClick,
   },
 ] as const;
