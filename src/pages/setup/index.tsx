@@ -61,7 +61,7 @@ const S = {
     gap: 3rem;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
   `,
 
   ButtonWrapper: styled.div`
