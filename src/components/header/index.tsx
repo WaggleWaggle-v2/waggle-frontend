@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import Nav from './nav';
 import { device } from '@styles/breakpoints';
+import MainLogo from '@/assets/images/symbol-logo.png';
 
 const Header = () => {
   return (
     <S.Container>
-      <S.MainLogo src="/src/assets/images/symbol-logo.png" alt="메인 로고" />
+      <S.MainLogo src={MainLogo} alt="메인 로고" />
       <Nav isLogin={true} nickName={'홍길동동동동'} />
     </S.Container>
   );
