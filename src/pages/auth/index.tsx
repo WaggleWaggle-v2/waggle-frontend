@@ -8,25 +8,26 @@ const Auth = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
+  console.log(code);
 
-  const handleSetCookie = async (code: string | null) => {
-    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/member/login/google?code=${code}`);
-    if (response.status === 200) {
-      const accessToken = response.headers?.authorization.split(' ')[1];
-      setCookie('accessToken', accessToken, {
-        sameSite: 'None',
-        secure: true,
-        // domain: '',
-      });
-      navigate('/setup');
-    } else {
-      navigate('/login');
-    }
-  };
+  // const handleSetCookie = async (code: string | null) => {
+  //   const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/member/login/google?code=${code}`);
+  //   if (response.status === 200) {
+  //     const accessToken = response.headers?.authorization.split(' ')[1];
+  //     setCookie('accessToken', accessToken, {
+  //       sameSite: 'None',
+  //       secure: true,
+  //       // domain: '',
+  //     });
+  //     navigate('/setup');
+  //   } else {
+  //     navigate('/login');
+  //   }
+  // };
 
-  useEffect(() => {
-    handleSetCookie(code);
-  }, [code]);
+  // useEffect(() => {
+  //   handleSetCookie(code);
+  // }, [code]);
 
   return (
     <S.AuthContainer>
