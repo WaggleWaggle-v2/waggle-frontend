@@ -37,7 +37,9 @@ export default SetTheme;
 
 const S = {
   Container: styled.div`
-    width: calc(76.8rem - 4.8rem * 2);
+    --theme-padding: 4.8rem;
+
+    width: calc(76.8rem - var(--theme-padding) * 2);
     margin: 6rem 0 8.4rem;
     @media ${device.mobile} {
       width: 100%;
@@ -59,7 +61,7 @@ const S = {
     cursor: pointer;
     img {
       border-radius: 0.2rem;
-      border: ${({ $isSelected, $hasSelected }) => $hasSelected && $isSelected && 2}px solid var(--button-active);
+      border: ${({ $isSelected, $hasSelected }) => $hasSelected && $isSelected && 0.2}rem solid var(--button-active);
       @media ${device.mobile} {
         width: 15.2rem;
       }

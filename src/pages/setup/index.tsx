@@ -14,7 +14,7 @@ const SetUp = () => {
   const navigate = useNavigate();
 
   const handleNextButtonClick = () => {
-    setStep(step + 1);
+    setStep(step => step + 1);
   };
   const handleSubmitButtonClick = () => {
     console.log(nickname, publicity);

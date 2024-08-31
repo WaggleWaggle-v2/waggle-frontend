@@ -64,11 +64,8 @@ const customModalStyles: ReactModal.Styles = {
     position: 'fixed',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     zIndex: '10',
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
-    backdropFilter: 'blur(3px)',
+    inset: '0',
+    backdropFilter: 'blur(0.3rem)',
   },
   content: {
     position: 'absolute',

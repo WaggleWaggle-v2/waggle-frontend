@@ -20,7 +20,7 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [intro, setIntro] = useState('');
 
   const handleNextButtonClick = () => {
-    setStep(step + 1);
+    setStep(step => step + 1);
     setIsDisabled(true);
   };
 
@@ -89,10 +89,10 @@ const S = {
       justify-content: center;
       position: fixed;
       background-color: var(--background);
-      border-bottom: 1px solid var(--green600);
+      border-bottom: 0.1rem solid var(--green600);
       width: 100%;
       height: 5.4rem;
-      z-index: 12;
+      z-index: 101;
     }
   `,
 };

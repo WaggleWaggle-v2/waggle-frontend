@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { FormEventHandler, useRef, useState } from 'react';
 import { adjustTextareaHeight } from '@components/PrimaryTextarea/utils/adjustTextareaHeight';
+import { MAX_LENGTH } from '@constants/MaxLength';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
@@ -9,8 +10,6 @@ interface TPrimaryTextareaProps {
   onChange: (value: string) => void;
   invalidMsg: string;
 }
-
-const MAX_LENGTH = 100;
 
 const PrimaryTextarea = (props: TPrimaryTextareaProps) => {
   const { placeholder, onChange, invalidMsg } = props;
@@ -91,7 +90,7 @@ const S = {
   `,
 
   TextArea: styled.textarea<{ $isInvalid: boolean }>`
-    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 1px solid;
+    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 0.1rem solid;
     color: var(--gray800);
     background-color: transparent;
     width: 100%;
@@ -108,7 +107,7 @@ const S = {
       font-size: 1.6rem;
     }
     &:focus {
-      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400) 1px' : 'var(--green600) 2px')} solid;
+      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400) 0.1rem' : 'var(--green600) 0.2rem')} solid;
     }
     &::placeholder {
       color: var(--gray400);

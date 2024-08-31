@@ -10,7 +10,7 @@ interface TPrimaryButtonProps {
 
 const PrimaryButton = ({ children, disabled, onClick }: TPrimaryButtonProps) => {
   return (
-    <S.Container $isDisabled={disabled as boolean} disabled={disabled} onClick={onClick}>
+    <S.Container disabled={disabled} onClick={onClick}>
       {children}
     </S.Container>
   );
@@ -19,9 +19,9 @@ const PrimaryButton = ({ children, disabled, onClick }: TPrimaryButtonProps) => 
 export default PrimaryButton;
 
 const S = {
-  Container: styled.button<{ $isDisabled: boolean }>`
-    background-color: ${({ $isDisabled }) => ($isDisabled ? 'var(--green200)' : 'var(--button-active)')};
-    cursor: ${({ $isDisabled }) => ($isDisabled ? 'normal' : 'pointer')};
+  Container: styled.button`
+    background-color: var(--button-active);
+    cursor: pointer;
     color: white;
     text-align: center;
     width: 100%;
@@ -29,6 +29,12 @@ const S = {
     font-size: 2rem;
     padding: 1.4rem 0;
     border-radius: 0.6rem;
+
+    &:disabled {
+      cursor: default;
+      background-color: var(--green200);
+    }
+
     @media ${device.mobile} {
       font-size: 1.6rem;
       padding: 1.2rem 0;

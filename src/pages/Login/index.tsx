@@ -33,7 +33,7 @@ const S = {
 
     @media ${device.mobile} {
       height: 100%;
-      padding-top: 140px;
+      padding-top: 14rem;
     }
   `,
 

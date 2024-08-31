@@ -40,7 +40,7 @@ const S = {
 
     background-color: rgba(0, 0, 0, 0.4);
 
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(0.3rem);
   `,
 
   InitWrapper: styled.div`

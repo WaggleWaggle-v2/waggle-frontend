@@ -38,14 +38,14 @@ const S = {
   `,
 
   Input: styled.input<{ $isInvalid: boolean }>`
-    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 1px solid;
+    border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 0.1rem solid;
     color: var(--gray800);
     width: 100%;
     font-size: 1.8rem;
     font-weight: 600;
     padding: 2.15rem 0.6rem;
     &:focus {
-      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--green600)')} 1px solid;
+      border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--green600)')} 0.1rem solid;
     }
     &::placeholder {
       color: var(--gray400);
