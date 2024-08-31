@@ -1,6 +1,6 @@
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface TProgressBarProp {
@@ -12,13 +12,12 @@ const ProgressBar = ({ totalStep, currentStep }: TProgressBarProp) => {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    const newWidth = (100 / totalStep) * currentStep;
-    setWidth(newWidth);
+    setWidth((100 / totalStep) * currentStep);
   }, [currentStep, totalStep]);
 
   return (
     <S.Container>
-      <S.CurrentStep $currentStep={currentStep} $totalStep={totalStep} $width={width} />
+      <S.CurrentStep $totalStep={totalStep} $width={width} />
     </S.Container>
   );
 };
@@ -42,10 +41,18 @@ const S = {
     }
   `,
 
-  CurrentStep: styled.div<{ $currentStep: number; $totalStep: number; $width: number }>`
+  CurrentStep: styled.div<{ $width: number; $totalStep: number }>`
     background: var(--button-active);
-    width: ${({ $width }) => $width}%;
-    transition: width 0.5s;
+    width: 100%;
+    ${({ $totalStep, $width }) => {
+      switch ($totalStep) {
+        case 2:
+          return `transform: ${$width > 50 ? 'translateX(0%)' : 'translateX(-50%)'};`;
+        case 3:
+          return `${$width > 33.3 ? ($width > 66.6 ? 'translateX(0%)' : `translateX(-66.6%)`) : 'translateX(-33.3%)'};`;
+      }
+    }}
+    transition: transform 0.5s ease-in-out;
     height: 1rem;
 
     @media ${device.tablet} {
