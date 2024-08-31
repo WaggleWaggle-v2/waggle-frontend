@@ -1,3 +1,5 @@
+import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -30,12 +32,17 @@ const S = {
     left: 0;
     right: 0;
     height: 1rem;
-    background: var(--Color-Green-100, #d1e1ce);
-    overflow: hidden;
+    background: var(--button-disabled);
+
+    @media ${device.mobile} {
+      position: fixed;
+      top: ${HEADER_HEIGHT.MOBILE};
+      bottom: none;
+    }
   `,
 
   CurrentStep: styled.div<{ $currentStep: number; $totalStep: number; $width: number }>`
-    background: var(--Primary-600, #6c9460);
+    background: var(--button-active);
     width: ${({ $width }) => $width}%;
     transition: width 0.5s;
     height: 1rem;
