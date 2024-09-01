@@ -50,13 +50,13 @@ const S = {
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(0.3rem);
+    backdrop-filter: blur(0.2rem);
   `,
 
   InitWrapper: styled.div`
     background-color: var(--background);
     z-index: calc(${zIndex.header} + 1);
-    @media ${device.mobile} {
+    @media ${device.tablet} {
       animation: ${popup} 0.5s forwards;
       padding: 6.4rem 2rem 4rem 2rem;
       border-radius: 1rem 1rem 0 0;
@@ -72,7 +72,7 @@ const S = {
     bottom: 0;
     left: 0;
     right: 0;
-    @media ${device.mobile} {
+    @media ${device.tablet} {
       background-color: var(--background);
     }
   `,

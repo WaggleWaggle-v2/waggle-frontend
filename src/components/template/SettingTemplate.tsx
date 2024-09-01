@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 
 interface TSettingTemplateProps {
@@ -50,8 +51,10 @@ const S = {
     min-width: 46.4rem;
     display: flex;
     flex-direction: column;
+    @media ${device.tablet} {
+      margin-top: calc(${HEADER_HEIGHT.MOBILE} + 10.2rem);
+    }
     @media ${device.mobile} {
-      height: fit-content;
       display: flex;
       width: 100%;
       min-width: 0;

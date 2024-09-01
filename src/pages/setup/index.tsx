@@ -57,12 +57,12 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - ${HEADER_HEIGHT.PC});
+    height: calc(100vh);
     @media ${device.tablet} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+      height: calc(100vh - 10.2rem);
     }
     @media ${device.mobile} {
-      height: calc(76vh - ${HEADER_HEIGHT.MOBILE});
+      height: calc(76vh - ${HEADER_HEIGHT.MOBILE} - 10.2rem);
     }
   `,
 };
