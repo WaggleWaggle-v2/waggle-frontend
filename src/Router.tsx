@@ -9,6 +9,7 @@ const Router = () => {
           <Route index element={<Page.Main />} />
           <Route path="login" element={<Page.Login />} />
           <Route path="setup" element={<Page.SetUp />} />
+          <Route path="auth" element={<Page.Auth />} />
         </Route>
       </Routes>
     </BrowserRouter>
