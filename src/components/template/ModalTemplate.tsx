@@ -2,6 +2,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import closeIcon from '@assets/icons/modal-close.svg';
 import { device, size } from '@styles/breakpoints';
+import { zIndex } from '@styles/zIndex';
 import ReactModal from 'react-modal';
 import styled from 'styled-components';
 
@@ -63,7 +64,7 @@ const customModalStyles: ReactModal.Styles = {
   overlay: {
     position: 'fixed',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    zIndex: '10',
+    zIndex: zIndex.modal,
     inset: '0',
     backdropFilter: 'blur(0.3rem)',
   },
@@ -97,7 +98,6 @@ const S = {
     cursor: pointer;
     width: 3.6rem;
     position: absolute;
-    z-index: 100;
 
     top: ${({ $isInit }) => ($isInit ? '1.2rem' : '4rem')};
     right: ${({ $isInit }) => ($isInit ? '1.2rem' : '4.6rem')};

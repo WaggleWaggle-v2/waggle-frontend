@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import ModalTemplate from '@components/template/ModalTemplate';
 import SettingTemplate from '@components/template/SettingTemplate';
-import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
@@ -35,7 +34,6 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
   return (
     <S.Container>
-      <S.Nav>GNB</S.Nav>
       <ModalTemplate setIsOpen={setIsOpen}>
         {step === 1 && (
           <SettingTemplate
@@ -83,19 +81,5 @@ const S = {
     display: flex;
     justify-content: center;
     height: 100vh;
-  `,
-
-  Nav: styled.nav`
-    @media ${device.mobile} {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      background-color: var(--background);
-      border-bottom: 0.1rem solid var(--green600);
-      width: 100%;
-      height: 5.4rem;
-      z-index: 101;
-    }
   `,
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { device } from '@styles/breakpoints';
-import styled from 'styled-components';
+import { zIndex } from '@styles/zIndex';
+import styled, { keyframes } from 'styled-components';
 import AdditionalSetupModal from './AdditionalSetupModal';
 import InitAdditionalSetupModal from './InitAdditionalSetupModal';
 
@@ -29,23 +30,34 @@ const AdditionalSetup = () => {
 
 export default AdditionalSetup;
 
+export const popup = keyframes`
+  0%{
+    transform: translateY(32rem)
+  }
+
+  100%{
+    transform: translateY(0)
+    }
+`;
+
 const S = {
-  Container: styled.div``,
   InitBackground: styled.div`
+    --nav-width: -9.6rem;
     position: absolute;
-    top: 0;
+    z-index: calc(${zIndex.header});
+    top: calc(var(--nav-width));
     bottom: 0;
     left: 0;
     right: 0;
-
     background-color: rgba(0, 0, 0, 0.4);
-
     backdrop-filter: blur(0.3rem);
   `,
 
   InitWrapper: styled.div`
     background-color: var(--background);
+    z-index: calc(${zIndex.header} + 1);
     @media ${device.mobile} {
+      animation: ${popup} 0.5s forwards;
       padding: 6.4rem 2rem 4rem 2rem;
       border-radius: 1rem 1rem 0 0;
       position: absolute;

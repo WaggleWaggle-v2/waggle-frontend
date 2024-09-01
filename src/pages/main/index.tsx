@@ -1,4 +1,6 @@
 import testMainImage from '@assets/images/test-main.jpg';
+import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 import AdditionalSetup from './components/AdditionalSetup';
 
@@ -18,8 +20,13 @@ const S = {
     background-repeat: no-repeat;
     background-position: left;
     position: relative;
-    width: 100%;
-    height: 100vh;
+    height: calc(100vh - ${HEADER_HEIGHT.PC});
     background-color: var(--green100);
+    @media ${device.tablet} {
+      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+    }
+    @media ${device.mobile} {
+      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+    }
   `,
 };

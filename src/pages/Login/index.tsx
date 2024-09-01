@@ -7,8 +7,10 @@ import styled from 'styled-components';
 const Login = () => {
   return (
     <S.Container $background={typographyImage}>
-      <S.TitleImage src={titleImage} />
-      <S.Description>- 한글 기념 소통창 -</S.Description>
+      <S.BannerWrapper>
+        <S.TitleImage src={titleImage} />
+        <S.Description>- 한글 기념 소통창 -</S.Description>
+      </S.BannerWrapper>
       <SocialLoginButtonList />
     </S.Container>
   );
@@ -30,10 +32,12 @@ const S = {
     justify-content: center;
     color: var(--gray800);
     padding: 3.2rem 2rem;
+  `,
 
+  BannerWrapper: styled.div`
+    text-align: center;
     @media ${device.mobile} {
-      height: 100%;
-      padding-top: 14rem;
+      margin-bottom: 30%;
     }
   `,
 
