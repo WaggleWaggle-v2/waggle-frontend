@@ -42,9 +42,12 @@ const ModalTemplate = ({ children, setIsOpen, isInit }: TModalTemplateProps) => 
           }}
           ariaHideApp={false}
           style={customModalStyles}>
-          <button onClick={() => setIsOpen(false)}>
-            <S.CloseIcon src={closeIcon} $isInit={isInit as boolean} alt="모달 닫기 아이콘" />
-          </button>
+          <S.CloseIcon
+            src={closeIcon}
+            onClick={() => setIsOpen(false)}
+            $isInit={isInit as boolean}
+            alt="모달 닫기 아이콘"
+          />
           {children}
         </S.StyledModal>
       )}
@@ -61,7 +64,6 @@ const ModalTemplate = ({ children, setIsOpen, isInit }: TModalTemplateProps) => 
               />
             </S.TabletNavWrapper>
           )}
-
           {children}
         </>
       )}
@@ -90,6 +92,7 @@ const customModalStyles: ReactModal.Styles = {
     borderRadius: '1rem',
     backgroundColor: 'var(--background)',
     justifyContent: 'center',
+    alignItems: 'center',
     padding: '5rem 4.8rem 3rem',
     minWidth: '46.4rem',
     maxWidth: '76.8rem',
@@ -123,18 +126,22 @@ const S = {
     width: 2.1rem;
     height: 2.1rem;
     cursor: pointer;
-
     @media ${device.mobile} {
       width: 2.4rem;
     }
   `,
 
   CloseIcon: styled.img<{ $isInit: boolean }>`
+    cursor: pointer;
     width: 2.9rem;
     height: 2.9rem;
-    cursor: pointer;
+    position: absolute;
+    top: 4rem;
+    right: 4.6rem;
+    display: ${({ $isInit }) => $isInit && 'none'};
 
-    @media ${device.mobile} {
+    @media ${device.tablet} {
+      position: static;
     }
   `,
 };

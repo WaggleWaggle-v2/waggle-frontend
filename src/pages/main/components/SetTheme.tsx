@@ -5,14 +5,12 @@ import { THEME } from '../constants/theme';
 
 interface TSetThemeProps {
   setTheme: (theme: string) => void;
-  setIsDisabled: (isDisabled: boolean) => void;
   theme: string;
 }
 
-const SetTheme = ({ theme, setTheme, setIsDisabled }: TSetThemeProps) => {
+const SetTheme = ({ theme, setTheme }: TSetThemeProps) => {
   const handleThemeClick = (theme: string) => {
     setTheme(theme);
-    setIsDisabled(false);
   };
 
   return (

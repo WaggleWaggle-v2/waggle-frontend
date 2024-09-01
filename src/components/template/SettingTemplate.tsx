@@ -83,6 +83,9 @@ const S = {
 
   ButtonWrapper: styled.div`
     position: relative;
+    @media ${device.tablet} {
+      /* margin-bottom: 6.4rem; */
+    }
     @media ${device.mobile} {
       background: linear-gradient(to top, var(--background) 90%, transparent 100%);
       font-size: 1.6rem;
