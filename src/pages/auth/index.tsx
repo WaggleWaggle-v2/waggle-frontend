@@ -44,13 +44,13 @@ const S = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 2rem;
     height: 100vh;
     background-color: ${props => props.theme.theme02};
 
     h1 {
       color: ${props => props.theme.button03};
-      font-size: 28px;
+      font-size: 2.8rem;
     }
   `,
 };
