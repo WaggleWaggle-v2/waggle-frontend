@@ -68,11 +68,11 @@ const S = {
   `,
 
   AdditionalSetupWrapper: styled.div`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    z-index: ${zIndex.modal + 300};
     @media ${device.tablet} {
+      position: absolute;
+      inset: 0;
+      height: 100%;
       background-color: var(--background);
     }
   `,

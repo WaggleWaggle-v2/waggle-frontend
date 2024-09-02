@@ -33,11 +33,11 @@ const S = {
     right: 0;
     height: 1rem;
     background: var(--button-disabled);
-    z-index: calc(${zIndex.modal} + 1);
-
+    z-index: ${zIndex.modal + 1};
     @media ${device.tablet} {
       position: fixed;
       top: ${HEADER_HEIGHT.MOBILE};
+
       bottom: none;
       height: 0.5rem;
     }

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { PROFILE_IMAGES } from '../constants/profile-images';
+import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TSetProfileProps {
   setProfile: (profile: string) => void;

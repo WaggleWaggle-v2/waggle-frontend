@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
 import SetTheme from './SetTheme';
-import { PROFILE_IMAGES } from '../constants/profile-images';
+import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TAdditionalSetupModalProps {
   setIsOpen: (value: boolean) => void;
@@ -81,6 +81,5 @@ const S = {
     position: relative;
     display: flex;
     justify-content: center;
-    height: 100vh;
   `,
 };

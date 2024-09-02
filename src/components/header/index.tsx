@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
@@ -7,20 +6,6 @@ import Nav from './nav';
 import MainLogo from '@/assets/images/symbol-logo.png';
 
 const Header = () => {
-  const [pageWidth, setPageWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newPageWidth = window.innerWidth;
-      if (newPageWidth !== pageWidth) setPageWidth(newPageWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
   return (
     <S.Container>
       <S.NavWrapper>

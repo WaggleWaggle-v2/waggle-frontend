@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { THEME } from '../constants/theme';
+import { THEME } from '../../constants/theme';
 
 interface TSetThemeProps {
   setTheme: (theme: string) => void;
