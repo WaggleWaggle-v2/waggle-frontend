@@ -1,24 +1,44 @@
+import { useEffect, useState } from 'react';
+import useSmoothScroll from '@hooks/useSmoothScrooll';
 import { device } from '@styles/breakpoints';
-import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
-import AdditionalSetup from './components/AdditionalSetup';
-import { PROFILE_IMAGES } from './constants/profile-images';
+import BookshelfInfo from './bookshelf/BookshelfInfo';
+import GuestBooks from './bookshelf/GuestBooks';
+import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
 
 const Main = () => {
+  const scrollContainerRef = useSmoothScroll();
+  const [buttonColor, setButtonColor] = useState('');
   const isNewUser = true;
-  const userProfileUrl = PROFILE_IMAGES[0].url;
-  const userName = '홍길동동동동';
-  const userIntro =
-    '아버지를 아버지라 부르지 못하고 형을 형이라 부르지 못하는데 호부호형을 허한들 무슨 소용이 있습니까! 아버지를 아버지라 부르지 못하고 형을 형이라 부르지 못하는데 호부호형을';
+
+  console.log(scrollContainerRef);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    const handleScroll = () => {
+      const currentScrollX = scrollContainer?.scrollLeft || 0;
+      if (currentScrollX >= 0 && currentScrollX <= 200) {
+        const colorIntensity = Math.min(currentScrollX / 200, 1);
+        const newColor = `rgba(234, 224, 205, ${colorIntensity})`;
+        setButtonColor(newColor);
+      }
+    };
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+      return () => {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [scrollContainerRef]);
 
   return (
-    <S.Container>
+    <>
       {isNewUser && <AdditionalSetup />}
-      <S.MainUserInfo>
-        <img src={userProfileUrl} alt="유저 책장 배경 사진" />
-        <S.MainIntro>1</S.MainIntro>
-      </S.MainUserInfo>
-    </S.Container>
+      <S.Container ref={scrollContainerRef}>
+        <BookshelfInfo buttonColor={buttonColor} />
+        <GuestBooks />
+      </S.Container>
+    </>
   );
 };
 
@@ -26,19 +46,18 @@ export default Main;
 
 const S = {
   Container: styled.div`
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: left;
+    display: flex;
     position: relative;
-    height: calc(100vh);
-    @media ${device.tablet} {
-      /* padding-top: ${HEADER_HEIGHT.MOBILE}; */
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    background-color: var(--brown200);
+
+    &::-webkit-scrollbar {
+      display: none;
     }
-  `,
-
-  MainUserInfo: styled.div`
-  `,
-
-  MainIntro: styled.div`
+    @media ${device.tablet} {
+      flex-direction: column;
+    }
   `,
 };

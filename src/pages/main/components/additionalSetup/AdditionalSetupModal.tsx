@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
@@ -11,7 +11,7 @@ import SetTheme from './SetTheme';
 import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TAdditionalSetupModalProps {
-  setIsOpen: (value: boolean) => void;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
@@ -35,7 +35,7 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
   return (
     <S.Container>
-      <ModalTemplate setIsOpen={setIsOpen}>
+      <ModalTemplate setIsOpen={setIsOpen} setStep={setStep} step={step}>
         {step === 1 && (
           <SettingTemplate
             step={step}
