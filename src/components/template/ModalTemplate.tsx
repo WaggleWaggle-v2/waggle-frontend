@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import goBackIcon from '@assets/icons/left-arrow.svg';
 import closeIcon from '@assets/icons/modal-close.svg';
+import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
@@ -16,20 +17,7 @@ interface TModalTemplateProps {
 
 const ModalTemplate = ({ children, setIsOpen, isInit }: TModalTemplateProps) => {
   const [modalOpen, setModalOpen] = useState(true);
-  const [pageWidth, setPageWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newPageWidth = window.innerWidth;
-      if (newPageWidth !== pageWidth) setPageWidth(newPageWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const pageWidth = usePageWidth();
 
   return (
     <>
@@ -115,7 +103,7 @@ const S = {
     background-color: var(--background);
     height: ${HEADER_HEIGHT.MOBILE};
     width: 100%;
-    z-index: ${zIndex.header + 9999};
+    z-index: calc(${zIndex.header} + 1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -139,6 +127,7 @@ const S = {
     top: 4rem;
     right: 4.6rem;
     display: ${({ $isInit }) => $isInit && 'none'};
+    z-index: calc(${zIndex.modal} + 1);
 
     @media ${device.tablet} {
       position: static;
