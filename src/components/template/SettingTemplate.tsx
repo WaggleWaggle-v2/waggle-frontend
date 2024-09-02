@@ -50,6 +50,7 @@ const S = {
     position: relative;
     display: flex;
     flex-direction: column;
+    min-width: 46.4rem;
     @media ${device.tablet} {
       margin-top: calc(${HEADER_HEIGHT.MOBILE} + 10rem);
       padding-bottom: 10.2rem;

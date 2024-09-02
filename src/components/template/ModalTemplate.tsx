@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ReactNode, useState } from 'react';
+import { Dispatch, ReactNode, useState } from 'react';
 import goBackIcon from '@assets/icons/left-arrow.svg';
 import closeIcon from '@assets/icons/modal-close.svg';
 import usePageWidth from '@hooks/usePageWidth';
@@ -11,11 +11,13 @@ import styled from 'styled-components';
 
 interface TModalTemplateProps {
   children: ReactNode;
-  setIsOpen: (value: boolean) => void;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+  setStep: Dispatch<React.SetStateAction<number>>;
+  step: number;
   isInit?: boolean;
 }
 
-const ModalTemplate = ({ children, setIsOpen, isInit }: TModalTemplateProps) => {
+const ModalTemplate = ({ children, setIsOpen, setStep, step, isInit }: TModalTemplateProps) => {
   const [modalOpen, setModalOpen] = useState(true);
   const pageWidth = usePageWidth();
 
@@ -43,7 +45,13 @@ const ModalTemplate = ({ children, setIsOpen, isInit }: TModalTemplateProps) => 
         <>
           {!isInit && (
             <S.TabletNavWrapper>
-              <S.GoBackIcon src={goBackIcon} alt="뒤로 가기" />
+              <S.GoBackIcon
+                src={goBackIcon}
+                onClick={() => {
+                  step === 1 ? setIsOpen(false) : setStep(prev => prev - 1);
+                }}
+                alt="뒤로 가기"
+              />
               <S.CloseIcon
                 src={closeIcon}
                 onClick={() => setIsOpen(false)}
