@@ -1,42 +1,17 @@
-import { useEffect, useState } from 'react';
-import goBackIcon from '@assets/icons/left-arrow.svg';
-import { device, size } from '@styles/breakpoints';
+import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from './nav';
-import CloseIcon from '@components/icons/CloseIcon';
 import MainLogo from '@/assets/images/symbol-logo.png';
 
 const Header = () => {
-  const [pageWidth, setPageWidth] = useState(window.innerWidth);
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newPageWidth = window.innerWidth;
-      if (newPageWidth !== pageWidth) setPageWidth(newPageWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
   return (
     <S.Container>
-      {(pathname === '/setup' || pathname === '/') && pageWidth <= size.tablet ? (
-        <>
-          <S.GoBackIcon src={goBackIcon} alt="뒤로 가기" />
-          <CloseIcon width={19} height={19} color={'#626262'} />
-        </>
-      ) : (
-        <>
-          <S.MainLogo src={MainLogo} alt="메인 로고" />
-          <Nav isLogin={true} nickName={'홍길동동동동'} />
-        </>
-      )}
+      <S.NavWrapper>
+        <S.MainLogo src={MainLogo} alt="메인 로고" />
+        <Nav isLogin={true} nickName={'홍길동동동동'} />
+      </S.NavWrapper>
     </S.Container>
   );
 };
@@ -45,16 +20,30 @@ export default Header;
 const S = {
   Container: styled.header`
     width: 100%;
-    grid-area: 'a';
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    z-index: ${zIndex.header};
+    height: ${HEADER_HEIGHT.PC};
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    @media ${device.tablet} {
+      height: ${HEADER_HEIGHT.MOBILE};
+      align-items: center;
+    }
+  `,
+
+  NavWrapper: styled.div`
+    width: 100%;
+    height: 100%;
+    margin: 0 3.6rem;
     display: flex;
     justify-content: space-between;
-    padding: 0 3.5rem;
     z-index: ${zIndex.header};
-    background-color: var(--background);
-
     @media ${device.tablet} {
       align-items: center;
-      padding: 0 3rem;
     }
   `,
 
@@ -64,11 +53,5 @@ const S = {
 
     @media ${device.tablet} {
     }
-  `,
-
-  GoBackIcon: styled.img`
-    width: 1rem;
-    height: 2rem;
-    cursor: pointer;
   `,
 };

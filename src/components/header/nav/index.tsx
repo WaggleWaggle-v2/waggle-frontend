@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import closeIcon from '@assets/icons/cross-line.svg';
-import rightArrowIcon from '@assets/icons/right-arrow.svg';
 import kebabIcon from '@assets/icons/kebab.svg';
+import rightArrowIcon from '@assets/icons/right-arrow.svg';
+import styled from 'styled-components';
 
 const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -132,7 +132,7 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: #071a34;
+    background-color: #071b34;
     padding: 0 1.3rem;
     height: 39.6rem;
   `,

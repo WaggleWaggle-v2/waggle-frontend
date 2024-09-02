@@ -1,18 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { PROFILE_IMAGES } from '../constants/profile-images';
+import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TSetProfileProps {
   setProfile: (profile: string) => void;
-  setIsDisabled: (isDisabled: boolean) => void;
   profile: string;
 }
 
-const SetProfile = ({ setProfile, setIsDisabled, profile }: TSetProfileProps) => {
+const SetProfile = ({ setProfile, profile }: TSetProfileProps) => {
   const handleProfileClick = (profileUrl: string) => {
     setProfile(profileUrl);
-    setIsDisabled(false);
   };
 
   return (

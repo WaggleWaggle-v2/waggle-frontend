@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import closeIcon from '@assets/icons/modal-close.svg';
 import PrimaryButton from '@components/PrimaryButton';
 import ModalTemplate from '@components/template/ModalTemplate';
 import { device } from '@styles/breakpoints';
@@ -21,6 +22,8 @@ const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetu
         <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>
         <PrimaryButton onClick={() => setDoSetup(true)}>추가 꾸미기 하러 가기</PrimaryButton>
       </S.ButtonWrapper>
+
+      <S.CloseIcon src={closeIcon} onClick={() => setIsOpen(false)} alt="모달 닫기 아이콘" />
     </ModalTemplate>
   );
 };
@@ -34,6 +37,7 @@ const S = {
     text-align: center;
     line-height: 150%;
     font-size: 2.8rem;
+    margin-top: 1rem;
     margin-bottom: 3.6rem;
     background-color: var(--background);
     display: flex;
@@ -61,6 +65,17 @@ const S = {
     text-align: center;
     @media ${device.mobile} {
       bottom: 5.2rem;
+    }
+  `,
+
+  CloseIcon: styled.img`
+    width: 2.9rem;
+    height: 2.9rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1.6rem;
+    right: 1.6rem;
+    @media ${device.mobile} {
     }
   `,
 };

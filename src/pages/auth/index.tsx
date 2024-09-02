@@ -8,7 +8,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
-  console.log(code);
 
   const handleSetCookie = async (code: string | null) => {
     const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/member/login/google?code=${code}`);

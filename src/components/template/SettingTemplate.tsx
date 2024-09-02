@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 
 interface TSettingTemplateProps {
@@ -47,11 +48,15 @@ export default SettingTemplate;
 const S = {
   Container: styled.section`
     position: relative;
-    min-width: 46.4rem;
     display: flex;
     flex-direction: column;
-    @media ${device.mobile} {
+    min-width: 46.4rem;
+    @media ${device.tablet} {
+      margin-top: calc(${HEADER_HEIGHT.MOBILE} + 10rem);
+      padding-bottom: 10.2rem;
       height: fit-content;
+    }
+    @media ${device.mobile} {
       display: flex;
       width: 100%;
       min-width: 0;
@@ -80,7 +85,10 @@ const S = {
 
   ButtonWrapper: styled.div`
     position: relative;
-    @media ${device.mobile} {
+    @media ${device.tablet} {
+      /* margin-bottom: 6.4rem; */
+    }
+    @media ${device.tablet} {
       background: linear-gradient(to top, var(--background) 90%, transparent 100%);
       font-size: 1.6rem;
       position: fixed;
@@ -101,7 +109,7 @@ const S = {
     color: var(--gray600);
     width: 100%;
     text-align: center;
-    @media ${device.mobile} {
+    @media ${device.tablet} {
       width: calc(100% - 4rem);
       top: 1.7rem;
     }

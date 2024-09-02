@@ -1,14 +1,44 @@
-import testMainImage from '@assets/images/test-main.jpg';
+import { useEffect, useState } from 'react';
+import useSmoothScroll from '@hooks/useSmoothScrooll';
 import { device } from '@styles/breakpoints';
-import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
-import AdditionalSetup from './components/AdditionalSetup';
+import BookshelfInfo from './bookshelf/BookshelfInfo';
+import GuestBooks from './bookshelf/GuestBooks';
+import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
 
 const Main = () => {
+  const scrollContainerRef = useSmoothScroll();
+  const [buttonColor, setButtonColor] = useState('');
   const isNewUser = true;
 
+  console.log(scrollContainerRef);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    const handleScroll = () => {
+      const currentScrollX = scrollContainer?.scrollLeft || 0;
+      if (currentScrollX >= 0 && currentScrollX <= 200) {
+        const colorIntensity = Math.min(currentScrollX / 200, 1);
+        const newColor = `rgba(234, 224, 205, ${colorIntensity})`;
+        setButtonColor(newColor);
+      }
+    };
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+      return () => {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [scrollContainerRef]);
+
   return (
-    <S.Container style={{ backgroundImage: `url(${testMainImage})` }}>{isNewUser && <AdditionalSetup />}</S.Container>
+    <>
+      {isNewUser && <AdditionalSetup />}
+      <S.Container ref={scrollContainerRef}>
+        <BookshelfInfo buttonColor={buttonColor} />
+        <GuestBooks />
+      </S.Container>
+    </>
   );
 };
 
@@ -16,17 +46,18 @@ export default Main;
 
 const S = {
   Container: styled.div`
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: left;
+    display: flex;
     position: relative;
-    height: calc(100vh - ${HEADER_HEIGHT.PC});
-    background-color: var(--green100);
-    @media ${device.tablet} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    background-color: var(--brown200);
+
+    &::-webkit-scrollbar {
+      display: none;
     }
-    @media ${device.mobile} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+    @media ${device.tablet} {
+      flex-direction: column;
     }
   `,
 };

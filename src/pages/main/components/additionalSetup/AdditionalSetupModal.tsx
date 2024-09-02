@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import ModalTemplate from '@components/template/ModalTemplate';
+import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { ADDITIONAL_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 import styled from 'styled-components';
 import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
 import SetTheme from './SetTheme';
-import ProgressBar from '@components/template/ProgressBar';
-import { ADDITIONAL_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
+import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TAdditionalSetupModalProps {
-  setIsOpen: (value: boolean) => void;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [profile, setProfile] = useState('');
+  const [profile, setProfile] = useState(PROFILE_IMAGES[0].url);
   const [theme, setTheme] = useState('');
   const [intro, setIntro] = useState('');
 
@@ -34,15 +35,15 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
   return (
     <S.Container>
-      <ModalTemplate setIsOpen={setIsOpen}>
+      <ModalTemplate setIsOpen={setIsOpen} setStep={setStep} step={step}>
         {step === 1 && (
           <SettingTemplate
             step={step}
             titleTop="나를 표현할&nbsp;"
             titleBottom="삽화를 고르시오"
             handleButtonClick={handleNextButtonClick}
-            isDisabled={isDisabled}>
-            <SetProfile profile={profile} setProfile={setProfile} setIsDisabled={setIsDisabled} />
+            isDisabled={false}>
+            <SetProfile profile={profile} setProfile={setProfile} />
           </SettingTemplate>
         )}
 
@@ -51,8 +52,8 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             step={step}
             titleTop="배경을 선택해 주시오"
             handleButtonClick={handleNextButtonClick}
-            isDisabled={isDisabled}>
-            <SetTheme theme={theme} setTheme={setTheme} setIsDisabled={setIsDisabled} />
+            isDisabled={false}>
+            <SetTheme theme={theme} setTheme={setTheme} />
           </SettingTemplate>
         )}
 
@@ -80,6 +81,5 @@ const S = {
     position: relative;
     display: flex;
     justify-content: center;
-    height: 100vh;
   `,
 };

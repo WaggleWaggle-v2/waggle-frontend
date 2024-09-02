@@ -20,6 +20,7 @@ export default PrimaryButton;
 
 const S = {
   Container: styled.button`
+    font-family: 'EBSHunminjeongeum';
     background-color: var(--button-active);
     cursor: pointer;
     color: white;
