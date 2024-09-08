@@ -29,7 +29,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 220px;
+    width: 22rem;
     z-index: 1;
 
     @media ${device.tablet} {
@@ -47,7 +47,7 @@ const S = {
   `,
 
   NameTag: styled.div`
-    border: 1px solid var(--brown500);
+    border: 0.1rem solid var(--brown500);
     color: var(--brown500);
     background-color: rgba(244, 221, 172, 0.5);
     display: flex;

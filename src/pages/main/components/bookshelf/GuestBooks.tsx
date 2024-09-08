@@ -112,7 +112,7 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--gray300);
+    border: 0.1rem solid var(--gray300);
     background-color: #ece9e2;
     height: calc(46.4rem);
     font-size: 7rem;
@@ -169,7 +169,6 @@ const S = {
     justify-content: space-between;
     height: 46.4rem;
     gap: 1.3rem;
-    /* border: 1px solid red; */
   `,
 
   StyledMasonry: styled(MasonryGrid)`
