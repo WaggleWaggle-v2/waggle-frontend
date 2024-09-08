@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
 import useSmoothScroll from '@hooks/useSmoothScrooll';
+import BookshelfInfo from '@pages/main/components/bookshelf/BookshelfInfo';
+import GuestBooks from '@pages/main/components/bookshelf/GuestBooks';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import BookshelfInfo from './bookshelf/BookshelfInfo';
-import GuestBooks from './bookshelf/GuestBooks';
 import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
 
 const Main = () => {
   const scrollContainerRef = useSmoothScroll();
   const [buttonColor, setButtonColor] = useState('');
-  const isNewUser = true;
-
-  console.log(scrollContainerRef);
+  const isNewUser = false;
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
