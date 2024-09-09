@@ -34,7 +34,7 @@ const Nav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => 
             ) : (
               <S.NavItem>
                 <S.NavTitleBox as="div">
-                  로그인하세요
+                  <S.NavTitleText>로그인하세요</S.NavTitleText>
                   <img src={rightArrowIcon} alt="로그인 하기" />
                 </S.NavTitleBox>
               </S.NavItem>
@@ -173,8 +173,14 @@ const S = {
       text-decoration: underline;
     }
   `,
-
-  MenuTitle: styled.p`
+  NavTitleText: styled.p`
+    color: var(--white);
+    font-family: 'EBSHMJESaeron';
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: -0.3rem;
+  `,
+  MenuTitle: styled.p<{ disabled?: boolean }>`
     color: #fff;
     font-family: 'Pretendard';
     font-size: 1.6rem;
@@ -182,7 +188,7 @@ const S = {
     margin: 2rem 0;
     display: inline;
 
-    cursor: pointer;
+    ${({ disabled }) => !disabled && 'cursor: pointer'};
 
     &:disabled {
       color: #455263;

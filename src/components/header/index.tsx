@@ -10,7 +10,7 @@ const Header = () => {
     <S.Container>
       <S.NavWrapper>
         <S.MainLogo src={MainLogo} alt="메인 로고" />
-        <Nav isLogin={true} nickName={'홍길동동동동'} />
+        <Nav isLogin={false} nickName={'홍길동동동동'} />
       </S.NavWrapper>
     </S.Container>
   );
