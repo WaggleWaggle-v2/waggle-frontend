@@ -81,6 +81,7 @@ const TitleText = styled.p<{ $color?: string }>`
   font-family: 'EBSHMJESaeron';
   font-size: 1.8rem;
   display: inline;
+  letter-spacing: -0.2rem;
 `;
 
 const S = {
@@ -88,7 +89,7 @@ const S = {
     position: relative;
 
     transform: ${({ $isOpen, $isLogin }) =>
-      $isOpen ? ($isLogin ? 'translateY(-3rem)' : 'translateY(-6rem)') : 'translateY(-32rem)'};
+      $isOpen ? ($isLogin ? 'translateY(-3rem)' : 'translateY(-6rem)') : 'translateY(-35rem)'};
     transition: transform 0.3s;
   `,
 
@@ -97,7 +98,7 @@ const S = {
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 20rem;
+    width: 16.2rem;
     z-index: 1;
     background-color: #071b34;
     min-height: 7rem;
@@ -106,7 +107,7 @@ const S = {
       content: '';
       position: absolute;
       bottom: calc(-4rem);
-      border-width: 4rem 10rem 0 10rem;
+      border-width: 4rem 8rem 0 8rem;
       border-style: solid;
       border-color: #071b34 transparent transparent;
     }
@@ -114,7 +115,7 @@ const S = {
 
   LabelBottom: styled.div`
     position: absolute;
-    width: 20rem;
+    width: 16.2rem;
     background-color: #486080;
     height: 1rem;
 
@@ -122,7 +123,7 @@ const S = {
       content: '';
       position: absolute;
       bottom: calc(-4rem);
-      border-width: 4rem 10rem 0 10rem;
+      border-width: 4rem 8rem 0 8rem;
       border-style: solid;
       border-color: #486080 transparent transparent;
     }
@@ -140,7 +141,7 @@ const S = {
   KebabIcon: styled.img`
     width: 2.4rem;
     height: 1.8rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.2rem;
     cursor: pointer;
   `,
 
