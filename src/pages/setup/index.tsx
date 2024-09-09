@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { BOOKSHELF_DATA } from '@constants/mock';
 import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
@@ -17,12 +18,15 @@ const SetUp = () => {
   const [publicity, setPublicity] = useState<TPublicity>(null);
   const navigate = useNavigate();
 
+  // userId 를 참초해서 유저의 bookshelf를 조회
+  const BOOKSHELF_ID = BOOKSHELF_DATA.uuid;
+
   const handleNextButtonClick = () => {
     setStep(step => step + 1);
   };
   const handleSubmitButtonClick = () => {
     console.log(nickname, publicity);
-    navigate('/');
+    navigate(`/main/${BOOKSHELF_ID}`);
   };
 
   return (
@@ -59,10 +63,7 @@ const S = {
     justify-content: center;
     height: calc(100vh);
     @media ${device.tablet} {
-      height: calc(100vh - 10.2rem);
-    }
-    @media ${device.mobile} {
-      height: calc(76vh - ${HEADER_HEIGHT.MOBILE} - 10.2rem);
+      padding-top: ${HEADER_HEIGHT.MOBILE};
     }
   `,
 };

@@ -1,5 +1,5 @@
 import cloudIcon from '@assets/icons/cloud-green.svg';
-import { BOOKSHELF_DATA } from '@constants/mock';
+import { BOOKSHELF_DATA, USER_DATA } from '@constants/mock';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
@@ -8,16 +8,18 @@ interface TBookshelfInfoProps {
 }
 
 const BookshelfInfo = ({ buttonColor }: TBookshelfInfoProps) => {
-  const { profile, username, intro } = BOOKSHELF_DATA;
+  // params 의 bookshelf uuid 를통해 user_id 조회 가능
+  const { nickname } = USER_DATA;
+  const { background_image_url, shelf_introduction } = BOOKSHELF_DATA;
 
   return (
     <S.BookshelfInfo>
-      <S.ProfileImage src={profile} />
+      <S.ProfileImage src={background_image_url} />
       <S.Name>
-        <p>{username}의&nbsp;</p>
+        <p>{nickname}의&nbsp;</p>
         <p>책장이오</p>
       </S.Name>
-      <S.Intro>{intro}</S.Intro>
+      <S.Intro>{shelf_introduction}</S.Intro>
       <S.ShareButton style={{ backgroundColor: buttonColor }}>
         <p>내 책장 널리 알리기</p>
         <img src={cloudIcon} alt="책장 공유 구름 아이콘" />
@@ -32,8 +34,8 @@ const S = {
     position: relative;
     background-color: var(--white);
     font-family: 'Pretendard';
-    width: 464px;
-    min-width: 464px;
+    width: 46.4rem;
+    min-width: 46.4rem;
     display: inline-block;
 
     @media ${device.tablet} {
@@ -78,7 +80,7 @@ const S = {
     height: 16rem;
     padding: 1rem;
     font-size: 1.6rem;
-    border-bottom: 1px solid #316920;
+    border-bottom: 0.1rem solid #316920;
     white-space: wrap;
     display: flex;
     align-items: center;

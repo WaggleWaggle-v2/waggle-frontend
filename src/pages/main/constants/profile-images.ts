@@ -49,20 +49,12 @@ export const PROFILE_IMAGES = [
 
 export const CANVAS_IMAGES = [
   profile01,
-
   profile02,
-
   profile03,
-
   profile04,
-
   profile05,
-
   profile06,
-
   profile07,
-
   profile08,
-
   profile09,
 ];
