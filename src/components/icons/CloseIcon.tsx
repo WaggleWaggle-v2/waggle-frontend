@@ -1,16 +1,7 @@
-import styled from 'styled-components';
+import { TIconProps } from './type/IconProps';
+import * as S from './style/IconContainer';
 
-const CloseIcon = ({
-  width,
-  height,
-  color,
-  style,
-}: {
-  width: number;
-  height: number;
-  color: string;
-  style?: string;
-}) => {
+const CloseIcon = ({ width, height, color, style }: TIconProps) => {
   return (
     <S.Container
       $style={style}
@@ -28,9 +19,3 @@ const CloseIcon = ({
 };
 
 export default CloseIcon;
-
-const S = {
-  Container: styled.svg<{ $style?: string }>`
-    ${({ $style }) => $style}
-  `,
-};

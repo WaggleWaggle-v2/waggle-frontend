@@ -5,13 +5,12 @@ import styled from 'styled-components';
 const Root = () => {
   const location = useLocation();
 
-  const nonSubSectionArray = ['/login', '/auth'];
+  const nonSubSectionArray = ['/login', '/auth', '/setup'];
   const isSubSection = !nonSubSectionArray.includes(location.pathname);
 
   return (
     <S.Container>
       {isSubSection && <Header />}
-
       <S.Main>
         <Outlet />
       </S.Main>

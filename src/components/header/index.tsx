@@ -1,17 +1,22 @@
-import { device } from '@styles/breakpoints';
+import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
-import Nav from './nav';
-import MainLogo from '@/assets/images/symbol-logo.png';
+import PcNav from './nav/PcNav';
+import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
+import alarmIcon from '@assets/icons/alarm.svg';
+import KebabIcon from '@components/icons/KebabIcon';
+import usePageWidth from '@hooks/usePageWidth';
 
 const Header = () => {
+  const pageWidth = usePageWidth();
+  const isPc = pageWidth > size.tablet;
   return (
     <S.Container>
-      <S.NavWrapper>
-        <S.MainLogo src={MainLogo} alt="메인 로고" />
-        <Nav isLogin={true} nickName={'홍길동동동동'} />
-      </S.NavWrapper>
+      <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
+      <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
+      {pageWidth > size.tablet && <PcNav isLogin={true} nickName={'홍길동동동동'} />}
+      <S.AlarmIcon src={alarmIcon} alt={'알림'} />
     </S.Container>
   );
 };
@@ -22,36 +27,44 @@ const S = {
     width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     z-index: ${zIndex.header};
     height: ${HEADER_HEIGHT.PC};
+    padding: 1.1rem 3.6rem;
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
+
     @media ${device.tablet} {
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        min-width: calc(100% - 7.2rem);
+        border-bottom: 0.1rem solid var(--background);
+        opacity: 0.2;
+      }
     }
   `,
+  AlarmIcon: styled.img`
+    display: none;
+    width: 2.4rem;
+    aspect-ratio: 1 / 1;
 
-  NavWrapper: styled.div`
-    width: 100%;
-    height: 100%;
-    margin: 0 3.6rem;
-    display: flex;
-    justify-content: space-between;
-    z-index: ${zIndex.header};
     @media ${device.tablet} {
-      align-items: center;
+      display: block;
     }
   `,
+  KebabIconStyle: `
+    cursor : pointer;
+    display : none;
 
-  MainLogo: styled.img`
-    width: 16.2rem;
-    object-fit: contain;
-
-    @media ${device.tablet} {
+    @media ${device.tablet}{
+    display : block;
     }
   `,
 };
