@@ -44,19 +44,21 @@ const S = {
   // Layout
   Main: styled.div`
     position: relative;
+    top: -${HEADER_HEIGHT.PC};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     height: 100dvh;
     gap: 2rem;
-    padding: 0 2rem 3rem;
-    margin-top: ${HEADER_HEIGHT.PC};
+    padding: ${HEADER_HEIGHT.PC} 2rem 3rem;
     background: url(${typography}), linear-gradient(180deg, #e8dfd1 0%, #e8dfd1 85%, #f6f3ee 100%);
     background-size: contain;
     background-position: left top;
 
     @media ${device.tablet} {
+      padding: ${HEADER_HEIGHT.MOBILE} 2rem 3rem;
+      top: -${HEADER_HEIGHT.MOBILE};
     }
 
     @media ${device.mobile} {
@@ -69,8 +71,13 @@ const S = {
       background-image: url(${treeImg});
       background-size: cover;
       position: absolute;
-      top: 4.5rem;
+      bottom: 6.4rem;
       left: 0;
+
+      @media ${device.tablet} {
+        top: calc(4.5rem + ${HEADER_HEIGHT.MOBILE});
+        bottom: auto;
+      }
     }
 
     &::after {
@@ -83,6 +90,11 @@ const S = {
       position: absolute;
       top: 29.5rem;
       right: 0;
+      display: none;
+
+      @media ${device.tablet} {
+        display: block;
+      }
     }
 
     @media ${device.tablet} {
