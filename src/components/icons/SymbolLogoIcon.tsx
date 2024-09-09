@@ -1,7 +1,7 @@
 import * as S from './style/IconContainer';
 import { TIconProps } from './type/IconProps';
 
-const SymbolLogo = ({ width = 162, height = 30, color, style }: TIconProps) => {
+const SymbolLogoIcon = ({ width = 162, height = 30, color, style }: TIconProps) => {
   return (
     <S.Container
       $style={style}
@@ -42,4 +42,4 @@ const SymbolLogo = ({ width = 162, height = 30, color, style }: TIconProps) => {
   );
 };
 
-export default SymbolLogo;
+export default SymbolLogoIcon;
