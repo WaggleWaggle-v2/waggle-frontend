@@ -2,14 +2,14 @@ import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
-import Nav from './nav';
+import PcNav from './nav/PcNav';
 import SymbolLogo from '@components/icons/SymbolLogo';
 
 const Header = () => {
   return (
     <S.Container>
       <SymbolLogo width={162} />
-      <Nav isLogin={false} nickName={'홍길동동동동'} />
+      <PcNav isLogin={true} nickName={'홍길동동동동'} />
     </S.Container>
   );
 };
@@ -28,6 +28,7 @@ const S = {
     top: 0;
     right: 0;
     left: 0;
+
     @media ${device.tablet} {
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;
