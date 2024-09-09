@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
+import ChosunCentennial from '../fonts/ChosunCentennial.woff';
+
 import EBSHMJESaeronL from '../fonts/EBSHMJESaeron-L.woff';
 import EBSHMJESaeronR from '../fonts/EBSHMJESaeron-R.woff';
 import EBSHMJESaeronSB from '../fonts/EBSHMJESaeron-SB.woff';
@@ -8,6 +10,15 @@ import EBSHunminjeongeumR from '../fonts/EBSHunminjeongeum-R.woff';
 import EBSHunminjeongeumSB from '../fonts/EBSHunminjeongeum-SB.woff';
 
 const Fonts = createGlobalStyle`
+ // ChosunCentennial
+ @font-face {
+    font-family: 'ChosunCentennial';
+    src: local('ChosunCentennial'), local('ChosunCentennial');
+    font-weight: 400;
+    src : url(${ChosunCentennial}) format("truetype");
+}
+
+
  // EBSHMJESaeron
   @font-face {
         font-family: 'EBSHMJESaeron';
