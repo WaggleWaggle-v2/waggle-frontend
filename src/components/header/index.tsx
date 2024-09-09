@@ -10,10 +10,11 @@ import usePageWidth from '@hooks/usePageWidth';
 
 const Header = () => {
   const pageWidth = usePageWidth();
+  const isPc = pageWidth > size.tablet;
   return (
     <S.Container>
       <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
-      <SymbolLogoIcon width={162} color={pageWidth <= size.tablet ? '#44523f' : ''} />
+      <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
       {pageWidth > size.tablet && <PcNav isLogin={true} nickName={'홍길동동동동'} />}
       <S.AlarmIcon src={alarmIcon} alt={'알림'} />
     </S.Container>
