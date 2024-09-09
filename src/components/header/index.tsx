@@ -3,12 +3,12 @@ import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
 import Nav from './nav';
-import MainLogo from '@/assets/images/symbol-logo.png';
+import SymbolLogo from '@components/icons/SymbolLogo';
 
 const Header = () => {
   return (
     <S.Container>
-      <S.MainLogo src={MainLogo} alt="메인 로고" />
+      <SymbolLogo width={162} />
       <Nav isLogin={false} nickName={'홍길동동동동'} />
     </S.Container>
   );
@@ -32,10 +32,5 @@ const S = {
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;
     }
-  `,
-
-  MainLogo: styled.img`
-    width: 16.2rem;
-    object-fit: contain;
   `,
 };
