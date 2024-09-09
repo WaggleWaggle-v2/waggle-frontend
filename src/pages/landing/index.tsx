@@ -59,7 +59,7 @@ const S = {
     height: 100dvh;
     gap: 2rem;
     padding: ${HEADER_HEIGHT.PC} 2rem 3rem;
-    background: url(${typography}), linear-gradient(180deg, #e8dfd1 0%, #e8dfd1 85%, #f6f3ee 100%);
+    background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
     background-size: contain;
     background-position: left top;
 
