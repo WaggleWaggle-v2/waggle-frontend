@@ -8,10 +8,8 @@ import MainLogo from '@/assets/images/symbol-logo.png';
 const Header = () => {
   return (
     <S.Container>
-      <S.NavWrapper>
-        <S.MainLogo src={MainLogo} alt="메인 로고" />
-        <Nav isLogin={false} nickName={'홍길동동동동'} />
-      </S.NavWrapper>
+      <S.MainLogo src={MainLogo} alt="메인 로고" />
+      <Nav isLogin={false} nickName={'홍길동동동동'} />
     </S.Container>
   );
 };
@@ -22,9 +20,10 @@ const S = {
     width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     z-index: ${zIndex.header};
     height: ${HEADER_HEIGHT.PC};
+    padding: 0 3.6rem;
     position: fixed;
     top: 0;
     right: 0;
@@ -35,23 +34,8 @@ const S = {
     }
   `,
 
-  NavWrapper: styled.div`
-    width: 100%;
-    height: 100%;
-    margin: 0 3.6rem;
-    display: flex;
-    justify-content: space-between;
-    z-index: ${zIndex.header};
-    @media ${device.tablet} {
-      align-items: center;
-    }
-  `,
-
   MainLogo: styled.img`
     width: 16.2rem;
     object-fit: contain;
-
-    @media ${device.tablet} {
-    }
   `,
 };
