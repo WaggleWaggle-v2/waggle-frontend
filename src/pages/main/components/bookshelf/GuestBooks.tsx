@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react';
 import cloudIcon from '@assets/icons/cloud-lightgreen.svg';
-import { BOOKSHELF_DATA } from '@constants/mock';
+import { BOOKSHELF_DATA, TBookItem } from '@constants/mock';
 import { MasonryGrid } from '@egjs/react-grid';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import styled from 'styled-components';
-interface TBookshelf {
-  sender: string;
-  image: string;
-  type: string;
-}
+import BookItem from './BookItem';
 
 const GuestBooks = () => {
   const { books } = BOOKSHELF_DATA;
   const pageWidth = usePageWidth();
-  const [columns, setColumns] = useState<Array<Array<TBookshelf>>>([]);
+  const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
+  const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
+  const bookCount = books.length;
 
   const handleAddClick = () => {
     console.log('book added!');
   };
 
   useEffect(() => {
-    const columnsArray: Array<Array<TBookshelf>> = [];
+    const columnsArray: Array<Array<TBookItem>> = [];
     let currentColumnHeight = 0;
-    let currentColumn: TBookshelf[] = [];
+    let currentColumn: TBookItem[] = [];
 
     books.forEach(book => {
       const height = book.type === 'long' ? 460 : 218;
@@ -45,6 +43,12 @@ const GuestBooks = () => {
 
   return (
     <S.Container>
+      {pageWidth <= size.tablet && (
+        <S.BookCount>
+          {bookCount ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
+        </S.BookCount>
+      )}
+
       <S.ShareButton>
         <p>내 책장 널리 알리기</p>
         <img src={cloudIcon} alt="책장 공유 구름 아이콘" />
@@ -55,27 +59,14 @@ const GuestBooks = () => {
         <S.GuestBookWrapper>
           {columns.map((column, colIndex) => (
             <S.ColumnWrapper key={colIndex}>
-              <S.Column>
-                {column.map((book, index) => (
-                  <S.Book key={`${book.type}-${index}`}>
-                    <img src={book.image} alt={`book-${index}`} />
-                    <S.Sender>{book.sender}</S.Sender>
-                  </S.Book>
-                ))}
-              </S.Column>
+              <S.Column>{column.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}</S.Column>
               <S.Graphic src={cloudIcon} />
             </S.ColumnWrapper>
           ))}
         </S.GuestBookWrapper>
       ) : (
-        <S.StyledMasonry className="container" gap={12} column={2} columnSize={0} columnSizeRatio={0}>
-          {books.map((book, index) => (
-            <S.Book key={`${book.type}-${index}`}>
-              <img src={book.image} alt={`book-${index}`} />
-              {/* <S.Sender>{book.sender}</S.Sender> */}
-              <S.Index>{book.sender}</S.Index>
-            </S.Book>
-          ))}
+        <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
+          {books.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}
         </S.StyledMasonry>
       )}
     </S.Container>
@@ -99,9 +90,15 @@ const S = {
       position: absolute;
       left: 0;
       right: 0;
-      top: calc(100vh - 20rem);
+      top: calc(100vh - 15rem);
       z-index: 1;
     }
+  `,
+
+  BookCount: styled.p`
+    font-family: 'EBSHunminjeongeum';
+    width: 100%;
+    font-weight: 900;
   `,
 
   GuestBookWrapper: styled.div`
@@ -115,9 +112,9 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--gray400);
+    border: 0.1rem solid var(--gray300);
     background-color: #ece9e2;
-    height: calc(46.4rem + 2.4rem - 0rem);
+    height: calc(46.4rem);
     font-size: 7rem;
     color: var(--brown800);
     cursor: pointer;
@@ -169,54 +166,9 @@ const S = {
   Column: styled.div`
     display: flex;
     flex-direction: column;
-    height: 49rem;
+    justify-content: space-between;
+    height: 46.4rem;
     gap: 1.3rem;
-  `,
-
-  Book: styled.div`
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 220px;
-    z-index: 1;
-
-    @media ${device.tablet} {
-      position: absolute;
-      width: 50%;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-  `,
-
-  Sender: styled.p`
-    font-family: 'Pretendard';
-    margin-top: 0.4rem;
-    font-size: 1.6rem;
-    line-height: 150%;
-    color: var(--brown700);
-    width: 100%;
-    font-weight: 600;
-  `,
-
-  Index: styled.p`
-    background-color: var(--brown300);
-    color: var(--brown700);
-    padding: 0.4rem 0.6rem;
-    border-radius: 1rem;
-    position: absolute;
-    font-family: 'Pretendard';
-    font-size: 2rem;
-    font-weight: 600;
-    top: 1rem;
-    right: 1rem;
-    @media ${device.tablet} {
-      font-size: 3.6vw;
-    }
   `,
 
   StyledMasonry: styled(MasonryGrid)`

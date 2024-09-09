@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { BOOKSHELF_DATA } from '@constants/mock';
 import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
@@ -21,12 +22,15 @@ const SetUp = () => {
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
 
+  // userId 를 참초해서 유저의 bookshelf를 조회
+  const BOOKSHELF_ID = BOOKSHELF_DATA.uuid;
+
   const handleNextButtonClick = () => {
     setStep(step => step + 1);
   };
   const handleSubmitButtonClick = () => {
     console.log(nickname, publicity);
-    navigate('/');
+    navigate(`/main/${BOOKSHELF_ID}`);
   };
 
   return (
@@ -88,6 +92,7 @@ const S = {
     }
     @media ${device.mobile} {
       height: calc(76vh - ${HEADER_HEIGHT.MOBILE});
+      padding-top: ${HEADER_HEIGHT.MOBILE};
     }
   `,
   GoBackIcon: styled.img`
