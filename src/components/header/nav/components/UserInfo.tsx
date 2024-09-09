@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { NavItem, TitleText } from '../style/navStyle';
 import rightArrowIcon from '@assets/icons/right-arrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface TUserInfoProps {
   isLogin: boolean;
@@ -8,6 +9,7 @@ interface TUserInfoProps {
 }
 
 const UserInfo = ({ isLogin, nickName }: TUserInfoProps) => {
+  const navigate = useNavigate();
   return (
     <>
       {isLogin ? (
@@ -25,7 +27,7 @@ const UserInfo = ({ isLogin, nickName }: TUserInfoProps) => {
       ) : (
         <S.NavItem>
           <S.NavTitleBox as="div">
-            <S.NavTitleText>로그인하세요</S.NavTitleText>
+            <S.NavTitleText onClick={() => navigate('/login')}>로그인하세요</S.NavTitleText>
             <img src={rightArrowIcon} alt="로그인 하기" />
           </S.NavTitleBox>
         </S.NavItem>

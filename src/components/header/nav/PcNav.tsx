@@ -42,7 +42,7 @@ const S = {
     position: relative;
 
     transform: ${({ $isOpen, $isLogin }) =>
-      $isOpen ? ($isLogin ? 'translateY(rem)' : 'translateY(-6rem)') : 'translateY(-35rem)'};
+      $isOpen ? ($isLogin ? 'translateY(-1.25rem)' : 'translateY(-7.5rem)') : 'translateY(-35rem)'};
     transition: transform 0.3s;
   `,
 
