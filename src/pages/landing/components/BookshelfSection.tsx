@@ -1,9 +1,14 @@
 import styled from 'styled-components';
-import BookshelfCard from './BookshelfCard';
+import BookshelfCard from './BookshelfCard/BookshelfCard';
 import restore from '@assets/icons/restore.svg';
-import { CardShelfMock, KingOfKoreanMock } from '../mockData';
+import { TCardShelfData, TRandomCardSelf } from '../mockData';
 
-const BookshelfSection = () => {
+interface TBookShelf {
+  randomCardData: TRandomCardSelf;
+  kingData: TCardShelfData;
+}
+
+const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
   return (
     <S.SectionContainer>
       <S.BookShelfSection className="thanks">
@@ -12,7 +17,7 @@ const BookshelfSection = () => {
           감사인사 전하오.
         </S.BookShelfTitle>
         <S.FigureContainer>
-          <BookshelfCard cardData={KingOfKoreanMock} />
+          <BookshelfCard cardData={kingData} />
         </S.FigureContainer>
       </S.BookShelfSection>
       <S.BookShelfSection className="anyone">
@@ -21,7 +26,7 @@ const BookshelfSection = () => {
           <span>공개된 책상이오. 매일 무작위로 공개되오.</span>
         </div>
         <S.FigureContainer>
-          {CardShelfMock.bookList.map(book => (
+          {randomCardData.bookList.map(book => (
             <BookshelfCard cardData={book} />
           ))}
         </S.FigureContainer>
