@@ -1,12 +1,12 @@
+import alarmIcon from '@assets/icons/alarm.svg';
+import KebabIcon from '@components/icons/KebabIcon';
+import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
+import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
 import PcNav from './nav/PcNav';
-import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
-import alarmIcon from '@assets/icons/alarm.svg';
-import KebabIcon from '@components/icons/KebabIcon';
-import usePageWidth from '@hooks/usePageWidth';
 
 const Header = () => {
   const pageWidth = usePageWidth();
@@ -37,9 +37,12 @@ const S = {
     left: 0;
 
     @media ${device.tablet} {
+      background-color: rgba(246, 243, 238);
+      backdrop-filter: blur(0.9rem);
+
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;
-
+      /* 
       &:after {
         content: '';
         position: absolute;
@@ -47,7 +50,7 @@ const S = {
         min-width: calc(100% - 7.2rem);
         border-bottom: 0.1rem solid var(--background);
         opacity: 0.2;
-      }
+      } */
     }
   `,
   AlarmIcon: styled.img`

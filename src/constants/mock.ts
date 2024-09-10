@@ -16,28 +16,181 @@ export const BOOKSHELF_DATA = {
     '아버지를 아버지라 부르지 못하고 형을 형이라 부르지 못하는데 호부호형을 허한들 무슨 소용이 있습니까! 아버지를 아버지라 부르지 못하고 형을 형이라 부르지 못하는데 호부호형을',
   uuid: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
   books: [
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '준영', is_open: true, image: short, type: 'short' },
-    { nickname: '홍길동동동동', is_open: true, image: short, type: 'short' },
-    { nickname: '수누피', is_open: true, image: short, type: 'short' },
-    { nickname: '홍길동동동동', is_open: true, image: short, type: 'short' },
-    { nickname: '다다잇', is_open: true, image: short, type: 'long' },
-    { nickname: '효은', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: short, type: 'short' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
-    { nickname: '경수', is_open: true, image: long, type: 'long' },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        ' 들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도 들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '준영',
+      content: '들어봐 밤이',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '홍길동동동동',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '수누피',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '홍길동동동동',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'long',
+      nickname: '다다잇',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '효은',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: short,
+      type: 'short',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
+    {
+      is_open: true,
+      image: long,
+      type: 'long',
+      nickname: '경수',
+      content:
+        '들어봐 밤이, 봄 밤이오래된 애인들과 어떻게이야기하는지꽃들이, 등 아래 핀 벚꽃들이서늘한 봄 비에 지면서도',
+    },
   ],
 };
 
@@ -51,8 +204,9 @@ export interface TBookshelf {
 }
 
 export interface TBookItem {
-  nickname: string;
   is_open: boolean;
   image: string;
   type: string;
+  nickname: string;
+  content: string;
 }
