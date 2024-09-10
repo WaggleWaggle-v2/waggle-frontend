@@ -49,7 +49,7 @@ const S = {
     height: 100vh;
     width: 100%;
     overflow-y: auto;
-    background-color: var(--brown200);
+    background-color: var(--background);
 
     &::-webkit-scrollbar {
       display: none;

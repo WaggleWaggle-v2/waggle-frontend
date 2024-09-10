@@ -79,7 +79,6 @@ const S = {
   Container: styled.div`
     display: flex;
     align-items: center;
-    background-color: var(--background);
     padding: 0 4rem;
 
     @media ${device.tablet} {
