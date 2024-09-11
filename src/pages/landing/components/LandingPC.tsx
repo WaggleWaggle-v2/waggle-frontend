@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 import treeImg from '@assets/images/tree.png';
 import typography from '@assets/images/typography-short.png';
 import styled from 'styled-components';
-import BookshelfCard from './BookshelfCard/BookshelfCard';
+import BookshelfCard from './BookshelfCard';
 import TotalCount from './BookshelfCard/components/TotalCount';
 import ButtonSection from './ButtonSection';
 import DescriptionSection from './DescriptionSection';
@@ -103,6 +103,7 @@ const S = {
     ${({ $page }) =>
       $page === 2 &&
       `
+      grid-template-rows : 1fr;
       padding-top : 10%;
       align-items : center;
     `}

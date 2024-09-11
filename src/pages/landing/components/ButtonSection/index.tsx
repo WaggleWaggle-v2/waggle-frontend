@@ -1,6 +1,9 @@
 import buttonFrame from '@assets/icons/book-button-frame.svg';
+import restoreIcon from '@assets/icons/restore.svg';
+import arrowIcon from '@assets/icons/right-top-arrow.svg';
 import houseImg from '@assets/images/house.png';
 import styled from 'styled-components';
+import LandingButton from './components/LandingButton';
 
 const ButtonSection = ({ page }: { page: number }) => {
   return (
@@ -9,7 +12,9 @@ const ButtonSection = ({ page }: { page: number }) => {
         <>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅎ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}> ㄱ</S.ButtonFrame>
-          <S.Button>와글와글 시작하겠소.</S.Button>
+          <LandingButton type={'green'} icon={arrowIcon}>
+            와글와글2 <br /> 시작하겠소.
+          </LandingButton>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㄴ</S.ButtonFrame>
           <S.House src={houseImg} />
         </>
@@ -20,16 +25,18 @@ const ButtonSection = ({ page }: { page: number }) => {
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅈ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㄷ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
-          <S.Button style={{ fontSize: 'rem' }}>세종대왕님께 &nbsp; 감사인사 전하오.</S.Button>
+          <LandingButton type={'green'} icon={arrowIcon} fontSize="2.8rem">
+            세종대왕님께 <br /> 감사인사 전하오.
+          </LandingButton>
         </>
       )}
       {page === 3 && (
         <>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㄱ</S.ButtonFrame>
-          <S.Button>
-            다른 책장 <br /> 추천받겠소.
-          </S.Button>
+          <LandingButton type={'beige'} icon={restoreIcon} fontSize="2.8rem">
+            다른 책장 <br /> 추천 받겠소
+          </LandingButton>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㄱ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
         </>
@@ -51,6 +58,7 @@ const S = {
     grid-column-start: 2;
     justify-content: space-between;
   `,
+
   //Element Style
   ButtonFrame: styled.div<{ $buttonFrame: string }>`
     background-image: url(${({ $buttonFrame }) => $buttonFrame});
@@ -65,12 +73,7 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  Button: styled.button`
-    width: 100%;
-    background-color: var(--green600);
-    color: var(--white);
-    cursor: pointer;
-
+  ButtonText: styled.button`
     font-family: 'EBSHunminjeongeum';
     font-size: 3.2rem;
     line-height: 130%;

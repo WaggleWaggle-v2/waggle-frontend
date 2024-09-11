@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BookshelfCard from './BookshelfCard/BookshelfCard';
+import BookshelfCard from './BookshelfCard';
 import restore from '@assets/icons/restore.svg';
 import { TCardShelfData, TRandomCardSelf } from '../mockData';
 
