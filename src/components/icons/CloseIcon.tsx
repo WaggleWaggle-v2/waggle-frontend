@@ -1,5 +1,5 @@
-import { TIconProps } from './type/IconProps';
 import * as S from './style/IconContainer';
+import { TIconProps } from './type/IconProps';
 
 const CloseIcon = ({ width, height, color, style }: TIconProps) => {
   return (
