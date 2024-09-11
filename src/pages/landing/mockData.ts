@@ -1,3 +1,5 @@
+import seJong from '@assets/images/profiles/kingSejong.png';
+
 export const CardShelfMock = {
   bookList: [
     {
@@ -45,3 +47,11 @@ export interface TCardShelfData {
   description: string;
   totalBookCount: number;
 }
+
+export const KingData: TCardShelfData = {
+  id: 0,
+  imageUrl: seJong,
+  owner: '세종대왕',
+  description: '백성들의 어려움을 살피는 것은 국왕이 할 일! 내 앞 길을 막지 마세요!',
+  totalBookCount: 1000000,
+};

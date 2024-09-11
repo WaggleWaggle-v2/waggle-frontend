@@ -2,9 +2,9 @@ import { useState } from 'react';
 import closeIcon from '@assets/icons/cross-line.svg';
 import kebabIcon from '@assets/icons/kebab.svg';
 import styled from 'styled-components';
-import { NavItem, TitleText } from './style/navStyle';
-import UserInfo from './components/UserInfo';
 import NavCategory from './components/NavCategory';
+import UserInfo from './components/UserInfo';
+import { NavItem, TitleText } from './style/navStyle';
 
 const PcNav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => {
   const [isOpen, setIsOpen] = useState(false);

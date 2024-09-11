@@ -1,5 +1,5 @@
-import { TIconProps } from './type/IconProps';
 import * as S from './style/IconContainer';
+import { TIconProps } from './type/IconProps';
 
 const KebabIcon = ({ width = 24, height = 19, color = '#fff', style }: TIconProps) => {
   return (
