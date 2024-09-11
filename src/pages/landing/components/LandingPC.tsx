@@ -1,5 +1,4 @@
 import { MouseEvent, useState } from 'react';
-import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard/BookshelfCard';
 import TotalCount from './BookshelfCard/components/TotalCount';
@@ -7,7 +6,6 @@ import ButtonSection from './ButtonSection';
 import DescriptionSection from './DescriptionSection';
 import TitleSection from './TitleSection';
 import { TCardShelfData, TRandomCardSelf } from '../mockData';
-import { Layout as BaseLayout, Main as BaseMain } from '../style/landingCommon';
 
 interface TBookShelf {
   randomCardData: TRandomCardSelf;
@@ -67,7 +65,11 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
 
 export default LandingPC;
 const S = {
-  Main: styled(BaseMain)<{ $isFirst: boolean }>`
+  Main: styled.div<{ $isFirst: boolean }>`
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     &::before {
       ${({ $isFirst }) =>
         !$isFirst &&
@@ -75,30 +77,30 @@ const S = {
       display : none;`}
     }
   `,
-  Layout: styled(BaseLayout)<{ $page: number }>`
+  Layout: styled.div<{ $page: number }>`
     max-width: 86rem;
     display: grid;
-    grid-template-columns: 1fr 33.4rem;
-    grid-column-gap: 9rem;
-    margin-top: calc(10% + ${HEADER_HEIGHT.PC});
+    grid-template-columns: 1fr 31rem;
+    grid-column-gap: 11rem;
+    height: 100%;
+    padding-top: 14%;
+    padding-bottom: 1rem;
 
     ${({ $page }) =>
       $page === 2 &&
       `
-      display : grid;
+      padding-top : 10%;
       align-items : center;
-      margin-top : calc(7rem + ${HEADER_HEIGHT.PC})
     `}
   `,
   PageTransferContainer: styled.div`
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
     display: flex;
     gap: 2rem;
     align-items: center;
-    grid-row-start: 3;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    justify-self: center;
-    padding: 4rem 0;
   `,
   RandomCardContainer: styled.div`
     display: flex;
@@ -114,8 +116,7 @@ const S = {
     ${({ isShow }) => isShow && 'background-color : #c0aa87'}
   `,
   KingSeJongCard: styled.div`
-    width: 46.4rem;
-    height: 61.9rem;
+    height: 50rem;
     border-radius: 0.6rem;
     overflow: hidden;
     position: relative;

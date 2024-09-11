@@ -1,6 +1,6 @@
+import mainLogo from '@assets/icons/symbol-logo.svg';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import mainLogo from '@assets/icons/symbol-logo.svg';
 
 const TitleSection = () => {
   return (
