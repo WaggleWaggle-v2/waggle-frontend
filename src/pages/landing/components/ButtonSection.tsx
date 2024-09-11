@@ -20,7 +20,7 @@ const ButtonSection = ({ page }: { page: number }) => {
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅈ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㄷ</S.ButtonFrame>
           <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
-          <S.Button style={{ fontSize: '2.9rem' }}>세종대왕님께 &nbsp; 감사인사 전하오.</S.Button>
+          <S.Button style={{ fontSize: 'rem' }}>세종대왕님께 &nbsp; 감사인사 전하오.</S.Button>
         </>
       )}
       {page === 3 && (

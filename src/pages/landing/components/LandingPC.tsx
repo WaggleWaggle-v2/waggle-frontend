@@ -1,10 +1,13 @@
 import { MouseEvent, useState } from 'react';
+import treeImg from '@assets/images/tree.png';
+import typography from '@assets/images/typography-short.png';
 import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard/BookshelfCard';
 import TotalCount from './BookshelfCard/components/TotalCount';
 import ButtonSection from './ButtonSection';
 import DescriptionSection from './DescriptionSection';
 import TitleSection from './TitleSection';
+
 import { TCardShelfData, TRandomCardSelf } from '../mockData';
 
 interface TBookShelf {
@@ -20,7 +23,7 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
 
   return (
     <>
-      <S.Main $isFirst={page === 1}>
+      <S.Main $isFirst={page === 1} $treeImg={treeImg} $background={typography}>
         <S.Layout $page={page}>
           {page === 1 && (
             <>
@@ -65,12 +68,23 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
 
 export default LandingPC;
 const S = {
-  Main: styled.div<{ $isFirst: boolean }>`
+  Main: styled.div<{ $isFirst: boolean; $treeImg: string; $background: string }>`
     height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
+    background-size: contain;
+    background-position: left top;
     &::before {
+      content: '';
+      min-width: 14.5rem;
+      min-height: 12.5rem;
+      background-image: url(${({ $treeImg }) => $treeImg});
+      background-size: cover;
+      position: absolute;
+      bottom: 6.4rem;
+      left: 0;
       ${({ $isFirst }) =>
         !$isFirst &&
         `
@@ -84,7 +98,7 @@ const S = {
     grid-column-gap: 11rem;
     height: 100%;
     padding-top: 14%;
-    padding-bottom: 1rem;
+    margin-bottom: 5rem;
 
     ${({ $page }) =>
       $page === 2 &&
