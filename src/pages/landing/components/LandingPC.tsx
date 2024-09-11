@@ -97,16 +97,17 @@ const S = {
     grid-template-columns: 1fr 31rem;
     grid-column-gap: 11rem;
     height: 100%;
+    max-height: 67rem;
     padding-top: 14%;
-    margin-bottom: 5rem;
-
+    margin-bottom: auto;
+    align-items: center;
     ${({ $page }) =>
       $page === 2 &&
       `
       grid-template-rows : 1fr;
       padding-top : 10%;
       align-items : center;
-    `}
+    `};
   `,
   PageTransferContainer: styled.div`
     position: absolute;
@@ -122,6 +123,7 @@ const S = {
     flex-direction: column;
     gap: 1.6rem;
     width: 44rem;
+    align-self: start;
   `,
   PageTransferButton: styled.button<{ isShow: boolean }>`
     cursor: pointer;
