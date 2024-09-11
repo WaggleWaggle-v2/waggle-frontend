@@ -82,6 +82,7 @@ const S = {
     padding: 0 4rem;
 
     @media ${device.tablet} {
+      background-color: var(--background);
       flex-direction: column;
       padding: 2rem;
       border-radius: 2rem 2rem 0 0;
