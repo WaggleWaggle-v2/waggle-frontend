@@ -17,7 +17,7 @@ const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
           감사인사 전하오.
         </S.BookShelfTitle>
         <S.FigureContainer>
-          <BookshelfCard cardData={kingData} />
+          <BookshelfCard cardData={kingData} isKing={true} />
         </S.FigureContainer>
       </S.BookShelfSection>
       <S.BookShelfSection className="anyone">

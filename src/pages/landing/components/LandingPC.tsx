@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import TitleSection from './TitleSection';
-import DescriptionSection from './DescriptionSection';
-import ButtonSection from './ButtonSection';
 import { MouseEvent, useState } from 'react';
-import { Layout as BaseLayout, Main } from '../style/landingCommon';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import TotalCount from './BookshelfCard/components/TotalCount';
-import { KingData, TCardShelfData, TRandomCardSelf } from '../mockData';
+import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard/BookshelfCard';
+import TotalCount from './BookshelfCard/components/TotalCount';
+import ButtonSection from './ButtonSection';
+import DescriptionSection from './DescriptionSection';
+import TitleSection from './TitleSection';
+import { TCardShelfData, TRandomCardSelf } from '../mockData';
+import { Layout as BaseLayout, Main as BaseMain } from '../style/landingCommon';
 
 interface TBookShelf {
   randomCardData: TRandomCardSelf;
@@ -22,7 +22,7 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
 
   return (
     <>
-      <S.Main>
+      <S.Main $isFirst={page === 1}>
         <S.Layout $page={page}>
           {page === 1 && (
             <>
@@ -33,11 +33,11 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
           {page === 2 && (
             <S.KingSeJongCard>
               <S.BookCountLayout>
-                <TotalCount totalBookCount={KingData.totalBookCount} size={'large'} />
+                <TotalCount totalBookCount={kingData.totalBookCount} size={'large'} />
               </S.BookCountLayout>
-              <S.DescriptionText className="hover-card">{KingData.description}</S.DescriptionText>
+              <S.DescriptionText className="hover-card">{kingData.description}</S.DescriptionText>
               <S.CardHover className="hover-card" />
-              <S.KinSeJongImg src={KingData.imageUrl} alt={KingData.owner} />
+              <S.KinSeJongImg src={kingData.imageUrl} alt={kingData.owner} />
             </S.KingSeJongCard>
           )}
           {page === 3 && (
@@ -54,43 +54,51 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
             </>
           )}
           <ButtonSection page={page} />
+          <S.PageTransferContainer>
+            <S.PageTransferButton type="button" value={1} isShow={1 === page} onClick={handlePageTransfer} />
+            <S.PageTransferButton type="button" value={2} isShow={2 === page} onClick={handlePageTransfer} />
+            <S.PageTransferButton type="button" value={3} isShow={3 === page} onClick={handlePageTransfer} />
+          </S.PageTransferContainer>
         </S.Layout>
       </S.Main>
-      <S.PageTransferContainer>
-        <S.PageTransferButton type="button" value={1} isShow={1 === page} onClick={handlePageTransfer} />
-        <S.PageTransferButton type="button" value={2} isShow={2 === page} onClick={handlePageTransfer} />
-        <S.PageTransferButton type="button" value={3} isShow={3 === page} onClick={handlePageTransfer} />
-      </S.PageTransferContainer>
     </>
   );
 };
 
 export default LandingPC;
 const S = {
-  Main,
+  Main: styled(BaseMain)<{ $isFirst: boolean }>`
+    &::before {
+      ${({ $isFirst }) =>
+        !$isFirst &&
+        `
+      display : none;`}
+    }
+  `,
   Layout: styled(BaseLayout)<{ $page: number }>`
     max-width: 86rem;
     display: grid;
     grid-template-columns: 1fr 33.4rem;
     grid-column-gap: 9rem;
-    margin-top: calc(13rem + ${HEADER_HEIGHT.PC});
+    margin-top: calc(10% + ${HEADER_HEIGHT.PC});
 
     ${({ $page }) =>
       $page === 2 &&
       `
-      display : flex;
+      display : grid;
       align-items : center;
       margin-top : calc(7rem + ${HEADER_HEIGHT.PC})
     `}
   `,
   PageTransferContainer: styled.div`
-    position: absolute;
-    bottom: 5rem;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     gap: 2rem;
     align-items: center;
+    grid-row-start: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self: center;
+    padding: 4rem 0;
   `,
   RandomCardContainer: styled.div`
     display: flex;

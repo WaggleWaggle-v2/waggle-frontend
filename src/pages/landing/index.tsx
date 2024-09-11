@@ -1,14 +1,14 @@
+import usePageWidth from '@hooks/usePageWidth';
+import { device, size } from '@styles/breakpoints';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { device, size } from '@styles/breakpoints';
 import BookshelfSection from './components/BookshelfSection';
-import { scrollerAnimation } from './style/scrollAnimatioin';
-import TitleSection from './components/TitleSection';
 import DescriptionSection from './components/DescriptionSection';
-import usePageWidth from '@hooks/usePageWidth';
-import { Layout as BaseLayout, Main } from './style/landingCommon';
 import LandingPC from './components/LandingPC';
+import TitleSection from './components/TitleSection';
 import { CardShelfMock, KingData } from './mockData';
+import { Layout as BaseLayout, Main } from './style/landingCommon';
+import { scrollerAnimation } from './style/scrollAnimatioin';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -17,13 +17,12 @@ const Landing = () => {
 
   return (
     <>
-      {/* <S.ScrollContainer>
+      <S.ScrollContainer>
         <S.Mouse>
           <S.Scroller />
         </S.Mouse>
         <S.ScrollText>Scroll</S.ScrollText>
-      </S.ScrollContainer> */}
-
+      </S.ScrollContainer>
       {!isPc ? (
         <>
           <S.Main>

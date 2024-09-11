@@ -1,9 +1,9 @@
-import { HEADER_HEIGHT } from '@styles/headerHeight';
-import styled from 'styled-components';
+import houseImg from '@assets/images/house.png';
+import treeImg from '@assets/images/tree.png';
 import typography from '@assets/images/typography-short.png';
 import { device } from '@styles/breakpoints';
-import treeImg from '@assets/images/tree.png';
-import houseImg from '@assets/images/house.png';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
+import styled from 'styled-components';
 
 export const Main = styled.div`
   position: relative;

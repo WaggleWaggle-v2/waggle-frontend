@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { TCardShelfData } from '../../mockData';
 import TotalCount from './components/TotalCount';
+import { TCardShelfData } from '../../mockData';
 
-const BookshelfCard = ({ cardData }: { cardData: TCardShelfData }) => {
+const BookshelfCard = ({ cardData, isKing }: { cardData: TCardShelfData; isKing?: boolean }) => {
   const { imageUrl, owner, totalBookCount, description } = cardData;
   return (
     <S.Container>
-      <S.CardImg src={imageUrl} alt="" />
+      <S.CardImg src={imageUrl} alt="" $isKing={isKing} />
       <S.CardContentBox>
         <S.CardOwner>{owner}</S.CardOwner>
         <S.CardDescription>{description}</S.CardDescription>
@@ -21,18 +21,24 @@ export default BookshelfCard;
 const S = {
   Container: styled.figure`
     border-radius: 0.6rem;
-    background: #fffcf7;
+    background-color: #efe9df;
     box-shadow: 0 0.4rem 0.4rem 0 rgba(222, 210, 192, 0.25);
     padding: 1rem;
     display: grid;
-    grid-template-columns: 8rem 1fr;
+    grid-template-columns: 8.5rem 1fr;
     gap: 1.2rem;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      transition: background-color 0.3s ease-in-out;
+      background-color: var(--white);
+    }
   `,
-  CardImg: styled.img`
-    width: 8rem;
-    aspect-ratio: 1 /1;
+  CardImg: styled.img<{ $isKing?: boolean }>`
     border-radius: 0.4rem;
     object-fit: cover;
+    width: 100%;
+    height: ${({ $isKing }) => ($isKing ? 'auto' : '8.5rem')};
   `,
   CardContentBox: styled.div`
     display: flex;
