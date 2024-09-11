@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import messageIcon from '@assets/icons/message.svg';
+import styled from 'styled-components';
 
 type Size = 'normal' | 'large';
 

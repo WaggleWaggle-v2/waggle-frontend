@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import backIcon from '@assets/icons/left-arrow.svg';
+import Header from '@components/header';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
 import { BOOKSHELF_DATA } from '@constants/mock';
 import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
+import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +13,6 @@ import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
 import SetPublicity from './components/SetPublicity';
 import { TPublicity } from './types/type';
-import Header from '@components/header';
-import usePageWidth from '@hooks/usePageWidth';
-import backIcon from '@assets/icons/left-arrow.svg';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);

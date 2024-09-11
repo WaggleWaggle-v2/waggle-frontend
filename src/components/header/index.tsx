@@ -1,12 +1,12 @@
+import alarmIcon from '@assets/icons/alarm.svg';
+import KebabIcon from '@components/icons/KebabIcon';
+import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
+import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
 import PcNav from './nav/PcNav';
-import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
-import alarmIcon from '@assets/icons/alarm.svg';
-import KebabIcon from '@components/icons/KebabIcon';
-import usePageWidth from '@hooks/usePageWidth';
 
 const Header = () => {
   const pageWidth = usePageWidth();

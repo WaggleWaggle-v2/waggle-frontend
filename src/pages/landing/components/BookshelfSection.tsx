@@ -1,6 +1,6 @@
+import restore from '@assets/icons/restore.svg';
 import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard';
-import restore from '@assets/icons/restore.svg';
 import { TCardShelfData, TRandomCardSelf } from '../mockData';
 
 interface TBookShelf {

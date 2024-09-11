@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { NavItem, TitleText } from '../style/navStyle';
 import rightArrowIcon from '@assets/icons/right-arrow.svg';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { NavItem, TitleText } from '../style/navStyle';
 
 interface TUserInfoProps {
   isLogin: boolean;
