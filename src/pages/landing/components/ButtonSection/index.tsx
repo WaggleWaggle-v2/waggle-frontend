@@ -10,21 +10,35 @@ const ButtonSection = ({ page }: { page: number }) => {
     <S.ButtonContainer>
       {page === 1 && (
         <>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㅎ</S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}> ㄱ</S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㅎ</S.ConsonantText>
+          </S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㄱ</S.ConsonantText>
+          </S.ButtonFrame>
           <LandingButton type={'green'} icon={arrowIcon}>
             와글와글2 <br /> 시작하겠소.
           </LandingButton>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㄴ</S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㄴ</S.ConsonantText>
+          </S.ButtonFrame>
           <S.House src={houseImg} />
         </>
       )}
       {page === 2 && (
         <>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㅅ</S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㅈ</S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㄷ</S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㅎ</S.ConsonantText>
+          </S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㅈ</S.ConsonantText>
+          </S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㄷ</S.ConsonantText>
+          </S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㅇ</S.ConsonantText>
+          </S.ButtonFrame>
           <LandingButton type={'green'} icon={arrowIcon} fontSize="2.8rem">
             세종대왕님께 <br /> 감사인사 전하오.
           </LandingButton>
@@ -32,13 +46,21 @@ const ButtonSection = ({ page }: { page: number }) => {
       )}
       {page === 3 && (
         <>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㄱ</S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㅇ</S.ConsonantText>
+          </S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㄱ</S.ConsonantText>
+          </S.ButtonFrame>
           <LandingButton type={'beige'} icon={restoreIcon} fontSize="2.8rem">
             다른 책장 <br /> 추천 받겠소
           </LandingButton>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㄱ</S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>ㅇ</S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㄱ</S.ConsonantText>
+          </S.ButtonFrame>
+          <S.ButtonFrame $buttonFrame={buttonFrame}>
+            <S.ConsonantText>ㅇ</S.ConsonantText>
+          </S.ButtonFrame>
         </>
       )}
     </S.ButtonContainer>
@@ -66,12 +88,14 @@ const S = {
     background-size: cover;
     width: 15rem;
     height: 15rem;
-    font-size: 11rem;
-    font-family: 'ChosunCentennial';
-    color: #c0aa87;
     display: flex;
     align-items: center;
     justify-content: center;
+  `,
+  ConsonantText: styled.p`
+    font-size: 11rem;
+    font-family: 'ChosunCentennial';
+    color: #c0aa87;
   `,
   ButtonText: styled.button`
     font-family: 'EBSHunminjeongeum';
