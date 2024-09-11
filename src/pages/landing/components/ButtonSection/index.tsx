@@ -10,16 +10,16 @@ const ButtonSection = ({ page }: { page: number }) => {
     <S.ButtonContainer>
       {page === 1 && (
         <>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㅎ</S.ConsonantText>
           </S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㄱ</S.ConsonantText>
           </S.ButtonFrame>
           <LandingButton type={'green'} icon={arrowIcon}>
             와글와글2 <br /> 시작하겠소.
           </LandingButton>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㄴ</S.ConsonantText>
           </S.ButtonFrame>
           <S.House src={houseImg} />
@@ -27,16 +27,16 @@ const ButtonSection = ({ page }: { page: number }) => {
       )}
       {page === 2 && (
         <>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㅎ</S.ConsonantText>
           </S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㅈ</S.ConsonantText>
           </S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㄷ</S.ConsonantText>
           </S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㅇ</S.ConsonantText>
           </S.ButtonFrame>
           <LandingButton type={'green'} icon={arrowIcon} fontSize="2.8rem">
@@ -46,19 +46,19 @@ const ButtonSection = ({ page }: { page: number }) => {
       )}
       {page === 3 && (
         <>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㅇ</S.ConsonantText>
           </S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㄱ</S.ConsonantText>
           </S.ButtonFrame>
           <LandingButton type={'beige'} icon={restoreIcon} fontSize="2.8rem">
             다른 책장 <br /> 추천 받겠소
           </LandingButton>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㄱ</S.ConsonantText>
           </S.ButtonFrame>
-          <S.ButtonFrame $buttonFrame={buttonFrame}>
+          <S.ButtonFrame>
             <S.ConsonantText>ㅇ</S.ConsonantText>
           </S.ButtonFrame>
         </>
@@ -82,11 +82,11 @@ const S = {
   `,
 
   //Element Style
-  ButtonFrame: styled.div<{ $buttonFrame: string }>`
+  ButtonFrame: styled.div`
     width: 15rem;
     height: 15rem;
-    background-image: url(${({ $buttonFrame }) => $buttonFrame});
-    background-size: contain;
+    background-image: url(${buttonFrame});
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
