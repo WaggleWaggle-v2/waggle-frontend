@@ -83,14 +83,13 @@ const S = {
 
   //Element Style
   ButtonFrame: styled.div<{ $buttonFrame: string }>`
-    background-image: url(${({ $buttonFrame }) => $buttonFrame});
-    background-repeat: no-repeat;
-    background-size: cover;
     width: 15rem;
     height: 15rem;
+    background-image: url(${({ $buttonFrame }) => $buttonFrame});
+    background-size: contain;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
   `,
   ConsonantText: styled.p`
     font-size: 11rem;
