@@ -4,11 +4,11 @@ import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
 import { ADDITIONAL_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
+import { useBookshelfBackgroundUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
 import styled from 'styled-components';
 import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
 import SetTheme from './SetTheme';
-import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TAdditionalSetupModalProps {
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -17,11 +17,22 @@ interface TAdditionalSetupModalProps {
 const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [profile, setProfile] = useState(PROFILE_IMAGES[0].url);
+  const [profile, setProfile] = useState(1);
   const [theme, setTheme] = useState('');
   const [intro, setIntro] = useState('');
+  const mutation = useBookshelfBackgroundUpdateMutation();
 
-  const handleNextButtonClick = () => {
+  const handleUpdateBackground = async () => {
+    try {
+      await mutation.mutateAsync(profile);
+      setStep(step => step + 1);
+      setIsDisabled(true);
+    } catch (error) {
+      console.error('Failed to update user information:', error);
+    }
+  };
+
+  const handleUpdateTheme = () => {
     setStep(step => step + 1);
     setIsDisabled(true);
   };
@@ -41,7 +52,7 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             step={step}
             titleTop="나를 표현할&nbsp;"
             titleBottom="삽화를 고르시오"
-            handleButtonClick={handleNextButtonClick}
+            handleButtonClick={handleUpdateBackground}
             isDisabled={false}>
             <SetProfile profile={profile} setProfile={setProfile} />
           </SettingTemplate>
@@ -51,7 +62,7 @@ const AdditionalSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
           <SettingTemplate
             step={step}
             titleTop="배경을 선택해 주시오"
-            handleButtonClick={handleNextButtonClick}
+            handleButtonClick={handleUpdateTheme}
             isDisabled={false}>
             <SetTheme theme={theme} setTheme={setTheme} />
           </SettingTemplate>
