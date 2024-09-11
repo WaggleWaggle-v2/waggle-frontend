@@ -1,6 +1,6 @@
-import buttonFrame from '@assets/icons/book-button-frame.svg';
 import restoreIcon from '@assets/icons/restore.svg';
 import arrowIcon from '@assets/icons/right-top-arrow.svg';
+import buttonFrame from '@assets/images/book-frame.png';
 import houseImg from '@assets/images/house.png';
 import styled from 'styled-components';
 import LandingButton from './components/LandingButton';
