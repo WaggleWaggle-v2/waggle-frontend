@@ -11,13 +11,21 @@ const handleGoogleLoginClick = () => {
     '&scope=email profile';
 };
 
+const handleKakaoLoginClick = () => {
+  window.location.href =
+    'https://kauth.kakao.com/oauth/authorize?' +
+    `client_id=${import.meta.env.VITE_KAKAO_API_KEY}` +
+    `&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}` +
+    '&response_type=code';
+};
+
 export const SOCIAL_LOGIN_INFO = [
   {
     name: '카카오톡',
     logo: kakaoLogo,
     background: '#FAE100',
     color: '#371D1E',
-    onClick: handleGoogleLoginClick,
+    onClick: handleKakaoLoginClick,
   },
   // {
   //   name: '네이버',
