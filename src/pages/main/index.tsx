@@ -17,6 +17,8 @@ const Main = () => {
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
 
+  console.log(bookshelfData?.bookshelfType);
+
   useEffect(() => {
     if (location.state === 'setup') {
       setIsNewUser(true);
