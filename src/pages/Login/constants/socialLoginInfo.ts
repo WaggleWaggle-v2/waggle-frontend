@@ -15,7 +15,7 @@ const handleKakaoLoginClick = () => {
   window.location.href =
     'https://kauth.kakao.com/oauth/authorize?' +
     `client_id=${import.meta.env.VITE_KAKAO_API_KEY}` +
-    `&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URL}` +
+    `&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_LOCAL_URL}` +
     '&response_type=code';
 };
 
