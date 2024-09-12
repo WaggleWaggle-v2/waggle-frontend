@@ -5,8 +5,8 @@ import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from '../../BookshelfCard';
-import LandingButton from '../../ButtonSection/components/LandingButton';
-import ShelfDecoration from '../../ButtonSection/components/ShelfDecoration';
+import LandingButton from '../../LandingButton';
+import ShelfDecoration from '../../ShelfDecoration';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TThirdSection {

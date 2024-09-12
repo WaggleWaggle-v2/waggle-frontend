@@ -3,8 +3,8 @@ import arrowIcon from '@assets/icons/right-top-arrow.svg';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TotalCount from '../../BookshelfCard/components/TotalCount';
-import LandingButton from '../../ButtonSection/components/LandingButton';
-import ShelfDecoration from '../../ButtonSection/components/ShelfDecoration';
+import LandingButton from '../../LandingButton';
+import ShelfDecoration from '../../ShelfDecoration';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TSecondSection {
