@@ -1,20 +1,20 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import styled from 'styled-components';
 
-interface TLandingButton {
+interface TLandingButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: string;
   children: ReactNode;
-  type: TType;
+  buttonType: TType;
   fontSize?: string;
 }
 
 type TType = 'green' | 'beige';
 
-const LandingButton = ({ icon, children, type, fontSize }: TLandingButton) => {
+const LandingButton = ({ icon, children, buttonType, fontSize, ...rest }: TLandingButton) => {
   return (
-    <S.Wrapper $type={type}>
-      <S.Button $type={type} className="button-box">
-        <S.SubBox $type={type} $fontSize={fontSize} className="button-content">
+    <S.Wrapper $type={buttonType} {...rest}>
+      <S.Button $type={buttonType} className="button-box">
+        <S.SubBox $type={buttonType} $fontSize={fontSize} className="button-content">
           <S.ButtonIcon src={icon} />
           {children}
         </S.SubBox>
@@ -26,7 +26,7 @@ const LandingButton = ({ icon, children, type, fontSize }: TLandingButton) => {
 export default LandingButton;
 
 const S = {
-  Wrapper: styled.div<{ $type: TType }>`
+  Wrapper: styled.button<{ $type: TType }>`
     position: relative;
     width: 100%;
     aspect-ratio: 2 / 1;
