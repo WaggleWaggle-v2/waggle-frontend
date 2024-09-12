@@ -1,18 +1,25 @@
 import restoreIcon from '@assets/icons/restore.svg';
 import arrowIcon from '@assets/icons/right-top-arrow.svg';
 import houseImg from '@assets/images/house.png';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LandingButton from './components/LandingButton';
 import ShelfDecoration from './components/ShelfDecoration';
 
 const ButtonSection = ({ page }: { page: number }) => {
+  const navigate = useNavigate();
   return (
     <S.ButtonContainer>
       {page === 1 && (
         <>
           <ShelfDecoration>ㅎ</ShelfDecoration>
           <ShelfDecoration>ㄱ</ShelfDecoration>
-          <LandingButton type={'green'} icon={arrowIcon}>
+          <LandingButton
+            buttonType={'green'}
+            icon={arrowIcon}
+            onClick={() => {
+              navigate('/login');
+            }}>
             와글와글2 <br /> 시작하겠소.
           </LandingButton>
           <ShelfDecoration>ㄴ</ShelfDecoration>
@@ -25,7 +32,7 @@ const ButtonSection = ({ page }: { page: number }) => {
           <ShelfDecoration>ㅈ</ShelfDecoration>
           <ShelfDecoration>ㄷ</ShelfDecoration>
           <ShelfDecoration>ㅇ</ShelfDecoration>
-          <LandingButton type={'green'} icon={arrowIcon} fontSize="2.8rem">
+          <LandingButton buttonType={'green'} icon={arrowIcon} fontSize="2.8rem">
             세종대왕님께 <br /> 감사인사 전하오.
           </LandingButton>
         </>
@@ -34,7 +41,7 @@ const ButtonSection = ({ page }: { page: number }) => {
         <>
           <ShelfDecoration>ㅇ</ShelfDecoration>
           <ShelfDecoration>ㄱ</ShelfDecoration>
-          <LandingButton type={'beige'} icon={restoreIcon} fontSize="2.8rem">
+          <LandingButton buttonType={'beige'} icon={restoreIcon} fontSize="2.8rem">
             다른 책장 <br /> 추천 받겠소
           </LandingButton>
           <ShelfDecoration>ㄱ</ShelfDecoration>
