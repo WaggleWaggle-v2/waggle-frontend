@@ -2,6 +2,15 @@ import axios from '@api/axios';
 import { isAxiosError } from 'axios';
 
 const bookshelfRequest = {
+  // 랜덤 책장 조회
+  fetchRandomBookshelf: async () => {
+    try {
+      const { data } = await axios.get('member/bookshelf/get/random');
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
   // 책장 조회
   fetchBookshelf: async (id: string) => {
     try {

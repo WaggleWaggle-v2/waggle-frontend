@@ -1,11 +1,11 @@
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import restore from '@assets/icons/restore.svg';
 import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard';
-import { TCardShelfData, TRandomCardSelf } from '../mockData';
 
 interface TBookShelf {
-  randomCardData: TRandomCardSelf;
-  kingData: TCardShelfData;
+  randomCardData: TBookshelfFetchRes[];
+  kingData: TBookshelfFetchRes;
 }
 
 const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
@@ -26,7 +26,7 @@ const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
           <span>공개된 책상이오. 매일 무작위로 공개되오.</span>
         </div>
         <S.FigureContainer>
-          {randomCardData.bookList.map(book => (
+          {randomCardData.map(book => (
             <BookshelfCard cardData={book} />
           ))}
         </S.FigureContainer>

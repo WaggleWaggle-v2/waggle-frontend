@@ -1,17 +1,37 @@
+import arrowIcon from '@assets/icons/right-top-arrow.svg';
+import houseImg from '@assets/images/house.png';
 import treeImg from '@assets/images/tree.png';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import ButtonSection from '../../ButtonSection';
+import LandingButton from '../../ButtonSection/components/LandingButton';
+import ShelfDecoration from '../../ButtonSection/components/ShelfDecoration';
 import DescriptionSection from '../../DescriptionSection';
 import TitleSection from '../../TitleSection';
-import { Main as BaseMain, Layout } from '../style/commonPC';
+import { Main as BaseMain, ButtonContainer, Layout } from '../style/commonPC';
 
 const FirstSection = () => {
+  const navigate = useNavigate();
   return (
     <S.Main>
       <S.Layout>
         <TitleSection />
         <DescriptionSection />
-        <ButtonSection page={1} />
+        <S.ButtonContainer>
+          <>
+            <ShelfDecoration>ㅎ</ShelfDecoration>
+            <ShelfDecoration>ㄱ</ShelfDecoration>
+            <LandingButton
+              buttonType={'green'}
+              icon={arrowIcon}
+              onClick={() => {
+                navigate('/login');
+              }}>
+              와글와글2 <br /> 시작하겠소.
+            </LandingButton>
+            <ShelfDecoration>ㄴ</ShelfDecoration>
+            <S.House src={houseImg} />
+          </>
+        </S.ButtonContainer>
       </S.Layout>
     </S.Main>
   );
@@ -32,5 +52,11 @@ const S = {
       left: 0;
     }
   `,
+  House: styled.img`
+    object-fit: contain;
+    width: 10.8rem;
+    margin-left: auto;
+  `,
   Layout,
+  ButtonContainer,
 };

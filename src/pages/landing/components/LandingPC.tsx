@@ -1,17 +1,18 @@
 import { MouseEvent, useState } from 'react';
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
 import FirstSection from './LandingPC/components/FirstSection';
 import SecondSection from './LandingPC/components/SecondSection';
 import ThirdSection from './LandingPC/components/ThirdSection';
 
-import { TCardShelfData, TRandomCardSelf } from '../mockData';
-
 interface TBookShelf {
-  randomCardData: TRandomCardSelf;
-  kingData: TCardShelfData;
+  randomCardData: TBookshelfFetchRes[];
+  kingData: TBookshelfFetchRes;
+  refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
+const LandingPC = ({ randomCardData, kingData, refetch }: TBookShelf) => {
   const [page, setPage] = useState<number>(1);
   const handlePageTransfer = (event: MouseEvent<HTMLButtonElement>) => {
     setPage(Number(event.currentTarget.value));
@@ -22,7 +23,7 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
       <S.SectionContainer $page={page}>
         <FirstSection />
         <SecondSection kingData={kingData} />
-        <ThirdSection randomCardData={randomCardData.bookList} />
+        <ThirdSection randomCardData={randomCardData} refetch={refetch} />
       </S.SectionContainer>
       <S.PageTransferContainer>
         <S.PageTransferButton type="button" value={1} isShow={1 === page} onClick={handlePageTransfer} />

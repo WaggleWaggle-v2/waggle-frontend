@@ -20,7 +20,7 @@ instance.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${token}`;
       return config;
     } else {
-      window.location.href = '/login';
+      // window.location.href = '/login';
       return config;
     }
   },
@@ -40,7 +40,7 @@ instance.interceptors.response.use(
   config => {
     const token = getCookie('accessToken');
     if (!token) {
-      window.location.href = '/login';
+      // window.location.href = '/login';
     }
     return config;
   },

@@ -1,16 +1,16 @@
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import styled from 'styled-components';
 import TotalCount from './components/TotalCount';
-import { TCardShelfData } from '../../mockData';
 
-const BookshelfCard = ({ cardData, isKing }: { cardData: TCardShelfData; isKing?: boolean }) => {
-  const { imageUrl, owner, totalBookCount, description } = cardData;
+const BookshelfCard = ({ cardData, isKing }: { cardData: TBookshelfFetchRes; isKing?: boolean }) => {
+  const { backgroundImageUrl, nickname, count, introduction } = cardData;
   return (
     <S.Container>
-      <S.CardImg src={imageUrl} alt="" $isKing={isKing} />
+      <S.CardImg src={backgroundImageUrl} alt="" $isKing={isKing} />
       <S.CardContentBox>
-        <S.CardOwner>{owner}</S.CardOwner>
-        <S.CardDescription>{description}</S.CardDescription>
-        <TotalCount totalBookCount={totalBookCount} />
+        <S.CardOwner>{nickname}</S.CardOwner>
+        <S.CardDescription>{introduction}</S.CardDescription>
+        <TotalCount totalBookCount={count} />
       </S.CardContentBox>
     </S.Container>
   );

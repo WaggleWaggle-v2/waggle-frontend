@@ -1,20 +1,25 @@
 import { MouseEvent } from 'react';
-import { TCardShelfData } from '@pages/landing/mockData';
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import restoreIcon from '@assets/icons/restore.svg';
+import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from '../../BookshelfCard';
-import ButtonSection from '../../ButtonSection';
-import { Main as BaseMain, Layout as BaseLayout } from '../style/commonPC';
+import LandingButton from '../../ButtonSection/components/LandingButton';
+import ShelfDecoration from '../../ButtonSection/components/ShelfDecoration';
+import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TThirdSection {
-  randomCardData: TCardShelfData[];
+  randomCardData: TBookshelfFetchRes[];
+  refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const ThirdSection = ({ randomCardData }: TThirdSection) => {
+const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
   const navigate = useNavigate();
   const redirectBookshelf = (event: MouseEvent<HTMLButtonElement>) => {
     navigate(`/bookshelf/${event.currentTarget.id}`);
   };
+
   return (
     <S.Main>
       <S.Layout>
@@ -29,7 +34,17 @@ const ThirdSection = ({ randomCardData }: TThirdSection) => {
             </button>
           ))}
         </S.RandomCardContainer>
-        <ButtonSection page={3} />
+        <S.ButtonContainer>
+          <>
+            <ShelfDecoration>ㅇ</ShelfDecoration>
+            <ShelfDecoration>ㄱ</ShelfDecoration>
+            <LandingButton buttonType={'beige'} icon={restoreIcon} fontSize="2.8rem" onClick={refetch}>
+              다른 책장 <br /> 추천 받겠소
+            </LandingButton>
+            <ShelfDecoration>ㄱ</ShelfDecoration>
+            <ShelfDecoration>ㅇ</ShelfDecoration>
+          </>
+        </S.ButtonContainer>
       </S.Layout>
     </S.Main>
   );
@@ -61,4 +76,5 @@ const S = {
     line-height: 130%;
     letter-spacing: -0.02rem;
   `,
+  ButtonContainer,
 };
