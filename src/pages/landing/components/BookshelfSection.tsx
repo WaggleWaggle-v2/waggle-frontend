@@ -48,7 +48,7 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 2rem 3rem;
+    padding: 3rem 2rem 3rem;
     max-width: 35.6rem;
     margin: 0 auto;
     min-width: min-content;

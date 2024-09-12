@@ -81,6 +81,7 @@ const S = {
     color: #fff;
     text-align: center;
     cursor: pointer;
+    flex-shrink: 0;
 
     @media ${device.tablet} {
       max-width: 43rem;
