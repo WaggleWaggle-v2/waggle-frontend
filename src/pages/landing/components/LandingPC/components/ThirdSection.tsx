@@ -1,4 +1,6 @@
+import { MouseEvent } from 'react';
 import { TCardShelfData } from '@pages/landing/mockData';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from '../../BookshelfCard';
 import ButtonSection from '../../ButtonSection';
@@ -9,6 +11,10 @@ interface TThirdSection {
 }
 
 const ThirdSection = ({ randomCardData }: TThirdSection) => {
+  const navigate = useNavigate();
+  const redirectBookshelf = (event: MouseEvent<HTMLButtonElement>) => {
+    navigate(`/bookshelf/${event.currentTarget.id}`);
+  };
   return (
     <S.Main>
       <S.Layout>
@@ -18,7 +24,9 @@ const ThirdSection = ({ randomCardData }: TThirdSection) => {
         </div>
         <S.RandomCardContainer>
           {randomCardData.map(book => (
-            <BookshelfCard cardData={book} />
+            <button type="button" id={String(book.id)} onClick={redirectBookshelf} style={{ cursor: 'pointer' }}>
+              <BookshelfCard cardData={book} key={book.id} />
+            </button>
           ))}
         </S.RandomCardContainer>
         <ButtonSection page={3} />
