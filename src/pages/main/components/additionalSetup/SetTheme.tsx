@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
+import React, { SetStateAction } from 'react';
+import { TTheme } from '@pages/main/types/type';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import { THEME } from '../../constants/theme';
 
 interface TSetThemeProps {
-  setTheme: (theme: string) => void;
-  theme: string;
+  setTheme: React.Dispatch<SetStateAction<TTheme>>;
+  theme: TTheme;
 }
 
 const SetTheme = ({ theme, setTheme }: TSetThemeProps) => {
-  const handleThemeClick = (theme: string) => {
+  const handleThemeClick = (theme: TTheme) => {
     setTheme(theme);
   };
 

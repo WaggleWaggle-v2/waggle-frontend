@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import backIcon from '@assets/icons/left-arrow.svg';
 import Header from '@components/header';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
-import { BOOKSHELF_DATA } from '@constants/mock';
 import { USER_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
+import { useUsernameAndPublicityCreateMutation, useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
@@ -12,26 +12,36 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
 import SetPublicity from './components/SetPublicity';
-import { TPublicity } from './types/type';
 
 const SetUp = () => {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
   const [nickname, setNickname] = useState('');
-  const [publicity, setPublicity] = useState<TPublicity>(null);
+  const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
 
-  // userId 를 참초해서 유저의 bookshelf를 조회
-  const BOOKSHELF_ID = BOOKSHELF_DATA.uuid;
+  const mutation = useUsernameAndPublicityCreateMutation();
+  const { data } = useUserQuery();
 
   const handleNextButtonClick = () => {
     setStep(step => step + 1);
   };
-  const handleSubmitButtonClick = () => {
-    console.log(nickname, publicity);
-    navigate(`/main/${BOOKSHELF_ID}`);
+
+  const handleSubmitButtonClick = async () => {
+    try {
+      await mutation.mutateAsync({ nickname, isOpen });
+      navigate(`/main/${data?.id}`);
+    } catch (error) {
+      console.error('Failed to update user information:', error);
+    }
   };
+
+  useEffect(() => {
+    if (data?.userState === 'VERIFIED') {
+      navigate(`/main/${data.id}`, { state: 'setup' });
+    }
+  }, [data]);
 
   return (
     <>
@@ -62,7 +72,7 @@ const SetUp = () => {
             titleTop="공개 하겠소?"
             handleButtonClick={handleSubmitButtonClick}
             isDisabled={isDisabled}>
-            <SetPublicity setPublicity={setPublicity} publicity={publicity} />
+            <SetPublicity setPublicity={setIsOpen} publicity={isOpen} />
           </SettingTemplate>
         )}
         <ProgressBar totalStep={USER_SETUP_TOTAL_STEP} currentStep={step} />

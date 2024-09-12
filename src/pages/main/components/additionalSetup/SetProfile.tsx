@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
+import React, { SetStateAction } from 'react';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import { PROFILE_IMAGES } from '../../constants/profile-images';
 
 interface TSetProfileProps {
-  setProfile: (profile: string) => void;
-  profile: string;
+  setProfile: React.Dispatch<SetStateAction<number>>;
+  profile: number;
 }
 
 const SetProfile = ({ setProfile, profile }: TSetProfileProps) => {
-  const handleProfileClick = (profileUrl: string) => {
-    setProfile(profileUrl);
+  const handleProfileClick = (profileIndex: number) => {
+    setProfile(profileIndex);
   };
 
   return (
@@ -20,8 +21,8 @@ const SetProfile = ({ setProfile, profile }: TSetProfileProps) => {
           <S.ImageWrapper
             key={profileInfo.index}
             $background={profileInfo.url}
-            onClick={() => handleProfileClick(profileInfo.url)}
-            $isSelected={profile === profileInfo.url}
+            onClick={() => handleProfileClick(profileInfo.index)}
+            $isSelected={profile === profileInfo.index}
             $hasSelected={!!profile}
           />
         ))}

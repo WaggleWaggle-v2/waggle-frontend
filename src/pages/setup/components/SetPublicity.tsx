@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 
+import React, { SetStateAction } from 'react';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import { PUBLICITY_SELECT } from '../constants/publicitySelect';
-import { TPublicity } from '../types/type';
 
 interface TSetPublicityProps {
-  setPublicity: (value: TPublicity) => void;
-  publicity: TPublicity;
+  setPublicity: React.Dispatch<SetStateAction<boolean>>;
+  publicity: boolean;
 }
 
 const SetPublicity = ({ setPublicity, publicity }: TSetPublicityProps) => {
-  const handleSelectorClick = (value: TPublicity) => {
+  const handleSelectorClick = (value: boolean) => {
     setPublicity(value);
   };
 
@@ -20,10 +20,9 @@ const SetPublicity = ({ setPublicity, publicity }: TSetPublicityProps) => {
       <S.SelectorWrapper>
         {PUBLICITY_SELECT.map(pub => (
           <S.PublicitySelector
-            key={pub.value}
-            onClick={() => handleSelectorClick(pub.value as TPublicity)}
-            $isSelected={publicity === pub.value}
-            $hasSelected={!!publicity}>
+            key={pub.text}
+            onClick={() => handleSelectorClick(pub.value)}
+            $isSelected={publicity === pub.value}>
             <S.ImageWrapper>
               <img src={pub.image} />
             </S.ImageWrapper>
@@ -36,14 +35,12 @@ const SetPublicity = ({ setPublicity, publicity }: TSetPublicityProps) => {
         ))}
       </S.SelectorWrapper>
 
-      {publicity === 'public' && (
+      {publicity ? (
         <S.PublicityGuideText>
           <p>와글와글 메인에 랜덤으로 공개 됩니다.</p>
           <p>모든 사람이 방명록 갯수랑 공개된 방명록을 볼 수 있어요.</p>
         </S.PublicityGuideText>
-      )}
-
-      {publicity === 'friendsOnly' && (
+      ) : (
         <S.PublicityGuideText>
           <p>링크로 초대된 사람만 볼 수 있습니다</p>
           <p>초대된 사람만 방명록 갯수랑 공개된 방명록을 볼 수 있어요.</p>
@@ -71,8 +68,8 @@ const S = {
     }
   `,
 
-  PublicitySelector: styled.div<{ $isSelected: boolean; $hasSelected: boolean }>`
-    opacity: ${({ $isSelected, $hasSelected }) => ($hasSelected ? ($isSelected ? 1 : 0.4) : 1)};
+  PublicitySelector: styled.div<{ $isSelected: boolean }>`
+    opacity: ${({ $isSelected }) => ($isSelected ? 1 : 0.4)};
     padding: 3.3rem 1.9rem;
     border: 0.1rem solid var(--green600);
     border-radius: 0.2rem;

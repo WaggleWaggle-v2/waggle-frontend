@@ -10,39 +10,39 @@ import profile09 from '@assets/images/profiles/WGWG-profile-Image-09.jpg';
 
 export const PROFILE_IMAGES = [
   {
-    index: 0,
+    index: 1,
     url: profile01,
   },
   {
-    index: 1,
+    index: 2,
     url: profile02,
   },
   {
-    index: 2,
+    index: 3,
     url: profile03,
   },
   {
-    index: 3,
+    index: 4,
     url: profile04,
   },
   {
-    index: 4,
+    index: 5,
     url: profile05,
   },
   {
-    index: 5,
+    index: 6,
     url: profile06,
   },
   {
-    index: 6,
+    index: 7,
     url: profile07,
   },
   {
-    index: 7,
+    index: 8,
     url: profile08,
   },
   {
-    index: 8,
+    index: 9,
     url: profile09,
   },
 ];

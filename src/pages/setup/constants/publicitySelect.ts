@@ -5,11 +5,11 @@ export const PUBLICITY_SELECT = [
   {
     image: doorOpenIcon,
     text: '모두에게',
-    value: 'public',
+    value: true,
   },
   {
     image: doorCloseIcon,
     text: '친구에게만',
-    value: 'friendsOnly',
+    value: false,
   },
 ] as const;

@@ -1,6 +1,5 @@
 export interface TUserFetchRes {
-  id: number;
+  id: number | null;
   userState: 'INCOMPLETE' | 'VERIFIED';
-  uuid: string | null;
   nickname: string | null;
 }

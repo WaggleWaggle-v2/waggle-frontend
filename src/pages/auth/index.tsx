@@ -39,7 +39,7 @@ const Auth = () => {
   useEffect(() => {
     if (!isLoading && data) {
       if (data.userState === 'VERIFIED') {
-        navigate(`/main/${data.uuid}`);
+        navigate(`/main/${data.id}`);
       } else {
         navigate('/setup');
       }
