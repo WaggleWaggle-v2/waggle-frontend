@@ -49,6 +49,44 @@ const bookshelfRequest = {
       return error;
     }
   },
+
+  // 책장 테마 변경
+  updateBookshelfTheme: async (theme: 'WHITE' | 'DARK') => {
+    try {
+      const { data } = await axios.patch(`member/bookshelf/set/theme`, { theme });
+      return data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          throw {
+            errorMessage: error.response.data.errorMessage || 'errorMessage',
+            errorCode: error.response.data.errorCode || 'UNKNOWN_ERROR',
+            statusCode: error.response.status,
+          };
+        }
+      }
+      return error;
+    }
+  },
+
+  // 책장 소개 변경
+  updateBookshelfIntroduction: async (introduction: string) => {
+    try {
+      const { data } = await axios.patch(`member/bookshelf/set/introduction`, { introduction });
+      return data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          throw {
+            errorMessage: error.response.data.errorMessage || 'errorMessage',
+            errorCode: error.response.data.errorCode || 'UNKNOWN_ERROR',
+            statusCode: error.response.status,
+          };
+        }
+      }
+      return error;
+    }
+  },
 } as const;
 
 export default bookshelfRequest;
