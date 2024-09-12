@@ -36,7 +36,9 @@ const Landing = () => {
               </S.StartButton>
             </S.Layout>
           </S.Main>
-          {randomCardData && <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} />}
+          {randomCardData && (
+            <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
+          )}
         </>
       ) : (
         randomCardData && <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />

@@ -1,14 +1,19 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import restore from '@assets/icons/restore.svg';
+import { QueryObserverResult } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard';
 
 interface TBookShelf {
   randomCardData: TBookshelfFetchRes[];
   kingData: TBookshelfFetchRes;
+  refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
+const BookshelfSection = ({ randomCardData, kingData, refetch }: TBookShelf) => {
+  const navigate = useNavigate();
+
   return (
     <S.SectionContainer>
       <S.BookShelfSection className="thanks">
@@ -17,7 +22,12 @@ const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
           감사인사 전하오.
         </S.BookShelfTitle>
         <S.FigureContainer>
-          <BookshelfCard cardData={kingData} isKing={true} />
+          <S.CardButton
+            onClick={() => {
+              navigate(`/bookshelf/${kingData.id}`);
+            }}>
+            <BookshelfCard cardData={kingData} isKing={true} />
+          </S.CardButton>
         </S.FigureContainer>
       </S.BookShelfSection>
       <S.BookShelfSection className="anyone">
@@ -27,10 +37,16 @@ const BookshelfSection = ({ randomCardData, kingData }: TBookShelf) => {
         </div>
         <S.FigureContainer>
           {randomCardData.map(book => (
-            <BookshelfCard cardData={book} />
+            <S.CardButton
+              key={book.id}
+              onClick={() => {
+                navigate(`/bookshelf/${book.id}`);
+              }}>
+              <BookshelfCard cardData={book} />
+            </S.CardButton>
           ))}
         </S.FigureContainer>
-        <S.RestoreButton type="button">
+        <S.RestoreButton type="button" onClick={refetch}>
           다른 책장 추천받겠소
           <img src={restore} alt="새로고침" />
         </S.RestoreButton>
@@ -93,5 +109,8 @@ const S = {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+  `,
+  CardButton: styled.button`
+    cursor: pointer;
   `,
 };
