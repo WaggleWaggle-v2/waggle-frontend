@@ -18,24 +18,38 @@ const LandingPC = ({ randomCardData, kingData }: TBookShelf) => {
   };
 
   return (
-    <>
-      {page === 1 && <FirstSection page={page} />}
-      {page === 2 && <SecondSection page={page} kingData={kingData} />}
-      {page === 3 && <ThirdSection page={page} randomCardData={randomCardData.bookList} />}
-
+    <S.Container>
+      <S.SectionContainer $page={page}>
+        <FirstSection />
+        <SecondSection kingData={kingData} />
+        <ThirdSection randomCardData={randomCardData.bookList} />
+      </S.SectionContainer>
       <S.PageTransferContainer>
         <S.PageTransferButton type="button" value={1} isShow={1 === page} onClick={handlePageTransfer} />
         <S.PageTransferButton type="button" value={2} isShow={2 === page} onClick={handlePageTransfer} />
         <S.PageTransferButton type="button" value={3} isShow={3 === page} onClick={handlePageTransfer} />
       </S.PageTransferContainer>
-    </>
+    </S.Container>
   );
 };
 
 export default LandingPC;
 const S = {
+  Container: styled.div`
+    overflow-y: hidden;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  `,
+  SectionContainer: styled.div<{ $page: number }>`
+    display: flex;
+    transform: translateX(calc(-100dvw * ${({ $page }) => $page - 1}));
+    transition: transform 0.5s ease-in-out;
+  `,
   PageTransferContainer: styled.div`
-    position: absolute;
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     bottom: 1rem;

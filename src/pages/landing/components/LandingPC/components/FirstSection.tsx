@@ -5,13 +5,13 @@ import DescriptionSection from '../../DescriptionSection';
 import TitleSection from '../../TitleSection';
 import { Main as BaseMain, Layout } from '../style/commonPC';
 
-const FirstSection = ({ page }: { page: number }) => {
+const FirstSection = () => {
   return (
     <S.Main>
       <S.Layout>
         <TitleSection />
         <DescriptionSection />
-        <ButtonSection page={page} />
+        <ButtonSection page={1} />
       </S.Layout>
     </S.Main>
   );

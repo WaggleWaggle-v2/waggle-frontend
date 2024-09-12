@@ -5,11 +5,10 @@ import ButtonSection from '../../ButtonSection';
 import { Main as BaseMain, Layout as BaseLayout } from '../style/commonPC';
 
 interface TThirdSection {
-  page: number;
   randomCardData: TCardShelfData[];
 }
 
-const ThirdSection = ({ page, randomCardData }: TThirdSection) => {
+const ThirdSection = ({ randomCardData }: TThirdSection) => {
   return (
     <S.Main>
       <S.Layout>
@@ -22,7 +21,7 @@ const ThirdSection = ({ page, randomCardData }: TThirdSection) => {
             <BookshelfCard cardData={book} />
           ))}
         </S.RandomCardContainer>
-        <ButtonSection page={page} />
+        <ButtonSection page={3} />
       </S.Layout>
     </S.Main>
   );

@@ -6,10 +6,9 @@ import { Main as BaseMain, Layout as BaseLayout } from '../style/commonPC';
 
 interface TSecondSection {
   kingData: TCardShelfData;
-  page: number;
 }
 
-const SecondSection = ({ kingData, page }: TSecondSection) => {
+const SecondSection = ({ kingData }: TSecondSection) => {
   return (
     <S.Main>
       <S.Layout>
@@ -21,7 +20,7 @@ const SecondSection = ({ kingData, page }: TSecondSection) => {
           <S.CardHover className="hover-card" />
           <S.KinSeJongImg src={kingData.imageUrl} alt={kingData.owner} />
         </S.KingSeJongCard>
-        <ButtonSection page={page} />
+        <ButtonSection page={2} />
       </S.Layout>
     </S.Main>
   );
