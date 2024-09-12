@@ -10,9 +10,9 @@ interface TLandingButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 type TType = 'green' | 'beige';
 
-const LandingButton = ({ icon, children, buttonType, fontSize }: TLandingButton) => {
+const LandingButton = ({ icon, children, buttonType, fontSize, ...rest }: TLandingButton) => {
   return (
-    <S.Wrapper $type={buttonType}>
+    <S.Wrapper $type={buttonType} {...rest}>
       <S.Button $type={buttonType} className="button-box">
         <S.SubBox $type={buttonType} $fontSize={fontSize} className="button-content">
           <S.ButtonIcon src={icon} />
@@ -26,7 +26,7 @@ const LandingButton = ({ icon, children, buttonType, fontSize }: TLandingButton)
 export default LandingButton;
 
 const S = {
-  Wrapper: styled.div<{ $type: TType }>`
+  Wrapper: styled.button<{ $type: TType }>`
     position: relative;
     width: 100%;
     aspect-ratio: 2 / 1;
