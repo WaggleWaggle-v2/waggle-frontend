@@ -5,7 +5,7 @@ const handleGoogleLoginClick = () => {
   window.location.href =
     'https://accounts.google.com/o/oauth2/auth?' +
     `&client_id=${import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}` +
-    `&redirect_uri=${import.meta.env.VITE_REDIRECT_URL}?type=google` +
+    `&redirect_uri=${import.meta.env.VITE_REDIRECT_URL}` +
     '&response_type=code' +
     '&scope=email profile';
 };
