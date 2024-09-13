@@ -23,3 +23,15 @@ export const Layout = styled.div`
   margin-bottom: auto;
   align-items: center;
 `;
+
+export const ButtonContainer = styled.div`
+  max-width: 33.4rem;
+  height: min-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  justify-content: space-between;
+`;

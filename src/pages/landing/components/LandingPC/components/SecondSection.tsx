@@ -1,26 +1,46 @@
-import { TCardShelfData } from '@pages/landing/mockData';
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import arrowIcon from '@assets/icons/right-top-arrow.svg';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TotalCount from '../../BookshelfCard/components/TotalCount';
-import ButtonSection from '../../ButtonSection';
-import { Main as BaseMain, Layout as BaseLayout } from '../style/commonPC';
+import LandingButton from '../../LandingButton';
+import ShelfDecoration from '../../ShelfDecoration';
+import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TSecondSection {
-  kingData: TCardShelfData;
+  kingData: TBookshelfFetchRes;
 }
 
 const SecondSection = ({ kingData }: TSecondSection) => {
+  const navigate = useNavigate();
   return (
     <S.Main>
       <S.Layout>
         <S.KingSeJongCard>
           <S.BookCountLayout>
-            <TotalCount totalBookCount={kingData.totalBookCount} size={'large'} />
+            <TotalCount totalBookCount={kingData.count} size={'large'} />
           </S.BookCountLayout>
-          <S.DescriptionText className="hover-card">{kingData.description}</S.DescriptionText>
+          <S.DescriptionText className="hover-card">{kingData.introduction}</S.DescriptionText>
           <S.CardHover className="hover-card" />
-          <S.KinSeJongImg src={kingData.imageUrl} alt={kingData.owner} />
+          <S.KinSeJongImg src={kingData.backgroundImageUrl} alt={kingData.nickname} />
         </S.KingSeJongCard>
-        <ButtonSection page={2} />
+        <S.ButtonContainer>
+          <>
+            <ShelfDecoration>ㅅ</ShelfDecoration>
+            <ShelfDecoration>ㅈ</ShelfDecoration>
+            <ShelfDecoration>ㄷ</ShelfDecoration>
+            <ShelfDecoration>ㅇ</ShelfDecoration>
+            <LandingButton
+              buttonType={'green'}
+              icon={arrowIcon}
+              fontSize="2.8rem"
+              onClick={() => {
+                navigate(`bookshelf/${kingData.id}`);
+              }}>
+              세종대왕님께 <br /> 감사인사 전하오.
+            </LandingButton>
+          </>
+        </S.ButtonContainer>
       </S.Layout>
     </S.Main>
   );
@@ -80,4 +100,5 @@ const S = {
     right: 2rem;
     top: 2rem;
   `,
+  ButtonContainer,
 };

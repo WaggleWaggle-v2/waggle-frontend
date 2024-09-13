@@ -1,3 +1,4 @@
+import { useRandomBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +7,7 @@ import BookshelfSection from './components/BookshelfSection';
 import DescriptionSection from './components/DescriptionSection';
 import LandingPC from './components/LandingPC';
 import TitleSection from './components/TitleSection';
-import { CardShelfMock, KingData } from './mockData';
+import { KingSejong } from './mockData';
 import { Layout as BaseLayout, Main } from './style/landingCommon';
 import { scrollerAnimation } from './style/scrollAnimatioin';
 
@@ -14,6 +15,7 @@ const Landing = () => {
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
+  const { data: randomCardData, refetch } = useRandomBookshelfQuery();
 
   return (
     <>
@@ -34,10 +36,12 @@ const Landing = () => {
               </S.StartButton>
             </S.Layout>
           </S.Main>
-          <BookshelfSection randomCardData={CardShelfMock} kingData={KingData} />
+          {randomCardData && (
+            <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
+          )}
         </>
       ) : (
-        <LandingPC randomCardData={CardShelfMock} kingData={KingData} />
+        randomCardData && <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
       )}
     </>
   );

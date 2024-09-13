@@ -5,6 +5,15 @@ import { QUERY_KEY } from '@constants/queryKey';
 import { TTheme } from '@pages/main/types/type';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+// 랜덤 책장 조회
+export const useRandomBookshelfQuery = () => {
+  const query = useQuery({
+    queryKey: [QUERY_KEY.randomBookShelfInfo],
+    queryFn: async () => await bookshelfRequest.fetchRandomBookshelf(),
+  });
+  return query;
+};
+
 // 책장 조회
 export const useBookshelfQuery = (id: string) => {
   const query = useQuery<TBookshelfFetchRes, Error>({
