@@ -8,6 +8,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
+  const loginType = params.get('type');
 
   const { data, isLoading, refetch } = useUserQuery();
 
@@ -16,7 +17,7 @@ const Auth = () => {
       if (!code) return navigate('/login');
 
       try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/member/login/google?code=${code}`);
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/member/login/${loginType}?code=${code}`);
 
         if (response.status === 200) {
           const accessToken = response.headers?.authorization.split(' ')[1];
@@ -34,7 +35,7 @@ const Auth = () => {
     };
 
     fetchToken();
-  }, [code, navigate, refetch]);
+  }, [code, navigate, refetch, loginType]);
 
   useEffect(() => {
     if (!isLoading && data) {

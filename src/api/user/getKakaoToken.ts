@@ -7,8 +7,9 @@ const getKakaoToken = async (code: string): Promise<TKaKaoToken> => {
     {
       grant_type: 'authorization_code',
       client_id: `${import.meta.env.VITE_KAKAO_API_KEY}`,
-      redirect_uri: `${import.meta.env.VITE_KAKAO_REDIRECT_LOCAL_URL}`,
+      redirect_uri: `${import.meta.env.VITE_KAKAO_LOCAL_REDIRECT_URL}?type=kakao`,
       code: code,
+      client_secret: `${import.meta.env.VITE_KAKAO_SECRET_KEY}`,
     },
     {
       headers: {
