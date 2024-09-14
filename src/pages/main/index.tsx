@@ -18,8 +18,6 @@ const Main = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
-  console.log(bookshelfData?.bookshelfType);
-  console.log(dark);
 
   useEffect(() => {
     if (location.state === 'setup') {
