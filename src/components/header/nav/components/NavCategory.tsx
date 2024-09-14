@@ -1,8 +1,11 @@
 import { device } from '@styles/breakpoints';
+import { deleteCookie } from '@utils/cookie';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { NavItem } from '../style/navStyle';
 
 const NavCategory = ({ isLogin }: { isLogin: boolean }) => {
+  const navigate = useNavigate();
   return (
     <>
       <S.NavItem>
@@ -20,7 +23,14 @@ const NavCategory = ({ isLogin }: { isLogin: boolean }) => {
       </S.NavItem>
       {isLogin && (
         <S.NavItem>
-          <S.MenuTitle style={{ color: '#BDBDBD' }}>로그아웃</S.MenuTitle>
+          <S.MenuTitle
+            style={{ color: '#BDBDBD' }}
+            onClick={() => {
+              deleteCookie('accessToken');
+              navigate('/login');
+            }}>
+            로그아웃
+          </S.MenuTitle>
         </S.NavItem>
       )}
     </>

@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { TNavProps } from '../NavType';
 import { NavItem, TitleText as BaseTitleText } from '../style/navStyle';
 
-const UserInfo = ({ isLogin, nickName }: TNavProps) => {
+const UserInfo = ({ nickName }: TNavProps) => {
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
   const isPC = pageWidth > size.tablet;
   return (
     <>
-      {isLogin ? (
+      {nickName ? (
         <S.NavItem
           $position={`
                   display : flex;

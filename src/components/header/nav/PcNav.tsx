@@ -7,7 +7,7 @@ import UserInfo from './components/UserInfo';
 import { TNavProps } from './NavType';
 import { NavItem, TitleText } from './style/navStyle';
 
-const PcNav = ({ isLogin, nickName }: TNavProps) => {
+const PcNav = ({ nickName }: TNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuToggle() {
@@ -15,15 +15,15 @@ const PcNav = ({ isLogin, nickName }: TNavProps) => {
   }
 
   return (
-    <S.Label $isOpen={isOpen} $isLogin={isLogin}>
+    <S.Label $isOpen={isOpen} $isLogin={!!nickName}>
       <S.LabelTop>
         {isOpen ? (
-          <S.Container isLogin={isLogin}>
+          <S.Container isLogin={!!nickName}>
             <S.NavItem>
               <S.CloseIcon onClick={handleMenuToggle} src={closeIcon} alt="네비게이션 바 닫기" />
             </S.NavItem>
-            <UserInfo isLogin={isLogin} nickName={nickName} />
-            <NavCategory isLogin={isLogin} />
+            <UserInfo nickName={nickName} />
+            <NavCategory isLogin={!!nickName} />
           </S.Container>
         ) : (
           <S.Container>

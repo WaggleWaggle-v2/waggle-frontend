@@ -13,11 +13,11 @@ interface TMobileNav extends TNavProps {
   isOpen: boolean;
 }
 
-const MobileNav = ({ isLogin, nickName, isOpen }: TMobileNav) => {
+const MobileNav = ({ nickName, isOpen }: TMobileNav) => {
   return (
     <S.Container $isOpen={isOpen}>
-      <UserInfo isLogin={isLogin} nickName={nickName} />
-      <NavCategory isLogin={isLogin} />
+      <UserInfo nickName={nickName} />
+      <NavCategory isLogin={nickName ? true : false} />
       <S.KingContainer>
         <img src={kingHatImage} alt={'세종대왕 모자'} />
         <S.KingBody>
