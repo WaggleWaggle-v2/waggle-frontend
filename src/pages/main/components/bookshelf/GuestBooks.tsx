@@ -112,8 +112,8 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 0.1rem solid var(--gray300);
-    background-color: #ece9e2;
+    border: 0.1rem solid ${props => props.theme.addBtnBorder};
+    background-color: ${props => props.theme.addBtnBg};
     height: calc(46.4rem);
     font-size: 7rem;
     color: var(--brown800);

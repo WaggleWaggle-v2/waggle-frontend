@@ -4,8 +4,10 @@ import useSmoothScroll from '@hooks/useSmoothScrooll';
 import BookshelfInfo from '@pages/main/components/bookshelf/BookshelfInfo';
 import GuestBooks from '@pages/main/components/bookshelf/GuestBooks';
 import { device } from '@styles/breakpoints';
+import { dark } from '@styles/theme/dark';
+import { light } from '@styles/theme/light';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
 
 const Main = () => {
@@ -16,8 +18,8 @@ const Main = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
-
   console.log(bookshelfData?.bookshelfType);
+  console.log(dark);
 
   useEffect(() => {
     if (location.state === 'setup') {
@@ -45,7 +47,7 @@ const Main = () => {
   }, [scrollContainerRef]);
 
   return (
-    <>
+    <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
       {isNewUser && <AdditionalSetup />}
       <S.Container ref={scrollContainerRef}>
         {isLoading ? (
@@ -55,7 +57,7 @@ const Main = () => {
         )}
         <GuestBooks />
       </S.Container>
-    </>
+    </ThemeProvider>
   );
 };
 
@@ -68,7 +70,7 @@ const S = {
     height: 100vh;
     width: 100%;
     overflow-y: auto;
-    background-color: var(--background);
+    background-color: ${props => props.theme.pageBg};
 
     &::-webkit-scrollbar {
       display: none;

@@ -31,7 +31,7 @@ export default BookshelfInfo;
 const S = {
   BookshelfInfo: styled.div`
     position: relative;
-    background-color: var(--white);
+    background-color: ${props => props.theme.introBg};
     font-family: 'Pretendard';
     width: 46.4rem;
     min-width: 46.4rem;
@@ -79,7 +79,8 @@ const S = {
     height: 16rem;
     padding: 1rem;
     font-size: 1.6rem;
-    border-bottom: 0.1rem solid #316920;
+    border-bottom: 0.1rem solid ${props => props.theme.introBorder};
+    color: ${props => props.theme.text};
     white-space: wrap;
     display: flex;
     align-items: center;
@@ -101,10 +102,10 @@ const S = {
 
   ShareButton: styled.button`
     z-index: 0;
-    background-color: var(--white);
+    background-color: ${props => props.theme.introBg};
     border-top-right-radius: 1.4rem;
     cursor: pointer;
-    color: #316920;
+    color: ${props => props.theme.text};
     position: fixed;
     font-size: 2rem;
     display: flex;
