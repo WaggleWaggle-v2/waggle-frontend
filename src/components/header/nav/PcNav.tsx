@@ -4,9 +4,10 @@ import kebabIcon from '@assets/icons/kebab.svg';
 import styled from 'styled-components';
 import NavCategory from './components/NavCategory';
 import UserInfo from './components/UserInfo';
+import { TNavProps } from './NavType';
 import { NavItem, TitleText } from './style/navStyle';
 
-const PcNav = ({ isLogin, nickName }: { isLogin: boolean; nickName?: string }) => {
+const PcNav = ({ isLogin, nickName }: TNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleMenuToggle() {

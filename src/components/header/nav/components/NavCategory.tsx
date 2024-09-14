@@ -1,3 +1,4 @@
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import { NavItem } from '../style/navStyle';
 
@@ -43,8 +44,12 @@ const S = {
 
     ${({ disabled }) => !disabled && 'cursor: pointer'};
 
+    @media ${device.tablet} {
+      color: var(--black900);
+    }
+
     &:disabled {
-      color: #455263;
+      color: var(--gray400);
     }
   `,
   NavItem,
