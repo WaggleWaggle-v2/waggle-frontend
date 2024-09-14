@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import alarmIcon from '@assets/icons/alarm.svg';
 import KebabIcon from '@components/icons/KebabIcon';
 import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
@@ -12,11 +13,19 @@ import PcNav from './nav/PcNav';
 const Header = () => {
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggleNav = () => {
+    setIsOpen(isOpen => !isOpen);
+  };
+
   return (
     <>
-      {!isPc && <MobileNav isLogin={false} nickName={'홍길동동동동'} />}
+      {!isPc && <MobileNav isLogin={true} nickName={'홍길동동동동'} isOpen={isOpen} />}
       <S.Container>
-        <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
+        <button type="button" onClick={handleToggleNav}>
+          <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
+        </button>
         <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
         {pageWidth > size.tablet && <PcNav isLogin={true} nickName={'홍길동동동동'} />}
         <S.AlarmIcon src={alarmIcon} alt={'알림'} />

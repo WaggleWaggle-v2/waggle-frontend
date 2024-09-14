@@ -9,9 +9,13 @@ import UserInfo from './components/UserInfo';
 import { TNavProps } from './NavType';
 import { NavItem, TitleText } from './style/navStyle';
 
-const MobileNav = ({ isLogin, nickName }: TNavProps) => {
+interface TMobileNav extends TNavProps {
+  isOpen: boolean;
+}
+
+const MobileNav = ({ isLogin, nickName, isOpen }: TMobileNav) => {
   return (
-    <S.Container>
+    <S.Container $isOpen={isOpen}>
       <UserInfo isLogin={isLogin} nickName={nickName} />
       <NavCategory isLogin={isLogin} />
       <S.KingContainer>
@@ -30,7 +34,7 @@ const MobileNav = ({ isLogin, nickName }: TNavProps) => {
 export default MobileNav;
 
 const S = {
-  Container: styled.nav`
+  Container: styled.nav<{ $isOpen: boolean }>`
     position: fixed;
     height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
     bottom: 0;
@@ -38,6 +42,8 @@ const S = {
     background-color: var(--white);
     z-index: ${zIndex.navSection};
     padding: 3rem 2rem;
+    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0%)' : 'translateX(-100%)')};
+    transition: transform 0.3s ease;
 
     @media ${device.tablet} {
       width: 25rem;
