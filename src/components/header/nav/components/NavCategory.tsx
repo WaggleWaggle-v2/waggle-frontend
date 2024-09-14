@@ -29,28 +29,30 @@ const NavCategory = ({ isLogin }: { isLogin: boolean }) => {
 
 export default NavCategory;
 
+export const MenuTitle = styled.p<{ disabled?: boolean }>`
+  color: #fff;
+  font-family: 'Pretendard';
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 2rem 0;
+  display: inline;
+
+  ${({ disabled }) => !disabled && 'cursor: pointer'};
+
+  @media ${device.tablet} {
+    color: var(--black900);
+  }
+
+  &:disabled {
+    color: var(--gray400);
+  }
+`;
+
 const S = {
   MenuBox: styled.div`
     display: flex;
     flex-direction: column;
   `,
-  MenuTitle: styled.p<{ disabled?: boolean }>`
-    color: #fff;
-    font-family: 'Pretendard';
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin: 2rem 0;
-    display: inline;
-
-    ${({ disabled }) => !disabled && 'cursor: pointer'};
-
-    @media ${device.tablet} {
-      color: var(--black900);
-    }
-
-    &:disabled {
-      color: var(--gray400);
-    }
-  `,
+  MenuTitle,
   NavItem,
 };
