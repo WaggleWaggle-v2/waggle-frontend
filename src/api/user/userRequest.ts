@@ -1,5 +1,4 @@
 import axios from '@api/axios';
-import { isAxiosError } from 'axios';
 
 const userRequest = {
   FetchUserData: async () => {
