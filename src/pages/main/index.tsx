@@ -9,11 +9,13 @@ import { light } from '@styles/theme/light';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
+import BookSetup from './components/bookSetup/BookSetup';
 
 const Main = () => {
   const scrollContainerRef = useSmoothScroll();
   const [buttonColor, setButtonColor] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -47,13 +49,15 @@ const Main = () => {
   return (
     <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
       {isNewUser && <AdditionalSetup />}
+      {isOpen && <BookSetup setIsOpen={setIsOpen} />}
+
       <S.Container ref={scrollContainerRef}>
         {isLoading ? (
           <S.SkeletonWrapper />
         ) : (
           bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} />
         )}
-        <GuestBooks />
+        <GuestBooks setIsOpen={setIsOpen} />
       </S.Container>
     </ThemeProvider>
   );

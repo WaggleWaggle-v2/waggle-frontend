@@ -23,7 +23,7 @@ const SettingTemplate = ({
   isDisabled,
   buttonText = '다음',
 }: TSettingTemplateProps) => {
-  const stepStr = step === 1 ? '하나' : step === 2 ? '둘' : '셋';
+  const stepStr = step === 1 ? '하나' : step === 2 ? '둘' : step === 3 ? '셋' : step === 4 ? '넷' : '다섯';
 
   return (
     <S.Container>
@@ -32,7 +32,7 @@ const SettingTemplate = ({
         <p>{titleTop}</p>
         <p>{titleBottom}</p>
       </S.Title>
-      {children}
+      <S.ChildrenWrapper>{children}</S.ChildrenWrapper>
       <S.ButtonWrapper>
         {!isDisabled && <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>}
         <PrimaryButton disabled={isDisabled} onClick={handleButtonClick}>
@@ -47,21 +47,21 @@ export default SettingTemplate;
 
 const S = {
   Container: styled.section`
+    padding: 5rem 4.8rem 3rem;
     position: relative;
     display: flex;
     flex-direction: column;
     min-width: 46.4rem;
     @media ${device.tablet} {
-      margin-top: calc(${HEADER_HEIGHT.MOBILE} + 10rem);
-      padding-bottom: 10.2rem;
-      height: fit-content;
+      margin-top: calc(${HEADER_HEIGHT.MOBILE});
+      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
     }
     @media ${device.mobile} {
       display: flex;
       width: 100%;
       min-width: 0;
-      margin: 2rem;
-      margin-top: calc(5.4rem + 3.8rem);
+      margin-top: calc(5.4rem);
+      padding: 4rem 2rem;
     }
   `,
 
@@ -83,11 +83,17 @@ const S = {
     }
   `,
 
+  ChildrenWrapper: styled.div`
+    display: flex;
+    @media ${device.mobile} {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  `,
+
   ButtonWrapper: styled.div`
     position: relative;
-    @media ${device.tablet} {
-      /* margin-bottom: 6.4rem; */
-    }
+
     @media ${device.tablet} {
       background: linear-gradient(to top, var(--background) 90%, transparent 100%);
       font-size: 1.6rem;

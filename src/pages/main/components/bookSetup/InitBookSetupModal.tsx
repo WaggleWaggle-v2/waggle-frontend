@@ -16,23 +16,25 @@ const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps)
   const navigate = useNavigate();
   return (
     <ModalTemplate setIsOpen={setIsOpen} isInit>
-      <S.MainText>
-        <p>방명록을 작성하겠소?&nbsp;</p>
-      </S.MainText>
+      <S.Wrapper>
+        <S.MainText>
+          <p>방명록을 작성하겠소?&nbsp;</p>
+        </S.MainText>
 
-      <S.SubText>
-        <p>회원가입을 하지 않으면&nbsp;</p>
-        <p>작성한 방명록을 다시 확인하기 여럽다네</p>
-      </S.SubText>
+        <S.SubText>
+          <p>회원가입을 하지 않으면&nbsp;</p>
+          <p>작성한 방명록을 다시 확인하기 여럽다네</p>
+        </S.SubText>
 
-      <S.ButtonWrapper>
-        <PrimaryButton onClick={() => navigate('/login')}>로그인 / 회원가입하기</PrimaryButton>
-        <PrimaryButton onClick={() => setDoSetup(true)} color="var(--gray400)">
-          비회원으로 방명록 남기기
-        </PrimaryButton>
-      </S.ButtonWrapper>
+        <S.ButtonWrapper>
+          <PrimaryButton onClick={() => navigate('/login')}>로그인 / 회원가입하기</PrimaryButton>
+          <PrimaryButton onClick={() => setDoSetup(true)} color="var(--gray400)">
+            비회원으로 방명록 남기기
+          </PrimaryButton>
+        </S.ButtonWrapper>
 
-      <S.CloseIcon src={closeIcon} onClick={() => setIsOpen(false)} alt="모달 닫기 아이콘" />
+        <S.CloseIcon src={closeIcon} onClick={() => setIsOpen(false)} alt="모달 닫기 아이콘" />
+      </S.Wrapper>
     </ModalTemplate>
   );
 };
@@ -40,6 +42,10 @@ const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps)
 export default InitBookSetupModal;
 
 const S = {
+  Wrapper: styled.div`
+    padding: 5rem 4.8rem 3rem;
+  `,
+  
   MainText: styled.div`
     font-family: 'EBSHunminjeongeum';
     font-weight: 700;

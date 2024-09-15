@@ -14,17 +14,17 @@ const AdditionalSetup = () => {
   return (
     <>
       {isOpen &&
-        (!doSetup ? (
+        (doSetup ? (
+          <S.AdditionalSetupWrapper>
+            <AdditionalSetupModal setIsOpen={setIsOpen} />
+          </S.AdditionalSetupWrapper>
+        ) : (
           <>
             {pageWidth <= size.tablet && <S.InitBackground></S.InitBackground>}
             <S.InitWrapper>
               <InitAdditionalSetupModal setDoSetup={setDoSetup} setIsOpen={setIsOpen} />
             </S.InitWrapper>
           </>
-        ) : (
-          <S.AdditionalSetupWrapper>
-            <AdditionalSetupModal setIsOpen={setIsOpen} />
-          </S.AdditionalSetupWrapper>
         ))}
     </>
   );
@@ -74,7 +74,6 @@ const S = {
     @media ${device.tablet} {
       position: absolute;
       inset: 0;
-      height: 100%;
       background-color: var(--background);
     }
   `,

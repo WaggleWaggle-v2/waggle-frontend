@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { BOOKSHELF_DATA, TBookItem } from '@constants/mock';
 import { MasonryGrid } from '@egjs/react-grid';
 import usePageWidth from '@hooks/usePageWidth';
@@ -6,15 +6,22 @@ import { device, size } from '@styles/breakpoints';
 import styled, { useTheme } from 'styled-components';
 import BookItem from './BookItem';
 
-const GuestBooks = () => {
+interface TGuestBooksProps {
+  setIsOpen: React.Dispatch<SetStateAction<boolean>>;
+}
+
+const GuestBooks = ({ setIsOpen }: TGuestBooksProps) => {
   const { books } = BOOKSHELF_DATA;
   const pageWidth = usePageWidth();
   const theme = useTheme();
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
+
   const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
   const bookCount = books.length;
 
-  const handleAddClick = () => {};
+  const handleAddClick = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
     const columnsArray: Array<Array<TBookItem>> = [];
@@ -40,34 +47,37 @@ const GuestBooks = () => {
   }, [books]);
 
   return (
-    <S.Container>
-      {pageWidth <= size.tablet && (
-        <S.BookCount>
-          {bookCount ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
-        </S.BookCount>
-      )}
+    <>
+      <S.Container>
+        {pageWidth <= size.tablet && (
+          <S.BookCount>
+            {bookCount ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
+          </S.BookCount>
+        )}
 
-      <S.ShareButton>
-        <p>내 책장 널리 알리기</p>
-        <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
-      </S.ShareButton>
+        {/* TABLET, MOBILE 공유 버튼 */}
+        <S.ShareButton>
+          <p>내 책장 널리 알리기</p>
+          <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
+        </S.ShareButton>
 
-      <S.AddBookButton onClick={handleAddClick}>+</S.AddBookButton>
-      {pageWidth > size.tablet ? (
-        <S.GuestBookWrapper>
-          {columns.map((column, colIndex) => (
-            <S.ColumnWrapper key={colIndex}>
-              <S.Column>{column.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}</S.Column>
-              <S.Graphic src={theme.graphic} />
-            </S.ColumnWrapper>
-          ))}
-        </S.GuestBookWrapper>
-      ) : (
-        <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-          {books.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}
-        </S.StyledMasonry>
-      )}
-    </S.Container>
+        <S.AddBookButton onClick={handleAddClick}>+</S.AddBookButton>
+        {pageWidth > size.tablet ? (
+          <S.GuestBookWrapper>
+            {columns.map((column, colIndex) => (
+              <S.ColumnWrapper key={colIndex}>
+                <S.Column>{column.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}</S.Column>
+                <S.Graphic src={theme.graphic} />
+              </S.ColumnWrapper>
+            ))}
+          </S.GuestBookWrapper>
+        ) : (
+          <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
+            {books.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}
+          </S.StyledMasonry>
+        )}
+      </S.Container>
+    </>
   );
 };
 

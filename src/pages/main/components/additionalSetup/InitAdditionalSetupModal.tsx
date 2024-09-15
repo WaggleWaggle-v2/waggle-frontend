@@ -14,17 +14,19 @@ interface TInitAdditionalSetupModalProps {
 const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetupModalProps) => {
   return (
     <ModalTemplate setIsOpen={setIsOpen} isInit>
-      <S.MainText>
-        <p>추가 꾸미기를&nbsp;</p>
-        <p>진행하겠소?</p>
-      </S.MainText>
+      <S.Wrapper>
+        <S.MainText>
+          <p>추가 꾸미기를&nbsp;</p>
+          <p>진행하겠소?</p>
+        </S.MainText>
 
-      <S.ButtonWrapper>
-        <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>
-        <PrimaryButton onClick={() => setDoSetup(true)}>추가 꾸미기 하러 가기</PrimaryButton>
-      </S.ButtonWrapper>
+        <S.ButtonWrapper>
+          <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>
+          <PrimaryButton onClick={() => setDoSetup(true)}>추가 꾸미기 하러 가기</PrimaryButton>
+        </S.ButtonWrapper>
 
-      <S.CloseIcon src={closeIcon} onClick={() => setIsOpen(false)} alt="모달 닫기 아이콘" />
+        <S.CloseIcon src={closeIcon} onClick={() => setIsOpen(false)} alt="모달 닫기 아이콘" />
+      </S.Wrapper>
     </ModalTemplate>
   );
 };
@@ -32,6 +34,10 @@ const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetu
 export default InitAdditionalSetupModal;
 
 const S = {
+  Wrapper: styled.div`
+    padding: 5rem 4.8rem 3rem;
+  `,
+
   MainText: styled.div`
     font-family: 'EBSHunminjeongeum';
     font-weight: 700;
