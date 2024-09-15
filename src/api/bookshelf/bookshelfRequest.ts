@@ -1,4 +1,5 @@
 import axios from '@api/axios';
+import { TTheme } from '@pages/main/types/type';
 import { isAxiosError } from 'axios';
 
 const bookshelfRequest = {
@@ -60,7 +61,7 @@ const bookshelfRequest = {
   },
 
   // 책장 테마 변경
-  updateBookshelfTheme: async (theme: 'WHITE' | 'DARK') => {
+  updateBookshelfTheme: async (theme: TTheme) => {
     try {
       const { data } = await axios.patch(`member/bookshelf/set/theme`, { theme });
       return data;

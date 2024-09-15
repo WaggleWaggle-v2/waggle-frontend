@@ -1,7 +1,6 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
-import cloudIcon from '@assets/icons/cloud-green.svg';
 import { device } from '@styles/breakpoints';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 interface TBookshelfInfoProps {
   buttonColor: string;
@@ -10,6 +9,7 @@ interface TBookshelfInfoProps {
 
 const BookshelfInfo = ({ buttonColor, data }: TBookshelfInfoProps) => {
   const { backgroundImageUrl, introduction, nickname } = data;
+  const theme = useTheme();
 
   return (
     <S.BookshelfInfo>
@@ -21,7 +21,7 @@ const BookshelfInfo = ({ buttonColor, data }: TBookshelfInfoProps) => {
       <S.Intro>{introduction || '아직 책장 소개를 작성하지 않았소'}</S.Intro>
       <S.ShareButton style={{ backgroundColor: buttonColor }}>
         <p>내 책장 널리 알리기</p>
-        <img src={cloudIcon} alt="책장 공유 구름 아이콘" />
+        <img src={theme.pcCloud} alt="책장 공유 구름 아이콘" />
       </S.ShareButton>
     </S.BookshelfInfo>
   );
@@ -31,7 +31,7 @@ export default BookshelfInfo;
 const S = {
   BookshelfInfo: styled.div`
     position: relative;
-    background-color: var(--white);
+    background-color: ${props => props.theme.introBg};
     font-family: 'Pretendard';
     width: 46.4rem;
     min-width: 46.4rem;
@@ -79,7 +79,8 @@ const S = {
     height: 16rem;
     padding: 1rem;
     font-size: 1.6rem;
-    border-bottom: 0.1rem solid #316920;
+    border-bottom: 0.1rem solid ${props => props.theme.introBorder};
+    color: ${props => props.theme.text};
     white-space: wrap;
     display: flex;
     align-items: center;
@@ -101,10 +102,10 @@ const S = {
 
   ShareButton: styled.button`
     z-index: 0;
-    background-color: var(--white);
+    background-color: ${props => props.theme.introBg};
     border-top-right-radius: 1.4rem;
     cursor: pointer;
-    color: #316920;
+    color: ${props => props.theme.text};
     position: fixed;
     font-size: 2rem;
     display: flex;
