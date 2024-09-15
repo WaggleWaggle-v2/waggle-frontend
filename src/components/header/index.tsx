@@ -37,20 +37,11 @@ const S = {
     left: 0;
 
     @media ${device.tablet} {
-      background-color: rgba(246, 243, 238);
-      backdrop-filter: blur(0.9rem);
+      background-color: rgba(246, 243, 238, 0.3);
+      backdrop-filter: blur(0.4rem);
 
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;
-      /* 
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        min-width: calc(100% - 7.2rem);
-        border-bottom: 0.1rem solid var(--background);
-        opacity: 0.2;
-      } */
     }
   `,
   AlarmIcon: styled.img`
