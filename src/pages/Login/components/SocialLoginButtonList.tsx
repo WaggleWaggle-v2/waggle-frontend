@@ -1,12 +1,8 @@
 import { SOCIAL_LOGIN_INFO } from '@pages/Login/constants/socialLoginInfo';
 import { device } from '@styles/breakpoints';
-// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SocialLoginButtonList = () => {
-  // const navigate = useNavigate();
-
-  // navigate('/setup')
   return (
     <S.Container>
       <S.Title>

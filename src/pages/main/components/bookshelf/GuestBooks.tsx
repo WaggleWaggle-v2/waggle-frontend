@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
-import cloudIcon from '@assets/icons/cloud-lightgreen.svg';
 import { BOOKSHELF_DATA, TBookItem } from '@constants/mock';
 import { MasonryGrid } from '@egjs/react-grid';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import BookItem from './BookItem';
 
 const GuestBooks = () => {
   const { books } = BOOKSHELF_DATA;
   const pageWidth = usePageWidth();
+  const theme = useTheme();
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
   const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
   const bookCount = books.length;
 
-  const handleAddClick = () => {
-    console.log('book added!');
-  };
+  const handleAddClick = () => {};
 
   useEffect(() => {
     const columnsArray: Array<Array<TBookItem>> = [];
@@ -51,7 +49,7 @@ const GuestBooks = () => {
 
       <S.ShareButton>
         <p>내 책장 널리 알리기</p>
-        <img src={cloudIcon} alt="책장 공유 구름 아이콘" />
+        <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
       </S.ShareButton>
 
       <S.AddBookButton onClick={handleAddClick}>+</S.AddBookButton>
@@ -60,7 +58,7 @@ const GuestBooks = () => {
           {columns.map((column, colIndex) => (
             <S.ColumnWrapper key={colIndex}>
               <S.Column>{column.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}</S.Column>
-              <S.Graphic src={cloudIcon} />
+              <S.Graphic src={theme.graphic} />
             </S.ColumnWrapper>
           ))}
         </S.GuestBookWrapper>
@@ -82,7 +80,7 @@ const S = {
     padding: 0 4rem;
 
     @media ${device.tablet} {
-      background-color: var(--background);
+      background-color: ${props => props.theme.pageBg};
       flex-direction: column;
       padding: 2rem;
       border-radius: 2rem 2rem 0 0;
@@ -99,6 +97,7 @@ const S = {
     font-family: 'EBSHunminjeongeum';
     width: 100%;
     font-weight: 900;
+    color: ${props => props.theme.text};
   `,
 
   GuestBookWrapper: styled.div`
@@ -112,15 +111,16 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 0.1rem solid var(--gray300);
-    background-color: #ece9e2;
+    border: 0.1rem solid ${props => props.theme.addBtnBorder};
+    background-color: ${props => props.theme.addBtnBg};
     height: calc(46.4rem);
     font-size: 7rem;
-    color: var(--brown800);
+    color: ${props => props.theme.addBtnText};
     cursor: pointer;
     @media ${device.tablet} {
       width: 100%;
       height: 7.2rem;
+      font-size: 5rem;
     }
   `,
 
@@ -132,7 +132,7 @@ const S = {
       justify-content: space-between;
       align-items: center;
       color: var(--white);
-      background-color: #336b22;
+      background: ${props => props.theme.shareBtnBg};
       border-radius: 4rem;
       width: calc(20.2rem - 2.2rem * 2);
       font-weight: 600;
@@ -156,11 +156,10 @@ const S = {
   `,
 
   Graphic: styled.img`
-    width: 8rem;
+    width: 100%;
+    height: 22rem;
     position: absolute;
-    bottom: calc(22%);
-    left: calc(50% - 4rem);
-    z-index: 0;
+    bottom: -0.8rem;
   `,
 
   Column: styled.div`
