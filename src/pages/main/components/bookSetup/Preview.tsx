@@ -10,12 +10,10 @@ export default Preview;
 
 const S = {
   Container: styled.div`
-    background-color: #b5b5ff;
+    background-color: #e5ddcf;
     width: 464px;
     height: 100%;
-    /* position: absolute;
-    top: 0;
-    bottom: 0; */
+
     @media ${device.tablet} {
       margin-top: calc(${HEADER_HEIGHT.MOBILE} + 5px);
     }

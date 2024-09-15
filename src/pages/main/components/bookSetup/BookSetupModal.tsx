@@ -10,14 +10,10 @@ import {
   useBookshelfThemeUpdateMutation,
 } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
-import { TTheme } from '@pages/main/types/type';
 import { device, size } from '@styles/breakpoints';
 import styled from 'styled-components';
 import Preview from './Preview';
-import SetStickers from './SetStickers';
-import SetIntro from '../additionalSetup/SetIntro';
-import SetProfile from '../additionalSetup/SetProfile';
-import SetTheme from '../additionalSetup/SetTheme';
+import SetType from './SetType';
 
 interface TAdditionalSetupModalProps {
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -65,7 +61,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             handleButtonClick={handleTest}
             isDisabled={false}>
             {/* <SetProfile profile={profile} setProfile={setProfile} /> */}
-            <SetStickers />
+            <SetType type={type} setType={setType} />
           </SettingTemplate>
         )}
 
@@ -77,7 +73,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
               handleButtonClick={handleTest}
               isDisabled={false}>
               {/* <SetTheme theme={theme} setTheme={setTheme} /> */}
-              <SetStickers />
+              <SetType />
               {pageWidth <= size.mobile && <Preview />}
             </SettingTemplate>
             {pageWidth > size.mobile && <Preview />}
@@ -92,7 +88,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             isDisabled={false}
             buttonText="나의 책장 보러가기">
             {/* <SetIntro setIntro={setIntro} setIsDisabled={setIsDisabled} /> */}
-            <SetStickers />
+            <SetType />
           </SettingTemplate>
         )}
 
@@ -104,7 +100,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             isDisabled={false}
             buttonText="나의 책장 보러가기">
             {/* <SetIntro setIntro={setIntro} setIsDisabled={setIsDisabled} /> */}
-            <SetStickers />
+            <SetType />
           </SettingTemplate>
         )}
 
@@ -116,7 +112,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             isDisabled={false}
             buttonText="나의 책장 보러가기">
             {/* <SetIntro setIntro={setIntro} setIsDisabled={setIsDisabled} /> */}
-            <SetStickers />
+            <SetType />
           </SettingTemplate>
         )}
       </ModalTemplate>
