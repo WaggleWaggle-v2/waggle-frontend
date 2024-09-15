@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { device } from '@styles/breakpoints';
+import usePageWidth from '@hooks/usePageWidth';
+import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import styled, { keyframes } from 'styled-components';
 import AdditionalSetupModal from './AdditionalSetupModal';
 import InitAdditionalSetupModal from './InitAdditionalSetupModal';
 
 const AdditionalSetup = () => {
+  const pageWidth = usePageWidth();
   const [doSetup, setDoSetup] = useState(false); //추가 꾸미기 진행 여부
   const [isOpen, setIsOpen] = useState(true); // 전체 모달 열림 여부
 
@@ -14,7 +16,7 @@ const AdditionalSetup = () => {
       {isOpen &&
         (!doSetup ? (
           <>
-            <S.InitBackground></S.InitBackground> {/* 모달 배경과 설정 동기화 해야 함 */}
+            {pageWidth <= size.tablet && <S.InitBackground></S.InitBackground>}
             <S.InitWrapper>
               <InitAdditionalSetupModal setDoSetup={setDoSetup} setIsOpen={setIsOpen} />
             </S.InitWrapper>

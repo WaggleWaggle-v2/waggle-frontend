@@ -4,24 +4,32 @@ import closeIcon from '@assets/icons/modal-close.svg';
 import PrimaryButton from '@components/PrimaryButton';
 import ModalTemplate from '@components/template/ModalTemplate';
 import { device } from '@styles/breakpoints';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-interface TInitAdditionalSetupModalProps {
+interface TInitBookSetupModalProps {
   setDoSetup: React.Dispatch<SetStateAction<boolean>>;
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetupModalProps) => {
+const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps) => {
+  const navigate = useNavigate();
   return (
     <ModalTemplate setIsOpen={setIsOpen} isInit>
       <S.MainText>
-        <p>추가 꾸미기를&nbsp;</p>
-        <p>진행하겠소?</p>
+        <p>방명록을 작성하겠소?&nbsp;</p>
       </S.MainText>
 
+      <S.SubText>
+        <p>회원가입을 하지 않으면&nbsp;</p>
+        <p>작성한 방명록을 다시 확인하기 여럽다네</p>
+      </S.SubText>
+
       <S.ButtonWrapper>
-        <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>
-        <PrimaryButton onClick={() => setDoSetup(true)}>추가 꾸미기 하러 가기</PrimaryButton>
+        <PrimaryButton onClick={() => navigate('/login')}>로그인 / 회원가입하기</PrimaryButton>
+        <PrimaryButton onClick={() => setDoSetup(true)} color="var(--gray400)">
+          비회원으로 방명록 남기기
+        </PrimaryButton>
       </S.ButtonWrapper>
 
       <S.CloseIcon src={closeIcon} onClick={() => setIsOpen(false)} alt="모달 닫기 아이콘" />
@@ -29,7 +37,7 @@ const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetu
   );
 };
 
-export default InitAdditionalSetupModal;
+export default InitBookSetupModal;
 
 const S = {
   MainText: styled.div`
@@ -39,7 +47,7 @@ const S = {
     line-height: 150%;
     font-size: 2.8rem;
     margin-top: 1rem;
-    margin-bottom: 3.6rem;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
     @media ${device.mobile} {
@@ -48,23 +56,31 @@ const S = {
     }
   `,
 
-  ButtonWrapper: styled.div`
-    position: relative;
+  SubText: styled.div`
+    font-family: 'Pretendard';
+    text-align: center;
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    color: var(--gray800);
     @media ${device.mobile} {
-      font-size: 1.6rem;
+      margin-bottom: 3.8rem;
+      flex-direction: column;
     }
   `,
 
-  PublicityResetText: styled.p`
-    font-family: 'Pretendard';
-    bottom: 6.4rem;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-    color: var(--gray600);
-    width: 100%;
-    text-align: center;
+  ButtonWrapper: styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     @media ${device.mobile} {
-      bottom: 5.2rem;
+      font-size: 1.6rem;
     }
   `,
 
