@@ -12,8 +12,8 @@ import styled from 'styled-components';
 interface TModalTemplateProps {
   children: ReactNode;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
-  setStep: Dispatch<React.SetStateAction<number>>;
-  step: number;
+  setStep?: Dispatch<React.SetStateAction<number>>;
+  step?: number;
   isInit?: boolean;
 }
 

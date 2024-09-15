@@ -8,6 +8,7 @@ import { useUsernameAndPublicityCreateMutation, useUserQuery } from '@hooks/reac
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
+import { zIndex } from '@styles/zIndex';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SetNickname from './components/SetNickname';
@@ -90,6 +91,8 @@ const S = {
     display: flex;
     align-items: center;
     height: ${HEADER_HEIGHT.MOBILE};
+    background-color: var(--background);
+    z-index: calc(${zIndex.header} + 1);
   `,
   Body: styled.main`
     display: flex;

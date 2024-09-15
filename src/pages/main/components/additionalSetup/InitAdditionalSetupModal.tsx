@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { SetStateAction } from 'react';
 import closeIcon from '@assets/icons/modal-close.svg';
 import PrimaryButton from '@components/PrimaryButton';
 import ModalTemplate from '@components/template/ModalTemplate';
@@ -6,8 +7,8 @@ import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TInitAdditionalSetupModalProps {
-  setDoSetup: (doSetup: boolean) => void;
-  setIsOpen: (value: boolean) => void;
+  setDoSetup: React.Dispatch<SetStateAction<boolean>>;
+  setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const InitAdditionalSetupModal = ({ setDoSetup, setIsOpen }: TInitAdditionalSetupModalProps) => {
