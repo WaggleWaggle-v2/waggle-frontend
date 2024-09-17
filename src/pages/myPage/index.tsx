@@ -4,10 +4,11 @@ import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
-import ReceiveSection from './components/receiveSection';
+import BookListSection from './components/bookListSection';
+import EditSection from './components/editSection';
 import SettingListSection from './components/settingListSection';
 import { useSettingType } from './hooks/useSettingType';
-import { mockData } from './mockData';
+import { BookShelfMockData, mockData } from './mockData';
 
 const MyPage = () => {
   const { settingType, handleSetType, handleSetDefault } = useSettingType();
@@ -22,26 +23,26 @@ const MyPage = () => {
               <S.TitleText>
                 <span style={{ color: 'var(--green600)' }}>{userInfo.nickname}</span>님,
               </S.TitleText>
-              {settingType === 'default' && <S.TitleText>안녕하시오.</S.TitleText>}
-              {settingType === 'receive' && (
+              {settingType === 'default' || settingType === 'edit' ? (
+                <S.TitleText>안녕하시오.</S.TitleText>
+              ) : (
                 <>
                   <S.TitleText>
-                    책장을 이만큼 <br /> 보냈다오.
+                    책장을 이만큼 <br /> {settingType === 'receive' ? '받았다오.' : '보냈다오.'}
                   </S.TitleText>
                   <S.SubText>
                     총 <span style={{ color: 'var(--red500)', textDecoration: 'underline' }}>{mockData.count}</span>개를
-                    보냈소.
+                    {settingType === 'receive' ? '받았소.' : '보냈소.'}
                   </S.SubText>
                 </>
               )}
+              {(settingType === 'default' || settingType === 'edit') && (
+                <S.RenameButton type="button">
+                  <img src={rewriteIcon} alt={'닉네임 변경하기'} />
+                </S.RenameButton>
+              )}
             </div>
           )}
-          {settingType !== 'default' ||
-            ('edit' && (
-              <S.RenameButton type="button">
-                <img src={rewriteIcon} alt={'닉네임 변경하기'} />
-              </S.RenameButton>
-            ))}
           {settingType !== 'default' && (
             <S.GoBackButton type="button" onClick={handleSetDefault}>
               <S.GoBackIcon src={leftArrowIcon} alt="뒤로 가기" /> 뒤로 가기
@@ -50,7 +51,9 @@ const MyPage = () => {
         </S.ProfileSection>
         <S.SettingSection>
           {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
-          {settingType === 'receive' && <ReceiveSection bookList={mockData.list} />}
+          {settingType === 'receive' && <BookListSection bookList={mockData.list} settingType={'receive'} />}
+          {settingType === 'present' && <BookListSection bookList={mockData.list} settingType={'present'} />}
+          {settingType === 'edit' && <EditSection bookshelfData={BookShelfMockData} />}
         </S.SettingSection>
       </S.Container>
     </S.PageContainer>
@@ -84,15 +87,15 @@ const S = {
     }
   `,
   Container: styled.div`
-    max-width: 99rem;
+    max-width: 110rem;
     display: flex;
-    justify-content: center;
-    gap: 6.3rem;
+    justify-content: space-between;
+    gap: 3rem;
     padding: 0 1.6rem;
     width: 100%;
 
     @media ${device.tablet} {
-      max-width: 54.2rem;
+      max-width: 59rem;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -112,7 +115,7 @@ const S = {
     flex-direction: column;
     justify-content: ${({ $isList }) => ($isList ? 'space-between' : 'flex-start')};
     gap: 4rem;
-    min-width: 46.5rem;
+    min-width: 40rem;
     position: relative;
 
     @media ${device.tablet} {

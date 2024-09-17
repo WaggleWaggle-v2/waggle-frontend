@@ -1,3 +1,5 @@
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+
 export const mockData: TMockData = {
   list: [
     {
@@ -77,6 +79,16 @@ export const mockData: TMockData = {
     },
   ],
   count: 9,
+};
+
+export const BookShelfMockData: TBookshelfFetchRes = {
+  id: '237f0cf7e4febh4f91kadfasfs',
+  nickname: '유갱갱',
+  backgroundImageUrl: 'https://unius.s3.ap-northeast-2.amazonaws.com/bookshelf_image/WGWG-profile-Image-01.jpg',
+  introduction: '책장이다 책장 ㅋㅋㅋ',
+  bookshelfType: 'WHITE',
+  count: 0,
+  open: true,
 };
 
 export interface TMockData {

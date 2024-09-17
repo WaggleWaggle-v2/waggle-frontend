@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
+import { TSetting } from '@pages/myPage/constant/settingList';
 import { TBook } from '@pages/myPage/mockData';
 import { device } from '@styles/breakpoints';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import BookInfo from '../bookListSection/components/bookInfo';
-import SortingBox from '../bookListSection/components/sortingBox';
+import BookInfo from './components/bookInfo';
+import SortingBox from './components/sortingBox';
 
 interface TBookList {
   bookList: TBook[];
+  settingType: TSetting;
 }
 
 export const SORTING_OPTION = ['책장 목록 오래된 순', '책장 목록 최신 순'] as const;
 
 export type TSortingOption = (typeof SORTING_OPTION)[number];
 
-const ReceiveSection = ({ bookList }: TBookList) => {
+const BookListSection = ({ bookList, settingType }: TBookList) => {
   const navigate = useNavigate();
   const [selectOption, setSelectOption] = useState<TSortingOption>('책장 목록 최신 순');
 
@@ -27,7 +29,8 @@ const ReceiveSection = ({ bookList }: TBookList) => {
     <S.Container>
       <S.Header>
         <S.HeaderTextContainer>
-          마이페이지 <RightArrowIcon width={11} color={'#616161'} /> 남긴 방명록
+          마이페이지 <RightArrowIcon width={11} color={'#616161'} />
+          {settingType === 'receive' ? '받은 방명록' : '남긴 방명록'}
         </S.HeaderTextContainer>
         <SortingBox handleSelectOption={handleSelectOption} selectOption={selectOption} />
       </S.Header>
@@ -47,7 +50,7 @@ const ReceiveSection = ({ bookList }: TBookList) => {
   );
 };
 
-export default ReceiveSection;
+export default BookListSection;
 
 const S = {
   Container: styled.div`

@@ -5,7 +5,7 @@ import useOutsideClick from '@hooks/useOutsideClick';
 import useToggle from '@hooks/useToggle';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { SORTING_OPTION, TSortingOption } from '../../receiveSection';
+import { SORTING_OPTION, TSortingOption } from '..';
 
 interface TSortinBox {
   handleSelectOption: (option: TSortingOption) => void;
@@ -33,7 +33,7 @@ const SortingBox = ({ handleSelectOption, selectOption }: TSortinBox) => {
         ref={optionRef}>
         <S.OptionBox style={{ cursor: 'pointer' }}>
           {selectOption}
-          <img src={isOpen ? bottomArrowIcon : topArrowIcon} alt="정렬하기" />
+          <img src={isOpen ? topArrowIcon : bottomArrowIcon} alt="정렬하기" />
         </S.OptionBox>
       </S.Button>
       {isOpen && (

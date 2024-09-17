@@ -10,7 +10,13 @@ const NavCategory = ({ isLogin }: { isLogin: boolean }) => {
     <>
       <S.NavItem>
         <S.MenuBox>
-          <S.MenuTitle as="button" type="button" disabled={isLogin ? false : true}>
+          <S.MenuTitle
+            as="button"
+            type="button"
+            disabled={isLogin ? false : true}
+            onClick={() => {
+              navigate('/myPage');
+            }}>
             마이페이지
           </S.MenuTitle>
           <S.MenuTitle as="button" type="button">
