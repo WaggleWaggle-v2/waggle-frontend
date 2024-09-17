@@ -54,7 +54,10 @@ export const MenuTitle = styled.p<{ disabled?: boolean }>`
   }
 
   &:disabled {
-    color: var(--gray400);
+    color: #455263;
+    @media ${device.tablet} {
+      color: var(--gray400);
+    }
   }
 `;
 
