@@ -24,7 +24,7 @@ const MyPage = () => {
     if (!accessToken) {
       navigate('/login');
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <S.PageContainer>
