@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import alarmIcon from '@assets/icons/alarm.svg';
 import KebabIcon from '@components/icons/KebabIcon';
 import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
@@ -15,17 +15,24 @@ const Header = () => {
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
   const [isOpen, setIsOpen] = useState(false);
+  const headerRef = useRef<HTMLElement | null>(null);
 
   const handleToggleNav = () => {
     setIsOpen(isOpen => !isOpen);
+  };
+
+  const handleCloseNav = () => {
+    setIsOpen(false);
   };
 
   const { data: userInfo } = useUserQuery();
 
   return (
     <>
-      {!isPc && <MobileNav nickName={userInfo?.nickname} isOpen={isOpen} />}
-      <S.Container>
+      {!isPc && (
+        <MobileNav nickName={userInfo?.nickname} isOpen={isOpen} handleClose={handleCloseNav} headerRef={headerRef} />
+      )}
+      <S.Container ref={headerRef}>
         <S.ButtonStyle type="button" onClick={handleToggleNav}>
           <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
         </S.ButtonStyle>

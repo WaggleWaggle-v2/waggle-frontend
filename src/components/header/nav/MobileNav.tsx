@@ -1,5 +1,7 @@
+import { RefObject, useRef } from 'react';
 import kingHatImage from '@assets/images/king-hat.png';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
+import useOutsideClick from '@hooks/useOutsideClick';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
@@ -11,11 +13,16 @@ import { NavItem, TitleText } from './style/navStyle';
 
 interface TMobileNav extends TNavProps {
   isOpen: boolean;
+  handleClose: () => void;
+  headerRef: RefObject<HTMLElement>;
 }
 
-const MobileNav = ({ nickName, isOpen }: TMobileNav) => {
+const MobileNav = ({ nickName, isOpen, handleClose, headerRef }: TMobileNav) => {
+  const navRef = useRef<HTMLElement | null>(null);
+  useOutsideClick(navRef, handleClose, headerRef);
+
   return (
-    <S.Container $isOpen={isOpen}>
+    <S.Container $isOpen={isOpen} ref={navRef}>
       <UserInfo nickName={nickName} />
       <NavCategory isLogin={nickName ? true : false} />
       <S.KingContainer>
