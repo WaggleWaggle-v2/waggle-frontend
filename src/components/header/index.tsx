@@ -26,9 +26,9 @@ const Header = () => {
     <>
       {!isPc && <MobileNav nickName={userInfo?.nickname} isOpen={isOpen} />}
       <S.Container>
-        <button type="button" onClick={handleToggleNav}>
+        <S.ButtonStyle type="button" onClick={handleToggleNav}>
           <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
-        </button>
+        </S.ButtonStyle>
         <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
         {pageWidth > size.tablet && <PcNav nickName={userInfo?.nickname} />}
         <S.AlarmIcon src={alarmIcon} alt={'알림'} />
@@ -37,6 +37,15 @@ const Header = () => {
   );
 };
 export default Header;
+
+const KebabIconStyle = `
+cursor : pointer;
+display : none;
+
+@media ${device.tablet}{
+display : block;
+}
+`;
 
 const S = {
   Container: styled.header`
@@ -69,12 +78,8 @@ const S = {
       display: block;
     }
   `,
-  KebabIconStyle: `
-    cursor : pointer;
-    display : none;
-
-    @media ${device.tablet}{
-    display : block;
-    }
+  KebabIconStyle,
+  ButtonStyle: styled.button`
+    ${KebabIconStyle};
   `,
 };
