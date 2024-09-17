@@ -3,9 +3,9 @@ import houseImg from '@assets/images/house.png';
 import treeImg from '@assets/images/tree.png';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import DescriptionSection from '../../DescriptionSection';
 import LandingButton from '../../LandingButton';
 import ShelfDecoration from '../../ShelfDecoration';
-import DescriptionSection from '../../DescriptionSection';
 import TitleSection from '../../TitleSection';
 import { Main as BaseMain, ButtonContainer, Layout } from '../style/commonPC';
 
