@@ -20,7 +20,7 @@ const UserInfo = ({ nickName }: TNavProps) => {
                   gap : 1rem;
                 `}>
           <S.TitleText>안녕하신가~!</S.TitleText>
-          <S.UserNickName>
+          <S.UserNickName as="div">
             {nickName} <S.TitleText>님</S.TitleText>
           </S.UserNickName>
         </S.NavItem>
