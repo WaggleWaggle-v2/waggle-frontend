@@ -1,10 +1,10 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import arrowIcon from '@assets/icons/right-top-arrow.svg';
+import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TotalCount from '../../BookshelfCard/components/TotalCount';
 import LandingButton from '../../LandingButton';
-import ShelfDecoration from '../../../../../components/shelfDecoration/ShelfDecoration';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TSecondSection {

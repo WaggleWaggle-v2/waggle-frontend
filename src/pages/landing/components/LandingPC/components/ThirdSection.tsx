@@ -1,12 +1,12 @@
 import { MouseEvent } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import restoreIcon from '@assets/icons/restore.svg';
+import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from '../../BookshelfCard';
 import LandingButton from '../../LandingButton';
-import ShelfDecoration from '../../../../../components/shelfDecoration/ShelfDecoration';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TThirdSection {
