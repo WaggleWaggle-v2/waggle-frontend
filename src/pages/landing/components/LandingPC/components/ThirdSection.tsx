@@ -29,7 +29,12 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
         </div>
         <S.RandomCardContainer>
           {randomCardData.map(book => (
-            <button type="button" id={String(book.id)} onClick={redirectBookshelf} style={{ cursor: 'pointer' }}>
+            <button
+              type="button"
+              id={String(book.id)}
+              onClick={redirectBookshelf}
+              style={{ cursor: 'pointer' }}
+              key={book.id}>
               <BookshelfCard cardData={book} key={book.id} />
             </button>
           ))}

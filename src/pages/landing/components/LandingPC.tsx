@@ -26,9 +26,9 @@ const LandingPC = ({ randomCardData, kingData, refetch }: TBookShelf) => {
         <ThirdSection randomCardData={randomCardData} refetch={refetch} />
       </S.SectionContainer>
       <S.PageTransferContainer>
-        <S.PageTransferButton type="button" value={1} isShow={1 === page} onClick={handlePageTransfer} />
-        <S.PageTransferButton type="button" value={2} isShow={2 === page} onClick={handlePageTransfer} />
-        <S.PageTransferButton type="button" value={3} isShow={3 === page} onClick={handlePageTransfer} />
+        <S.PageTransferButton type="button" value={1} $isShow={1 === page} onClick={handlePageTransfer} />
+        <S.PageTransferButton type="button" value={2} $isShow={2 === page} onClick={handlePageTransfer} />
+        <S.PageTransferButton type="button" value={3} $isShow={3 === page} onClick={handlePageTransfer} />
       </S.PageTransferContainer>
     </S.Container>
   );
@@ -58,11 +58,11 @@ const S = {
     gap: 2rem;
     align-items: center;
   `,
-  PageTransferButton: styled.button<{ isShow: boolean }>`
+  PageTransferButton: styled.button<{ $isShow: boolean }>`
     cursor: pointer;
     min-width: 1rem;
     min-height: 1rem;
     border: 0.1rem solid #c0aa87;
-    ${({ isShow }) => isShow && 'background-color : #c0aa87'}
+    ${({ $isShow }) => $isShow && 'background-color : #c0aa87'}
   `,
 };
