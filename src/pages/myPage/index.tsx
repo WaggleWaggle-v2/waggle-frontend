@@ -1,14 +1,24 @@
 import rewriteIcon from '@assets/icons/rewrite.svg';
-import RightArrowIcon from '@components/icons/RightArrowIcon';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
-import SETTING_LIST from './constant/settingList';
+import SettingListSection from './components/settingListSection';
+import { useSettingType } from './hooks/useSettingType';
 
 const MyPage = () => {
+  const { settingType, handleSetType } = useSettingType();
   const mockData = {
     nickName: '홍길동동동동',
   };
+
+  switch (settingType) {
+    case 'default':
+      <SettingListSection handleSetType={handleSetType} />;
+      break;
+    default:
+      <SettingListSection handleSetType={handleSetType} />;
+      break;
+  }
 
   return (
     <S.PageContainer>
@@ -19,19 +29,12 @@ const MyPage = () => {
             <br />
             안녕하시오.
           </S.TitleText>
-          <button type="button">
+          <S.RenameButton type="button">
             <img src={rewriteIcon} alt={'닉네임 변경하기'} />
-          </button>
+          </S.RenameButton>
         </S.ProfileSection>
         <S.SettingSection>
-          {SETTING_LIST.map((menu, index) => (
-            <button type="button" style={{ cursor: 'pointer' }}>
-              <S.SettingButton key={menu.title}>
-                <S.SettingText $num={index + 1}>{menu.title}</S.SettingText>
-                <RightArrowIcon color={'#222'} width={11} height={26} />
-              </S.SettingButton>
-            </button>
-          ))}
+          <SettingListSection handleSetType={handleSetType} />
         </S.SettingSection>
       </S.Container>
     </S.PageContainer>
@@ -64,6 +67,7 @@ const S = {
     justify-content: center;
     gap: 6.3rem;
     padding: 0 1.6rem;
+    width: 100%;
 
     @media ${device.tablet} {
       max-width: 54.2rem;
@@ -77,6 +81,7 @@ const S = {
     @media ${device.mobile} {
       max-width: 100%;
       width: 100%;
+      gap: 2.7rem;
     }
   `,
 
@@ -86,17 +91,19 @@ const S = {
     justify-content: ${({ $isList }) => ($isList ? 'space-between' : 'flex-start')};
     gap: 4rem;
     min-width: 46.5rem;
+    position: relative;
 
     @media ${device.tablet} {
       width: 100%;
     }
+
+    @media ${device.mobile} {
+      min-width: 100%;
+    }
   `,
 
-  SettingSection: styled.ul`
+  SettingSection: styled.div`
     width: 58.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
 
     @media ${device.tablet} {
       width: 100%;
@@ -109,36 +116,28 @@ const S = {
     color: var(--gray900);
     font-family: 'EBSHunminjeongeum';
     font-size: 4.6rem;
+
+    @media ${device.mobile} {
+      font-size: 2.4rem;
+    }
+  `,
+  // button
+  RenameButton: styled.button`
+    cursor: pointer;
+    width: 3.1rem;
+    height: 3.1rem;
+
+    @media ${device.tablet} {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    @media ${device.mobile} {
+      width: 2.3rem;
+      height: 2.3rem;
+    }
   `,
 
   /** SettingSection*/
-  SettingButton: styled.li`
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2.7rem 1rem;
-    width: 100%;
-
-    &::after {
-      content: '';
-      min-width: 100%;
-      min-height: 0.1rem;
-      background-color: var(--gray300);
-      position: absolute;
-      bottom: 0;
-    }
-  `,
-  // text
-  SettingText: styled.p<{ $num: number }>`
-    color: var(--gray900);
-    font-family: 'EBSHunminjeongeum';
-    font-size: 4.2rem;
-
-    &::before {
-      content: '0${({ $num }) => $num}. ';
-      color: var(--gray900);
-      font-size: 2.8rem;
-    }
-  `,
 };
