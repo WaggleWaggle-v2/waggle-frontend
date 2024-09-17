@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import leftArrowIcon from '@assets/icons/left-arrow-tail.svg';
 import rewriteIcon from '@assets/icons/rewrite.svg';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
+import { getCookie } from '@utils/cookie';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookListSection from './components/bookListSection';
 import EditSection from './components/editSection';
@@ -13,6 +16,15 @@ import { BookShelfMockData, mockData } from './mockData';
 const MyPage = () => {
   const { settingType, handleSetType, handleSetDefault } = useSettingType();
   const { data: userInfo } = useUserQuery();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const accessToken = getCookie('accessToken');
+
+    if (!accessToken) {
+      navigate('/login');
+    }
+  }, []);
 
   return (
     <S.PageContainer>
