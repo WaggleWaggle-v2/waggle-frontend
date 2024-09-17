@@ -8,5 +8,9 @@ export const useSettingType = () => {
     setSettingType(event.currentTarget.value as TSetting);
   };
 
-  return { settingType, handleSetType };
+  const handleSetDefault = () => {
+    setSettingType('default');
+  };
+
+  return { settingType, handleSetType, handleSetDefault };
 };

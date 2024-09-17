@@ -1,40 +1,56 @@
+import leftArrowIcon from '@assets/icons/left-arrow-tail.svg';
 import rewriteIcon from '@assets/icons/rewrite.svg';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
+import ReceiveSection from './components/receiveSection';
 import SettingListSection from './components/settingListSection';
 import { useSettingType } from './hooks/useSettingType';
+import { mockData } from './mockData';
 
 const MyPage = () => {
-  const { settingType, handleSetType } = useSettingType();
-  const mockData = {
-    nickName: '홍길동동동동',
-  };
-
-  switch (settingType) {
-    case 'default':
-      <SettingListSection handleSetType={handleSetType} />;
-      break;
-    default:
-      <SettingListSection handleSetType={handleSetType} />;
-      break;
-  }
+  const { settingType, handleSetType, handleSetDefault } = useSettingType();
+  const { data: userInfo } = useUserQuery();
 
   return (
     <S.PageContainer>
       <S.Container>
         <S.ProfileSection>
-          <S.TitleText>
-            <span style={{ color: 'var(--green600)' }}>{mockData.nickName}</span>님,
-            <br />
-            안녕하시오.
-          </S.TitleText>
-          <S.RenameButton type="button">
-            <img src={rewriteIcon} alt={'닉네임 변경하기'} />
-          </S.RenameButton>
+          {userInfo && (
+            <div>
+              <S.TitleText>
+                <span style={{ color: 'var(--green600)' }}>{userInfo.nickname}</span>님,
+              </S.TitleText>
+              {settingType === 'default' && <S.TitleText>안녕하시오.</S.TitleText>}
+              {settingType === 'receive' && (
+                <>
+                  <S.TitleText>
+                    책장을 이만큼 <br /> 보냈다오.
+                  </S.TitleText>
+                  <S.SubText>
+                    총 <span style={{ color: 'var(--red500)', textDecoration: 'underline' }}>{mockData.count}</span>개를
+                    보냈소.
+                  </S.SubText>
+                </>
+              )}
+            </div>
+          )}
+          {settingType !== 'default' ||
+            ('edit' && (
+              <S.RenameButton type="button">
+                <img src={rewriteIcon} alt={'닉네임 변경하기'} />
+              </S.RenameButton>
+            ))}
+          {settingType !== 'default' && (
+            <S.GoBackButton type="button" onClick={handleSetDefault}>
+              <S.GoBackIcon src={leftArrowIcon} alt="뒤로 가기" /> 뒤로 가기
+            </S.GoBackButton>
+          )}
         </S.ProfileSection>
         <S.SettingSection>
-          <SettingListSection handleSetType={handleSetType} />
+          {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
+          {settingType === 'receive' && <ReceiveSection bookList={mockData.list} />}
         </S.SettingSection>
       </S.Container>
     </S.PageContainer>
@@ -59,6 +75,12 @@ const S = {
       height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
       position: relative;
       top: ${HEADER_HEIGHT.MOBILE};
+      padding-top: 14.4rem;
+      margin-bottom: 20rem;
+    }
+
+    @media ${device.mobile} {
+      padding-top: 4.7rem;
     }
   `,
   Container: styled.div`
@@ -116,9 +138,24 @@ const S = {
     color: var(--gray900);
     font-family: 'EBSHunminjeongeum';
     font-size: 4.6rem;
+    line-height: 6rem;
+    font-weight: 700;
 
     @media ${device.mobile} {
       font-size: 2.4rem;
+      line-height: 3.5rem;
+    }
+  `,
+  SubText: styled.p`
+    color: #000;
+    font-family: 'EBSHunminjeongeum';
+    font-size: 2.4rem;
+
+    @media ${device.tablet} {
+      margin-top: 2rem;
+    }
+    @media ${device.mobile} {
+      margin-top: 1.4rem;
     }
   `,
   // button
@@ -136,6 +173,31 @@ const S = {
     @media ${device.mobile} {
       width: 2.3rem;
       height: 2.3rem;
+    }
+  `,
+
+  GoBackButton: styled.button`
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    cursor: pointer;
+
+    color: var(--gray500);
+    font-family: Pretendard;
+    font-size: 2.4rem;
+    font-weight: 700;
+    @media ${device.mobile} {
+      font-size: 1.5rem;
+    }
+  `,
+  GoBackIcon: styled.img`
+    width: 3rem;
+    height: 3rem;
+
+    @media ${device.mobile} {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   `,
 
