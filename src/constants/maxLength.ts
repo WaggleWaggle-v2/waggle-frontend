@@ -1,1 +1,3 @@
-export const MAX_LENGTH = 100 as const;
+export const MAX_LENGTH = {
+  BOOKSHELF_INTRODUCTION: 100,
+} as const;

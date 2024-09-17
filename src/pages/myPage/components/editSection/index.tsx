@@ -1,6 +1,7 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import editIcon from '@assets/icons/rewrite.svg';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
+import { MAX_LENGTH } from '@constants/maxLength';
 import useInputValue from '@hooks/useInputText';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
@@ -31,7 +32,9 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
             value={value}
             onChange={handleChangeValue}
           />
-          <S.TextLength>({value.length} / 100)</S.TextLength>
+          <S.TextLength>
+            ({value.length} / {MAX_LENGTH.BOOKSHELF_INTRODUCTION})
+          </S.TextLength>
           <S.SaveButton type="button" disabled={bookshelfData.introduction === value}>
             변경사항 저장하기
           </S.SaveButton>
