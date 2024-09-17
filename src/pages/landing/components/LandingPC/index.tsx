@@ -1,10 +1,10 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
-import FirstSection from './LandingPC/components/FirstSection';
-import SecondSection from './LandingPC/components/SecondSection';
-import ThirdSection from './LandingPC/components/ThirdSection';
-import useSwapPage from './LandingPC/hooks/useSwapPage';
+import FirstSection from './components/FirstSection';
+import SecondSection from './components/SecondSection';
+import ThirdSection from './components/ThirdSection';
+import useSwapPage from './hooks/useSwapPage';
 
 interface TBookShelf {
   randomCardData: TBookshelfFetchRes[];

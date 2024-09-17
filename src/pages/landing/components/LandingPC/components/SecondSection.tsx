@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TotalCount from '../../BookshelfCard/components/TotalCount';
 import LandingButton from '../../LandingButton';
-import ShelfDecoration from '../../ShelfDecoration';
+import ShelfDecoration from '../../../../../components/shelfDecoration/ShelfDecoration';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TSecondSection {

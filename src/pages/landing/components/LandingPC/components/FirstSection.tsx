@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import DescriptionSection from '../../DescriptionSection';
 import LandingButton from '../../LandingButton';
-import ShelfDecoration from '../../ShelfDecoration';
+import ShelfDecoration from '../../../../../components/shelfDecoration/ShelfDecoration';
 import TitleSection from '../../TitleSection';
 import { Main as BaseMain, ButtonContainer, Layout } from '../style/commonPC';
 
