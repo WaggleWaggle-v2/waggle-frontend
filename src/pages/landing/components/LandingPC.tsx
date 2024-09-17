@@ -1,10 +1,10 @@
-import { MouseEvent, useState } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
 import FirstSection from './LandingPC/components/FirstSection';
 import SecondSection from './LandingPC/components/SecondSection';
 import ThirdSection from './LandingPC/components/ThirdSection';
+import useSwapPage from './LandingPC/hooks/useSwapPage';
 
 interface TBookShelf {
   randomCardData: TBookshelfFetchRes[];
@@ -13,22 +13,41 @@ interface TBookShelf {
 }
 
 const LandingPC = ({ randomCardData, kingData, refetch }: TBookShelf) => {
-  const [page, setPage] = useState<number>(1);
-  const handlePageTransfer = (event: MouseEvent<HTMLButtonElement>) => {
-    setPage(Number(event.currentTarget.value));
-  };
+  const { sectionRefs, buttonRefs, handlePageTransfer } = useSwapPage();
 
   return (
     <S.Container>
-      <S.SectionContainer $page={page}>
-        <FirstSection />
-        <SecondSection kingData={kingData} />
-        <ThirdSection randomCardData={randomCardData} refetch={refetch} />
+      <S.SectionContainer>
+        <S.Section ref={el => (sectionRefs.current[0] = el)}>
+          <FirstSection />
+        </S.Section>
+        <S.Section ref={el => (sectionRefs.current[1] = el)}>
+          <SecondSection kingData={kingData} />
+        </S.Section>
+        <S.Section ref={el => (sectionRefs.current[2] = el)}>
+          <ThirdSection randomCardData={randomCardData} refetch={refetch} />
+        </S.Section>
       </S.SectionContainer>
       <S.PageTransferContainer>
-        <S.PageTransferButton type="button" value={1} $isShow={1 === page} onClick={handlePageTransfer} />
-        <S.PageTransferButton type="button" value={2} $isShow={2 === page} onClick={handlePageTransfer} />
-        <S.PageTransferButton type="button" value={3} $isShow={3 === page} onClick={handlePageTransfer} />
+        <S.PageTransferButton
+          type="button"
+          ref={el => (buttonRefs.current[0] = el)}
+          value={1}
+          onClick={handlePageTransfer}
+          style={{ backgroundColor: '#c0aa87' }}
+        />
+        <S.PageTransferButton
+          type="button"
+          ref={el => (buttonRefs.current[1] = el)}
+          value={2}
+          onClick={handlePageTransfer}
+        />
+        <S.PageTransferButton
+          type="button"
+          ref={el => (buttonRefs.current[2] = el)}
+          value={3}
+          onClick={handlePageTransfer}
+        />
       </S.PageTransferContainer>
     </S.Container>
   );
@@ -38,16 +57,24 @@ export default LandingPC;
 const S = {
   Container: styled.div`
     overflow-y: hidden;
-    overflow-x: scroll;
 
     &::-webkit-scrollbar {
       display: none;
     }
   `,
-  SectionContainer: styled.div<{ $page: number }>`
+  Section: styled.div`
+    scroll-snap-align: start;
     display: flex;
-    transform: translateX(calc(-100dvw * ${({ $page }) => $page - 1}));
+  `,
+  SectionContainer: styled.div`
+    display: flex;
     transition: transform 0.5s ease-in-out;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   `,
   PageTransferContainer: styled.div`
     position: fixed;
@@ -58,11 +85,10 @@ const S = {
     gap: 2rem;
     align-items: center;
   `,
-  PageTransferButton: styled.button<{ $isShow: boolean }>`
+  PageTransferButton: styled.button`
     cursor: pointer;
     min-width: 1rem;
     min-height: 1rem;
     border: 0.1rem solid #c0aa87;
-    ${({ $isShow }) => $isShow && 'background-color : #c0aa87'}
   `,
 };

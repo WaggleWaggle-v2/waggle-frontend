@@ -10,6 +10,7 @@ export const Main = styled.div`
   background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
   background-size: contain;
   background-position: left top;
+  scroll-snap-align: start;
 `;
 
 export const Layout = styled.div`
