@@ -1,18 +1,18 @@
-import rightArrowIcon from '@assets/icons/right-arrow.svg';
+import RightArrowIcon from '@components/icons/RightArrowIcon';
+import usePageWidth from '@hooks/usePageWidth';
+import { device, size } from '@styles/breakpoints';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { NavItem, TitleText } from '../style/navStyle';
+import { TNavProps } from '../NavType';
+import { NavItem, TitleText as BaseTitleText } from '../style/navStyle';
 
-interface TUserInfoProps {
-  isLogin: boolean;
-  nickName: string | undefined;
-}
-
-const UserInfo = ({ isLogin, nickName }: TUserInfoProps) => {
+const UserInfo = ({ nickName }: TNavProps) => {
   const navigate = useNavigate();
+  const pageWidth = usePageWidth();
+  const isPC = pageWidth > size.tablet;
   return (
     <>
-      {isLogin ? (
+      {nickName ? (
         <S.NavItem
           $position={`
                   display : flex;
@@ -20,15 +20,15 @@ const UserInfo = ({ isLogin, nickName }: TUserInfoProps) => {
                   gap : 1rem;
                 `}>
           <S.TitleText>안녕하신가~!</S.TitleText>
-          <S.TitleText $color={'#E75852'}>
+          <S.UserNickName>
             {nickName} <S.TitleText>님</S.TitleText>
-          </S.TitleText>
+          </S.UserNickName>
         </S.NavItem>
       ) : (
         <S.NavItem>
           <S.NavTitleBox as="div">
             <S.NavTitleText onClick={() => navigate('/login')}>로그인하세요</S.NavTitleText>
-            <img src={rightArrowIcon} alt="로그인 하기" />
+            <RightArrowIcon color={!isPC ? '#000' : '#fff'} />
           </S.NavTitleBox>
         </S.NavItem>
       )}
@@ -39,7 +39,7 @@ const UserInfo = ({ isLogin, nickName }: TUserInfoProps) => {
 export default UserInfo;
 
 const S = {
-  NavTitleBox: styled(TitleText)`
+  NavTitleBox: styled(BaseTitleText)`
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -55,7 +55,23 @@ const S = {
     font-size: 1.8rem;
     font-weight: 400;
     letter-spacing: -0.3rem;
+
+    @media ${device.tablet} {
+      color: var(--black);
+      font-size: 2.2rem;
+    }
   `,
   NavItem,
-  TitleText,
+  TitleText: styled(BaseTitleText)`
+    @media ${device.tablet} {
+      color: var(--black);
+    }
+  `,
+  UserNickName: styled(BaseTitleText)`
+    color: #e75852;
+
+    @media ${device.tablet} {
+      color: var(--green600);
+    }
+  `,
 };

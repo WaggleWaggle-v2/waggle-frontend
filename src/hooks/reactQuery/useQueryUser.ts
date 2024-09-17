@@ -1,3 +1,4 @@
+import { TAxiosError } from '@api/axios';
 import userRequest from '@api/user/userRequest';
 import { TUserFetchRes } from '@api/user/userRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';

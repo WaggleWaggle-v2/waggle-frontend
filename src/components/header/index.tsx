@@ -1,23 +1,39 @@
+import { useState } from 'react';
 import alarmIcon from '@assets/icons/alarm.svg';
 import KebabIcon from '@components/icons/KebabIcon';
 import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
+import MobileNav from './nav/MobileNav';
 import PcNav from './nav/PcNav';
 
 const Header = () => {
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggleNav = () => {
+    setIsOpen(isOpen => !isOpen);
+  };
+
+  const { data: userInfo } = useUserQuery();
+
   return (
-    <S.Container>
-      <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
-      <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
-      {pageWidth > size.tablet && <PcNav isLogin={true} nickName={'홍길동동동동'} />}
-      <S.AlarmIcon src={alarmIcon} alt={'알림'} />
-    </S.Container>
+    <>
+      {!isPc && <MobileNav nickName={userInfo?.nickname} isOpen={isOpen} />}
+      <S.Container>
+        <button type="button" onClick={handleToggleNav}>
+          <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
+        </button>
+        <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
+        {pageWidth > size.tablet && <PcNav nickName={userInfo?.nickname} />}
+        <S.AlarmIcon src={alarmIcon} alt={'알림'} />
+      </S.Container>
+    </>
   );
 };
 export default Header;
@@ -42,15 +58,6 @@ const S = {
 
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;
-      /* 
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        min-width: calc(100% - 7.2rem);
-        border-bottom: 0.1rem solid var(--background);
-        opacity: 0.2;
-      } */
     }
   `,
   AlarmIcon: styled.img`
