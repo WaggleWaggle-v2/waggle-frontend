@@ -124,7 +124,6 @@ const S = {
     left: 0;
     right: 0;
     top: 0;
-    z-index: 10;
     min-height: 10rem;
 
     @media ${device.mobile} {
