@@ -23,8 +23,8 @@ const MobileNav = ({ nickName, isOpen, handleClose, headerRef }: TMobileNav) => 
 
   return (
     <S.Container $isOpen={isOpen} ref={navRef}>
-      <UserInfo nickName={nickName} />
-      <NavCategory isLogin={nickName ? true : false} />
+      <UserInfo nickName={nickName} handleCloseMenu={handleClose} />
+      <NavCategory isLogin={nickName ? true : false} handleCloseMenu={handleClose} />
       <S.KingContainer>
         <img src={kingHatImage} alt={'세종대왕 모자'} />
         <S.KingBody>

@@ -22,8 +22,8 @@ const PcNav = ({ nickName }: TNavProps) => {
             <S.NavItem>
               <S.CloseIcon onClick={handleMenuToggle} src={closeIcon} alt="네비게이션 바 닫기" />
             </S.NavItem>
-            <UserInfo nickName={nickName} />
-            <NavCategory isLogin={!!nickName} />
+            <UserInfo nickName={nickName} handleCloseMenu={handleMenuClose} />
+            <NavCategory isLogin={!!nickName} handleCloseMenu={handleMenuClose} />
           </S.Container>
         ) : (
           <S.Container>

@@ -6,7 +6,11 @@ import styled from 'styled-components';
 import { TNavProps } from '../NavType';
 import { NavItem, TitleText as BaseTitleText } from '../style/navStyle';
 
-const UserInfo = ({ nickName }: TNavProps) => {
+interface TUserInfo extends TNavProps {
+  handleCloseMenu: () => void;
+}
+
+const UserInfo = ({ nickName, handleCloseMenu }: TUserInfo) => {
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
   const isPC = pageWidth > size.tablet;
@@ -27,7 +31,13 @@ const UserInfo = ({ nickName }: TNavProps) => {
       ) : (
         <S.NavItem>
           <S.NavTitleBox as="div">
-            <S.NavTitleText onClick={() => navigate('/login')}>로그인하세요</S.NavTitleText>
+            <S.NavTitleText
+              onClick={() => {
+                handleCloseMenu();
+                navigate('/login');
+              }}>
+              로그인하세요
+            </S.NavTitleText>
             <RightArrowIcon color={!isPC ? '#000' : '#fff'} />
           </S.NavTitleBox>
         </S.NavItem>

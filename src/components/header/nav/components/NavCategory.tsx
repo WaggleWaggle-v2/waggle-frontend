@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { NavItem } from '../style/navStyle';
 
-const NavCategory = ({ isLogin }: { isLogin: boolean }) => {
+const NavCategory = ({ isLogin, handleCloseMenu }: { isLogin: boolean; handleCloseMenu: () => void }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -16,6 +16,7 @@ const NavCategory = ({ isLogin }: { isLogin: boolean }) => {
             disabled={isLogin ? false : true}
             onClick={() => {
               navigate('/myPage');
+              handleCloseMenu();
             }}>
             마이페이지
           </S.MenuTitle>
