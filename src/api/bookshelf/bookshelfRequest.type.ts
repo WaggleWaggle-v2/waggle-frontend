@@ -4,7 +4,7 @@ export interface TBookshelfFetchRes {
   id: string;
   nickname: string;
   backgroundImageUrl: string;
-  introduction: string;
+  introduction: string | null;
   bookshelfType: TTheme;
   count: number;
   open: boolean;

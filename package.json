@@ -48,5 +48,8 @@
     "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
+  },
+  "engines": {
+    "node": "18.19.1"
   }
 }

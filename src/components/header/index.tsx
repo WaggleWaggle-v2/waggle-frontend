@@ -7,11 +7,13 @@ import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import MobileNav from './nav/MobileNav';
 import PcNav from './nav/PcNav';
 
 const Header = () => {
+  const navigate = useNavigate();
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +38,14 @@ const Header = () => {
         <S.ButtonStyle type="button" onClick={handleToggleNav}>
           <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
         </S.ButtonStyle>
-        <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
+        <button
+          type="button"
+          onClick={() => {
+            navigate('/');
+          }}
+          style={{ cursor: 'pointer' }}>
+          <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
+        </button>
         {pageWidth > size.tablet && <PcNav nickName={userInfo?.nickname} />}
         <S.AlarmIcon src={alarmIcon} alt={'알림'} />
       </S.Container>
