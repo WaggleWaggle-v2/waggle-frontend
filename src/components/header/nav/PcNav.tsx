@@ -18,7 +18,7 @@ const PcNav = ({ nickName }: TNavProps) => {
     <S.Label $isOpen={isOpen} $isLogin={!!nickName} ref={navRef}>
       <S.LabelTop>
         {isOpen ? (
-          <S.Container isLogin={!!nickName}>
+          <S.Container $isLogin={!!nickName}>
             <S.NavItem>
               <S.CloseIcon onClick={handleMenuToggle} src={closeIcon} alt="네비게이션 바 닫기" />
             </S.NavItem>
@@ -79,13 +79,13 @@ const S = {
       border-color: #486080 transparent transparent;
     }
   `,
-  Container: styled.ul<{ isLogin?: boolean }>`
+  Container: styled.ul<{ $isLogin?: boolean }>`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     background-color: #071b34;
     padding: 0 1.3rem;
-    height: ${({ isLogin }) => (isLogin ? '42rem' : '39.6rem')};
+    height: ${({ $isLogin }) => ($isLogin ? '42rem' : '39.6rem')};
   `,
   KebabIcon: styled.img`
     width: 2.4rem;
