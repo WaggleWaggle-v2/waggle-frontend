@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { TSetting } from '@pages/myPage/constant/settingList';
 import { TBook } from '@pages/myPage/mockData';
 import { device } from '@styles/breakpoints';
@@ -20,6 +21,7 @@ export type TSortingOption = (typeof SORTING_OPTION)[number];
 const BookListSection = ({ bookList, settingType }: TBookList) => {
   const navigate = useNavigate();
   const [selectOption, setSelectOption] = useState<TSortingOption>('책장 목록 최신 순');
+  const { targetRef, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.5 });
 
   const handleSelectOption = (option: TSortingOption) => {
     setSelectOption(option);
@@ -34,7 +36,8 @@ const BookListSection = ({ bookList, settingType }: TBookList) => {
         </S.HeaderTextContainer>
         <SortingBox handleSelectOption={handleSelectOption} selectOption={selectOption} />
       </S.Header>
-      <S.ListContainer>
+      <S.ListContainer $isScroll={!isVisible}>
+        <S.BookObserver ref={targetRef} />
         {(selectOption === '책장 목록 최신 순' ? bookList : [...bookList].reverse()).map(book => (
           <S.BookButton
             type="button"
@@ -79,16 +82,18 @@ const S = {
       gap: 0.5rem;
     }
   `,
-  ListContainer: styled.ul`
+  ListContainer: styled.ul<{ $isScroll: boolean }>`
     display: flex;
     flex-direction: column;
     min-width: 0;
     overflow-y: scroll;
     padding-right: 2.4rem;
     border-bottom: 0.1rem solid var(--gray300);
+    position: relative;
 
     &::-webkit-scrollbar {
       width: 0.4rem;
+      ${({ $isScroll }) => !$isScroll && 'display : none'}
     }
 
     &::-webkit-scrollbar-thumb {
@@ -112,6 +117,18 @@ const S = {
     &:hover {
       background-color: var(--brown100);
       transition: background-color 0.2s ease;
+    }
+  `,
+  BookObserver: styled.div`
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    min-height: 10rem;
+
+    @media ${device.mobile} {
+      min-height: 8.2rem;
     }
   `,
 };
