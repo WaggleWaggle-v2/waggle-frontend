@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface TIntersectionObserver {
-  root?: HTMLElement;
+  root?: HTMLElement | null;
   rootMargin?: string;
   threshold?: number;
 }
 
-const useIntersectionObserver = <T extends HTMLElement>({ root, rootMargin, threshold }: TIntersectionObserver) => {
+const useIntersectionObserver = <T extends HTMLElement>({
+  root = null,
+  rootMargin = '0px 0px 0px 0px',
+  threshold = 0,
+}: TIntersectionObserver) => {
   const targetRef = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
 
