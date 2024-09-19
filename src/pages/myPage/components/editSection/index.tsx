@@ -19,16 +19,17 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
   const { isEnterScope, handleSetScope, handleInitialSetScope } = useScopeValue();
   const patchIntroduction = useBookshelfPublicityUpdateMutation();
 
-  const handleSetScopeValue = (event: MouseEvent<HTMLButtonElement>) => {
-    handleSetScope(event, patchIntroduction.mutate);
-  };
-
   useEffect(() => {
     handleSetValue(introduction ? introduction : '');
     handleInitialSetScope(open);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleSetScopeValue = (event: MouseEvent<HTMLButtonElement>) => {
+    handleSetScope(event, patchIntroduction.mutate);
+  };
+
   return (
     <S.Container>
       <S.ImageIntroduction>
@@ -59,10 +60,10 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
         <S.OpenOption>
           <S.SettingTitle>공개여부</S.SettingTitle>
           <S.OpenOptionContainer>
-            <S.OpenButton $isSelect={isEnterScope === true} type="button" value={1} onClick={handleSetScopeValue}>
+            <S.OpenButton $isSelect={isEnterScope === true} type="button" data-scope="1" onClick={handleSetScopeValue}>
               모두 보길 원하오
             </S.OpenButton>
-            <S.OpenButton $isSelect={isEnterScope === false} type="button" value={0} onClick={handleSetScopeValue}>
+            <S.OpenButton $isSelect={isEnterScope === false} type="button" data-scope="0" onClick={handleSetScopeValue}>
               주인장만 보길 원하오
             </S.OpenButton>
           </S.OpenOptionContainer>

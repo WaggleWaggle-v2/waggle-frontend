@@ -4,8 +4,16 @@ const useScopeValue = () => {
   const [isEnterScope, setIsEnterScope] = useState(true);
 
   const handleSetScope = (event: MouseEvent<HTMLButtonElement>, apiCallback: (newScopeValue: boolean) => void) => {
+    const scope = event.currentTarget.dataset.scope;
+
+    if (!scope) {
+      console.error('scope가 없어옹 ㅠㅅㅠ');
+      return;
+    }
+
+    const newScopeValue = Boolean(+scope);
+
     setIsEnterScope(prevScopeValue => {
-      const newScopeValue = Boolean(+event.currentTarget.value);
       apiCallback(newScopeValue);
       return newScopeValue;
     });
