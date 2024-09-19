@@ -4,6 +4,7 @@ import PrimaryButton from '@components/PrimaryButton';
 import PrimaryInput from '@components/PrimaryInput';
 import useInputValue from '@hooks/useInputText';
 import useOutsideClick from '@hooks/useOutsideClick';
+import { device } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import styled from 'styled-components';
 
@@ -33,7 +34,7 @@ const RenameModal = (props: TRenameModal) => {
           <S.ModalClose src={closeIcon} alt="모달 닫기" />
         </S.ModalCloseButton>
         <div style={{ marginTop: '1.6rem' }}>
-          <S.ModalTitle>이름 변경 모달~!</S.ModalTitle>
+          <S.ModalTitle>이름을 바꾸겠소?</S.ModalTitle>
         </div>
         <PrimaryInput
           placeholder="새로운 이름을 입력해주세요."
@@ -69,6 +70,19 @@ const S = {
     padding: 7rem 6.2rem 6rem;
     border-radius: 1rem;
     width: 48rem;
+
+    @media ${device.mobile} {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transform: none;
+      width: 100%;
+      padding: 6rem 2rem 4rem;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   `,
 
   // Typography
@@ -77,6 +91,7 @@ const S = {
     text-align: center;
     font-family: 'EBSHMJESaeron';
     font-size: 2.8rem;
+    font-weight: 700;
   `,
 
   // icon
