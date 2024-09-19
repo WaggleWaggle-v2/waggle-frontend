@@ -81,7 +81,7 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
           방명록 주인을 포함한 모두가 볼수있어요!
         </S.Description>
       </S.SettingOne>
-      <S.SettingOne>
+      <S.SettingOne style={{ marginTop: '-3rem' }}>
         <S.SettingLayout>
           <S.SettingTitle>낮과 밤</S.SettingTitle>
           <button type="button">토글 버튼</button>
