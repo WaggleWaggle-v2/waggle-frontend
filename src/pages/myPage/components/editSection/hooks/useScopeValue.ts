@@ -1,17 +1,21 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 
 const useScopeValue = () => {
   const [isEnterScope, setIsEnterScope] = useState(true);
 
-  const handleSetEnterScope = () => {
-    setIsEnterScope(true);
+  const handleSetScope = (event: MouseEvent<HTMLButtonElement>, apiCallback: (newScopeValue: boolean) => void) => {
+    setIsEnterScope(prevScopeValue => {
+      const newScopeValue = Boolean(+event.currentTarget.value);
+      apiCallback(newScopeValue);
+      return newScopeValue;
+    });
   };
 
-  const handleSetPrivateScope = () => {
-    setIsEnterScope(false);
+  const handleInitialSetScope = (scopeValue: boolean) => {
+    setIsEnterScope(scopeValue);
   };
 
-  return { isEnterScope, handleSetEnterScope, handleSetPrivateScope };
+  return { isEnterScope, handleSetScope, handleInitialSetScope, setIsEnterScope };
 };
 
 export default useScopeValue;

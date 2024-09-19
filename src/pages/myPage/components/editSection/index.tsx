@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import editIcon from '@assets/icons/rewrite.svg';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
 import { MAX_LENGTH } from '@constants/maxLength';
+import { useBookshelfPublicityUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
 import useInputValue from '@hooks/useInputText';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
@@ -13,12 +14,20 @@ interface TEditSection {
 }
 
 const EditSection = ({ bookshelfData }: TEditSection) => {
-  const { introduction, backgroundImageUrl, nickname } = bookshelfData;
+  const { introduction, backgroundImageUrl, nickname, open } = bookshelfData;
   const { value, handleChangeValue, handleSetValue } = useInputValue();
-  const { isEnterScope, handleSetEnterScope, handleSetPrivateScope } = useScopeValue();
+  const { isEnterScope, handleSetScope, handleInitialSetScope } = useScopeValue();
+  const patchIntroduction = useBookshelfPublicityUpdateMutation();
+
+  const handleSetScopeValue = (event: MouseEvent<HTMLButtonElement>) => {
+    handleSetScope(event, patchIntroduction.mutate);
+  };
 
   useEffect(() => {
     handleSetValue(introduction ? introduction : '');
+    handleInitialSetScope(open);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <S.Container>
@@ -50,10 +59,10 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
         <S.OpenOption>
           <S.SettingTitle>공개여부</S.SettingTitle>
           <S.OpenOptionContainer>
-            <S.OpenButton $isSelect={isEnterScope === true} type="button" onClick={handleSetEnterScope}>
+            <S.OpenButton $isSelect={isEnterScope === true} type="button" value={1} onClick={handleSetScopeValue}>
               모두 보길 원하오
             </S.OpenButton>
-            <S.OpenButton $isSelect={isEnterScope === false} type="button" onClick={handleSetPrivateScope}>
+            <S.OpenButton $isSelect={isEnterScope === false} type="button" value={0} onClick={handleSetScopeValue}>
               주인장만 보길 원하오
             </S.OpenButton>
           </S.OpenOptionContainer>
