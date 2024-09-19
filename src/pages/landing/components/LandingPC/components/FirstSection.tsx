@@ -1,11 +1,11 @@
 import arrowIcon from '@assets/icons/right-top-arrow.svg';
 import houseImg from '@assets/images/house.png';
 import treeImg from '@assets/images/tree.png';
+import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import LandingButton from '../../LandingButton';
-import ShelfDecoration from '../../ShelfDecoration';
 import DescriptionSection from '../../DescriptionSection';
+import LandingButton from '../../LandingButton';
 import TitleSection from '../../TitleSection';
 import { Main as BaseMain, ButtonContainer, Layout } from '../style/commonPC';
 

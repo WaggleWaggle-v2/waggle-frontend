@@ -1,12 +1,12 @@
 import { MouseEvent } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import restoreIcon from '@assets/icons/restore.svg';
+import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from '../../BookshelfCard';
 import LandingButton from '../../LandingButton';
-import ShelfDecoration from '../../ShelfDecoration';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TThirdSection {
@@ -29,7 +29,12 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
         </div>
         <S.RandomCardContainer>
           {randomCardData.map(book => (
-            <button type="button" id={String(book.id)} onClick={redirectBookshelf} style={{ cursor: 'pointer' }}>
+            <button
+              type="button"
+              id={String(book.id)}
+              onClick={redirectBookshelf}
+              style={{ cursor: 'pointer' }}
+              key={book.id}>
               <BookshelfCard cardData={book} key={book.id} />
             </button>
           ))}

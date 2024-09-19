@@ -11,7 +11,7 @@ const Router = () => {
           <Route path="login" element={<Page.Login />} />
           <Route path="setup" element={<Page.SetUp />} />
           <Route path="auth" element={<Page.Auth />} />
-          <Route path="temp-auth" element={<Page.TempAuth />} />
+          <Route path="myPage" element={<Page.MyPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

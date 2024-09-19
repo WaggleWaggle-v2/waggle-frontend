@@ -1,5 +1,6 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import restore from '@assets/icons/restore.svg';
+import { device } from '@styles/breakpoints';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -65,18 +66,28 @@ const S = {
     flex-direction: column;
     align-items: center;
     padding: 3rem 2rem 3rem;
-    max-width: 35.6rem;
+    max-width: 40rem;
     margin: 0 auto;
     min-width: min-content;
     gap: 7rem;
+
+    @media ${device.mobile} {
+      max-width: 100%;
+    }
   `,
   BookShelfSection: styled.article`
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    width: 100%;
+
+    @media ${device.mobile} {
+      gap: 3.2rem;
+    }
   `,
   FigureContainer: styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -109,6 +120,7 @@ const S = {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    box-sizing: border-box;
   `,
   CardButton: styled.button`
     cursor: pointer;
