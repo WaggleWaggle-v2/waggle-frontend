@@ -15,10 +15,17 @@ export const useRandomBookshelfQuery = () => {
 };
 
 // 책장 조회
-export const useBookshelfQuery = (id: string) => {
+export const useBookshelfQuery = (id: string | undefined | null) => {
   const query = useQuery<TBookshelfFetchRes, Error>({
     queryKey: [QUERY_KEY.bookShelfInfo],
-    queryFn: async () => await bookshelfRequest.fetchBookshelf(id),
+    queryFn: async () => {
+      if (!id) {
+        return;
+      } else {
+        return await bookshelfRequest.fetchBookshelf(id);
+      }
+    },
+    enabled: !!id,
     gcTime: Infinity,
   });
   return query;

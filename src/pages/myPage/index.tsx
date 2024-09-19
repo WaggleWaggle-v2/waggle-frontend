@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import leftArrowIcon from '@assets/icons/left-arrow-tail.svg';
 import rewriteIcon from '@assets/icons/rewrite.svg';
+import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
@@ -11,11 +12,12 @@ import BookListSection from './components/bookListSection';
 import EditSection from './components/editSection';
 import SettingListSection from './components/settingListSection';
 import { useSettingType } from './hooks/useSettingType';
-import { BookShelfMockData, mockData } from './mockData';
+import { mockData } from './mockData';
 
 const MyPage = () => {
   const { settingType, handleSetType, handleSetDefault } = useSettingType();
   const { data: userInfo } = useUserQuery();
+  const { data: myBookShelf } = useBookshelfQuery(userInfo?.id);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const MyPage = () => {
           {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
           {settingType === 'receive' && <BookListSection bookList={mockData.list} settingType={'receive'} />}
           {settingType === 'present' && <BookListSection bookList={mockData.list} settingType={'present'} />}
-          {settingType === 'edit' && <EditSection bookshelfData={BookShelfMockData} />}
+          {settingType === 'edit' && myBookShelf && <EditSection bookshelfData={myBookShelf} />}
         </S.SettingSection>
       </S.Container>
     </S.PageContainer>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import editIcon from '@assets/icons/rewrite.svg';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
@@ -12,8 +13,13 @@ interface TEditSection {
 }
 
 const EditSection = ({ bookshelfData }: TEditSection) => {
-  const { value, handleChangeValue } = useInputValue();
+  const { introduction, backgroundImageUrl, nickname } = bookshelfData;
+  const { value, handleChangeValue, handleSetValue } = useInputValue();
   const { isEnterScope, handleSetEnterScope, handleSetPrivateScope } = useScopeValue();
+
+  useEffect(() => {
+    handleSetValue(introduction ? introduction : '');
+  }, []);
   return (
     <S.Container>
       <S.ImageIntroduction>
@@ -22,7 +28,7 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
             <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
           </S.EditImgButton>
           <S.ImageBox>
-            <S.BackgroundImg src={bookshelfData.backgroundImageUrl} alt={`${bookshelfData.nickname}의 책장 이미지`} />
+            <S.BackgroundImg src={backgroundImageUrl} alt={`${nickname}의 책장 이미지`} />
           </S.ImageBox>
         </div>
         <S.IntroductionForm>
@@ -35,7 +41,7 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
           <S.TextLength>
             ({value.length} / {MAX_LENGTH.BOOKSHELF_INTRODUCTION})
           </S.TextLength>
-          <S.SaveButton type="button" disabled={bookshelfData.introduction === value}>
+          <S.SaveButton type="button" disabled={introduction === value}>
             변경사항 저장하기
           </S.SaveButton>
         </S.IntroductionForm>
@@ -44,10 +50,10 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
         <S.OpenOption>
           <S.SettingTitle>공개여부</S.SettingTitle>
           <S.OpenOptionContainer>
-            <S.OpenButton type="button" disabled={!isEnterScope} onClick={handleSetEnterScope}>
+            <S.OpenButton $isSelect={isEnterScope === true} type="button" onClick={handleSetEnterScope}>
               모두 보길 원하오
             </S.OpenButton>
-            <S.OpenButton type="button" disabled={isEnterScope} onClick={handleSetPrivateScope}>
+            <S.OpenButton $isSelect={isEnterScope === false} type="button" onClick={handleSetPrivateScope}>
               주인장만 보길 원하오
             </S.OpenButton>
           </S.OpenOptionContainer>
@@ -158,11 +164,16 @@ const S = {
       background-color: var(--gray100);
     }
   `,
-  OpenButton: styled(SaveButton)`
+  OpenButton: styled(SaveButton)<{ $isSelect: boolean }>`
     border-radius: 10rem;
     position: static;
     min-width: 12rem;
     flex-grow: 1;
+    background-color: ${({ $isSelect }) => (!$isSelect ? 'var(--gray400)' : 'var(--green600)')};
+
+    &:hover {
+      background-color: ${({ $isSelect }) => ($isSelect ? ' var(--green700)' : 'var(--gray500)')};
+    }
 
     @media ${device.mobile} {
       min-width: 12rem;
