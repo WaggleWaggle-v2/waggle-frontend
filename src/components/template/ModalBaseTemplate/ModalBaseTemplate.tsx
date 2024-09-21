@@ -49,16 +49,19 @@ const S = {
     min-width: 46.4rem;
 
     @media ${device.mobile} {
-      bottom: 0;
+      transform: translate(0, 0);
       left: 0;
-      right: 0;
-      transform: none;
+      bottom: 0;
       width: 100%;
+      transform: none;
       padding: 6rem 2rem 4rem;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
 
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-width: 0;
     }
   `,
   ModalCloseButton: styled.button`

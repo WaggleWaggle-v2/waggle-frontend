@@ -1,6 +1,7 @@
 import PrimaryButton from '@components/PrimaryButton';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalSubTitle, ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 const DeleteAccountModal = ({ handleCloseModal }: { handleCloseModal: () => void }) => {
@@ -46,6 +47,11 @@ const S = {
     font-size: 2rem;
     padding: 1.4rem 0;
     border-radius: 0.6rem;
+
+    @media ${device.mobile} {
+      padding: 1.2rem 0;
+      font-size: 1.6rem;
+    }
   `,
   ModalTitle,
   ModalSubTitle,
