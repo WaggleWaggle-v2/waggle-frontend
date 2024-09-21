@@ -3,7 +3,10 @@ import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import editIcon from '@assets/icons/rewrite.svg';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
 import { MAX_LENGTH } from '@constants/maxLength';
-import { useBookshelfPublicityUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
+import {
+  useBookshelfIntroductionUpdateMutation,
+  useBookshelfPublicityUpdateMutation,
+} from '@hooks/reactQuery/useQueryBookshelf';
 import useInputValue from '@hooks/useInputText';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
@@ -15,9 +18,10 @@ interface TEditSection {
 
 const EditSection = ({ bookshelfData }: TEditSection) => {
   const { introduction, backgroundImageUrl, nickname, open } = bookshelfData;
-  const { value, handleChangeValue, handleSetValue } = useInputValue();
+  const { value: introductionValue, handleChangeValue, handleSetValue } = useInputValue();
   const { isEnterScope, handleSetScope, handleInitialSetScope } = useScopeValue();
-  const patchIntroduction = useBookshelfPublicityUpdateMutation();
+  const patchOpenScope = useBookshelfPublicityUpdateMutation();
+  const patchIntroduction = useBookshelfIntroductionUpdateMutation();
 
   useEffect(() => {
     handleSetValue(introduction ? introduction : '');
@@ -27,7 +31,11 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
   }, []);
 
   const handleSetScopeValue = (event: MouseEvent<HTMLButtonElement>) => {
-    handleSetScope(event, patchIntroduction.mutate);
+    handleSetScope(event, patchOpenScope.mutate);
+  };
+
+  const handlePatchIntroduction = () => {
+    patchIntroduction.mutate(introductionValue);
   };
 
   return (
@@ -45,13 +53,13 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
           <S.IntroductionInput
             maxLength={100}
             placeholder="소개글을 작성해주세요."
-            value={value}
+            value={introductionValue}
             onChange={handleChangeValue}
           />
           <S.TextLength>
-            ({value.length} / {MAX_LENGTH.BOOKSHELF_INTRODUCTION})
+            ({introductionValue.length} / {MAX_LENGTH.BOOKSHELF_INTRODUCTION})
           </S.TextLength>
-          <S.SaveButton type="button" disabled={introduction === value}>
+          <S.SaveButton type="button" disabled={introduction === introductionValue} onClick={handlePatchIntroduction}>
             변경사항 저장하기
           </S.SaveButton>
         </S.IntroductionForm>
@@ -73,7 +81,7 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
           방명록 주인을 포함한 모두가 볼수있어요!
         </S.Description>
       </S.SettingOne>
-      <S.SettingOne>
+      <S.SettingOne style={{ marginTop: '-3rem' }}>
         <S.SettingLayout>
           <S.SettingTitle>낮과 밤</S.SettingTitle>
           <button type="button">토글 버튼</button>
@@ -111,6 +119,10 @@ const SaveButton = styled.button`
   bottom: 1rem;
   &:disabled {
     background-color: var(--gray400);
+    cursor: not-allowed;
+    &:hover {
+      background-color: var(--gray400);
+    }
   }
   &:hover {
     background-color: var(--green700);
