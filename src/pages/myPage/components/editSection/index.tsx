@@ -2,7 +2,7 @@ import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import useToggle from '@hooks/useToggle';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import BookshelfImageSection from './components/BookshelfImageSection';
+import BookshelfImageSection from './components/BookshelfImageSection/BookshelfImageSection';
 import BookshelfThemeSection from './components/BookshelfThemeSection';
 import DeleteAccountButton from './components/DeleteAccountButton';
 import DeleteAccountModal from './components/DeleteAccountModal';

@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import editIcon from '@assets/icons/rewrite.svg';
+import useToggle from '@hooks/useToggle';
 import styled from 'styled-components';
+import SetProfileModal from './components/SetProfileModal';
 
 interface TBookshelfImageSection {
   backgroundImageUrl: string;
@@ -8,15 +11,27 @@ interface TBookshelfImageSection {
 
 const BookshelfImageSection = (props: TBookshelfImageSection) => {
   const { backgroundImageUrl, nickname } = props;
+  const [profileImage, setProfileImage] = useState(1);
+  const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
+
   return (
-    <div style={{ position: 'relative', flexShrink: '0' }}>
-      <S.EditImgButton type="button">
-        <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
-      </S.EditImgButton>
-      <S.ImageBox>
-        <S.BackgroundImg src={backgroundImageUrl} alt={`${nickname}의 책장 이미지`} />
-      </S.ImageBox>
-    </div>
+    <>
+      {isOpen && (
+        <SetProfileModal
+          handleCloseModal={handleCloseModal}
+          profileImageIdx={profileImage}
+          setProfileImage={setProfileImage}
+        />
+      )}
+      <div style={{ position: 'relative', flexShrink: '0' }}>
+        <S.EditImgButton type="button" onClick={handleOpenModal}>
+          <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
+        </S.EditImgButton>
+        <S.ImageBox>
+          <S.BackgroundImg src={backgroundImageUrl} alt={`${nickname}의 책장 이미지`} />
+        </S.ImageBox>
+      </div>
+    </>
   );
 };
 

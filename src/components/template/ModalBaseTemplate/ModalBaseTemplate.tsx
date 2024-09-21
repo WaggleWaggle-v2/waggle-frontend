@@ -46,7 +46,7 @@ const S = {
     background-color: var(--background);
     padding: 7rem 6.2rem 6rem;
     border-radius: 1rem;
-    width: 46.4rem;
+    min-width: 46.4rem;
 
     @media ${device.mobile} {
       bottom: 0;
