@@ -32,10 +32,17 @@ const OpenScopeSection = ({ open }: { open: boolean }) => {
           </S.OpenButton>
         </S.OpenOptionContainer>
       </S.OpenOption>
-      <S.Description>
-        <span style={{ color: 'var(--green700)' }}>방명록 방문자에게 내용이 공개 됩니다.</span> <br />
-        방명록 주인을 포함한 모두가 볼수있어요!
-      </S.Description>
+      {isEnterScope ? (
+        <S.Description>
+          <span style={{ color: 'var(--green700)' }}>방명록 방문자에게 내용이 공개 됩니다.</span> <br />
+          방명록 주인을 포함한 모두가 볼수있어요!
+        </S.Description>
+      ) : (
+        <S.Description>
+          <span style={{ color: 'var(--green700)' }}>링크로 초대된 사람만 볼 수 있습니다.</span> <br />
+          초대된 사람만 방명록 갯수와 공개된 방명록을 볼 수 있어요.
+        </S.Description>
+      )}
     </S.SettingOne>
   );
 };
