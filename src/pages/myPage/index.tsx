@@ -33,7 +33,9 @@ const MyPage = () => {
 
   return (
     <>
-      {isOpen && userInfo && <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo.nickname} />}
+      {isOpen && userInfo && (
+        <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo.nickname ? userInfo.nickname : ''} />
+      )}
       <S.PageContainer>
         <S.Container>
           <S.ProfileSection>
