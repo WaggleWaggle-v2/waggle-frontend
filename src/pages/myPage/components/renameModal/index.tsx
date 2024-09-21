@@ -4,24 +4,31 @@ import PrimaryInput from '@components/PrimaryInput';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
 import Portal from '@components/template/Portal';
-import useInputValue from '@hooks/useInputText';
+import { useUserNicknameUpdateMutation } from '@hooks/reactQuery/useQueryUser';
+import useChangeNickName from '@hooks/useChangeNickName';
 
 interface TRenameModal {
   handleCloseModal: () => void;
-  beforeNickName: string | null;
+  beforeNickName: string;
 }
 
 const RenameModal = (props: TRenameModal) => {
   const { handleCloseModal, beforeNickName } = props;
-  const { value: nickNameValue, handleSetValue } = useInputValue();
+  const { value: nickNameValue, handleInputChange, handleSetNickName, isDisabled, errorMessage } = useChangeNickName();
+  const reNameMutation = useUserNicknameUpdateMutation();
 
   useEffect(() => {
     if (beforeNickName) {
-      handleSetValue(beforeNickName);
+      handleSetNickName(beforeNickName);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleRename = () => {
+    reNameMutation.mutate(nickNameValue);
+    handleCloseModal();
+  };
 
   return (
     <Portal>
@@ -31,12 +38,14 @@ const RenameModal = (props: TRenameModal) => {
         </div>
         <PrimaryInput
           placeholder="새로운 이름을 입력해주세요."
-          onChange={handleSetValue}
-          invalidMsg=""
+          onChange={handleInputChange}
+          invalidMsg={errorMessage}
           value={nickNameValue}
         />
         <div style={{ marginTop: '4rem' }}>
-          <PrimaryButton>변경하기</PrimaryButton>
+          <PrimaryButton onClick={handleRename} disabled={beforeNickName === nickNameValue || isDisabled}>
+            변경하기
+          </PrimaryButton>
         </div>
       </ModalBaseTemplate>
     </Portal>
