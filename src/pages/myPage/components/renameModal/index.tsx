@@ -3,48 +3,60 @@ import PrimaryButton from '@components/PrimaryButton';
 import PrimaryInput from '@components/PrimaryInput';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
-import Portal from '@components/template/Portal';
-import useInputValue from '@hooks/useInputText';
+import { useUserNicknameUpdateMutation } from '@hooks/reactQuery/useQueryUser';
+import useChangeNickName from '@hooks/useChangeNickName';
+import styled from 'styled-components';
 
 interface TRenameModal {
   handleCloseModal: () => void;
-  beforeNickName: string | null;
+  beforeNickName: string;
 }
 
 const RenameModal = (props: TRenameModal) => {
   const { handleCloseModal, beforeNickName } = props;
-  const { value: nickNameValue, handleSetValue } = useInputValue();
+  const { value: nickNameValue, handleInputChange, handleSetNickName, isDisabled, errorMessage } = useChangeNickName();
+  const reNameMutation = useUserNicknameUpdateMutation();
 
   useEffect(() => {
     if (beforeNickName) {
-      handleSetValue(beforeNickName);
+      handleSetNickName(beforeNickName);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleRename = () => {
+    reNameMutation.mutate(nickNameValue);
+    handleCloseModal();
+  };
+
   return (
-    <Portal>
-      <ModalBaseTemplate handleCloseModal={handleCloseModal}>
+    <ModalBaseTemplate handleCloseModal={handleCloseModal}>
+      <S.Container>
         <div style={{ marginTop: '1.6rem' }}>
           <S.ModalTitle>이름을 바꾸겠소?</S.ModalTitle>
         </div>
         <PrimaryInput
           placeholder="새로운 이름을 입력해주세요."
-          onChange={handleSetValue}
-          invalidMsg=""
+          onChange={handleInputChange}
+          invalidMsg={errorMessage}
           value={nickNameValue}
         />
         <div style={{ marginTop: '4rem' }}>
-          <PrimaryButton>변경하기</PrimaryButton>
+          <PrimaryButton onClick={handleRename} disabled={beforeNickName === nickNameValue || isDisabled}>
+            변경하기
+          </PrimaryButton>
         </div>
-      </ModalBaseTemplate>
-    </Portal>
+      </S.Container>
+    </ModalBaseTemplate>
   );
 };
 
 export default RenameModal;
 
 const S = {
+  Container: styled.div`
+    height: 50rem;
+  `,
   ModalTitle,
 };
