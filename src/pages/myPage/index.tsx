@@ -3,6 +3,7 @@ import leftArrowIcon from '@assets/icons/left-arrow-tail.svg';
 import rewriteIcon from '@assets/icons/rewrite.svg';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
+import useToggle from '@hooks/useToggle';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { getCookie } from '@utils/cookie';
@@ -10,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookListSection from './components/bookListSection';
 import EditSection from './components/editSection';
+import RenameModal from './components/renameModal';
 import SettingListSection from './components/settingListSection';
 import { useSettingType } from './hooks/useSettingType';
 import { mockData } from './mockData';
@@ -18,6 +20,7 @@ const MyPage = () => {
   const { settingType, handleSetType, handleSetDefault } = useSettingType();
   const { data: userInfo } = useUserQuery();
   const { data: myBookShelf } = useBookshelfQuery(userInfo?.id);
+  const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,48 +32,54 @@ const MyPage = () => {
   }, [navigate]);
 
   return (
-    <S.PageContainer>
-      <S.Container>
-        <S.ProfileSection>
-          {userInfo && (
-            <div>
-              <S.TitleText>
-                <span style={{ color: 'var(--green600)' }}>{userInfo.nickname}</span>님,
-              </S.TitleText>
-              {settingType === 'default' || settingType === 'edit' ? (
-                <S.TitleText>안녕하시오.</S.TitleText>
-              ) : (
-                <>
-                  <S.TitleText>
-                    책장을 이만큼 <br /> {settingType === 'receive' ? '받았다오.' : '보냈다오.'}
-                  </S.TitleText>
-                  <S.SubText>
-                    총 <span style={{ color: 'var(--red500)', textDecoration: 'underline' }}>{mockData.count}</span>개를
-                    {settingType === 'receive' ? '받았소.' : '보냈소.'}
-                  </S.SubText>
-                </>
-              )}
-              {(settingType === 'default' || settingType === 'edit') && (
-                <S.RenameButton type="button">
-                  <img src={rewriteIcon} alt={'닉네임 변경하기'} />
-                </S.RenameButton>
-              )}
-            </div>
-          )}
-          {settingType !== 'default' && (
-            <S.GoBackButton type="button" onClick={handleSetDefault}>
-              <S.GoBackIcon src={leftArrowIcon} alt="뒤로 가기" /> 뒤로 가기
-            </S.GoBackButton>
-          )}
-        </S.ProfileSection>
-        <S.SettingSection>
-          {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
-          {settingType === 'receive' && <BookListSection bookList={mockData.list} settingType={'receive'} />}
-          {settingType === 'present' && <BookListSection bookList={mockData.list} settingType={'present'} />}
-          {settingType === 'edit' && myBookShelf && <EditSection bookshelfData={myBookShelf} />}
-        </S.SettingSection>
-      </S.Container>
-    </S.PageContainer>
+    <>
+      {isOpen && userInfo && (
+        <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo.nickname ? userInfo.nickname : ''} />
+      )}
+      <S.PageContainer>
+        <S.Container>
+          <S.ProfileSection>
+            {userInfo && (
+              <div>
+                <S.TitleText>
+                  <span style={{ color: 'var(--green600)' }}>{userInfo.nickname}</span>님,
+                </S.TitleText>
+                {settingType === 'default' || settingType === 'edit' ? (
+                  <S.TitleText>안녕하시오.</S.TitleText>
+                ) : (
+                  <>
+                    <S.TitleText>
+                      책장을 이만큼 <br /> {settingType === 'receive' ? '받았다오.' : '보냈다오.'}
+                    </S.TitleText>
+                    <S.SubText>
+                      총 <span style={{ color: 'var(--red500)', textDecoration: 'underline' }}>{mockData.count}</span>
+                      개를
+                      {settingType === 'receive' ? '받았소.' : '보냈소.'}
+                    </S.SubText>
+                  </>
+                )}
+                {(settingType === 'default' || settingType === 'edit') && (
+                  <S.RenameButton type="button" onClick={handleOpenModal}>
+                    <img src={rewriteIcon} alt={'닉네임 변경하기'} />
+                  </S.RenameButton>
+                )}
+              </div>
+            )}
+            {settingType !== 'default' && (
+              <S.GoBackButton type="button" onClick={handleSetDefault}>
+                <S.GoBackIcon src={leftArrowIcon} alt="뒤로 가기" /> 뒤로 가기
+              </S.GoBackButton>
+            )}
+          </S.ProfileSection>
+          <S.SettingSection>
+            {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
+            {settingType === 'receive' && <BookListSection bookList={mockData.list} settingType={'receive'} />}
+            {settingType === 'present' && <BookListSection bookList={mockData.list} settingType={'present'} />}
+            {settingType === 'edit' && myBookShelf && <EditSection bookshelfData={myBookShelf} />}
+          </S.SettingSection>
+        </S.Container>
+      </S.PageContainer>
+    </>
   );
 };
 

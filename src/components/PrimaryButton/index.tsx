@@ -32,6 +32,14 @@ const S = {
     padding: 1.4rem 0;
     border-radius: 0.6rem;
 
+    &:hover {
+      background-color: var(--green700);
+    }
+
+    &:active {
+      background-color: var(--green800);
+    }
+
     &:disabled {
       cursor: default;
       background-color: var(--green200);
