@@ -3,9 +3,9 @@ import PrimaryButton from '@components/PrimaryButton';
 import PrimaryInput from '@components/PrimaryInput';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
-import Portal from '@components/template/Portal';
 import { useUserNicknameUpdateMutation } from '@hooks/reactQuery/useQueryUser';
 import useChangeNickName from '@hooks/useChangeNickName';
+import styled from 'styled-components';
 
 interface TRenameModal {
   handleCloseModal: () => void;
@@ -31,8 +31,8 @@ const RenameModal = (props: TRenameModal) => {
   };
 
   return (
-    <Portal>
-      <ModalBaseTemplate handleCloseModal={handleCloseModal}>
+    <ModalBaseTemplate handleCloseModal={handleCloseModal}>
+      <S.Container>
         <div style={{ marginTop: '1.6rem' }}>
           <S.ModalTitle>이름을 바꾸겠소?</S.ModalTitle>
         </div>
@@ -47,13 +47,16 @@ const RenameModal = (props: TRenameModal) => {
             변경하기
           </PrimaryButton>
         </div>
-      </ModalBaseTemplate>
-    </Portal>
+      </S.Container>
+    </ModalBaseTemplate>
   );
 };
 
 export default RenameModal;
 
 const S = {
+  Container: styled.div`
+    height: 50rem;
+  `,
   ModalTitle,
 };
