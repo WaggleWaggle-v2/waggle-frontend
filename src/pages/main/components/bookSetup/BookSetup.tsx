@@ -19,7 +19,7 @@ interface TBookSetupProps {
 const BookSetup = ({ setIsOpen }: TBookSetupProps) => {
   const pageWidth = usePageWidth();
   const [doSetup, setDoSetup] = useState(false); // 비로그인 유저의 setup 진행 여부
-  const isLoginUser = false;
+  const isLoginUser = true;
 
   if (isLoginUser) {
     return (

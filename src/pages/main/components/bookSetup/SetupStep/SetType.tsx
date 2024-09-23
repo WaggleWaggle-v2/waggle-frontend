@@ -38,6 +38,7 @@ const S = {
     justify-content: center;
     margin: 5.5rem 0 8.5rem;
     gap: 5rem;
+    width: 100%;
     @media ${device.mobile} {
       gap: 2rem;
     }

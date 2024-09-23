@@ -1,53 +1,87 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
-import { Dispatch, useState } from 'react';
+import { Dispatch, useRef, useState } from 'react';
 import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
 import { BOOK_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
-import {
-  useBookshelfBackgroundUpdateMutation,
-  useBookshelfIntroductionUpdateMutation,
-  useBookshelfThemeUpdateMutation,
-} from '@hooks/reactQuery/useQueryBookshelf';
+import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
-import { device, size } from '@styles/breakpoints';
+import { TBookType } from '@pages/main/types/type';
+import { size } from '@styles/breakpoints';
+import domtoimage from 'dom-to-image';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Canvas from './Canvas';
 import Preview from './Preview';
-import SetType from './SetType';
+import SetCanvas from './SetupStep/SetCanvas';
+import SetPost from './SetupStep/SetPost';
+import SetPublicity from './SetupStep/SetPublicity';
+import SetSender from './SetupStep/SetSender';
+import SetType from './SetupStep/SetType';
+import BookScollPaper from '../bookshelf/BookScollPaper';
 
 interface TAdditionalSetupModalProps {
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
+  const { id } = useParams();
+  const { data } = useBookshelfQuery(id);
+
+  const canvasRef = useRef<any>(null);
   const pageWidth = usePageWidth();
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
-  //   const [profile, setProfile] = useState(1);
-  //   const [theme, setTheme] = useState<TTheme>('WHITE');
-  //   const [intro, setIntro] = useState('');
-  const [type, setType] = useState<'SMALL' | 'BIG'>('SMALL');
-  const [canvas, setCanvas] = useState();
+
+  const [type, setType] = useState<TBookType>('SMALL');
+  const [canvas, setCanvas] = useState<File | null>(null);
   const [post, setPost] = useState<string>('');
   const [sender, setSender] = useState<string>('');
   const [publicity, setPublicity] = useState<boolean>(true);
 
-  //   const backgroundMutation = useBookshelfBackgroundUpdateMutation();
-  //   const themeMutation = useBookshelfThemeUpdateMutation();
-  //   const introductionMutation = useBookshelfIntroductionUpdateMutation();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  //   const handleUpdateBackground = async () => {
-  //     try {
-  //       await backgroundMutation.mutateAsync(profile);
-  //       setStep(step => step + 1);
-  //       setIsDisabled(true);
-  //     } catch (error) {
-  //       console.error('Failed to update user information:', error);
-  //     }
-  //   };
-
-  const handleTest = async () => {
+  const handleMoveToNextStep = () => {
     setStep(step => step + 1);
+  };
+
+  const handleFinalStep = async () => {
+    console.log(type);
+    console.log(canvas);
+    console.log(post);
+    console.log(sender);
+    console.log(publicity);
+    setIsOpen(false);
+  };
+
+  const handleCanvasUpdateClick = async () => {
+    if (canvasRef.current) {
+      canvasRef.current.onFocusOut();
+    }
+
+    const canvasElement = document.getElementById('container') as HTMLDivElement;
+    if (canvasElement) {
+      try {
+        const dataUrl = await domtoimage.toPng(canvasElement);
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        const file = new File([blob], 'canvas-image.png', { type: 'image/png' });
+
+        setCanvas(file);
+        const imageUrl = URL.createObjectURL(file);
+        setImagePreview(imageUrl);
+
+        handleMoveToNextStep();
+      } catch (error) {
+        console.error('Error generating image from canvas:', error);
+      }
+    }
+  };
+
+  const handleImageClick = (url: string) => {
+    setSelectedImage(url);
   };
 
   return (
@@ -58,9 +92,8 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             step={step}
             titleTop="책장 크기를&nbsp;"
             titleBottom="선택해주시오."
-            handleButtonClick={handleTest}
+            handleButtonClick={handleMoveToNextStep}
             isDisabled={false}>
-            {/* <SetProfile profile={profile} setProfile={setProfile} /> */}
             <SetType type={type} setType={setType} />
           </SettingTemplate>
         )}
@@ -70,50 +103,70 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             <SettingTemplate
               step={step}
               titleTop="책장을 꾸며주시오."
-              handleButtonClick={handleTest}
-              isDisabled={false}>
-              {/* <SetTheme theme={theme} setTheme={setTheme} /> */}
-              <SetType />
-              {pageWidth <= size.mobile && <Preview />}
+              ButtonSubText="해당 단계에서 다음으로 넘어가게 되면, 수정이 불가합니다."
+              handleButtonClick={handleCanvasUpdateClick}
+              isDisabled={false}
+              isPreview>
+              <SetCanvas handleImageClick={handleImageClick} />
+              {pageWidth <= size.mobile && (
+                <Preview>
+                  <Canvas
+                    ref={canvasRef}
+                    selectedImage={selectedImage}
+                    setSelectedImage={setSelectedImage}
+                    type={type}
+                  />
+                </Preview>
+              )}
             </SettingTemplate>
-            {pageWidth > size.mobile && <Preview />}
+            {pageWidth > size.mobile && (
+              <Preview>
+                <Canvas ref={canvasRef} selectedImage={selectedImage} setSelectedImage={setSelectedImage} type={type} />
+              </Preview>
+            )}
           </S.SettingWrapper>
         )}
 
         {step === 3 && (
-          <SettingTemplate
-            step={step}
-            titleTop="마음을 전하시오."
-            handleButtonClick={handleTest}
-            isDisabled={false}
-            buttonText="나의 책장 보러가기">
-            {/* <SetIntro setIntro={setIntro} setIsDisabled={setIsDisabled} /> */}
-            <SetType />
-          </SettingTemplate>
+          <S.SettingWrapper>
+            <SettingTemplate
+              step={step}
+              titleTop="마음을 전하시오."
+              handleButtonClick={handleMoveToNextStep}
+              isDisabled={isDisabled}>
+              <SetPost setPost={setPost} setIsDisabled={setIsDisabled} />
+            </SettingTemplate>
+            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
+          </S.SettingWrapper>
         )}
 
         {step === 4 && (
-          <SettingTemplate
-            step={step}
-            titleTop="이름을 남겨주시오."
-            handleButtonClick={handleTest}
-            isDisabled={false}
-            buttonText="나의 책장 보러가기">
-            {/* <SetIntro setIntro={setIntro} setIsDisabled={setIsDisabled} /> */}
-            <SetType />
-          </SettingTemplate>
+          <S.SettingWrapper>
+            <Preview noTablet>{data && <BookScollPaper isPreview ownerName={data.nickname} content={post} />}</Preview>
+            <SettingTemplate
+              step={step}
+              titleTop="이름을 남겨주시오."
+              handleButtonClick={handleMoveToNextStep}
+              isDisabled={isDisabled}>
+              <SetSender sender={sender} setSender={setSender} setIsDisabled={setIsDisabled} />
+            </SettingTemplate>
+          </S.SettingWrapper>
         )}
 
         {step === 5 && (
-          <SettingTemplate
-            step={step}
-            titleTop="방명록을 공개하겠소?"
-            handleButtonClick={handleTest}
-            isDisabled={false}
-            buttonText="나의 책장 보러가기">
-            {/* <SetIntro setIntro={setIntro} setIsDisabled={setIsDisabled} /> */}
-            <SetType />
-          </SettingTemplate>
+          <S.SettingWrapper>
+            <Preview noTablet>
+              {data && <BookScollPaper isPreview ownerName={data?.nickname} content={post} sender={sender} />}
+            </Preview>
+            <SettingTemplate
+              step={step}
+              titleTop="방명록을 공개하겠소?"
+              handleButtonClick={handleFinalStep}
+              isDisabled={isDisabled}
+              buttonText="방명록 남기기">
+              <SetPublicity publicity={publicity} setPublicity={setPublicity} />
+            </SettingTemplate>
+          </S.SettingWrapper>
         )}
       </ModalTemplate>
       <ProgressBar totalStep={BOOK_SETUP_TOTAL_STEP} currentStep={step} />
@@ -132,6 +185,6 @@ const S = {
 
   SettingWrapper: styled.div`
     display: flex;
-    height: 100vh;
+    width: 100%;
   `,
 };

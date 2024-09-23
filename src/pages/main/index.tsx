@@ -15,7 +15,7 @@ const Main = () => {
   const scrollContainerRef = useSmoothScroll();
   const [buttonColor, setButtonColor] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();

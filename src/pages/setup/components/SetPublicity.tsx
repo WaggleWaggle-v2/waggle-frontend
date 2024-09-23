@@ -3,7 +3,7 @@
 import React, { SetStateAction } from 'react';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { PUBLICITY_SELECT } from '../constants/publicitySelect';
+import { BOOKSHELF_PUBLICITY } from '../../../constants/publicity';
 
 interface TSetPublicityProps {
   setPublicity: React.Dispatch<SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ const SetPublicity = ({ setPublicity, publicity }: TSetPublicityProps) => {
   return (
     <S.Container>
       <S.SelectorWrapper>
-        {PUBLICITY_SELECT.map(pub => (
+        {BOOKSHELF_PUBLICITY.map(pub => (
           <S.PublicitySelector
             key={pub.text}
             onClick={() => handleSelectorClick(pub.value)}

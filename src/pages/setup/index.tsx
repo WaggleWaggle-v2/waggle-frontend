@@ -32,7 +32,7 @@ const SetUp = () => {
   const handleSubmitButtonClick = async () => {
     try {
       await mutation.mutateAsync({ nickname, isOpen });
-      navigate(`/main/${data?.id}`);
+      navigate(`/bookshelf/${data?.id}`);
     } catch (error) {
       console.error('Failed to update user information:', error);
     }
@@ -40,7 +40,7 @@ const SetUp = () => {
 
   useEffect(() => {
     if (data?.userState === 'VERIFIED') {
-      navigate(`/main/${data.id}`, { state: 'setup' });
+      navigate(`/bookshelf/${data.id}`, { state: 'setup' });
     }
   }, [data]);
 
