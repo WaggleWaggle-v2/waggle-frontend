@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { FormEventHandler, useRef, useState } from 'react';
 import { adjustTextareaHeight } from '@components/PrimaryTextarea/utils/adjustTextareaHeight';
-import { MAX_LENGTH } from '@constants/maxLength';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
@@ -9,10 +8,11 @@ interface TPrimaryTextareaProps {
   placeholder: string;
   onChange: (value: string) => void;
   invalidMsg: string;
+  maxLength: number;
 }
 
 const PrimaryTextarea = (props: TPrimaryTextareaProps) => {
-  const { placeholder, onChange, invalidMsg } = props;
+  const { placeholder, onChange, invalidMsg, maxLength } = props;
   const [legnth, setLength] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -23,8 +23,8 @@ const PrimaryTextarea = (props: TPrimaryTextareaProps) => {
 
     inputValue = inputValue.replace(/\s{2,}/g, ' ');
 
-    if (inputValue.length > MAX_LENGTH) {
-      inputValue = inputValue.slice(0, MAX_LENGTH); // Trim the value
+    if (inputValue.length > maxLength) {
+      inputValue = inputValue.slice(0, maxLength);
     }
 
     if (inputValue.match(/^\s+/)) {
@@ -55,7 +55,7 @@ const PrimaryTextarea = (props: TPrimaryTextareaProps) => {
       e.preventDefault();
     }
 
-    if (inputValue.length >= MAX_LENGTH && e.key !== 'Backspace' && e.key !== 'Delete') {
+    if (inputValue.length >= maxLength && e.key !== 'Backspace' && e.key !== 'Delete') {
       e.preventDefault();
     }
 
@@ -73,10 +73,12 @@ const PrimaryTextarea = (props: TPrimaryTextareaProps) => {
         onInput={onInput}
         onBlur={onBlur}
         ref={textareaRef}
-        maxLength={MAX_LENGTH}
+        maxLength={maxLength}
       />
       {invalidMsg && <S.InvalidMsg>{invalidMsg}</S.InvalidMsg>}
-      <S.LetterCount $isInvalid={!!invalidMsg}>({legnth}/100)</S.LetterCount>
+      <S.LetterCount $isInvalid={!!invalidMsg}>
+        ({legnth}/{maxLength})
+      </S.LetterCount>
     </S.Container>
   );
 };
@@ -97,12 +99,15 @@ const S = {
     display: block;
     outline: none;
     resize: none;
+    overflow-y: auto;
     overflow: hidden;
     font-size: 2rem;
     font-weight: 400;
     padding: 1rem;
-    height: 4.4rem;
+    max-height: 40rem;
+    height: 5rem;
     line-height: 150%;
+
     @media ${device.mobile} {
       font-size: 1.6rem;
     }

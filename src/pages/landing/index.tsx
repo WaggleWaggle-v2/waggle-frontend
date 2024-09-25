@@ -1,6 +1,8 @@
 import { useRandomBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
+import { getCookie } from '@utils/cookie';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfSection from './components/BookshelfSection';
@@ -12,10 +14,20 @@ import { KingSejong } from './mockData';
 import { Layout as BaseLayout, Main } from './style/landingCommon';
 
 const Landing = () => {
+  const accessToken = getCookie('accessToken');
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
   const { data: randomCardData, refetch } = useRandomBookshelfQuery();
+  const { data: userData } = useUserQuery();
+
+  const handleClickLandingButton = () => {
+    if (accessToken) {
+      navigate(`/bookshelf/${userData?.id}`);
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <>
@@ -26,7 +38,7 @@ const Landing = () => {
             <S.Layout>
               <TitleSection />
               <DescriptionSection />
-              <S.StartButton type="button" onClick={() => navigate('/login')}>
+              <S.StartButton type="button" onClick={handleClickLandingButton}>
                 와글와글 시작하겠소
               </S.StartButton>
             </S.Layout>

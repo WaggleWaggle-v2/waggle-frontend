@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import PrimaryTextarea from '@components/PrimaryTextarea';
 import { MAX_LENGTH } from '@constants/maxLength';
 import { isCompleteKoreanWord } from '@pages/setup/utils/isCompleteKoreanWord';
@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 interface TSetIntroProps {
   setIntro: (intro: string) => void;
-  setIsDisabled: (isDisabled: boolean) => void;
+  setIsDisabled: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const SetIntro = ({ setIntro, setIsDisabled }: TSetIntroProps) => {
@@ -19,7 +19,7 @@ const SetIntro = ({ setIntro, setIsDisabled }: TSetIntroProps) => {
     if (value === '') {
       setInvalidMsg('');
       setIsDisabled(true);
-    } else if (value.length > MAX_LENGTH) {
+    } else if (value.length > MAX_LENGTH.BOOKSHELF_INTRODUCTION) {
       setInvalidMsg('최대 100글자만 사용할 수 있습니다.');
       setIsDisabled(true);
     } else if (isCompleteKoreanWord(value)) {
@@ -37,6 +37,7 @@ const SetIntro = ({ setIntro, setIsDisabled }: TSetIntroProps) => {
         placeholder="나의 책장을 소개하는 글을 적으시오."
         onChange={handleInputChange}
         invalidMsg={invalidMsg}
+        maxLength={MAX_LENGTH.BOOKSHELF_INTRODUCTION}
       />
     </S.Container>
   );

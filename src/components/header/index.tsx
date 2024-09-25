@@ -78,8 +78,8 @@ const S = {
     left: 0;
 
     @media ${device.tablet} {
-      background-color: rgba(246, 243, 238);
-      backdrop-filter: blur(0.9rem);
+      background-color: rgba(246, 243, 238, 0.3);
+      backdrop-filter: blur(0.4rem);
 
       height: ${HEADER_HEIGHT.MOBILE};
       align-items: center;

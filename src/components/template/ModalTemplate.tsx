@@ -12,8 +12,8 @@ import styled from 'styled-components';
 interface TModalTemplateProps {
   children: ReactNode;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
-  setStep: Dispatch<React.SetStateAction<number>>;
-  step: number;
+  setStep?: Dispatch<React.SetStateAction<number>>;
+  step?: number;
   isInit?: boolean;
 }
 
@@ -83,15 +83,14 @@ const customModalStyles: ReactModal.Styles = {
     left: '50%',
     height: 'fit-content',
     minHeight: '28.4rem',
-    maxHeight: '64rem',
+    maxHeight: '70rem',
     transform: 'translate(-50%, -50%)',
     borderRadius: '1rem',
     backgroundColor: 'var(--background)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '5rem 4.8rem 3rem',
     minWidth: '46.4rem',
-    maxWidth: '76.8rem',
+    maxWidth: '95.8rem',
   },
 };
 
@@ -111,11 +110,11 @@ const S = {
     background-color: var(--background);
     height: ${HEADER_HEIGHT.MOBILE};
     width: 100%;
-    z-index: calc(${zIndex.header} + 1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 1.6rem;
+    z-index: 100;
   `,
 
   GoBackIcon: styled.img`

@@ -10,8 +10,10 @@ interface TSettingTemplateProps {
   titleTop: string;
   titleBottom?: string;
   buttonText?: string;
+  ButtonSubText?: string;
   handleButtonClick: () => void;
   isDisabled: boolean;
+  isPreview?: boolean | undefined;
 }
 
 const SettingTemplate = ({
@@ -21,20 +23,24 @@ const SettingTemplate = ({
   titleBottom,
   handleButtonClick,
   isDisabled,
+  isPreview,
   buttonText = '다음',
+  ButtonSubText,
 }: TSettingTemplateProps) => {
-  const stepStr = step === 1 ? '하나' : step === 2 ? '둘' : '셋';
+  const stepStr = step === 1 ? '하나' : step === 2 ? '둘' : step === 3 ? '셋' : step === 4 ? '넷' : '마지막이오';
 
   return (
-    <S.Container>
-      <S.Step>{stepStr}.</S.Step>
-      <S.Title>
-        <p>{titleTop}</p>
-        <p>{titleBottom}</p>
-      </S.Title>
-      {children}
+    <S.Container $isPreview={isPreview}>
+      <div>
+        <S.Step>{stepStr}.</S.Step>
+        <S.Title>
+          <p>{titleTop}</p>
+          <p>{titleBottom}</p>
+        </S.Title>
+        <S.ChildrenWrapper>{children}</S.ChildrenWrapper>
+      </div>
       <S.ButtonWrapper>
-        {!isDisabled && <S.PublicityResetText>마이페이지에서 재설정이 가능합니다.</S.PublicityResetText>}
+        {!isDisabled && <S.ButtonSubText>{ButtonSubText}</S.ButtonSubText>}
         <PrimaryButton disabled={isDisabled} onClick={handleButtonClick}>
           {buttonText}
         </PrimaryButton>
@@ -46,22 +52,27 @@ const SettingTemplate = ({
 export default SettingTemplate;
 
 const S = {
-  Container: styled.section`
+  Container: styled.section<{ $isPreview: boolean | undefined }>`
+    padding: 5rem 4.8rem 3rem;
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     min-width: 46.4rem;
+    height: fit-content;
     @media ${device.tablet} {
-      margin-top: calc(${HEADER_HEIGHT.MOBILE} + 10rem);
-      padding-bottom: 10.2rem;
-      height: fit-content;
+      margin-top: calc(${HEADER_HEIGHT.MOBILE});
+      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+      min-width: 0;
+      width: ${({ $isPreview }) => !$isPreview && '100%'};
     }
     @media ${device.mobile} {
       display: flex;
-      width: 100%;
+      width: 100vw;
       min-width: 0;
-      margin: 2rem;
-      margin-top: calc(5.4rem + 3.8rem);
+      margin-top: calc(5.4rem);
+      height: calc(100% - 20rem);
+      padding: 4rem 2rem;
     }
   `,
 
@@ -83,11 +94,18 @@ const S = {
     }
   `,
 
+  ChildrenWrapper: styled.div`
+    display: flex;
+    @media ${device.mobile} {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  `,
+
   ButtonWrapper: styled.div`
     position: relative;
-    @media ${device.tablet} {
-      /* margin-bottom: 6.4rem; */
-    }
+    width: 100%;
+
     @media ${device.tablet} {
       background: linear-gradient(to top, var(--background) 90%, transparent 100%);
       font-size: 1.6rem;
@@ -96,22 +114,22 @@ const S = {
       right: 0;
       left: 0;
       padding: 4rem 2rem 2rem;
-      width: auto;
     }
   `,
 
-  PublicityResetText: styled.p`
+  ButtonSubText: styled.p`
     position: absolute;
-    top: -2.4rem;
+    bottom: 5.4rem;
     font-family: 'Pretendard';
     margin-bottom: 1rem;
     font-size: 1.4rem;
     color: var(--gray600);
     width: 100%;
     text-align: center;
+    line-height: 130%;
     @media ${device.tablet} {
       width: calc(100% - 4rem);
-      top: 1.7rem;
+      bottom: 7rem;
     }
   `,
 };

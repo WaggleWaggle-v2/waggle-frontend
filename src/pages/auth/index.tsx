@@ -42,7 +42,7 @@ const Auth = () => {
   useEffect(() => {
     if (!isLoading && data) {
       if (data.userState === 'VERIFIED') {
-        navigate(`/main/${data.id}`);
+        navigate(`/bookshelf/${data.id}`);
       } else {
         navigate('/setup');
       }

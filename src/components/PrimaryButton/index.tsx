@@ -6,11 +6,12 @@ interface TPrimaryButtonProps {
   children: ReactNode;
   disabled?: boolean;
   onClick?: () => void;
+  color?: string | undefined;
 }
 
-const PrimaryButton = ({ children, disabled, onClick }: TPrimaryButtonProps) => {
+const PrimaryButton = ({ children, disabled, onClick, color }: TPrimaryButtonProps) => {
   return (
-    <S.Container disabled={disabled} onClick={onClick}>
+    <S.Container disabled={disabled} onClick={onClick} $backgroundColor={color}>
       {children}
     </S.Container>
   );
@@ -19,9 +20,9 @@ const PrimaryButton = ({ children, disabled, onClick }: TPrimaryButtonProps) => 
 export default PrimaryButton;
 
 const S = {
-  Container: styled.button`
+  Container: styled.button<{ $backgroundColor: string | undefined }>`
     font-family: 'EBSHunminjeongeum';
-    background-color: var(--button-active);
+    background-color: ${({ $backgroundColor }) => $backgroundColor || 'var(--button-active)'};
     cursor: pointer;
     color: white;
     text-align: center;
