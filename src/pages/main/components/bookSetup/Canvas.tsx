@@ -76,7 +76,6 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
   /* 2. 생성한 Layer위에 선택한 이미지 객체를 올려주기. */
   const drawImage = useCallback(async () => {
     if (!selectedImage || !layerRef.current) return;
-
     const imageObj = new Image();
     imageObj.src = selectedImage;
 
@@ -103,6 +102,7 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
       konvaImage.moveToTop();
       transformerRef.current?.moveToTop();
       layerRef?.current?.draw();
+
       setActiveImage(konvaImage);
 
       // 각 이미지에 클릭 이벤트 넣기(바운딩 박스 마운트 위해)
@@ -155,10 +155,24 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
 
   const removeAllImages = () => {
     if (layerRef.current) {
-      layerRef.current.destroyChildren(); // Layer의 모든 자식 노드를 제거
-      transformerRef.current?.nodes([]); // Transformer 해제
-      layerRef.current.draw(); // Layer 다시 그리기
-      setActiveImage(null); // 활성 이미지 상태 초기화
+      const children = layerRef.current.getChildren();
+      const imagesToRemove: Konva.Image[] = [];
+
+      children.forEach(child => {
+        if (child instanceof Konva.Image) {
+          imagesToRemove.push(child);
+        }
+      });
+
+      imagesToRemove.forEach(image => {
+        image.destroy();
+      });
+
+      transformerRef.current?.nodes([]);
+      layerRef.current.batchDraw();
+
+      setActiveImage(null);
+      setSelectedImage(null);
     }
   };
 
@@ -187,14 +201,12 @@ const S = {
 
   RemoveAllButton: styled.button`
     position: absolute;
-    top: -4rem;
+    top: -3rem;
     left: calc(50% - 16rem / 2);
-    width: 100%;
-    text-align: center;
     cursor: pointer;
-    width: 16rem;
+    width: fit-content;
     color: #938e87;
-    font-weight: 600;
+    font-weight: 800;
   `,
 
   Canvas: styled.div<{ $background: string }>`
