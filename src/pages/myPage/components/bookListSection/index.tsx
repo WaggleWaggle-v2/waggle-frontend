@@ -45,7 +45,7 @@ const BookListSection = ({ bookList, settingType }: TBookList) => {
               navigate(`/bookshelf/${book.id}`);
             }}
             key={book.id}>
-            <BookInfo bookData={book} />
+            <BookInfo bookData={book} settingType={settingType} />
           </S.BookButton>
         ))}
       </S.ListContainer>

@@ -96,17 +96,15 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 2rem;
 
     @media ${device.tablet} {
       height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
       position: relative;
       top: ${HEADER_HEIGHT.MOBILE};
-      padding-top: 14.4rem;
-      margin-bottom: 20rem;
     }
 
     @media ${device.mobile} {
-      padding-top: 4.7rem;
     }
   `,
   Container: styled.div`
@@ -132,7 +130,6 @@ const S = {
       gap: 2.7rem;
     }
   `,
-
   ProfileSection: styled.div<{ $isList?: boolean }>`
     display: flex;
     flex-direction: column;
@@ -176,6 +173,7 @@ const S = {
     color: #000;
     font-family: 'EBSHunminjeongeum';
     font-size: 2.4rem;
+    margin-top: 2rem;
 
     @media ${device.tablet} {
       margin-top: 2rem;
@@ -189,6 +187,7 @@ const S = {
     cursor: pointer;
     width: 3.1rem;
     height: 3.1rem;
+    margin-top: 2rem;
 
     @media ${device.tablet} {
       position: absolute;
@@ -199,6 +198,7 @@ const S = {
     @media ${device.mobile} {
       width: 2.3rem;
       height: 2.3rem;
+      margin-bottom: 1rem;
     }
   `,
 
