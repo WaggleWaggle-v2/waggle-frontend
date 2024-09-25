@@ -16,7 +16,7 @@ const BookScollPaper = ({ ownerName, content, sender, isPreview }: TBookScollPap
         <div />
       </S.BookScrollBar>
 
-      <S.BookContent $isPreview={isPreview}>
+      <S.BookContent $isPreview={isPreview as boolean}>
         <S.Receiver>
           <p>{ownerName}</p>
           <p>님 에게</p>
@@ -149,6 +149,7 @@ const S = {
     line-height: 150%;
     max-height: 25rem;
     overflow-y: auto;
+    white-space: pre-wrap;
     @media ${device.mobile} {
       font-size: 1.6rem;
     }

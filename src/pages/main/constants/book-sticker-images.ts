@@ -30,36 +30,32 @@ import prop7 from '@assets/images/book-stickers/props/props7.png';
 import prop8 from '@assets/images/book-stickers/props/props8.png';
 import prop9 from '@assets/images/book-stickers/props/props9.png';
 
-export const LETTER_IMAGES = [
-  letter1,
-  letter2,
-  letter3,
-  letter4,
-  letter5,
-  letter6,
-  letter7,
-  letter8,
-  letter9,
-  letter10,
-  letter11,
-  letter12,
-  letter13,
-  letter14,
-] as const;
+export const LETTER_IMAGES = {
+  title: '한글',
+  imageList: [
+    letter1,
+    letter2,
+    letter3,
+    letter4,
+    letter5,
+    letter6,
+    letter7,
+    letter8,
+    letter9,
+    letter10,
+    letter11,
+    letter12,
+    letter13,
+    letter14,
+  ],
+} as const;
 
-export const PROP_IMAGES = [
-  prop1,
-  prop2,
-  prop3,
-  prop4,
-  prop5,
-  prop6,
-  prop7,
-  prop8,
-  prop9,
-  prop10,
-  prop11,
-  prop12,
-] as const;
+export const PROP_IMAGES = {
+  title: '아기자기한 소품',
+  imageList: [prop1, prop2, prop3, prop4, prop5, prop6, prop7, prop8, prop9, prop10, prop11, prop12],
+} as const;
 
-export const EQUIPMENT_IMAGES = [equipment1, equipment2, equipment3] as const;
+export const EQUIPMENT_IMAGES = {
+  title: '멋스러운 소품',
+  imageList: [equipment1, equipment2, equipment3],
+} as const;
