@@ -93,9 +93,6 @@ const S = {
     background-color: var(--white);
     border-radius: 2rem;
     padding: 1.6rem 2rem;
-    &::-webkit-scrollbar {
-      display: none;
-    }
   `,
 
   TextArea: styled.textarea<{ $isInvalid: boolean }>`
@@ -105,17 +102,13 @@ const S = {
     display: block;
     outline: none;
     resize: none;
-    /* overflow-y: auto; */
-    overflow: hidden;
+    overflow-y: auto;
     font-weight: 400;
     padding: 1rem;
     max-height: 40rem;
     height: 36rem;
     line-height: 150%;
-
-    @media ${device.mobile} {
-      font-size: 1.6rem;
-    }
+    font-size: 1.6rem;
 
     &::placeholder {
       color: var(--gray400);

@@ -44,13 +44,14 @@ const S = {
     overflow-x: hidden;
     width: 40rem;
     &::-webkit-scrollbar {
-      width: 0.4rem;
+      width: 0.6rem;
     }
     &::-webkit-scrollbar-track {
       background-color: var(--gray200);
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {
+      cursor: pointer;
       border-radius: 0.2rem;
       background-color: var(--brown200);
     }
@@ -79,6 +80,7 @@ const S = {
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {
+      cursor: pointer;
       border-radius: 0.2rem;
       background-color: var(--brown200);
     }

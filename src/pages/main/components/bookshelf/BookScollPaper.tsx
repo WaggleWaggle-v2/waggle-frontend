@@ -79,7 +79,6 @@ const S = {
     align-items: center;
     width: 100%;
     @media ${device.mobile} {
-      border: 1px solid red;
       width: 94vw;
     }
   `,
@@ -91,7 +90,6 @@ const S = {
     width: 100%;
 
     @media ${device.mobile} {
-      border: 1px solid red;
     }
 
     div:first-child {
@@ -123,9 +121,11 @@ const S = {
     padding: ${({ $isPreview }) => ($isPreview ? '3rem 2.6rem' : '5.6rem 4rem')};
     animation: ${({ $isPreview }) => ($isPreview ? rollDownMobile : rollDown)} 0.5s
       cubic-bezier(0.51, -0.09, 0.51, 1.03);
+    font-size: ${({ $isPreview }) => ($isPreview ? '1.6rem' : '2rem')};
     @media ${device.mobile} {
       animation: ${rollDownMobile} 0.5s cubic-bezier(0.51, -0.09, 0.51, 1.03);
       padding: 3rem 2.6rem;
+      font-size: 1.6rem;
     }
   `,
 
@@ -143,16 +143,12 @@ const S = {
 
   Content: styled.div`
     font-family: 'Pretendard';
-    font-size: 2rem;
     margin: 2.1rem 0;
     padding-right: 1rem;
     line-height: 150%;
     max-height: 25rem;
     overflow-y: auto;
     white-space: pre-wrap;
-    @media ${device.mobile} {
-      font-size: 1.6rem;
-    }
 
     &::-webkit-scrollbar {
       width: 0.4rem;
