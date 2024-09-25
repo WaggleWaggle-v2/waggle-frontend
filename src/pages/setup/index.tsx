@@ -32,7 +32,7 @@ const SetUp = () => {
   const handleSubmitButtonClick = async () => {
     try {
       await mutation.mutateAsync({ nickname, isOpen });
-      navigate(`/bookshelf/${data?.id}`);
+      navigate(`/bookshelf/${data?.id}`, { state: 'setup' });
     } catch (error) {
       console.error('Failed to update user information:', error);
     }
