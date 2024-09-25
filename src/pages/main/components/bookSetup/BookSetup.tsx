@@ -2,6 +2,7 @@ import React, { SetStateAction, useState } from 'react';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
+import { getCookie } from '@utils/cookie';
 import styled from 'styled-components';
 import BookSetupModal from './BookSetupModal';
 import InitBookSetupModal from './InitBookSetupModal';
@@ -17,9 +18,10 @@ interface TBookSetupProps {
 // 로그인 유저일 시 setup 모달 바로 보여주기
 
 const BookSetup = ({ setIsOpen }: TBookSetupProps) => {
+  const accessToken = getCookie('accessToken');
   const pageWidth = usePageWidth();
   const [doSetup, setDoSetup] = useState(false); // 비로그인 유저의 setup 진행 여부
-  const isLoginUser = true;
+  const isLoginUser = !!accessToken; // init 모달 출현 여부
 
   if (isLoginUser) {
     return (

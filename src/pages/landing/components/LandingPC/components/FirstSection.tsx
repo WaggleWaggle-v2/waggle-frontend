@@ -2,6 +2,8 @@ import arrowIcon from '@assets/icons/right-top-arrow.svg';
 import houseImg from '@assets/images/house.png';
 import treeImg from '@assets/images/tree.png';
 import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
+import { getCookie } from '@utils/cookie';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import DescriptionSection from '../../DescriptionSection';
@@ -10,7 +12,18 @@ import TitleSection from '../../TitleSection';
 import { Main as BaseMain, ButtonContainer, Layout } from '../style/commonPC';
 
 const FirstSection = () => {
+  const accessToken = getCookie('accessToken');
+  const { data: userData } = useUserQuery();
   const navigate = useNavigate();
+
+  const handleClickLandingButton = () => {
+    if (accessToken) {
+      navigate(`/bookshelf/${userData?.id}`);
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <S.Main>
       <S.Layout>
@@ -20,12 +33,7 @@ const FirstSection = () => {
           <>
             <ShelfDecoration>ㅎ</ShelfDecoration>
             <ShelfDecoration>ㄱ</ShelfDecoration>
-            <LandingButton
-              buttonType={'green'}
-              icon={arrowIcon}
-              onClick={() => {
-                navigate('/login');
-              }}>
+            <LandingButton buttonType={'green'} icon={arrowIcon} onClick={handleClickLandingButton}>
               와글와글2 <br /> 시작하겠소.
             </LandingButton>
             <ShelfDecoration>ㄴ</ShelfDecoration>
