@@ -59,19 +59,13 @@ const S = {
     flex-direction: column;
     justify-content: space-between;
     min-width: 46.4rem;
-    height: fit-content;
     @media ${device.tablet} {
-      margin-top: calc(${HEADER_HEIGHT.MOBILE});
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
       min-width: 0;
       width: ${({ $isPreview }) => !$isPreview && '100%'};
     }
     @media ${device.mobile} {
       display: flex;
-      width: 100vw;
       min-width: 0;
-      margin-top: calc(5.4rem);
-      height: calc(100% - 20rem);
       padding: 4rem 2rem;
     }
   `,
@@ -96,8 +90,8 @@ const S = {
 
   ChildrenWrapper: styled.div`
     display: flex;
+    justify-content: center;
     @media ${device.mobile} {
-      display: flex;
       flex-direction: column-reverse;
     }
   `,
@@ -105,7 +99,6 @@ const S = {
   ButtonWrapper: styled.div`
     position: relative;
     width: 100%;
-
     @media ${device.tablet} {
       background: linear-gradient(to top, var(--background) 90%, transparent 100%);
       font-size: 1.6rem;
@@ -113,13 +106,11 @@ const S = {
       bottom: 0;
       right: 0;
       left: 0;
-      padding: 4rem 2rem 2rem;
+      padding: 2rem;
     }
   `,
 
   ButtonSubText: styled.p`
-    position: absolute;
-    bottom: 5.4rem;
     font-family: 'Pretendard';
     margin-bottom: 1rem;
     font-size: 1.4rem;
@@ -128,7 +119,7 @@ const S = {
     text-align: center;
     line-height: 130%;
     @media ${device.tablet} {
-      width: calc(100% - 4rem);
+      width: 100%;
       bottom: 7rem;
     }
   `,

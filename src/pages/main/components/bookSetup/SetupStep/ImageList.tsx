@@ -38,7 +38,7 @@ export default ImageList;
 
 const S = {
   Container: styled.div`
-    margin: 3rem 0 4rem;
+    margin: 3rem 0 1cap;
     height: 43rem;
     overflow-y: auto;
     overflow-x: hidden;

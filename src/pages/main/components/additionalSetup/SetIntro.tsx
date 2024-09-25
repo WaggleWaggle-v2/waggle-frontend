@@ -53,9 +53,11 @@ const S = {
     justify-content: center;
     height: 28.5rem;
     margin-bottom: 14rem;
+    @media ${device.tablet} {
+      width: 100%;
+    }
     @media ${device.mobile} {
       height: auto;
-      width: 100%;
       margin-top: 4rem;
       margin-bottom: 12rem;
     }

@@ -45,5 +45,6 @@ export default SetNickname;
 const S = {
   Container: styled.div`
     margin: 4rem 0 6rem;
+    width: 100%;
   `,
 };

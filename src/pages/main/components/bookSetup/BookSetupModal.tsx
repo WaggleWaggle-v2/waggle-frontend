@@ -8,7 +8,8 @@ import { BOOK_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
 import { TBookType } from '@pages/main/types/type';
-import { size } from '@styles/breakpoints';
+import { device, size } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import domtoimage from 'dom-to-image';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -181,6 +182,9 @@ const S = {
     position: relative;
     display: flex;
     justify-content: center;
+    @media ${device.tablet} {
+      margin-top: ${HEADER_HEIGHT.MOBILE};
+    }
   `,
 
   SettingWrapper: styled.div`

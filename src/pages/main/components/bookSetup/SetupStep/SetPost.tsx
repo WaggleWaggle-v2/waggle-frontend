@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from 'react';
 import { MAX_LENGTH } from '@constants/maxLength';
 import { isCompleteKoreanWord } from '@pages/setup/utils/isCompleteKoreanWord';
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import Textarea from '../Textarea';
 
@@ -50,5 +51,8 @@ const S = {
     height: 40rem;
     display: flex;
     flex-direction: column;
+    @media ${device.tablet} {
+      margin-bottom: 10rem;
+    }
   `,
 };
