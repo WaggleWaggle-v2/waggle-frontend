@@ -32,7 +32,7 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
 
   const CANVAS =
     type === 'SMALL'
-      ? { width: 316, height: 300, background: bookShelfShortImage }
+      ? { width: 316, height: 303, background: bookShelfShortImage }
       : { width: 220, height: 464, background: bookShelfLongImage };
 
   function onFocusOut() {
@@ -86,17 +86,17 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
       });
 
       const imageOpt = {
-        width: imageObj.width / 4,
-        height: imageObj.height / 4,
-        x: (CANVAS.width - imageObj.width / 4) / 2,
-        y: (CANVAS.height - imageObj.height / 4) / 2,
+        width: imageObj.width / 1,
+        height: imageObj.height / 1,
+        x: (CANVAS.width - imageObj.width / 1) / 2,
+        y: (CANVAS.height - imageObj.height / 1) / 2,
         image: imageObj,
         draggable: true,
       };
 
       const konvaImage = new Konva.Image(imageOpt);
       layerRef?.current?.add(konvaImage);
-      layerRef?.current?.draw(); // Redraw layer
+      layerRef?.current?.draw();
 
       transformerRef.current?.nodes([konvaImage]);
       konvaImage.moveToTop();
@@ -224,9 +224,10 @@ const S = {
 
   RemoveButton: styled.button`
     position: absolute;
-    top: 26px;
-    right: 26px;
+    top: 10px;
+    right: 10px;
     background-color: var(--brown700);
+    opacity: 0.6;
     color: white;
     border: none;
     padding: 10px;

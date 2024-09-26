@@ -90,14 +90,16 @@ const S = {
     position: relative;
     width: 100%;
 
-    @media ${device.mobile} {
-    }
-
     div:first-child {
       position: absolute;
       display: flex;
       width: 96%;
       background: linear-gradient(to top, #ceb499 0%, #bb9165 100%);
+      background: linear-gradient(
+        to top,
+        ${({ theme }) => theme.bookscrollBarTop} 0%,
+        ${({ theme }) => theme.bookscrollBarBtm} 100%
+      );
       left: calc(2%);
       height: 100%;
       z-index: 1;
@@ -117,7 +119,8 @@ const S = {
 
   BookContent: styled.div<{ $isPreview: boolean }>`
     overflow: hidden;
-    background-color: #fffcf9;
+    background-color: ${({ theme }) => theme.bookscrollBg};
+    color: ${props => props.theme.bookscrollText};
     width: calc(100% - 4rem);
     padding: ${({ $isPreview }) => ($isPreview ? '3rem 2.6rem' : '5.6rem 4rem')};
     animation: ${({ $isPreview }) => ($isPreview ? rollDownMobile : rollDown)} 0.5s
@@ -135,7 +138,7 @@ const S = {
     font-size: 2.4rem;
     font-weight: 900;
     p:first-child {
-      color: var(--red500);
+      color: ${props => props.theme.bookscrollReceiver};
     }
     @media ${device.mobile} {
       font-size: 1.8rem;
@@ -155,7 +158,7 @@ const S = {
       width: 0.4rem;
     }
     &::-webkit-scrollbar-track {
-      background-color: var(--gray200);
+      background-color: ${props => props.theme.scollBar};
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {

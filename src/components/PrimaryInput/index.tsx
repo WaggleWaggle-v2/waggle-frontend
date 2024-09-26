@@ -47,7 +47,7 @@ const S = {
 
   Input: styled.input<{ $isInvalid: boolean }>`
     border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 0.1rem solid;
-    color: var(--gray800);
+    color: ${props => props.theme.textAreaText};
     width: 100%;
     font-size: 1.8rem;
     font-weight: 600;

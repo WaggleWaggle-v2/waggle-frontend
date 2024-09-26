@@ -45,7 +45,6 @@ const SetPost = ({ setPost, setIsDisabled }: TSetPostProps) => {
       <Textarea
         placeholder="책장에 들어갈 편지를 작성해보세요!"
         onChange={handleInputChange}
-        invalidMsg={invalidMsg}
         maxLength={MAX_LENGTH.BOOK_LETTER}
       />
     </S.Container>

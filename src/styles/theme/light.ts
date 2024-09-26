@@ -1,5 +1,6 @@
 import cloudGreen from '@assets/icons/cloud/cloud-green.svg';
 import cloudLightGreen from '@assets/icons/cloud/cloud-lightgreen.svg';
+import leftArrow from '@assets/icons/left-arrow.svg';
 import lightGraphic from '@assets/images/bookshelf/light-graphic.png';
 
 export const light = {
@@ -18,4 +19,21 @@ export const light = {
   introBorder: '#316920',
 
   shareBtnText: '#316920',
+
+  modalBg: 'var(--background)',
+  previewBg: '#e5ddcf',
+  textAreaBg: 'var(--white)',
+  textAreaText: 'var(--gray800)',
+
+  scollBar: 'var(--gray200)',
+  bookscrollBg: '#fffcf9',
+  bookscrollText: 'var(--gray900)',
+  bookscrollReceiver: 'var(--red500)',
+  bookscrollBarTop: '#bb9165',
+  bookscrollBarBtm: '#ceb499',
+
+  backBtn: leftArrow,
+
+  invalidBtn: 'var(--gray400)',
+  invalidBtnHover: 'var(--gray500)',
 };

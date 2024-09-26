@@ -1,4 +1,5 @@
 import cloudWhite from '@assets/icons/cloud/cloud-white.svg';
+import leftArrowLight from '@assets/icons/left-arrow-light.svg';
 import darkGraphic from '@assets/images/bookshelf/dark-graphic.png';
 
 export const dark = {
@@ -13,9 +14,25 @@ export const dark = {
   pcCloud: cloudWhite,
   mobileCloud: cloudWhite,
   shareBtnBg: 'linear-gradient(to right, #121212 0%, #373737 100%)',
-
   introBg: 'var(--gray800)',
   introBorder: 'var(--white)',
 
   shareBtnText: '#fffcf1',
+
+  modalBg: 'var(--black)',
+  previewBg: 'var(--gray900)',
+  textAreaBg: 'var(--gray900)',
+  textAreaText: 'var(--gray500)',
+
+  scollBar: 'var(--gray600)',
+  bookscrollBg: 'var(--black)',
+  bookscrollText: 'var(--gray400)',
+  bookscrollReceiver: 'var(--green600)',
+  bookscrollBarTop: '#717171',
+  bookscrollBarBtm: '#545454',
+
+  backBtn: leftArrowLight,
+
+  invalidBtn: 'var(--gray700)',
+  invalidBtnHover: 'var(--gray800)',
 };

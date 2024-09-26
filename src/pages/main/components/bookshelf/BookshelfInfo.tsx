@@ -105,7 +105,7 @@ const S = {
     background-color: ${props => props.theme.introBg};
     border-top-right-radius: 1.4rem;
     cursor: pointer;
-    color: ${props => props.theme.text};
+    color: ${props => props.theme.shareBtnText};
     position: fixed;
     font-size: 2rem;
     display: flex;

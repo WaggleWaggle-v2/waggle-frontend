@@ -21,7 +21,7 @@ const BookSetup = ({ setIsOpen }: TBookSetupProps) => {
   const accessToken = getCookie('accessToken');
   const pageWidth = usePageWidth();
   const [doSetup, setDoSetup] = useState(false); // 비로그인 유저의 setup 진행 여부
-  const isLoginUser = !!accessToken; // init 모달 출현 여부
+  const isLoginUser = !accessToken; // init 모달 출현 여부
 
   if (isLoginUser) {
     return (
@@ -83,7 +83,7 @@ const S = {
     @media ${device.tablet} {
       position: absolute;
       inset: 0;
-      background-color: var(--background);
+      background-color: ${props => props.theme.modalBg};
     }
   `,
 };

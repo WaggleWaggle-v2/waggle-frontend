@@ -34,7 +34,10 @@ const Main = () => {
       const currentScrollX = scrollContainer?.scrollLeft || 0;
       if (currentScrollX >= 0 && currentScrollX <= 200) {
         const colorIntensity = Math.min(currentScrollX / 200, 1);
-        const newColor = `rgba(234, 224, 205, ${colorIntensity})`;
+        const newColor =
+          bookshelfData?.bookshelfType === 'BLACK'
+            ? `rgba(110, 110, 110, ${colorIntensity})`
+            : `rgba(234, 224, 205, ${colorIntensity})`;
         setButtonColor(newColor);
       }
     };

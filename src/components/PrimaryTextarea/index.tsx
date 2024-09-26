@@ -93,7 +93,7 @@ const S = {
 
   TextArea: styled.textarea<{ $isInvalid: boolean }>`
     border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--gray400)')} 0.1rem solid;
-    color: var(--gray800);
+    color: ${({ theme }) => theme.textAreaText};
     background-color: transparent;
     width: 100%;
     display: block;

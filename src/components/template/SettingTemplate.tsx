@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import { device } from '@styles/breakpoints';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 interface TSettingTemplateProps {
   children: ReactNode;
@@ -58,6 +58,7 @@ const S = {
     flex-direction: column;
     justify-content: space-between;
     min-width: 46.4rem;
+
     @media ${device.tablet} {
       min-width: 0;
       width: ${({ $isPreview }) => !$isPreview && '100%'};
@@ -65,6 +66,7 @@ const S = {
     @media ${device.mobile} {
       display: flex;
       min-width: 0;
+      width: 100%;
       padding: 4rem 2rem;
     }
   `,
@@ -81,6 +83,7 @@ const S = {
     font-family: 'EBSHunminjeongeum';
     font-weight: 900;
     font-size: 3.2rem;
+    color: ${props => props.theme.text};
     @media ${device.mobile} {
       flex-direction: column;
       gap: 1rem;
@@ -99,7 +102,7 @@ const S = {
     position: relative;
     width: 100%;
     @media ${device.tablet} {
-      background: linear-gradient(to top, var(--background) 90%, transparent 100%);
+      background: linear-gradient(to top, ${props => props.theme.modalBg} 90%, transparent 100%);
       font-size: 1.6rem;
       position: fixed;
       bottom: 0;

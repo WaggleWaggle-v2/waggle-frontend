@@ -5,7 +5,7 @@ import PrimaryButton from '@components/PrimaryButton';
 import ModalTemplate from '@components/template/ModalTemplate';
 import { device } from '@styles/breakpoints';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 interface TInitBookSetupModalProps {
   setDoSetup: React.Dispatch<SetStateAction<boolean>>;
@@ -14,6 +14,8 @@ interface TInitBookSetupModalProps {
 
 const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+
   return (
     <ModalTemplate setIsOpen={setIsOpen} isInit>
       <S.Wrapper>
@@ -28,7 +30,7 @@ const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps)
 
         <S.ButtonWrapper>
           <PrimaryButton onClick={() => navigate('/login')}>로그인 / 회원가입하기</PrimaryButton>
-          <PrimaryButton onClick={() => setDoSetup(true)} color="var(--gray400)">
+          <PrimaryButton onClick={() => setDoSetup(true)} color={theme.invalidBtn}>
             비회원으로 방명록 남기기
           </PrimaryButton>
         </S.ButtonWrapper>
@@ -45,7 +47,7 @@ const S = {
   Wrapper: styled.div`
     padding: 5rem 4.8rem 3rem;
   `,
-  
+
   MainText: styled.div`
     font-family: 'EBSHunminjeongeum';
     font-weight: 700;
@@ -56,6 +58,7 @@ const S = {
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
+    color: ${({ theme }) => theme.text};
     @media ${device.mobile} {
       margin-bottom: 3.8rem;
       flex-direction: column;
@@ -68,7 +71,6 @@ const S = {
     font-size: 1.6rem;
     margin-top: 1rem;
     margin-bottom: 4rem;
-    background-color: var(--background);
     display: flex;
     flex-direction: column;
     justify-content: center;

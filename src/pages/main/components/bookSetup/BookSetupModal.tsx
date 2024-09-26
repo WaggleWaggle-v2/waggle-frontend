@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import { Dispatch, useRef, useState } from 'react';
+import goBackIcon from '@assets/icons/left-arrow.svg';
 import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
@@ -13,7 +14,7 @@ import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { getFormattedDate } from '@utils/getFormattedDate';
 import domtoimage from 'dom-to-image';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import Canvas from './Canvas';
 import Preview from './Preview';
 import SetCanvas from './SetupStep/SetCanvas';
@@ -29,6 +30,7 @@ interface TAdditionalSetupModalProps {
 
 const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const { id } = useParams();
+  const theme = useTheme();
   const { data } = useBookshelfQuery(id);
 
   const canvasRef = useRef<any>(null);
@@ -50,11 +52,6 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   };
 
   const handleFinalStep = async () => {
-    console.log(type);
-    console.log(canvas);
-    console.log(post);
-    console.log(sender);
-    console.log(publicity);
     setIsOpen(false);
   };
 
@@ -89,6 +86,15 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   return (
     <S.Container>
       <ModalTemplate setIsOpen={setIsOpen} setStep={setStep} step={step}>
+        {pageWidth > size.tablet && step !== 1 && (
+          <S.GoBackIcon
+            src={theme.backBtn}
+            onClick={() => {
+              step === 1 ? setIsOpen(false) : setStep?.(prev => prev - 1);
+            }}
+            alt="뒤로 가기"
+          />
+        )}
         {step === 1 && (
           <SettingTemplate
             step={step}
@@ -194,6 +200,16 @@ const S = {
     @media ${device.tablet} {
       margin-top: ${HEADER_HEIGHT.MOBILE};
     }
+  `,
+
+  GoBackIcon: styled.img`
+    width: 2.1rem;
+    height: 2.1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 4.4rem;
+    left: 4.6rem;
+    z-index: 9999;
   `,
 
   SettingWrapper: styled.div`

@@ -5,12 +5,11 @@ import styled from 'styled-components';
 interface TTextareaProps {
   placeholder: string;
   onChange: (value: string) => void;
-  invalidMsg: string;
   maxLength: number;
 }
 
 const Textarea = (props: TTextareaProps) => {
-  const { placeholder, onChange, invalidMsg, maxLength } = props;
+  const { placeholder, onChange, maxLength } = props;
   const [legnth, setLength] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -82,13 +81,13 @@ const S = {
     font-family: 'Pretendard';
     position: relative;
     height: 40rem;
-    background-color: var(--white);
+    background-color: ${props => props.theme.textAreaBg};
     border-radius: 2rem;
     padding: 1.6rem 2rem;
   `,
 
   TextArea: styled.textarea`
-    color: var(--gray800);
+    color: ${props => props.theme.textAreaText};
     background-color: transparent;
     width: 100%;
     display: block;
@@ -106,6 +105,19 @@ const S = {
       color: var(--gray400);
       font-size: 1.6rem;
       font-weight: 100;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0.6rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: var(--gray200);
+      border-radius: 0.2rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      cursor: pointer;
+      border-radius: 0.2rem;
+      background-color: var(--brown200);
     }
   `,
 

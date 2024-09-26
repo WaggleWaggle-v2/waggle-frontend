@@ -74,7 +74,7 @@ const S = {
     @media ${device.tablet} {
       position: absolute;
       inset: 0;
-      background-color: var(--background);
+      background-color: ${({ theme }) => theme.modalBg};
     }
   `,
 };
