@@ -44,7 +44,7 @@ const S = {
     object-fit: cover;
     max-width: 10rem;
     width: 10rem;
-    height: ${({ $isKing }) => ($isKing ? 'auto' : '10rem')};
+    height: ${({ $isKing }) => ($isKing ? '12rem' : '10rem')};
   `,
   CardContentBox: styled.div`
     display: flex;
