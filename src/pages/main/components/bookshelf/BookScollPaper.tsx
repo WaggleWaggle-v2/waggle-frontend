@@ -4,11 +4,12 @@ import styled, { keyframes } from 'styled-components';
 interface TBookScollPaperProps {
   ownerName: string;
   content: string;
+  createdAt?: string;
   sender?: string;
   isPreview?: boolean;
 }
 
-const BookScollPaper = ({ ownerName, content, sender, isPreview }: TBookScollPaperProps) => {
+const BookScollPaper = ({ ownerName, content, createdAt, sender, isPreview }: TBookScollPaperProps) => {
   return (
     <S.Container>
       <S.BookScrollBar>
@@ -24,7 +25,7 @@ const BookScollPaper = ({ ownerName, content, sender, isPreview }: TBookScollPap
         <S.Content>{content}</S.Content>
         {sender && (
           <S.Sender>
-            <p>23년 10월 5일</p>
+            <p>{createdAt}</p>
             <p>{sender}</p>
           </S.Sender>
         )}

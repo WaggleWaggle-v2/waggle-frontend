@@ -6,10 +6,11 @@ interface TPrimaryInputProps {
   onChange: (value: string) => void;
   invalidMsg: string;
   value?: string;
+  isNoInvalidMsg?: boolean;
 }
 
 const PrimaryInput = (props: TPrimaryInputProps) => {
-  const { placeholder, onChange, invalidMsg, value } = props;
+  const { placeholder, onChange, invalidMsg, value, isNoInvalidMsg } = props;
 
   const onInput = (e: React.FormEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value;
@@ -25,13 +26,13 @@ const PrimaryInput = (props: TPrimaryInputProps) => {
   return (
     <S.Container>
       <S.Input
-        $isInvalid={!!invalidMsg}
+        $isInvalid={!isNoInvalidMsg && !!invalidMsg}
         placeholder={placeholder}
         onInput={onInput}
         onKeyDown={handleKeyDown}
         value={value}
       />
-      {invalidMsg && <S.InvalidMsg>{invalidMsg}</S.InvalidMsg>}
+      {!isNoInvalidMsg && invalidMsg && <S.InvalidMsg>{invalidMsg}</S.InvalidMsg>}
     </S.Container>
   );
 };

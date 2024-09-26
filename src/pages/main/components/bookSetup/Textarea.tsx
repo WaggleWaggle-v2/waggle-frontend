@@ -1,6 +1,4 @@
 import { FormEventHandler, useRef, useState } from 'react';
-import { adjustTextareaHeight } from '@components/PrimaryTextarea/utils/adjustTextareaHeight';
-import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 /* eslint-disable no-unused-vars */
@@ -58,25 +56,19 @@ const Textarea = (props: TTextareaProps) => {
     if (inputValue.length >= maxLength && e.key !== 'Backspace' && e.key !== 'Delete') {
       e.preventDefault();
     }
-
-    // if (e.key === 'Enter') {
-    //   e.preventDefault();
-    // }
   };
 
   return (
     <S.Container>
       <S.TextArea
         onKeyDown={handleInputKeyDown}
-        $isInvalid={!!invalidMsg}
         placeholder={placeholder}
         onInput={onInput}
         onBlur={onBlur}
         ref={textareaRef}
         maxLength={maxLength}
       />
-      {invalidMsg && <S.InvalidMsg>{invalidMsg}</S.InvalidMsg>}
-      <S.LetterCount $isInvalid={!!invalidMsg}>
+      <S.LetterCount>
         ({legnth}/{maxLength})
       </S.LetterCount>
     </S.Container>
@@ -95,7 +87,7 @@ const S = {
     padding: 1.6rem 2rem;
   `,
 
-  TextArea: styled.textarea<{ $isInvalid: boolean }>`
+  TextArea: styled.textarea`
     color: var(--gray800);
     background-color: transparent;
     width: 100%;
@@ -117,17 +109,11 @@ const S = {
     }
   `,
 
-  InvalidMsg: styled.p`
-    position: absolute;
-    bottom: -2.2rem;
-    font-size: 1.4rem;
-    color: var(--red400);
-  `,
-  LetterCount: styled.p<{ $isInvalid: boolean }>`
+  LetterCount: styled.p`
     position: absolute;
     bottom: -2.2rem;
     right: 0;
     font-size: 1.4rem;
-    color: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--button-active)')};
+    color: var(--button-active);
   `,
 };

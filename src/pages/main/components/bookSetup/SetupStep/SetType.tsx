@@ -36,7 +36,7 @@ const S = {
   Container: styled.div`
     display: flex;
     justify-content: center;
-    margin: 5.5rem 0 8.5rem;
+    margin: 5rem 0 8rem;
     gap: 5rem;
     width: 100%;
     @media ${device.mobile} {

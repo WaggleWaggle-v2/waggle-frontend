@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import { device } from '@styles/breakpoints';
-import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 
 interface TSettingTemplateProps {
@@ -40,7 +39,7 @@ const SettingTemplate = ({
         <S.ChildrenWrapper>{children}</S.ChildrenWrapper>
       </div>
       <S.ButtonWrapper>
-        {!isDisabled && <S.ButtonSubText>{ButtonSubText}</S.ButtonSubText>}
+        {<S.ButtonSubText>{ButtonSubText}</S.ButtonSubText>}
         <PrimaryButton disabled={isDisabled} onClick={handleButtonClick}>
           {buttonText}
         </PrimaryButton>

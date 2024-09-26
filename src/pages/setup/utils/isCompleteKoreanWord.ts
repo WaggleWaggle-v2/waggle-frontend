@@ -1,14 +1,10 @@
 export const isCompleteKoreanWord = (text: string) => {
-  const completeKoreanWordRegex = /^[\uAC00-\uD7A3\s\p{P}\p{S}]+$/u;
-  const jamoRegex = /^[\u1100-\u11FF\u3130-\u318F\s\p{P}\p{S}]+$/u;
+  const koreanRegex = /^[\uAC00-\uD7A3\u1100-\u11FF\u3130-\u318F\s\p{P}\p{S}]+$/u;
+  const nonKoreanRegex = /[a-zA-Z]/;
 
-  if (completeKoreanWordRegex.test(text)) {
+  if (nonKoreanRegex.test(text)) {
     return false;
   }
 
-  if (jamoRegex.test(text)) {
-    return true;
-  }
-
-  return true;
+  return koreanRegex.test(text);
 };

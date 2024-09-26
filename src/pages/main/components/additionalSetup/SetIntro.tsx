@@ -22,7 +22,7 @@ const SetIntro = ({ setIntro, setIsDisabled }: TSetIntroProps) => {
     } else if (value.length > MAX_LENGTH.BOOKSHELF_INTRODUCTION) {
       setInvalidMsg('최대 100글자만 사용할 수 있습니다.');
       setIsDisabled(true);
-    } else if (isCompleteKoreanWord(value)) {
+    } else if (!isCompleteKoreanWord(value)) {
       setInvalidMsg('한글만 사용할 수 있습니다.');
       setIsDisabled(true);
     } else {

@@ -10,6 +10,7 @@ import usePageWidth from '@hooks/usePageWidth';
 import { TBookType } from '@pages/main/types/type';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
+import { getFormattedDate } from '@utils/getFormattedDate';
 import domtoimage from 'dom-to-image';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -101,6 +102,11 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
         {step === 2 && (
           <S.SettingWrapper>
+            {pageWidth > size.mobile && (
+              <Preview>
+                <Canvas ref={canvasRef} selectedImage={selectedImage} setSelectedImage={setSelectedImage} type={type} />
+              </Preview>
+            )}
             <SettingTemplate
               step={step}
               titleTop="책장을 꾸며주시오."
@@ -120,16 +126,12 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
                 </Preview>
               )}
             </SettingTemplate>
-            {pageWidth > size.mobile && (
-              <Preview>
-                <Canvas ref={canvasRef} selectedImage={selectedImage} setSelectedImage={setSelectedImage} type={type} />
-              </Preview>
-            )}
           </S.SettingWrapper>
         )}
 
         {step === 3 && (
           <S.SettingWrapper>
+            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
             <SettingTemplate
               step={step}
               titleTop="마음을 전하시오."
@@ -137,7 +139,6 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
               isDisabled={isDisabled}>
               <SetPost setPost={setPost} setIsDisabled={setIsDisabled} />
             </SettingTemplate>
-            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
           </S.SettingWrapper>
         )}
 
@@ -157,7 +158,15 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
         {step === 5 && (
           <S.SettingWrapper>
             <Preview noTablet>
-              {data && <BookScollPaper isPreview ownerName={data?.nickname} content={post} sender={sender} />}
+              {data && (
+                <BookScollPaper
+                  isPreview
+                  ownerName={data?.nickname}
+                  content={post}
+                  createdAt={getFormattedDate()}
+                  sender={sender}
+                />
+              )}
             </Preview>
             <SettingTemplate
               step={step}
