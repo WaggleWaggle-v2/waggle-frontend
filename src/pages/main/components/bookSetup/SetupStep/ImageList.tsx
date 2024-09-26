@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { EQUIPMENT_IMAGES, LETTER_IMAGES, PROP_IMAGES } from '@pages/main/constants/book-sticker-images';
+import { DECORATION_IMAGES } from '@pages/main/constants/book-sticker-images';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
@@ -10,26 +10,16 @@ interface TImageListProps {
 const ImageList = ({ handleImageClick }: TImageListProps) => {
   return (
     <S.Container>
-      <S.ImageListTitle>{LETTER_IMAGES.title}</S.ImageListTitle>
-      <S.ImageList>
-        {LETTER_IMAGES.imageList.map(url => (
-          <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
-        ))}
-      </S.ImageList>
-
-      <S.ImageListTitle>{PROP_IMAGES.title}</S.ImageListTitle>
-      <S.ImageList>
-        {PROP_IMAGES.imageList.map(url => (
-          <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
-        ))}
-      </S.ImageList>
-
-      <S.ImageListTitle>{EQUIPMENT_IMAGES.title}</S.ImageListTitle>
-      <S.ImageList>
-        {EQUIPMENT_IMAGES.imageList.map(url => (
-          <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
-        ))}
-      </S.ImageList>
+      {DECORATION_IMAGES.map(category => (
+        <li key={category.title}>
+          <S.ImageListTitle>{category.title}</S.ImageListTitle>
+          <S.ImageList>
+            {category.imageList.map(url => (
+              <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
+            ))}
+          </S.ImageList>
+        </li>
+      ))}
     </S.Container>
   );
 };
@@ -37,9 +27,9 @@ const ImageList = ({ handleImageClick }: TImageListProps) => {
 export default ImageList;
 
 const S = {
-  Container: styled.div`
-    margin: 3rem 0 1cap;
-    height: 43rem;
+  Container: styled.ul`
+    margin: 2rem 0;
+    height: 42rem;
     overflow-y: auto;
     overflow-x: hidden;
     width: 40rem;
@@ -65,11 +55,11 @@ const S = {
     font-weight: 600;
   `,
 
-  ImageList: styled.div`
+  ImageList: styled.ul`
     margin-bottom: 3rem;
     padding-bottom: 1rem;
     display: flex;
-    gap: 0.6rem;
+    gap: 0.8rem;
     overflow-x: auto;
 
     &::-webkit-scrollbar {
@@ -85,14 +75,17 @@ const S = {
       background-color: var(--brown200);
     }
 
-    img {
-      cursor: pointer;
-      width: 8rem;
-      background-color: var(--gray300);
-      border-radius: 0.4rem;
-    }
     @media ${device.tablet} {
       width: 40vw;
     }
+    img {
+      cursor: pointer;
+      width: 8rem;
+      padding: 0.6rem;
+      background-color: var(--gray300);
+      border-radius: 0.4rem;
+    }
   `,
+
+  ImageWrapper: styled.li``,
 };
