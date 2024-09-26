@@ -1,4 +1,5 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
 import FirstSection from './components/FirstSection';
@@ -56,7 +57,7 @@ const LandingPC = ({ randomCardData, kingData, refetch }: TBookShelf) => {
 export default LandingPC;
 const S = {
   Container: styled.div`
-    overflow-y: hidden;
+    height: calc(100dvh - ${HEADER_HEIGHT.PC});
 
     &::-webkit-scrollbar {
       display: none;
@@ -80,7 +81,7 @@ const S = {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 1rem;
+    bottom: 4rem;
     display: flex;
     gap: 2rem;
     align-items: center;

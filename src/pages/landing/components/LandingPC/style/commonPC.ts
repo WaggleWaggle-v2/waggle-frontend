@@ -1,16 +1,24 @@
 import typography from '@assets/images/typography-short.png';
+import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 
 export const Main = styled.div`
-  height: 100dvh;
+  height: calc(100dvh - ${HEADER_HEIGHT.PC});
+  padding-top: ${HEADER_HEIGHT.PC};
   min-width: 100dvw;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
   background-size: contain;
   background-position: left top;
   scroll-snap-align: start;
+
+  @media ${device.tablet} {
+    height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
+    padding-top: ${HEADER_HEIGHT.MOBILE};
+  }
 `;
 
 export const Layout = styled.div`
@@ -18,10 +26,7 @@ export const Layout = styled.div`
   display: grid;
   grid-template-columns: 1fr 31rem;
   grid-column-gap: 11rem;
-  height: 100%;
   max-height: 67rem;
-  padding-top: 14%;
-  margin-bottom: auto;
   align-items: center;
 `;
 
