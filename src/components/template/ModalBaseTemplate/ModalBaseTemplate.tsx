@@ -50,18 +50,14 @@ const S = {
 
     @media ${device.mobile} {
       transform: translate(0, 0);
+      top: auto;
       left: 0;
       bottom: 0;
       width: 100%;
       transform: none;
-      padding: 6rem 2rem 4rem;
+      padding: 4rem 2rem 1rem;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-width: 0;
     }
   `,
   ModalCloseButton: styled.button`

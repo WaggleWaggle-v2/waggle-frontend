@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
+import { useBookshelfBackgroundUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
 import SetProfile from '@pages/main/components/additionalSetup/SetProfile';
 import styled from 'styled-components';
 
@@ -13,9 +14,10 @@ interface TSetProfileModal {
 
 const SetProfileModal = (props: TSetProfileModal) => {
   const { setProfileImage, profileImageIdx, handleCloseModal } = props;
+  const fetchImageMutation = useBookshelfBackgroundUpdateMutation();
 
   const handleImageFile = () => {
-    // 서버로 데이터 보내는 로직 추가될 예정
+    fetchImageMutation.mutate(profileImageIdx);
     handleCloseModal();
   };
   return (

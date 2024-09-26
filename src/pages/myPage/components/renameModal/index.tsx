@@ -55,8 +55,6 @@ const RenameModal = (props: TRenameModal) => {
 export default RenameModal;
 
 const S = {
-  Container: styled.div`
-    height: 50rem;
-  `,
+  Container: styled.div``,
   ModalTitle,
 };
