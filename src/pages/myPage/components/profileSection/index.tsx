@@ -27,14 +27,26 @@ const ProfileSection = (props: TProfileSection) => {
             <S.TitleText>안녕하시오.</S.TitleText>
           ) : (
             <>
-              <S.TitleText>
-                책장을 이만큼 <br /> {settingType === 'receive' ? '받았다오.' : '보냈다오.'}
-              </S.TitleText>
-              <S.SubText>
-                총 <span style={{ color: 'var(--red500)', textDecoration: 'underline' }}>{kingData.count}</span>
-                개를
-                {settingType === 'receive' ? '받았소.' : '보냈소.'}
-              </S.SubText>
+              {settingType === 'receive' ? (
+                <>
+                  <S.TitleText>
+                    책장을 이만큼 <br />
+                    받았다오
+                  </S.TitleText>
+                  <S.SubText>
+                    총 <S.Count>{kingData.count}</S.Count>개를 받았소.
+                  </S.SubText>
+                </>
+              ) : (
+                <>
+                  <S.TitleText>
+                    책장을 이만큼 <br /> 보냈다오
+                  </S.TitleText>
+                  <S.SubText>
+                    총 <S.Count>{kingData.count}</S.Count>개를 보냈소.
+                  </S.SubText>
+                </>
+              )}
             </>
           )}
           {(settingType === 'default' || settingType === 'edit') && <RenameButton onClick={handleOpenModal} />}
@@ -89,5 +101,9 @@ const S = {
     @media ${device.mobile} {
       margin-top: 1.4rem;
     }
+  `,
+  Count: styled.span`
+    color: var(--red500);
+    text-decoration: underline;
   `,
 };
