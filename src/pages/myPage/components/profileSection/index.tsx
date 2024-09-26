@@ -3,7 +3,7 @@ import { TSetting } from '@pages/myPage/constant/settingList';
 import { TMockData } from '@pages/myPage/mockData';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import GoBackButton from './components/GobackButton';
+import GoBackButton from './components/other';
 import RenameButton from './components/RenameButton';
 
 interface TProfileSection {
