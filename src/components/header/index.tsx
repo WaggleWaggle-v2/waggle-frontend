@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import alarmIcon from '@assets/icons/alarm.svg';
 import KebabIcon from '@components/icons/KebabIcon';
 import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
@@ -35,9 +34,6 @@ const Header = () => {
         <MobileNav nickName={userInfo?.nickname} isOpen={isOpen} handleClose={handleCloseNav} headerRef={headerRef} />
       )}
       <S.Container ref={headerRef}>
-        <S.ButtonStyle type="button" onClick={handleToggleNav}>
-          <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
-        </S.ButtonStyle>
         <button
           type="button"
           onClick={() => {
@@ -46,8 +42,11 @@ const Header = () => {
           style={{ cursor: 'pointer' }}>
           <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
         </button>
+        <S.ButtonStyle type="button" onClick={handleToggleNav}>
+          <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
+        </S.ButtonStyle>
+
         {pageWidth > size.tablet && <PcNav nickName={userInfo?.nickname} />}
-        <S.AlarmIcon src={alarmIcon} alt={'알림'} />
       </S.Container>
     </>
   );

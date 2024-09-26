@@ -45,11 +45,11 @@ const S = {
     position: fixed;
     height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
     bottom: 0;
-    left: 0;
+    right: 0;
     background-color: var(--white);
     z-index: ${zIndex.navSection};
     padding: 3rem 2rem;
-    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0%)' : 'translateX(-100%)')};
+    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0%)' : 'translateX(100%)')};
     transition: transform 0.3s ease;
 
     @media ${device.tablet} {
