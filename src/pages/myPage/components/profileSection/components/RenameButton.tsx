@@ -26,12 +26,12 @@ const S = {
       position: absolute;
       right: 0;
       bottom: 0;
+      margin-bottom: 1rem;
     }
 
     @media ${device.mobile} {
       width: 2.3rem;
       height: 2.3rem;
-      margin-bottom: 1rem;
     }
   `,
 };
