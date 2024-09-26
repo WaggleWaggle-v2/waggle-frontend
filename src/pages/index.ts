@@ -4,7 +4,8 @@ import Landing from '@pages/landing';
 import Login from '@pages/Login';
 import Main from '@pages/main';
 import MyPage from '@pages/myPage';
+import NotFound from '@pages/notFound';
 import Root from '@pages/Root';
 import SetUp from '@pages/setup';
 
-export { Home, Root, Login, SetUp, Main, Auth, Landing, MyPage };
+export { Home, Root, Login, SetUp, Main, Auth, Landing, MyPage, NotFound };
