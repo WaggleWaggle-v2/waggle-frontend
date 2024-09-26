@@ -1,14 +1,17 @@
 import { ButtonHTMLAttributes } from 'react';
-import leftArrowIcon from '@assets/icons/left-arrow-tail.svg';
-import { device } from '@styles/breakpoints';
+import LeftArrowIcon from '@components/icons/LeftArrowIcon';
+import usePageWidth from '@hooks/usePageWidth';
+import { device, size } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TGoBackButton extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const GoBackButton = (props: TGoBackButton) => {
+  const pageWidth = usePageWidth();
+  const isPc = pageWidth > size.tablet;
   return (
     <S.GoBackButton type="button" {...props}>
-      <S.GoBackIcon src={leftArrowIcon} alt="뒤로 가기" /> 뒤로 가기
+      <LeftArrowIcon color={isPc ? '#9F9F9F' : '#fff'} width={isPc ? 30 : 20} /> <S.GoBackText>뒤로 가기</S.GoBackText>
     </S.GoBackButton>
   );
 };
@@ -27,17 +30,24 @@ const S = {
     font-family: Pretendard;
     font-size: 2.4rem;
     font-weight: 700;
+
+    @media ${device.tablet} {
+      position: fixed;
+      z-index: 1;
+      bottom: 2rem;
+      left: 2rem;
+      background-color: var(--green600);
+      padding: 1rem;
+      border-radius: 50%;
+    }
+
     @media ${device.mobile} {
       font-size: 1.5rem;
     }
   `,
-  GoBackIcon: styled.img`
-    width: 3rem;
-    height: 3rem;
-
-    @media ${device.mobile} {
-      width: 1.5rem;
-      height: 1.5rem;
+  GoBackText: styled.p`
+    @media ${device.tablet} {
+      display: none;
     }
   `,
 };

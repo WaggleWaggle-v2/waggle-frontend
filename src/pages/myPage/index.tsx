@@ -12,6 +12,7 @@ import EditSection from './components/editSection';
 import ProfileSection from './components/profileSection';
 import RenameModal from './components/renameModal';
 import SettingListSection from './components/settingListSection';
+import { TSetting } from './constant/settingList';
 import { useSettingType } from './hooks/useSettingType';
 import { mockData } from './mockData';
 
@@ -35,8 +36,8 @@ const MyPage = () => {
       {isOpen && userInfo && (
         <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo.nickname ? userInfo.nickname : ''} />
       )}
-      <S.PageContainer>
-        <S.Container>
+      <S.PageContainer $settingType={settingType}>
+        <S.Container $settingType={settingType}>
           {userInfo && (
             <ProfileSection
               handleOpenModal={handleOpenModal}
@@ -62,7 +63,7 @@ export default MyPage;
 
 const S = {
   // layout
-  PageContainer: styled.div`
+  PageContainer: styled.div<{ $settingType: TSetting }>`
     width: 100%;
     height: calc(100vh - ${HEADER_HEIGHT.PC});
     position: relative;
@@ -71,23 +72,27 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 2rem;
 
     @media ${device.tablet} {
       height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
       position: relative;
       top: ${HEADER_HEIGHT.MOBILE};
+      ${({ $settingType }) =>
+        $settingType !== 'default' &&
+        `
+        align-items : flex-start;
+      `}
     }
 
     @media ${device.mobile} {
     }
   `,
-  Container: styled.div`
+  Container: styled.div<{ $settingType: TSetting }>`
     max-width: 110rem;
     display: flex;
     justify-content: space-between;
     gap: 3rem;
-    padding: 0 1.6rem;
+    padding: 0 2rem;
     width: 100%;
 
     @media ${device.tablet} {
@@ -97,10 +102,15 @@ const S = {
       align-items: center;
       gap: 4rem;
       width: 100%;
+      ${({ $settingType }) =>
+        $settingType !== 'default' &&
+        `
+        align-items : flex-start;
+        padding : 3rem 2rem;
+      `}
     }
 
     @media ${device.mobile} {
-      max-width: 100%;
       width: 100%;
       gap: 2.7rem;
     }
