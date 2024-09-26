@@ -65,7 +65,7 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem 2rem 3rem;
+    padding: 3rem 2rem 4rem;
     max-width: 40rem;
     margin: 0 auto;
     min-width: min-content;
@@ -79,7 +79,7 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 3.2rem;
     width: 100%;
 
     @media ${device.mobile} {
@@ -107,6 +107,7 @@ const S = {
     font-size: 2.4rem;
     line-height: 150%;
     font-weight: bold;
+    margin-bottom: 0.8rem;
   `,
 
   //Element

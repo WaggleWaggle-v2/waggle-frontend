@@ -1,3 +1,4 @@
+import doubleArrowIcon from '@assets/icons/double-under-arrow.svg';
 import { useRandomBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
@@ -8,7 +9,6 @@ import styled from 'styled-components';
 import BookshelfSection from './components/BookshelfSection';
 import DescriptionSection from './components/DescriptionSection';
 import LandingPC from './components/LandingPC';
-import Scroller from './components/Scroller';
 import TitleSection from './components/TitleSection';
 import { KingSejong } from './mockData';
 import { Layout as BaseLayout, Main } from './style/landingCommon';
@@ -31,7 +31,6 @@ const Landing = () => {
 
   return (
     <>
-      <Scroller />
       {!isPc ? (
         <>
           <S.Main>
@@ -41,6 +40,7 @@ const Landing = () => {
               <S.StartButton type="button" onClick={handleClickLandingButton}>
                 와글와글 시작하겠소
               </S.StartButton>
+              <img src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
             </S.Layout>
           </S.Main>
           {randomCardData && (
@@ -65,7 +65,7 @@ const S = {
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
-    margin-top: 17rem;
+    height: 100%;
   `,
   LandingSubContainer: styled.div`
     @media ${device.tablet} {

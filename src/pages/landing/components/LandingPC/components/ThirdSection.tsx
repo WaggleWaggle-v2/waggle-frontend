@@ -59,7 +59,10 @@ export default ThirdSection;
 
 const S = {
   Main: styled(BaseMain)``,
-  Layout: styled(BaseLayout)``,
+  Layout: styled(BaseLayout)`
+    grid-row-gap: 3rem;
+    grid-column-gap: 7rem;
+  `,
   RandomCardContainer: styled.div`
     display: flex;
     flex-direction: column;
@@ -72,6 +75,8 @@ const S = {
     font-family: 'EBSHMJESaeron';
     font-size: 3.2rem;
     line-height: 130%;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
   `,
   SubTitle: styled.h2`
     color: var(--gray7002);

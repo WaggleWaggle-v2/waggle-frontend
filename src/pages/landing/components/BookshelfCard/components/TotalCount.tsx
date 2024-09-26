@@ -7,7 +7,7 @@ const TotalCount = ({ totalBookCount, size }: { totalBookCount: number; size?: S
   return (
     <S.TotalCountBox>
       <S.MessageIcon src={messageIcon} alt="메시지 아이콘" $size={size} />
-      <S.TotalCount $size={size}>{totalBookCount.toLocaleString()} 개</S.TotalCount>
+      <S.TotalCount $size={size}>{totalBookCount > 9999 ? '+9,999' : totalBookCount.toLocaleString()} 개</S.TotalCount>
     </S.TotalCountBox>
   );
 };

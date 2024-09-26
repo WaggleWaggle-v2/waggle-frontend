@@ -22,23 +22,29 @@ const S = {
   Container: styled.figure`
     border-radius: 0.6rem;
     background-color: #efe9df;
-    box-shadow: 0 0.4rem 0.4rem 0 rgba(222, 210, 192, 0.25);
-    padding: 1rem;
+    box-shadow: 0 0.4rem 0.4re 0 rgba(222, 210, 192, 0.25);
+    padding: 1rem 2rem 1rem 1rem;
     display: grid;
-    grid-template-columns: 8.5rem 1fr;
-    gap: 1.2rem;
-    transition: background-color 0.3s ease-in-out;
+    grid-template-columns: 10rem 1fr;
+    gap: 2rem;
+    transition:
+      background-color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
 
     &:hover {
-      transition: background-color 0.3s ease-in-out;
+      transition:
+        background-color 0.3s ease-in-out,
+        box-shadow 0.3s ease-in-out;
       background-color: var(--white);
+      box-shadow: 0.4rem 0.8rem 2rem 0 rgba(222, 210, 192, 0.8);
     }
   `,
   CardImg: styled.img<{ $isKing?: boolean }>`
-    border-radius: 0.4rem;
+    border-radius: 0.6rem;
     object-fit: cover;
-    width: 100%;
-    height: ${({ $isKing }) => ($isKing ? 'auto' : '8.5rem')};
+    max-width: 10rem;
+    width: 10rem;
+    height: ${({ $isKing }) => ($isKing ? '12rem' : '10rem')};
   `,
   CardContentBox: styled.div`
     display: flex;
@@ -50,10 +56,10 @@ const S = {
   CardOwner: styled.h4`
     color: #000;
     font-family: 'Pretendard';
-    font-size: 1.4rem;
+    font-size: 2rem;
     font-weight: 700;
     line-height: 2rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
   `,
   CardDescription: styled.p`
     color: #000;
