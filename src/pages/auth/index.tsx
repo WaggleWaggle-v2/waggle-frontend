@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import loginLoadingImage from '@assets/images/login-loading.png';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { setCookie } from '@utils/cookie';
 import axios from 'axios';
@@ -51,7 +52,7 @@ const Auth = () => {
 
   return (
     <S.AuthContainer>
-      <h1>로그인 중입니다.</h1>
+      <img src={loginLoadingImage} alt="로그인 로딩 이미지" />
     </S.AuthContainer>
   );
 };
@@ -61,16 +62,9 @@ export default Auth;
 const S = {
   AuthContainer: styled.div`
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
     height: 100vh;
-    background-color: ${props => props.theme.theme02};
-
-    h1 {
-      color: ${props => props.theme.button03};
-      font-size: 2.8rem;
-    }
+    background-color: #e8dfd1;
   `,
 };
