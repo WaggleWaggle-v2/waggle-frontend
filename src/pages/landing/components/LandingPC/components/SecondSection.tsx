@@ -52,11 +52,11 @@ const S = {
   Main: styled(BaseMain)``,
   Layout: styled(BaseLayout)`
     grid-template-rows: 1fr;
-    padding-top: 10%;
     align-items: center;
   `,
   KingSeJongCard: styled.div`
-    height: 50rem;
+    height: 55rem;
+    aspect-ratio: 1 / 1.3;
     border-radius: 0.6rem;
     overflow: hidden;
     position: relative;

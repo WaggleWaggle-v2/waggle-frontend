@@ -28,6 +28,7 @@ const S = {
 
     @media ${device.tablet} {
       align-items: center;
+      margin-top: 10rem;
     }
   `,
   // Typography

@@ -31,7 +31,7 @@ const BookListSection = ({ bookList, settingType }: TBookList) => {
     <S.Container>
       <S.Header>
         <S.HeaderTextContainer>
-          마이페이지 <RightArrowIcon width={11} color={'#616161'} />
+          마이페이지 <RightArrowIcon width={10} height={9} color={'#999999'} />
           {settingType === 'receive' ? '받은 방명록' : '남긴 방명록'}
         </S.HeaderTextContainer>
         <SortingBox handleSelectOption={handleSelectOption} selectOption={selectOption} />
@@ -45,7 +45,7 @@ const BookListSection = ({ bookList, settingType }: TBookList) => {
               navigate(`/bookshelf/${book.id}`);
             }}
             key={book.id}>
-            <BookInfo bookData={book} />
+            <BookInfo bookData={book} settingType={settingType} />
           </S.BookButton>
         ))}
       </S.ListContainer>
@@ -62,6 +62,10 @@ const S = {
     display: grid;
     grid-template-rows: 3.2rem 1fr;
     row-gap: 2rem;
+
+    @media ${device.mobile} {
+      row-gap: 1rem;
+    }
   `,
   Header: styled.div`
     display: flex;
@@ -78,7 +82,7 @@ const S = {
     font-size: 1.8rem;
     font-weight: 500;
     @media ${device.mobile} {
-      font-size: 1.2rem;
+      font-size: 1rem;
       gap: 0.5rem;
     }
   `,
@@ -125,6 +129,7 @@ const S = {
     right: 0;
     top: 0;
     min-height: 10rem;
+    z-index: -1;
 
     @media ${device.mobile} {
       min-height: 8.2rem;

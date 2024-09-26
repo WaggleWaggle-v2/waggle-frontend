@@ -70,6 +70,10 @@ const S = {
     font-family: 'Pretendard';
     line-height: 2rem;
     min-width: 31.5rem;
+
+    @media ${device.mobile} {
+      min-width: 0;
+    }
   `,
   TextLength: styled.p`
     color: var(--gray500);
