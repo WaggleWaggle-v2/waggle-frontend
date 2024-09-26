@@ -48,9 +48,11 @@ const S = {
     font-family: 'EBSHunminjeongeum';
     font-size: 2.8rem;
     font-weight: 600;
+    margin-bottom: 1rem;
 
     @media ${device.mobile} {
       font-size: 1.8rem;
+      font-weight: 700;
     }
   `,
   Content: styled.p`
@@ -58,7 +60,6 @@ const S = {
     font-family: Pretendard;
     font-size: 1.4rem;
     font-weight: 500;
-    line-height: 2.8rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -79,6 +80,7 @@ const S = {
     @media ${device.mobile} {
       width: 4.6rem;
       height: 4.6rem;
+      border-radius: 0.8rem;
     }
   `,
 };

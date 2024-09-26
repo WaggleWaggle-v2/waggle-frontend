@@ -106,7 +106,7 @@ const S = {
         $settingType !== 'default' &&
         `
         align-items : flex-start;
-        padding : 3rem 2rem;
+        padding : 4rem 2rem;
       `}
     }
 
