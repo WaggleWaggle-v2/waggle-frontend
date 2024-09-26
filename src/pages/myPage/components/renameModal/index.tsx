@@ -5,6 +5,7 @@ import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseT
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
 import { useUserNicknameUpdateMutation } from '@hooks/reactQuery/useQueryUser';
 import useChangeNickName from '@hooks/useChangeNickName';
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TRenameModal {
@@ -42,11 +43,11 @@ const RenameModal = (props: TRenameModal) => {
           invalidMsg={errorMessage}
           value={nickNameValue}
         />
-        <div style={{ marginTop: '4rem' }}>
+        <S.ButtonLayout>
           <PrimaryButton onClick={handleRename} disabled={beforeNickName === nickNameValue || isDisabled}>
             변경하기
           </PrimaryButton>
-        </div>
+        </S.ButtonLayout>
       </S.Container>
     </ModalBaseTemplate>
   );
@@ -57,4 +58,11 @@ export default RenameModal;
 const S = {
   Container: styled.div``,
   ModalTitle,
+  ButtonLayout: styled.div`
+    margin-top: 4rem;
+
+    @media ${device.mobile} {
+      margin-bottom: 4rem;
+    }
+  `,
 };

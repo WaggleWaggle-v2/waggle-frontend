@@ -58,6 +58,7 @@ const S = {
       padding: 4rem 2rem 1rem;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      min-width: 0;
     }
   `,
   ModalCloseButton: styled.button`
