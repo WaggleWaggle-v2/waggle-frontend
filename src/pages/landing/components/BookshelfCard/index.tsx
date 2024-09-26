@@ -60,6 +60,7 @@ const S = {
     font-weight: 700;
     line-height: 2rem;
     margin-bottom: 1rem;
+    margin-top: 0.8rem;
   `,
   CardDescription: styled.p`
     color: #000;
