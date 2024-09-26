@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const DeleteAccountButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <S.DeleteAccountContainer type="button" onClick={onClick}>
-      <S.DeleteAccount>탈퇴</S.DeleteAccount>
+      <S.DeleteAccount>탈퇴하기</S.DeleteAccount>
       <RightArrowIcon width={12} height={12} color={'#9F9F9F'} />
     </S.DeleteAccountContainer>
   );
