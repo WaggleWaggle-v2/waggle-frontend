@@ -22,7 +22,7 @@ const S = {
   Container: styled.figure`
     border-radius: 0.6rem;
     background-color: #efe9df;
-    box-shadow: 0 0.4rem 0.4re 0 rgba(222, 210, 192, 0.25);
+    box-shadow: 0 0.4rem 0.4rem 0 rgba(222, 210, 192, 0.25);
     padding: 1rem 2rem 1rem 1rem;
     display: grid;
     grid-template-columns: 10rem 1fr;

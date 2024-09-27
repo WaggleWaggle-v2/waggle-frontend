@@ -1,29 +1,18 @@
-import { MouseEvent } from 'react';
-import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import { ReactNode } from 'react';
 import restoreIcon from '@assets/icons/restore.svg';
 import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
+import LandingButton from '@pages/landing/components/LandingButton';
 import { QueryObserverResult } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import BookshelfCard from '../../BookshelfCard';
-import LandingButton from '../../LandingButton';
-import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
+import { ButtonContainer, Layout, Main } from '../../style/commonPC';
 
-interface TThirdSection {
-  randomCardData: TBookshelfFetchRes[] | undefined;
+interface TThirdSectionLayout {
+  children: ReactNode;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
-  const navigate = useNavigate();
-  const redirectBookshelf = (event: MouseEvent<HTMLButtonElement>) => {
-    navigate(`/bookshelf/${event.currentTarget.id}`);
-  };
-
-  if (!randomCardData) {
-    return <div>카드 데이터 로딩 중~!</div>;
-  }
-
+const ThirdSectionLayout = (props: TThirdSectionLayout) => {
+  const { children, refetch } = props;
   return (
     <S.Main>
       <S.Layout>
@@ -31,18 +20,7 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
           <S.Title>누구나 오시오.</S.Title>
           <S.SubTitle>공개된 책장이오. 매일 무작위로 공개되오.</S.SubTitle>
         </div>
-        <S.RandomCardContainer>
-          {randomCardData.map(book => (
-            <button
-              type="button"
-              id={String(book.id)}
-              onClick={redirectBookshelf}
-              style={{ cursor: 'pointer' }}
-              key={book.id}>
-              <BookshelfCard cardData={book} key={book.id} />
-            </button>
-          ))}
-        </S.RandomCardContainer>
+        <S.RandomCardContainer>{children}</S.RandomCardContainer>
         <S.ButtonContainer>
           <>
             <ShelfDecoration>ㅇ</ShelfDecoration>
@@ -59,11 +37,11 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
   );
 };
 
-export default ThirdSection;
+export default ThirdSectionLayout;
 
 const S = {
-  Main: styled(BaseMain)``,
-  Layout: styled(BaseLayout)`
+  Main: styled(Main)``,
+  Layout: styled(Layout)`
     grid-row-gap: 3rem;
     grid-column-gap: 7rem;
   `,
