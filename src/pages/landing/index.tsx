@@ -44,12 +44,10 @@ const Landing = () => {
               <S.ArrowIcon src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
             </S.Layout>
           </S.Main>
-          {randomCardData && (
-            <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
-          )}
+          <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
         </>
       ) : (
-        randomCardData && <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
+        <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
       )}
     </>
   );

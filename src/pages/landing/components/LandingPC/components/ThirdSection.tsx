@@ -10,7 +10,7 @@ import LandingButton from '../../LandingButton';
 import { Main as BaseMain, Layout as BaseLayout, ButtonContainer } from '../style/commonPC';
 
 interface TThirdSection {
-  randomCardData: TBookshelfFetchRes[];
+  randomCardData: TBookshelfFetchRes[] | undefined;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
@@ -19,6 +19,10 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
   const redirectBookshelf = (event: MouseEvent<HTMLButtonElement>) => {
     navigate(`/bookshelf/${event.currentTarget.id}`);
   };
+
+  if (!randomCardData) {
+    return <div>카드 데이터 로딩 중~!</div>;
+  }
 
   return (
     <S.Main>

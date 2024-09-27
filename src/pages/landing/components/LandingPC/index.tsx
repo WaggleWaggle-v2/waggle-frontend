@@ -8,7 +8,7 @@ import ThirdSection from './components/ThirdSection';
 import useSwapPage from './hooks/useSwapPage';
 
 interface TBookShelf {
-  randomCardData: TBookshelfFetchRes[];
+  randomCardData: TBookshelfFetchRes[] | undefined;
   kingData: TBookshelfFetchRes;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }

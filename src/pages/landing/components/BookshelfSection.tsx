@@ -5,15 +5,20 @@ import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfCard from './BookshelfCard';
+import SkeletonBookshelfCard from './BookshelfCard/components/SkeletonBookshelfCard';
 
 interface TBookShelf {
-  randomCardData: TBookshelfFetchRes[];
+  randomCardData: TBookshelfFetchRes[] | undefined;
   kingData: TBookshelfFetchRes;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
 const BookshelfSection = ({ randomCardData, kingData, refetch }: TBookShelf) => {
   const navigate = useNavigate();
+
+  if (!randomCardData) {
+    return <div>로딩 중</div>;
+  }
 
   return (
     <S.SectionContainer>
@@ -46,6 +51,7 @@ const BookshelfSection = ({ randomCardData, kingData, refetch }: TBookShelf) => 
               <BookshelfCard cardData={book} />
             </S.CardButton>
           ))}
+          <SkeletonBookshelfCard />
         </S.FigureContainer>
         <S.RestoreButton type="button" onClick={refetch}>
           다른 책장 추천받겠소
