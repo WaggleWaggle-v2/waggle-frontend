@@ -30,25 +30,23 @@ const Landing = () => {
     }
   };
 
+  if (isPc) {
+    return <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />;
+  }
+
   return (
     <>
-      {!isPc ? (
-        <>
-          <S.Main>
-            <S.Layout>
-              <TitleSection />
-              <DescriptionSection />
-              <S.StartButton type="button" onClick={handleClickLandingButton}>
-                와글와글 시작하겠소
-              </S.StartButton>
-              <S.ArrowIcon src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
-            </S.Layout>
-          </S.Main>
-          <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
-        </>
-      ) : (
-        <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
-      )}
+      <S.Main>
+        <S.Layout>
+          <TitleSection />
+          <DescriptionSection />
+          <S.StartButton type="button" onClick={handleClickLandingButton}>
+            와글와글 시작하겠소
+          </S.StartButton>
+          <S.ArrowIcon src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
+        </S.Layout>
+      </S.Main>
+      <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
     </>
   );
 };
