@@ -1,10 +1,15 @@
 import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 import styled from 'styled-components';
 
-const SkeletonBookshelfCard = () => {
+interface TSkeletonBookshelfCard {
+  isKing: boolean;
+}
+
+const SkeletonBookshelfCard = (props: TSkeletonBookshelfCard) => {
+  const { isKing } = props;
   return (
     <S.Container>
-      <S.CardImg />
+      <S.CardImg $isKing={isKing} />
       <S.CardContentBox>
         <S.CardOwner />
         <S.CardDescription />
@@ -25,11 +30,11 @@ const S = {
     grid-template-columns: 10rem 1fr;
     gap: 2rem;
   `,
-  CardImg: styled.div`
+  CardImg: styled.div<{ $isKing: boolean }>`
     border-radius: 0.6rem;
     object-fit: cover;
     width: 10rem;
-    height: 10rem;
+    height: ${({ $isKing }) => ($isKing ? '12rem' : '10rem')};
     ${skeletonAnimation}
   `,
   CardContentBox: styled.div`
