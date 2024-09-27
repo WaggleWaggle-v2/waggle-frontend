@@ -33,25 +33,23 @@ const MyPage = () => {
 
   return (
     <>
-      {isOpen && userInfo && (
-        <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo.nickname ? userInfo.nickname : ''} />
+      {isOpen && (
+        <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo?.nickname ? userInfo.nickname : ''} />
       )}
       <S.PageContainer $settingType={settingType}>
         <S.Container $settingType={settingType}>
-          {userInfo && (
-            <ProfileSection
-              handleOpenModal={handleOpenModal}
-              handleSetDefault={handleSetDefault}
-              userInfo={userInfo}
-              settingType={settingType}
-              kingData={mockData}
-            />
-          )}
+          <ProfileSection
+            handleOpenModal={handleOpenModal}
+            handleSetDefault={handleSetDefault}
+            userInfo={userInfo}
+            settingType={settingType}
+            kingData={mockData}
+          />
           <S.SettingSection>
             {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
             {settingType === 'receive' && <BookListSection bookList={mockData.list} settingType={'receive'} />}
             {settingType === 'present' && <BookListSection bookList={mockData.list} settingType={'present'} />}
-            {settingType === 'edit' && myBookShelf && <EditSection bookshelfData={myBookShelf} />}
+            {settingType === 'edit' && <EditSection bookshelfData={myBookShelf} />}
           </S.SettingSection>
         </S.Container>
       </S.PageContainer>

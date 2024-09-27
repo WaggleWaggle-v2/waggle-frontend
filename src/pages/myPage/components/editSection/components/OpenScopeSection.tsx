@@ -5,12 +5,14 @@ import styled from 'styled-components';
 import useScopeValue from '../hooks/useScopeValue';
 import { Description, SaveButton, SettingOne, SettingTitle } from '../style/commStyle';
 
-const OpenScopeSection = ({ open }: { open: boolean }) => {
+const OpenScopeSection = ({ open }: { open: boolean | undefined }) => {
   const { isEnterScope, handleSetScope, handleInitialSetScope } = useScopeValue();
   const patchOpenScope = useBookshelfPublicityUpdateMutation();
 
   useEffect(() => {
-    handleInitialSetScope(open);
+    if (open) {
+      handleInitialSetScope(open);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

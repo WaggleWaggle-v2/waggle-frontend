@@ -6,7 +6,7 @@ import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import { SaveButton } from '../style/commStyle';
 
-const IntroductionSection = ({ introduction }: { introduction: string | null }) => {
+const IntroductionSection = ({ introduction }: { introduction: string | null | undefined }) => {
   const { value: introductionValue, handleChangeValue, handleSetValue } = useInputValue();
   const patchIntroduction = useBookshelfIntroductionUpdateMutation();
 

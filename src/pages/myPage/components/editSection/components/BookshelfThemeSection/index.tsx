@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ThemeToggleButton from './components/ThemeToggleButton';
 import { Description, SettingOne, SettingTitle } from '../../style/commStyle';
 
-const BookshelfThemeSection = ({ bookshelfType }: { bookshelfType: TTheme }) => {
+const BookshelfThemeSection = ({ bookshelfType }: { bookshelfType: TTheme | undefined }) => {
   const [theme, setTheme] = useState<TTheme>('WHITE');
   const themeUpdateMutation = useBookshelfThemeUpdateMutation();
 
@@ -19,7 +19,9 @@ const BookshelfThemeSection = ({ bookshelfType }: { bookshelfType: TTheme }) => 
   };
 
   useEffect(() => {
-    setTheme(bookshelfType);
+    if (bookshelfType) {
+      setTheme(bookshelfType);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
