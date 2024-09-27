@@ -9,7 +9,7 @@ import useSwapPage from './hooks/useSwapPage';
 
 interface TBookShelf {
   randomCardData: TBookshelfFetchRes[] | undefined;
-  kingData: TBookshelfFetchRes;
+  kingData: TBookshelfFetchRes | undefined;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
