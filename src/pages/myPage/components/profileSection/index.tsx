@@ -3,80 +3,81 @@ import { TSetting } from '@pages/myPage/constant/settingList';
 import { TMockData } from '@pages/myPage/mockData';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import GoBackButton from './components/GoBackButton';
 import RenameButton from './components/RenameButton';
+import ProfileSectionLayout from './ProfileSectionLayout';
 
 interface TProfileSection {
   handleSetDefault: () => void;
   handleOpenModal: () => void;
-  userInfo: TUserFetchRes;
+  userInfo: TUserFetchRes | undefined;
   settingType: TSetting;
   kingData: TMockData;
 }
 
 const ProfileSection = (props: TProfileSection) => {
   const { handleSetDefault, handleOpenModal, userInfo, settingType, kingData } = props;
-  return (
-    <S.ProfileSection>
-      {userInfo && (
-        <div>
+  const userNickName = userInfo?.nickname ? userInfo.nickname : 'ㅇㅇㅇㅇㅇㅇ';
+
+  switch (settingType) {
+    case 'default': {
+      return (
+        <ProfileSectionLayout
+          isNotDefaultSetting={false}
+          handleSetDefault={handleSetDefault}
+          userNickName={userNickName}>
+          <S.TitleText>안녕하시오.</S.TitleText>
+          <RenameButton onClick={handleOpenModal} />
+        </ProfileSectionLayout>
+      );
+    }
+    case 'edit': {
+      return (
+        <ProfileSectionLayout
+          handleSetDefault={handleSetDefault}
+          userNickName={userNickName}
+          isNotDefaultSetting={true}>
+          <S.TitleText>안녕하시오.</S.TitleText>
+        </ProfileSectionLayout>
+      );
+    }
+    case 'present': {
+      return (
+        <ProfileSectionLayout
+          handleSetDefault={handleSetDefault}
+          userNickName={userNickName}
+          isNotDefaultSetting={true}>
           <S.TitleText>
-            <span style={{ color: 'var(--green600)' }}>{userInfo.nickname}</span>님,
+            책장을 이만큼 <br />
+            보냈다오
           </S.TitleText>
-          {settingType === 'default' || settingType === 'edit' ? (
-            <S.TitleText>안녕하시오.</S.TitleText>
-          ) : (
-            <>
-              {settingType === 'receive' ? (
-                <>
-                  <S.TitleText>
-                    책장을 이만큼 <br />
-                    받았다오
-                  </S.TitleText>
-                  <S.SubText>
-                    총 <S.Count>{kingData.count}</S.Count>개를 받았소.
-                  </S.SubText>
-                </>
-              ) : (
-                <>
-                  <S.TitleText>
-                    책장을 이만큼 <br /> 보냈다오
-                  </S.TitleText>
-                  <S.SubText>
-                    총 <S.Count>{kingData.count}</S.Count>개를 보냈소.
-                  </S.SubText>
-                </>
-              )}
-            </>
-          )}
-          {(settingType === 'default' || settingType === 'edit') && <RenameButton onClick={handleOpenModal} />}
-        </div>
-      )}
-      {settingType !== 'default' && <GoBackButton onClick={handleSetDefault} />}
-    </S.ProfileSection>
-  );
+          <S.SubText>
+            총 <S.Count>{kingData.count}</S.Count>개를 보냈소.
+          </S.SubText>
+        </ProfileSectionLayout>
+      );
+    }
+    case 'receive': {
+      return (
+        <ProfileSectionLayout
+          handleSetDefault={handleSetDefault}
+          userNickName={userNickName}
+          isNotDefaultSetting={true}>
+          <S.TitleText>
+            책장을 이만큼 <br />
+            받았다오
+          </S.TitleText>
+          <S.SubText>
+            총 <S.Count>{kingData.count}</S.Count>개를 받았소.
+          </S.SubText>
+        </ProfileSectionLayout>
+      );
+    }
+  }
 };
 
 export default ProfileSection;
 
 const S = {
-  ProfileSection: styled.div<{ $isList?: boolean }>`
-    display: flex;
-    flex-direction: column;
-    justify-content: ${({ $isList }) => ($isList ? 'space-between' : 'flex-start')};
-    gap: 4rem;
-    min-width: 40rem;
-    position: relative;
-
-    @media ${device.tablet} {
-      width: 100%;
-    }
-
-    @media ${device.mobile} {
-      min-width: 100%;
-    }
-  `,
-  // text
   TitleText: styled.p`
     color: var(--gray900);
     font-family: 'EBSHunminjeongeum';
