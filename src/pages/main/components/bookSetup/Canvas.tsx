@@ -31,7 +31,7 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
   const [activeImage, setActiveImage] = useState<Konva.Image | null>(null);
 
   const CANVAS =
-    type === 'SMALL'
+    type === 'SHORT'
       ? { width: 316, height: 303, background: bookShelfShortImage }
       : { width: 220, height: 464, background: bookShelfLongImage };
 

@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import { Dispatch, useRef, useState } from 'react';
-import goBackIcon from '@assets/icons/left-arrow.svg';
 import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
 import { BOOK_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
-import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
+import { useBookCreateMutation, useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
 import { TBookType } from '@pages/main/types/type';
 import { device, size } from '@styles/breakpoints';
@@ -38,7 +37,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const [type, setType] = useState<TBookType>('SMALL');
+  const [type, setType] = useState<TBookType>('SHORT');
   const [canvas, setCanvas] = useState<File | null>(null);
   const [post, setPost] = useState<string>('');
   const [sender, setSender] = useState<string>('');
@@ -47,11 +46,24 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const mutation = useBookCreateMutation();
+
   const handleMoveToNextStep = () => {
-    setStep(step => step + 1);
+    setStep(prev => prev + 1);
   };
 
   const handleFinalStep = async () => {
+    const formData = {
+      file: canvas as File,
+      nickname: sender,
+      isOpen: publicity,
+      bookshelfId: id as string,
+      description: post,
+      bookType: type,
+    };
+
+    await mutation.mutateAsync(formData);
+
     setIsOpen(false);
   };
 

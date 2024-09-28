@@ -5,6 +5,15 @@ import { QUERY_KEY } from '@constants/queryKey';
 import { TTheme } from '@pages/main/types/type';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+interface CreateBookParams {
+  file: File;
+  nickname: string;
+  isOpen: boolean;
+  bookshelfId: string;
+  description: string;
+  bookType: string;
+}
+
 // 랜덤 책장 조회
 export const useRandomBookshelfQuery = () => {
   const query = useQuery({
@@ -80,5 +89,22 @@ export const useBookshelfIntroductionUpdateMutation = () => {
     },
     onError: (error: TAxiosError) => console.error(error.errorMessage),
   });
+  return mutation;
+};
+
+export const useBookCreateMutation = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async ({ file, nickname, isOpen, bookshelfId, description, bookType }: CreateBookParams) => {
+      return await bookshelfRequest.createBook(file, nickname, isOpen, bookshelfId, description, bookType);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.userInfo] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] });
+    },
+    onError: (error: TAxiosError) => console.error(error),
+  });
+
   return mutation;
 };
