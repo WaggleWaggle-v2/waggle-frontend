@@ -1,6 +1,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { BOOKSHELF_DATA, TBookItem } from '@constants/mock';
+import { TBookItem } from '@api/book/bookRequest.type';
 import { MasonryGrid } from '@egjs/react-grid';
+import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import styled, { useTheme } from 'styled-components';
@@ -8,16 +9,17 @@ import BookItem from './BookItem';
 
 interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
+  id: string;
 }
 
-const GuestBooks = ({ setIsOpen }: TGuestBooksProps) => {
-  const { books } = BOOKSHELF_DATA;
+const GuestBooks = ({ setIsOpen, id }: TGuestBooksProps) => {
+  const { data: bookData } = useBookQuery(id, null);
   const pageWidth = usePageWidth();
   const theme = useTheme();
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
 
   const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
-  const bookCount = books.length;
+  const bookCount = bookData?.length;
 
   const handleAddClick = () => {
     setIsOpen(true);
@@ -28,8 +30,8 @@ const GuestBooks = ({ setIsOpen }: TGuestBooksProps) => {
     let currentColumnHeight = 0;
     let currentColumn: TBookItem[] = [];
 
-    books.forEach(book => {
-      const height = book.type === 'long' ? 460 : 218;
+    bookData?.forEach(book => {
+      const height = book.bookType === 'LONG' ? 460 : 218;
       if (currentColumnHeight + height > 460) {
         columnsArray.push(currentColumn);
         currentColumn = [];
@@ -44,7 +46,7 @@ const GuestBooks = ({ setIsOpen }: TGuestBooksProps) => {
     }
 
     setColumns(columnsArray);
-  }, [books]);
+  }, [bookData]);
 
   return (
     <>
@@ -66,14 +68,18 @@ const GuestBooks = ({ setIsOpen }: TGuestBooksProps) => {
           <S.GuestBookWrapper>
             {columns.map((column, colIndex) => (
               <S.ColumnWrapper key={colIndex}>
-                <S.Column>{column.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}</S.Column>
+                <S.Column>
+                  {column.map((book, idx) => (
+                    <BookItem data={book} key={idx} />
+                  ))}
+                </S.Column>
                 <S.Graphic src={theme.graphic} />
               </S.ColumnWrapper>
             ))}
           </S.GuestBookWrapper>
         ) : (
           <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-            {books.map((book, idx) => book.is_open && <BookItem data={book} key={idx} />)}
+            {bookData?.map((book, idx) => <BookItem data={book} key={idx} />)}
           </S.StyledMasonry>
         )}
       </S.Container>

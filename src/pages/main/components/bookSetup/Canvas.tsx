@@ -11,6 +11,7 @@ import React, {
 import bookShelfLongImage from '@assets/images/bookshelf/bookshelf-long.png';
 import bookShelfShortImage from '@assets/images/bookshelf/bookshelf-short.png';
 import { TBookType } from '@pages/main/types/type';
+import { size } from '@styles/breakpoints';
 import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
 import { Transformer } from 'konva/lib/shapes/Transformer';
@@ -21,19 +22,25 @@ interface TCanvasProps {
   selectedImage: string | null;
   setSelectedImage: React.Dispatch<SetStateAction<string | null>>;
   type: TBookType;
+  pageWidth: number;
 }
 
-const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasProps, ref) => {
+const Canvas = forwardRef(({ selectedImage, setSelectedImage, type, pageWidth }: TCanvasProps, ref) => {
   const canvasRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<Stage | null>(null);
   const layerRef = useRef<Layer | null>(null);
   const transformerRef = useRef<Transformer | null>(null);
   const [activeImage, setActiveImage] = useState<Konva.Image | null>(null);
+  const [isPC, setIsPC] = useState(false);
+
+  useEffect(() => {
+    setIsPC(pageWidth > size.tablet);
+  }, [pageWidth]);
 
   const CANVAS =
     type === 'SHORT'
-      ? { width: 316, height: 303, background: bookShelfShortImage }
-      : { width: 220, height: 464, background: bookShelfLongImage };
+      ? { width: isPC ? 416 : 316, height: isPC ? 400 : 303, background: bookShelfShortImage }
+      : { width: isPC ? 258 : 220, height: isPC ? 544 : 464, background: bookShelfLongImage };
 
   function onFocusOut() {
     setActiveImage(null);
@@ -42,12 +49,15 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
     layerRef.current?.draw();
   }
 
-  useImperativeHandle(ref, () => ({
-    onFocusOut,
-  }));
+  useImperativeHandle(ref, () => ({ onFocusOut }));
 
   /* 1. Stage와 Layer를 생성 */
   const initialize = useCallback(() => {
+    if (stageRef.current) {
+      stageRef.current.destroy(); // Destroy existing stage
+      stageRef.current = null;
+    }
+
     const stage = new Konva.Stage({
       container: 'container', // <div id='container'></div>의 id와 연결
       width: CANVAS.width,
@@ -62,16 +72,17 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
     // 바운딩박스 커스터마이징
     const transformer = new Konva.Transformer({
       borderStroke: '#ac885b',
-      borderStrokeWidth: 2,
-      anchorSize: 10,
+      borderStrokeWidth: 1,
+      anchorSize: 8,
       anchorStroke: '#ac885b',
       anchorFill: '#ac885b',
       anchorCornerRadius: 50,
       rotateAnchorOffset: 40,
+      padding: 8,
     });
     transformerRef.current = transformer;
     layer.add(transformer);
-  }, []);
+  }, [CANVAS.height, CANVAS.width]);
 
   /* 2. 생성한 Layer위에 선택한 이미지 객체를 올려주기. */
   const drawImage = useCallback(async () => {
@@ -86,10 +97,10 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
       });
 
       const imageOpt = {
-        width: imageObj.width / 1,
-        height: imageObj.height / 1,
-        x: (CANVAS.width - imageObj.width / 1) / 2,
-        y: (CANVAS.height - imageObj.height / 1) / 2,
+        width: imageObj.width / 1.4,
+        height: imageObj.height / 1.4,
+        x: (CANVAS.width - imageObj.width / 1.4) / 2,
+        y: (CANVAS.height - imageObj.height / 1.4) / 2,
         image: imageObj,
         draggable: true,
       };
@@ -118,7 +129,7 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type }: TCanvasPro
     } catch (error) {
       alert('Failed to load the image!');
     }
-  }, [selectedImage]);
+  }, [CANVAS.height, CANVAS.width, selectedImage, setSelectedImage]);
 
   /* 3. DOM이 렌더 된 뒤에 실행되어야 하므로 useEffect안에서 initialize, drawImage를 순서대로 실행해준다. */
   useEffect(() => {

@@ -69,7 +69,7 @@ const Main = () => {
         ) : (
           bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} />
         )}
-        <GuestBooks setIsOpen={setIsOpen} />
+        <GuestBooks setIsOpen={setIsOpen} id={id as string} ownerName={bookshelfData?.nickname as string} />
       </S.Container>
     </ThemeProvider>
   );

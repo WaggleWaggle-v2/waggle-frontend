@@ -5,7 +5,8 @@ import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
 import { BOOK_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
-import { useBookCreateMutation, useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
+import { useBookCreateMutation } from '@hooks/reactQuery/useQueryBook';
+import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
 import { TBookType } from '@pages/main/types/type';
 import { device, size } from '@styles/breakpoints';
@@ -122,7 +123,13 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
           <S.SettingWrapper>
             {pageWidth > size.mobile && (
               <Preview>
-                <Canvas ref={canvasRef} selectedImage={selectedImage} setSelectedImage={setSelectedImage} type={type} />
+                <Canvas
+                  ref={canvasRef}
+                  selectedImage={selectedImage}
+                  setSelectedImage={setSelectedImage}
+                  type={type}
+                  pageWidth={pageWidth}
+                />
               </Preview>
             )}
             <SettingTemplate
@@ -140,6 +147,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
                     selectedImage={selectedImage}
                     setSelectedImage={setSelectedImage}
                     type={type}
+                    pageWidth={pageWidth}
                   />
                 </Preview>
               )}
