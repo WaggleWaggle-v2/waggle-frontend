@@ -48,6 +48,7 @@ const S = {
     margin-bottom: 3.6rem;
     display: flex;
     justify-content: center;
+    color: ${({ theme }) => theme.text};
     @media ${device.mobile} {
       margin-bottom: 3.8rem;
       flex-direction: column;

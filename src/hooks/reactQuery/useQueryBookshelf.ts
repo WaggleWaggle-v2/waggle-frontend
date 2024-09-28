@@ -26,7 +26,7 @@ export const useRandomBookshelfQuery = () => {
 // 책장 조회
 export const useBookshelfQuery = (id: string | undefined | null) => {
   const query = useQuery<TBookshelfFetchRes, Error>({
-    queryKey: [QUERY_KEY.bookShelfInfo],
+    queryKey: [QUERY_KEY.bookShelfInfo, id],
     queryFn: async () => {
       if (!id) {
         return;
