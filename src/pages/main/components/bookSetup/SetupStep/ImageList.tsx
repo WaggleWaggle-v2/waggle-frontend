@@ -86,6 +86,4 @@ const S = {
       border-radius: 0.4rem;
     }
   `,
-
-  ImageWrapper: styled.li``,
 };

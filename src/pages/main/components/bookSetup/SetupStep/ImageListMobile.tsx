@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DECORATION_IMAGES } from '@pages/main/constants/book-sticker-images';
 import styled from 'styled-components';
 
@@ -15,8 +15,6 @@ const ImageListMobile = ({ handleImageClick }: TImageListMobileProps) => {
   };
 
   const selectedImages = DECORATION_IMAGES.find(category => category.title === selectedList);
-
-  useEffect(() => {}, []);
 
   return (
     <S.Container>

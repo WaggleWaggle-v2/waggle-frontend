@@ -1,5 +1,5 @@
 export type TTheme = 'WHITE' | 'BLACK';
-export type TBookType = 'SMALL' | 'BIG';
+export type TBookType = 'SHORT' | 'LONG';
 
 export interface TThemeItem {
   value: TTheme;

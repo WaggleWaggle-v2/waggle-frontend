@@ -3,12 +3,12 @@ import smallBookImage from '@assets/images/bookshelf/bookshelf-short.png';
 
 export const BOOK = [
   {
-    type: 'SMALL',
+    type: 'SHORT',
     text: '소',
     image: smallBookImage,
   },
   {
-    type: 'BIG',
+    type: 'LONG',
     text: '대',
     image: bigBookImage,
   },

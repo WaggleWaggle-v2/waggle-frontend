@@ -5,12 +5,12 @@ import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TSetTypeProps {
-  setType: React.Dispatch<SetStateAction<'SMALL' | 'BIG'>>;
-  type: 'SMALL' | 'BIG';
+  setType: React.Dispatch<SetStateAction<TBookType>>;
+  type: TBookType;
 }
 
 const SetType = ({ type, setType }: TSetTypeProps) => {
-  const handleBookClick = (type: 'SMALL' | 'BIG') => {
+  const handleBookClick = (type: TBookType) => {
     setType(type);
   };
 
