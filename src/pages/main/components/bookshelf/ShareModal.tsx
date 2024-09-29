@@ -1,8 +1,8 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import kakaoIcon from '@assets/icons/social-login/symbol-kakao.svg';
-import shareIcon from '@assets/icons/temp-share.svg';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
+import { device } from '@styles/breakpoints';
 import copyInClipboard from '@utils/copyInClipboard';
 import shareKakao from '@utils/shareKakao';
 import styled from 'styled-components';
@@ -23,9 +23,12 @@ const ShareModal = (props: TSharedModal) => {
   return (
     <ModalBaseTemplate handleCloseModal={handleCloseModal}>
       <S.Container>
-        <ModalTitle>공유하시겠소?</ModalTitle>
+        <S.ModalTitle>
+          <span>나의 책장을 </span>
+          <span>널리 알리시오!</span>
+        </S.ModalTitle>
         <S.ButtonContainer>
-          <S.ShareButton
+          <S.KakaoShareButton
             type="button"
             onClick={() => {
               const { nickname, backgroundImageUrl, introduction, count } = bookshelfData;
@@ -37,10 +40,11 @@ const ShareModal = (props: TSharedModal) => {
                 link: currentUrl,
               });
             }}>
-            <img src={kakaoIcon} alt="카카오톡 공유하기" />
-          </S.ShareButton>
+            <S.KakaoIcon src={kakaoIcon} alt="카카오톡 공유하기" />
+            <S.ButtonText>카카오톡으로 전달하겠소!</S.ButtonText>
+          </S.KakaoShareButton>
           <S.ShareButton type="button" onClick={handleCopyLink}>
-            <img src={shareIcon} alt="클립보드에 링크 복사하기" />
+            <S.ButtonText $color={'#fff'}>주소를 복사하겠소</S.ButtonText>
           </S.ShareButton>
         </S.ButtonContainer>
       </S.Container>
@@ -50,29 +54,64 @@ const ShareModal = (props: TSharedModal) => {
 
 export default ShareModal;
 
+const ShareButton = styled.button<{ $color?: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding: 1.3rem 2rem;
+  border-radius: 0.6rem;
+  background-color: ${({ $color }) => ($color ? $color : 'var(--button-active)')};
+  cursor: pointer;
+  min-width: 34rem;
+  min-height: 4rem;
+
+  @media ${device.tablet} {
+    min-width: auto;
+  }
+
+  &:hover {
+  }
+`;
+
 const S = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
+
+    @media ${device.mobile} {
+      padding: 2rem 3rem;
+    }
   `,
   ButtonContainer: styled.div`
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 1rem;
   `,
-  ShareButton: styled.button`
+  ModalTitle: styled(ModalTitle)`
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    padding: 1rem;
-    border-radius: 50%;
-    border: 0.1rem solid var(--brown500);
-    cursor: pointer;
-    min-width: 5rem;
-    width: 5rem;
-    min-height: 5rem;
-    height: 5rem;
+    gap: 1rem;
+    @media ${device.mobile} {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  `,
+  KakaoShareButton: styled(ShareButton)`
+    background-color: #fae100;
+  `,
+  ButtonText: styled.p<{ $color?: string }>`
+    color: ${({ $color }) => ($color ? $color : '#371d1e')};
+    text-align: center;
+    font-family: 'EBSHMJESaeron';
+    font-weight: 500;
+  `,
+  ShareButton,
+  KakaoIcon: styled.img`
+    @media ${device.mobile} {
+      display: none;
+    }
   `,
 };
