@@ -5,9 +5,10 @@ import styled, { useTheme } from 'styled-components';
 interface TBookshelfInfoProps {
   buttonColor: string;
   data: TBookshelfFetchRes;
+  handleOpenShare: () => void;
 }
 
-const BookshelfInfo = ({ buttonColor, data }: TBookshelfInfoProps) => {
+const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoProps) => {
   const { backgroundImageUrl, introduction, nickname } = data;
   const theme = useTheme();
 
@@ -19,7 +20,7 @@ const BookshelfInfo = ({ buttonColor, data }: TBookshelfInfoProps) => {
         <p>책장이오</p>
       </S.Name>
       <S.Intro>{introduction || '아직 책장 소개를 작성하지 않았소'}</S.Intro>
-      <S.ShareButton style={{ backgroundColor: buttonColor }}>
+      <S.ShareButton onClick={handleOpenShare} style={{ backgroundColor: buttonColor }}>
         <p>내 책장 널리 알리기</p>
         <img src={theme.pcCloud} alt="책장 공유 구름 아이콘" />
       </S.ShareButton>

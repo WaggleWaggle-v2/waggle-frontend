@@ -1,24 +1,24 @@
+import { TUserSendBookListRes } from '@api/book/bookRequest.type';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
 import { TSetting } from '@pages/myPage/constant/settingList';
-import { TBook } from '@pages/myPage/mockData';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TBookInfo {
-  bookData: TBook;
+  bookData: TUserSendBookListRes;
   settingType: TSetting;
 }
 
 const BookInfo = ({ bookData, settingType }: TBookInfo) => {
   return (
     <S.Container>
-      <S.BookImg src={bookData.bookImageUrl} alt={`${bookData.writter}의 책장`} />
+      {settingType === 'send' && <S.BookImg src={bookData.backgroundImageUrl} alt={`${bookData}의 책장`} />}
       <S.TextContainer>
         <S.Title>
-          {bookData.writter}
-          {settingType === 'present' && '에게'}
+          {bookData.nickname}
+          {settingType === 'send' && '에게'}
         </S.Title>
-        <S.Content>{bookData.letterContent}</S.Content>
+        <S.Content>{bookData.description}</S.Content>
       </S.TextContainer>
       <RightArrowIcon width={11} color={'#222'} style={`flex-shrink : 0; margin-left : auto;`} />
     </S.Container>

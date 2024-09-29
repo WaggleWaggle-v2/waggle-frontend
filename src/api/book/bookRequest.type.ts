@@ -8,3 +8,16 @@ export interface TBookItem {
   bookType: TBookType;
   open: boolean;
 }
+
+export interface TUseReceiveBookListRes {
+  description: string;
+  id: number;
+  nickname: string;
+}
+
+export interface TUserSendBookListRes {
+  description: string;
+  id: number;
+  nickname: string;
+  backgroundImageUrl: string;
+}
