@@ -8,8 +8,8 @@ import ThirdSection from './components/ThirdSection';
 import useSwapPage from './hooks/useSwapPage';
 
 interface TBookShelf {
-  randomCardData: TBookshelfFetchRes[];
-  kingData: TBookshelfFetchRes;
+  randomCardData: TBookshelfFetchRes[] | undefined;
+  kingData: TBookshelfFetchRes | undefined;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 

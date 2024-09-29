@@ -12,6 +12,7 @@ import LandingPC from './components/LandingPC';
 import TitleSection from './components/TitleSection';
 import { KingSejong } from './mockData';
 import { Layout as BaseLayout, Main } from './style/landingCommon';
+import { shakeAndBlink } from './style/shakeAndFlashAnimation';
 
 const Landing = () => {
   const accessToken = getCookie('accessToken');
@@ -29,27 +30,23 @@ const Landing = () => {
     }
   };
 
+  if (isPc) {
+    return <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />;
+  }
+
   return (
     <>
-      {!isPc ? (
-        <>
-          <S.Main>
-            <S.Layout>
-              <TitleSection />
-              <DescriptionSection />
-              <S.StartButton type="button" onClick={handleClickLandingButton}>
-                와글와글 시작하겠소
-              </S.StartButton>
-              <img src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
-            </S.Layout>
-          </S.Main>
-          {randomCardData && (
-            <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
-          )}
-        </>
-      ) : (
-        randomCardData && <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
-      )}
+      <S.Main>
+        <S.Layout>
+          <TitleSection />
+          <DescriptionSection />
+          <S.StartButton type="button" onClick={handleClickLandingButton}>
+            와글와글 시작하겠소
+          </S.StartButton>
+          <S.ArrowIcon src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
+        </S.Layout>
+      </S.Main>
+      <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
     </>
   );
 };
@@ -93,5 +90,10 @@ const S = {
     &:active {
       background-color: var(--green700);
     }
+  `,
+  ArrowIcon: styled.img`
+    width: 2rem;
+    height: 2rem;
+    animation: ${shakeAndBlink} 2s infinite;
   `,
 };

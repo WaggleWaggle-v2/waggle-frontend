@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
-import alarmIcon from '@assets/icons/alarm.svg';
+import { useRef } from 'react';
+import closeIcon from '@assets/icons/modal-close.svg';
 import KebabIcon from '@components/icons/KebabIcon';
 import SymbolLogoIcon from '@components/icons/SymbolLogoIcon';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
+import useAnimationClose from '@hooks/useAnimationClose';
 import usePageWidth from '@hooks/usePageWidth';
+import useToggle from '@hooks/useToggle';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
@@ -16,28 +18,25 @@ const Header = () => {
   const navigate = useNavigate();
   const pageWidth = usePageWidth();
   const isPc = pageWidth > size.tablet;
-  const [isOpen, setIsOpen] = useState(false);
+  const { isTrue: isOpen, handleSetTrue: handleOpenNav, handleSetFalse: handleCloseNav } = useToggle();
+  const { handleAnimationEnd, handleClosing, isClose, handleOpenPortal } = useAnimationClose({
+    handleDeletePortal: handleCloseNav,
+    handleSetOpen: handleOpenNav,
+  });
   const headerRef = useRef<HTMLElement | null>(null);
-
-  const handleToggleNav = () => {
-    setIsOpen(isOpen => !isOpen);
-  };
-
-  const handleCloseNav = () => {
-    setIsOpen(false);
-  };
-
   const { data: userInfo } = useUserQuery();
 
   return (
     <>
-      {!isPc && (
-        <MobileNav nickName={userInfo?.nickname} isOpen={isOpen} handleClose={handleCloseNav} headerRef={headerRef} />
+      {!isPc && isOpen && (
+        <MobileNav
+          nickName={userInfo?.nickname}
+          isOpen={isOpen}
+          closeAnimation={{ handleAnimationEnd, isClose, handleClosing }}
+          headerRef={headerRef}
+        />
       )}
       <S.Container ref={headerRef}>
-        <S.ButtonStyle type="button" onClick={handleToggleNav}>
-          <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
-        </S.ButtonStyle>
         <button
           type="button"
           onClick={() => {
@@ -46,8 +45,16 @@ const Header = () => {
           style={{ cursor: 'pointer' }}>
           <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />
         </button>
+        {isOpen ? (
+          <S.ButtonStyle type="button" onClick={handleClosing}>
+            <img src={closeIcon} alt="닫기" />
+          </S.ButtonStyle>
+        ) : (
+          <S.ButtonStyle type="button" onClick={handleOpenPortal}>
+            <KebabIcon style={S.KebabIconStyle} color={'#44523F'} width={24} height={24} />
+          </S.ButtonStyle>
+        )}
         {pageWidth > size.tablet && <PcNav nickName={userInfo?.nickname} />}
-        <S.AlarmIcon src={alarmIcon} alt={'알림'} />
       </S.Container>
     </>
   );

@@ -11,11 +11,10 @@ import OpenScopeSection from './components/OpenScopeSection';
 import { Description, SaveButton, SettingOne, SettingTitle } from './style/commStyle';
 
 interface TEditSection {
-  bookshelfData: TBookshelfFetchRes;
+  bookshelfData: TBookshelfFetchRes | undefined;
 }
 
 const EditSection = ({ bookshelfData }: TEditSection) => {
-  const { introduction, backgroundImageUrl, nickname, open, bookshelfType } = bookshelfData;
   const { isTrue: isOpenDeleteModal, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
 
   return (
@@ -23,11 +22,11 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
       {isOpenDeleteModal && <DeleteAccountModal handleCloseModal={handleCloseModal} />}
       <S.Container>
         <S.ImageIntroduction>
-          <BookshelfImageSection backgroundImageUrl={backgroundImageUrl} nickname={nickname} />
-          <IntroductionSection introduction={introduction} />
+          <BookshelfImageSection backgroundImageUrl={bookshelfData?.backgroundImageUrl} />
+          <IntroductionSection introduction={bookshelfData?.introduction} />
         </S.ImageIntroduction>
-        <OpenScopeSection open={open} />
-        <BookshelfThemeSection bookshelfType={bookshelfType} />
+        <OpenScopeSection open={bookshelfData?.open} />
+        <BookshelfThemeSection bookshelfType={bookshelfData?.bookshelfType} />
         <DeleteAccountButton onClick={handleOpenModal} />
       </S.Container>
     </>

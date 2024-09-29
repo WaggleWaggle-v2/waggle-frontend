@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import editIcon from '@assets/icons/rewrite.svg';
 import useToggle from '@hooks/useToggle';
+import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 import styled from 'styled-components';
 import SetProfileModal from './components/SetProfileModal';
 
 interface TBookshelfImageSection {
-  backgroundImageUrl: string;
-  nickname: string;
+  backgroundImageUrl: string | undefined;
 }
 
 const BookshelfImageSection = (props: TBookshelfImageSection) => {
-  const { backgroundImageUrl, nickname } = props;
+  const { backgroundImageUrl } = props;
   const [profileImage, setProfileImage] = useState(1);
   const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
 
@@ -28,7 +28,7 @@ const BookshelfImageSection = (props: TBookshelfImageSection) => {
           <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
         </S.EditImgButton>
         <S.ImageBox>
-          <S.BackgroundImg src={backgroundImageUrl} alt={`${nickname}의 책장 이미지`} />
+          <S.BackgroundImg src={backgroundImageUrl} alt={backgroundImageUrl ? '책장 배경 사진' : ''} />
         </S.ImageBox>
       </div>
     </>
@@ -39,11 +39,12 @@ export default BookshelfImageSection;
 
 const S = {
   ImageBox: styled.div`
-    height: 100%;
+    min-height: 100%;
     aspect-ratio: 1 /1;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
+    ${skeletonAnimation}
   `,
   EditImgButton: styled.button`
     background-color: var(--white);
