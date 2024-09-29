@@ -63,7 +63,7 @@ const Main = () => {
 
   return (
     <>
-      {isShareOpen && <ShareModal handleCloseModal={handleCloseShare} />}
+      {isShareOpen && bookshelfData && <ShareModal handleCloseModal={handleCloseShare} bookshelfData={bookshelfData} />}
       <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
         {isNewUser && <AdditionalSetup />}
         {isOpen && <BookSetup setIsOpen={setIsOpen} />}

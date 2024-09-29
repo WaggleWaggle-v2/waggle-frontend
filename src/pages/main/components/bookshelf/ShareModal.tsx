@@ -1,19 +1,22 @@
+import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import kakaoIcon from '@assets/icons/social-login/symbol-kakao.svg';
 import shareIcon from '@assets/icons/temp-share.svg';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
 import copyInClipboard from '@utils/copyInClipboard';
+import shareKakao from '@utils/shareKakao';
 import styled from 'styled-components';
 
 interface TSharedModal {
   handleCloseModal: () => void;
+  bookshelfData: TBookshelfFetchRes;
 }
 
 const ShareModal = (props: TSharedModal) => {
-  const { handleCloseModal } = props;
+  const { handleCloseModal, bookshelfData } = props;
+  const currentUrl = window.location.href;
 
   const handleCopyLink = () => {
-    const currentUrl = window.location.href;
     copyInClipboard(currentUrl);
   };
 
@@ -22,7 +25,18 @@ const ShareModal = (props: TSharedModal) => {
       <S.Container>
         <ModalTitle>공유하시겠소?</ModalTitle>
         <S.ButtonContainer>
-          <S.ShareButton type="button">
+          <S.ShareButton
+            type="button"
+            onClick={() => {
+              const { nickname, backgroundImageUrl, introduction, count } = bookshelfData;
+              shareKakao({
+                description: introduction,
+                owner: nickname,
+                bookshelfImageUrl: backgroundImageUrl,
+                count: count,
+                link: currentUrl,
+              });
+            }}>
             <img src={kakaoIcon} alt="카카오톡 공유하기" />
           </S.ShareButton>
           <S.ShareButton type="button" onClick={handleCopyLink}>
