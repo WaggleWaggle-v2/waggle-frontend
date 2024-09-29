@@ -1,5 +1,7 @@
 import cloudWhite from '@assets/icons/cloud/cloud-white.svg';
 import leftArrowLight from '@assets/icons/left-arrow-light.svg';
+import noBookImage from '@assets/icons/no-book-dark.svg';
+import plusImg from '@assets/icons/plus-light.svg';
 import darkGraphic from '@assets/images/bookshelf/dark-graphic.png';
 
 export const dark = {
@@ -9,7 +11,7 @@ export const dark = {
   graphic: darkGraphic,
   addBtnBg: 'var(--gray800)',
   addBtnBorder: 'var(--gray800)',
-  addBtnText: '#fffcf1',
+  addBtnImg: plusImg,
 
   pcCloud: cloudWhite,
   mobileCloud: cloudWhite,
@@ -30,9 +32,12 @@ export const dark = {
   bookscrollReceiver: 'var(--green600)',
   bookscrollBarTop: '#717171',
   bookscrollBarBtm: '#545454',
+  bookscrollBarTip: 'var(--black)',
 
   backBtn: leftArrowLight,
 
   invalidBtn: 'var(--gray700)',
   invalidBtnHover: 'var(--gray800)',
+
+  noBookImage: noBookImage,
 };

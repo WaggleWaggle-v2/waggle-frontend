@@ -58,7 +58,7 @@ const S = {
     border: 0.1rem solid var(--brown500);
     color: var(--brown500);
     background-color: rgba(244, 221, 172, 0.5);
-    backdrop-filter: blur(0.3rem);
+    backdrop-filter: blur(0.1rem);
     display: flex;
     align-items: center;
     font-size: 1.6rem;

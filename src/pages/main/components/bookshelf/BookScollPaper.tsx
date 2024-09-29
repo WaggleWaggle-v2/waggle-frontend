@@ -110,7 +110,7 @@ const S = {
       display: flex;
       top: calc(50% - 0.8rem / 2);
       width: 100%;
-      background-color: #513a2a;
+      background-color: ${({ theme }) => theme.bookscrollBarTip};
       height: 0.8rem;
       z-index: 0;
       border-radius: 0.4rem;

@@ -58,6 +58,7 @@ const S = {
     flex-direction: column;
     justify-content: space-between;
     min-width: 46.4rem;
+    background-color: ${({ theme }) => theme.modalBg};
 
     @media ${device.tablet} {
       min-width: 0;

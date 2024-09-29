@@ -1,36 +1,68 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { TBookItem } from '@api/book/bookRequest.type';
+import plusImg from '@assets/icons/plus-light.svg';
+import shareImg from '@assets/icons/share.svg';
 import { MasonryGrid } from '@egjs/react-grid';
 import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
-import styled, { useTheme } from 'styled-components';
+import { zIndex } from '@styles/zIndex';
+import styled, { css, useTheme } from 'styled-components';
 import BookItem from './BookItem';
 
 interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   id: string;
+  ownerName: string;
 }
 
-const GuestBooks = ({ setIsOpen, id }: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
+  const theme = useTheme();
   const { data: bookData } = useBookQuery(id, null);
   const pageWidth = usePageWidth();
-  const theme = useTheme();
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
+  const [isAddButtonVisible, setIsAddButtonVisible] = useState(true); // State to track AddBookButton visibility
+  const addButtonRef = useRef<HTMLButtonElement | null>(null); // Ref for AddBookButton
 
   const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
-  const bookCount = bookData?.length;
+  const bookCount = bookData?.length as number;
 
   const handleAddClick = () => {
     setIsOpen(true);
   };
 
+  // Set up IntersectionObserver to track AddBookButton visibility
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setIsAddButtonVisible(true); // AddBookButton is in view
+        } else {
+          setIsAddButtonVisible(false); // AddBookButton is out of view
+        }
+      },
+      { threshold: 0.1 }, // Adjust as needed
+    );
+
+    if (addButtonRef.current) {
+      observer.observe(addButtonRef.current);
+    }
+
+    return () => {
+      if (addButtonRef.current) {
+        observer.unobserve(addButtonRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!Array.isArray(bookData)) return;
+
     const columnsArray: Array<Array<TBookItem>> = [];
     let currentColumnHeight = 0;
     let currentColumn: TBookItem[] = [];
 
-    bookData?.forEach(book => {
+    bookData.forEach(book => {
       const height = book.bookType === 'LONG' ? 460 : 218;
       if (currentColumnHeight + height > 460) {
         columnsArray.push(currentColumn);
@@ -53,7 +85,7 @@ const GuestBooks = ({ setIsOpen, id }: TGuestBooksProps) => {
       <S.Container>
         {pageWidth <= size.tablet && (
           <S.BookCount>
-            {bookCount ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
+            {bookCount > 0 ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
           </S.BookCount>
         )}
 
@@ -63,24 +95,52 @@ const GuestBooks = ({ setIsOpen, id }: TGuestBooksProps) => {
           <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
         </S.ShareButton>
 
-        <S.AddBookButton onClick={handleAddClick}>+</S.AddBookButton>
+        <S.AddBookButton ref={addButtonRef} onClick={handleAddClick}>
+          <img src={theme.addBtnImg} />
+        </S.AddBookButton>
+
+        {!isAddButtonVisible && (
+          <>
+            <S.FloatingAddBookButton onClick={handleAddClick}>
+              <img src={plusImg} />
+            </S.FloatingAddBookButton>
+            <S.FloatingShareButton onClick={handleAddClick}>
+              <img src={shareImg} />
+            </S.FloatingShareButton>
+          </>
+        )}
+
         {pageWidth > size.tablet ? (
-          <S.GuestBookWrapper>
-            {columns.map((column, colIndex) => (
-              <S.ColumnWrapper key={colIndex}>
-                <S.Column>
-                  {column.map((book, idx) => (
-                    <BookItem data={book} key={idx} />
-                  ))}
-                </S.Column>
-                <S.Graphic src={theme.graphic} />
-              </S.ColumnWrapper>
-            ))}
-          </S.GuestBookWrapper>
-        ) : (
+          bookCount > 0 ? (
+            <S.GuestBookWrapper>
+              {columns.map((column, colIndex) => (
+                <S.ColumnWrapper key={colIndex}>
+                  <S.Column>
+                    {column.map((book, idx) => (
+                      <BookItem data={book} key={idx} ownerName={ownerName} />
+                    ))}
+                  </S.Column>
+                  <S.Graphic src={theme.graphic} />
+                </S.ColumnWrapper>
+              ))}
+            </S.GuestBookWrapper>
+          ) : (
+            <S.NoBook>
+              <img src={theme.noBookImage} />
+              <p>책장이 아직 비어있습니다.</p>
+              <p>소중한 마음을 여기에 담아보세요.</p>
+            </S.NoBook>
+          )
+        ) : bookCount > 0 ? (
           <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-            {bookData?.map((book, idx) => <BookItem data={book} key={idx} />)}
+            {bookData?.map((book, idx) => <BookItem data={book} key={idx} ownerName={ownerName} />)}
           </S.StyledMasonry>
+        ) : (
+          <S.NoBook>
+            <img src={theme.noBookImage} />
+            <p>책장이 아직 비어있습니다.</p>
+            <p>소중한 마음을 여기에 담아보세요.</p>
+          </S.NoBook>
         )}
       </S.Container>
     </>
@@ -88,6 +148,22 @@ const GuestBooks = ({ setIsOpen, id }: TGuestBooksProps) => {
 };
 
 export default GuestBooks;
+
+const FloatingButton = css`
+  @media ${device.tablet} {
+    z-index: ${zIndex.modal};
+    background-color: var(--green600);
+    width: 7.2rem;
+    height: 7.2rem;
+    position: fixed;
+    left: 2rem;
+    border-radius: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+`;
 
 const S = {
   Container: styled.div`
@@ -122,6 +198,28 @@ const S = {
     gap: 2rem;
   `,
 
+  NoBook: styled.div`
+    font-family: 'Pretendard';
+    width: calc(100vw - 80rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--gray600);
+    line-height: 130%;
+    img {
+      margin-bottom: 3rem;
+    }
+    @media ${device.tablet} {
+      width: 100%;
+      height: 70rem;
+      justify-content: center;
+    }
+
+    @media ${device.mobile} {
+      height: 40rem;
+    }
+  `,
+
   AddBookButton: styled.button`
     width: 22rem;
     display: flex;
@@ -138,6 +236,16 @@ const S = {
       height: 7.2rem;
       font-size: 5rem;
     }
+  `,
+
+  FloatingAddBookButton: styled.button`
+    ${FloatingButton}
+    bottom: 11rem;
+  `,
+
+  FloatingShareButton: styled.button`
+    ${FloatingButton}
+    bottom: 2rem;
   `,
 
   ShareButton: styled.button`
