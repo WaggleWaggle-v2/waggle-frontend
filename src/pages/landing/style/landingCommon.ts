@@ -32,6 +32,11 @@ export const Main = styled.div`
       top: calc(4.5rem + ${HEADER_HEIGHT.MOBILE});
       bottom: auto;
     }
+
+    @media ${device.mobile} {
+      min-width: 10rem;
+      min-height: 8rem;
+    }
   }
 
   &::after {
@@ -49,6 +54,12 @@ export const Main = styled.div`
 
     @media ${device.tablet} {
       display: block;
+    }
+
+    @media ${device.mobile} {
+      top: calc(23rem + ${HEADER_HEIGHT.MOBILE});
+      min-width: 6rem;
+      min-height: 9rem;
     }
   }
 
