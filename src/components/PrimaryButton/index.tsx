@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
@@ -10,8 +10,23 @@ interface TPrimaryButtonProps {
 }
 
 const PrimaryButton = ({ children, disabled, onClick, color }: TPrimaryButtonProps) => {
+  const [isTemporarilyDisabled, setIsTemporarilyDisabled] = useState(false);
+
+  const handleClick = () => {
+    if (disabled || isTemporarilyDisabled) return;
+
+    if (onClick) {
+      onClick();
+    }
+
+    setIsTemporarilyDisabled(true);
+    setTimeout(() => {
+      setIsTemporarilyDisabled(false);
+    }, 700);
+  };
+
   return (
-    <S.Container disabled={disabled} onClick={onClick} $backgroundColor={color}>
+    <S.Container disabled={disabled || isTemporarilyDisabled} onClick={handleClick} $backgroundColor={color}>
       {children}
     </S.Container>
   );

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import PrimaryButton from '@components/PrimaryButton';
 import { device } from '@styles/breakpoints';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 
 interface TSettingTemplateProps {
   children: ReactNode;

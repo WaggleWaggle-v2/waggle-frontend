@@ -38,7 +38,7 @@ const Main = () => {
       queryClient.removeQueries({ queryKey: ['bookShelfInfo', id] });
       navigate('/notfound');
     }
-  }, [bookshelfData?.id, id, isLoading, navigate]);
+  }, [bookshelfData?.id, id, isLoading, navigate, queryClient]);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -68,22 +68,21 @@ const Main = () => {
         {isNewUser && <AdditionalSetup />}
         {isOpen && <BookSetup setIsOpen={setIsOpen} />}
 
-        <S.Container ref={scrollContainerRef}>
-          {isLoading ? (
-            <S.SkeletonWrapper />
-          ) : (
-            bookshelfData && (
-              <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} handleOpenShare={handleOpenShare} />
-            )
-          )}
-          <GuestBooks
-            setIsOpen={setIsOpen}
-            id={id as string}
-            ownerName={bookshelfData?.nickname as string}
-            handleOpenShare={handleOpenShare}
-          />
-        </S.Container>
-      </ThemeProvider>
+      <S.Container ref={scrollContainerRef}>
+        {isLoading ? (
+          <S.SkeletonWrapper />
+        ) : (
+          bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} handleOpenShare={handleOpenShare}/>
+        )}
+        <GuestBooks
+          setIsOpen={setIsOpen}
+          id={id as string}
+          ownerName={bookshelfData?.nickname as string}
+          totalCount={bookshelfData?.count as number}
+          handleOpenShare={handleOpenShare}
+        />
+      </S.Container>
+    </ThemeProvider
     </>
   );
 };

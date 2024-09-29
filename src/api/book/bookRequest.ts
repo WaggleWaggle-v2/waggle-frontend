@@ -10,7 +10,9 @@ const bookRequest = {
   //책 조회
   fetchBook: async (id: string, cursor: number | null) => {
     try {
-      const { data } = await axios.get(`member/book/get?uuid=${id}&cursor=${cursor}`);
+      const cursorParam = cursor !== null ? `&cursorId=${cursor}` : '';
+      const { data } = await axios.get(`member/book/get?uuid=${id}${cursorParam}`);
+
       return data;
     } catch (error) {
       return error;
