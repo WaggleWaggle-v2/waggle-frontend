@@ -66,12 +66,15 @@ const ShareButton = styled.button<{ $color?: string }>`
   cursor: pointer;
   min-width: 34rem;
   min-height: 4rem;
+  position: relative;
 
-  @media ${device.tablet} {
+  @media ${device.mobile} {
     min-width: auto;
+    padding: 1rem 1.7rem;
   }
 
-  &:hover {
+  &:active {
+    background-color: var(--green700);
   }
 `;
 
@@ -79,10 +82,11 @@ const S = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 5rem;
 
     @media ${device.mobile} {
-      padding: 2rem 3rem;
+      padding-bottom: 3rem;
+      gap: 4rem;
     }
   `,
   ButtonContainer: styled.div`
@@ -97,22 +101,30 @@ const S = {
     @media ${device.mobile} {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
     }
   `,
   KakaoShareButton: styled(ShareButton)`
     background-color: #fae100;
+
+    &:active {
+      background-color: #e9d200;
+    }
   `,
   ButtonText: styled.p<{ $color?: string }>`
     color: ${({ $color }) => ($color ? $color : '#371d1e')};
     text-align: center;
-    font-family: 'EBSHMJESaeron';
-    font-weight: 500;
+    font-family: 'EBSHunminjeongeum';
+    font-weight: 700;
+    font-size: 1.8rem;
+
+    @media ${device.mobile} {
+      font-size: 1.5rem;
+    }
   `,
   ShareButton,
   KakaoIcon: styled.img`
-    @media ${device.mobile} {
-      display: none;
-    }
+    position: absolute;
+    left: 2rem;
   `,
 };
