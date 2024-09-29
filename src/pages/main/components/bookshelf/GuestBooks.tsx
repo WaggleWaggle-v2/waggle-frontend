@@ -14,9 +14,10 @@ interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   id: string;
   ownerName: string;
+  handleOpenShare: () => void;
 }
 
-const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, ownerName, handleOpenShare }: TGuestBooksProps) => {
   const theme = useTheme();
   const { data: bookData } = useBookQuery(id, null);
   const pageWidth = usePageWidth();
@@ -88,9 +89,8 @@ const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
             {bookCount > 0 ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
           </S.BookCount>
         )}
-
         {/* TABLET, MOBILE 공유 버튼 */}
-        <S.ShareButton>
+        <S.ShareButton onClick={handleOpenShare}>
           <p>내 책장 널리 알리기</p>
           <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
         </S.ShareButton>
@@ -104,7 +104,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
             <S.FloatingAddBookButton onClick={handleAddClick}>
               <img src={plusImg} />
             </S.FloatingAddBookButton>
-            <S.FloatingShareButton onClick={handleAddClick}>
+            <S.FloatingShareButton onClick={handleOpenShare}>
               <img src={shareImg} />
             </S.FloatingShareButton>
           </>
