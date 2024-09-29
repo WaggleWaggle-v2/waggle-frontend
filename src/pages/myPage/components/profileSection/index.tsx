@@ -40,7 +40,7 @@ const ProfileSection = (props: TProfileSection) => {
         </ProfileSectionLayout>
       );
     }
-    case 'present': {
+    case 'send': {
       return (
         <ProfileSectionLayout
           handleSetDefault={handleSetDefault}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import useSmoothScroll from '@hooks/useSmoothScrooll';
+import useToggle from '@hooks/useToggle';
 import BookshelfInfo from '@pages/main/components/bookshelf/BookshelfInfo';
 import GuestBooks from '@pages/main/components/bookshelf/GuestBooks';
 import { device } from '@styles/breakpoints';
@@ -11,6 +12,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
 import BookSetup from './components/bookSetup/BookSetup';
+import ShareModal from './components/bookshelf/ShareModal';
 
 const Main = () => {
   const scrollContainerRef = useSmoothScroll();
@@ -22,6 +24,7 @@ const Main = () => {
   const queryClient = useQueryClient();
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
+  const { isTrue: isShareOpen, handleSetTrue: handleOpenShare, handleSetFalse: handleCloseShare } = useToggle();
 
   useEffect(() => {
     if (location.state === 'setup') {
@@ -59,24 +62,28 @@ const Main = () => {
   }, [bookshelfData?.bookshelfType, scrollContainerRef]);
 
   return (
-    <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
-      {isNewUser && <AdditionalSetup />}
-      {isOpen && <BookSetup setIsOpen={setIsOpen} />}
+    <>
+      {isShareOpen && bookshelfData && <ShareModal handleCloseModal={handleCloseShare} bookshelfData={bookshelfData} />}
+      <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
+        {isNewUser && <AdditionalSetup />}
+        {isOpen && <BookSetup setIsOpen={setIsOpen} />}
 
       <S.Container ref={scrollContainerRef}>
         {isLoading ? (
           <S.SkeletonWrapper />
         ) : (
-          bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} />
+          bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} handleOpenShare={handleOpenShare}/>
         )}
         <GuestBooks
           setIsOpen={setIsOpen}
           id={id as string}
           ownerName={bookshelfData?.nickname as string}
           totalCount={bookshelfData?.count as number}
+          handleOpenShare={handleOpenShare}
         />
       </S.Container>
-    </ThemeProvider>
+    </ThemeProvider
+    </>
   );
 };
 

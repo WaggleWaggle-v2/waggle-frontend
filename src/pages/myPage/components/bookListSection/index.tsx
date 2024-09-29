@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useReceiveSendInfinity } from '@hooks/reactQuery/useQueryBook';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { TSetting } from '@pages/myPage/constant/settingList';
-import { TBook } from '@pages/myPage/mockData';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookListSectionLayout from './BookListSectionLayout';
@@ -8,7 +9,6 @@ import BookInfo from './components/BookInfo';
 import SkeletonBookInfo from './components/BookInfo/SkeletonBookInfo';
 
 interface TBookList {
-  bookList: TBook[] | undefined;
   settingType: TSetting;
 }
 
@@ -16,22 +16,39 @@ export const SORTING_OPTION = ['책장 목록 오래된 순', '책장 목록 최
 
 export type TSortingOption = (typeof SORTING_OPTION)[number];
 
-const BookListSection = ({ bookList, settingType }: TBookList) => {
+const BookListSection = ({ settingType }: TBookList) => {
   const navigate = useNavigate();
-  const [selectOption, setSelectOption] = useState<TSortingOption>('책장 목록 최신 순');
+  const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
   const skeletonArray = new Array(7).fill({});
+  const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.5 });
 
   const handleSelectOption = (option: TSortingOption) => {
-    setSelectOption(option);
+    setSortingOption(option);
   };
 
-  if (!bookList) {
+  const { data, isFetching, hasNextPage, fetchNextPage, refetch } = useReceiveSendInfinity({
+    type: settingType as 'receive' | 'send',
+    sortType: sortingOption === '책장 목록 최신 순' ? 'desc' : 'asc',
+  });
+
+  useEffect(() => {
+    if (isVisible && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [isVisible, hasNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, sortingOption]);
+
+  if (!data || isFetching) {
     return (
       <BookListSectionLayout
         settingType={settingType}
         handleSelectOption={handleSelectOption}
-        selectOption={selectOption}>
-        {skeletonArray.map((el, i) => (
+        selectOption={sortingOption}
+        lastTargetRef={targetRef}>
+        {skeletonArray.map((_, i) => (
           <SkeletonBookInfo key={i} />
         ))}
       </BookListSectionLayout>
@@ -40,10 +57,12 @@ const BookListSection = ({ bookList, settingType }: TBookList) => {
 
   return (
     <BookListSectionLayout
+      lastTargetRef={targetRef}
       settingType={settingType}
       handleSelectOption={handleSelectOption}
-      selectOption={selectOption}>
-      {(selectOption === '책장 목록 최신 순' ? bookList : [...bookList].reverse()).map(book => (
+      selectOption={sortingOption}>
+      {data.pages[0].length === 0 && <S.EmptyText>아직 보낸 책장이 없습니다.</S.EmptyText>}
+      {data.pages[0].map(book => (
         <S.BookButton
           type="button"
           onClick={() => {
@@ -71,5 +90,15 @@ const S = {
       background-color: var(--brown100);
       transition: background-color 0.2s ease;
     }
+  `,
+  EmptyText: styled.div`
+    position: absolute;
+    font-family: 'EBSHunminjeongeum';
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gray700);
+    font-size: 2.6rem;
+    text-wrap: nowrap;
   `,
 };

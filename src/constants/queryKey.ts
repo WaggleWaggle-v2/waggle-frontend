@@ -3,4 +3,6 @@ export const QUERY_KEY = {
   bookShelfInfo: 'bookShelfInfo',
   randomBookShelfInfo: 'randomBookShelfInfo',
   bookInfo: 'bookInfo',
+  receiveBook: 'receiveBook',
+  sendBook: 'sendBook',
 } as const;
