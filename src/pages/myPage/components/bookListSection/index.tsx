@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useReceiveSendBookList } from '@hooks/reactQuery/useQueryBook';
 import { TSetting } from '@pages/myPage/constant/settingList';
 import { useNavigate } from 'react-router-dom';
@@ -24,10 +24,18 @@ const BookListSection = ({ settingType }: TBookList) => {
     setSortingOption(option);
   };
 
-  const { data: bookList, isFetching } = useReceiveSendBookList(
+  const {
+    data: bookList,
+    isFetching,
+    refetch,
+  } = useReceiveSendBookList(
     sortingOption === '책장 목록 오래된 순' ? 'asc' : 'desc',
     settingType as 'receive' | 'send',
   );
+
+  useEffect(() => {
+    refetch();
+  }, [sortingOption, refetch]);
 
   if (!bookList || isFetching) {
     return (
