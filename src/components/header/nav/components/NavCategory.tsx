@@ -1,6 +1,6 @@
 import { device } from '@styles/breakpoints';
 import { deleteCookie } from '@utils/cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { NavItem } from '../style/navStyle';
 
@@ -24,7 +24,9 @@ const NavCategory = ({ isLogin, handleCloseMenu }: { isLogin: boolean; handleClo
             유니어스
           </S.MenuTitle>
           <S.MenuTitle as="button" type="button">
-            문의하기
+            <Link to="https://forms.gle/B7YEc53PPeFGSJZb6" target="_blank">
+              문의하기
+            </Link>
           </S.MenuTitle>
         </S.MenuBox>
       </S.NavItem>

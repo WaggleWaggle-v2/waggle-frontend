@@ -42,12 +42,14 @@ const S = {
   `,
 
   TitleImage: styled.img`
+    min-width: 60rem;
     width: 60rem;
+    aspect-ratio: 2.3 / 1;
     @media ${device.tablet} {
-      width: 39rem;
+      min-width: 39rem;
     }
     @media ${device.mobile} {
-      width: 100%;
+      min-width: 100%;
     }
   `,
 

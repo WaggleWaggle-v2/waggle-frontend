@@ -33,7 +33,7 @@ const MobileNav = (props: TMobileNav) => {
       <UserInfo nickName={nickName} handleCloseMenu={handleClosing} />
       <NavCategory isLogin={nickName ? true : false} handleCloseMenu={handleClosing} />
       <S.KingContainer>
-        <img src={kingHatImage} alt={'세종대왕 모자'} />
+        <S.KingImg src={kingHatImage} alt={'세종대왕 모자'} />
         <S.KingBody>
           <MenuTitle>
             새종대왕님께 <br /> 감사의 말 전하기
@@ -50,7 +50,7 @@ export default MobileNav;
 const S = {
   Container: styled.nav<{ $isClose: boolean }>`
     position: fixed;
-    height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
+    height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
     bottom: 0;
     right: 0;
     background-color: var(--white);
@@ -58,6 +58,8 @@ const S = {
     padding: 3rem 2rem;
     transition: transform 0.3s ease;
     animation: ${({ $isClose }) => ($isClose ? XSlideOut : XSlideIn)} 0.5s forwards;
+    display: flex;
+    flex-direction: column;
 
     @media ${device.tablet} {
       width: 25rem;
@@ -68,11 +70,10 @@ const S = {
     }
   `,
   KingContainer: styled.div`
-    position: absolute;
-    bottom: 11rem;
     cursor: pointer;
     @media ${device.tablet} {
       width: 21rem;
+      margin-top: auto;
     }
     @media ${device.mobile} {
       width: 15rem;
@@ -86,4 +87,8 @@ const S = {
   NavItem,
   TitleText,
   MenuTitle,
+  KingImg: styled.img`
+    min-width: 2.9rem;
+    min-height: 2.6rem;
+  `,
 };

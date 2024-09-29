@@ -22,8 +22,6 @@ time, mark, audio, video {
     box-sizing: border-box;
 }
 
-
-
 *,
 *::before,
 *::after {
@@ -88,6 +86,10 @@ img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+a {
+  all : unset;
 }
 `;
 

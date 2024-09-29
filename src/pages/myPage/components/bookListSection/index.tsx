@@ -20,7 +20,7 @@ const BookListSection = ({ settingType }: TBookList) => {
   const navigate = useNavigate();
   const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
   const skeletonArray = new Array(7).fill({});
-  const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.5 });
+  const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0 });
 
   const handleSelectOption = (option: TSortingOption) => {
     setSortingOption(option);

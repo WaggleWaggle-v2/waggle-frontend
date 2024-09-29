@@ -109,9 +109,9 @@ const S = {
     }
   `,
   LastBookObserver: styled.div`
-    min-height: 10rem;
+    min-height: 0.01rem;
     @media ${device.mobile} {
-      min-height: 8.2rem;
+      min-height: 0.01rem;
     }
   `,
 };
