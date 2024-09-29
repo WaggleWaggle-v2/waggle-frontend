@@ -14,10 +14,11 @@ interface TSharedModal {
 
 const ShareModal = (props: TSharedModal) => {
   const { handleCloseModal, bookshelfData } = props;
-  const currentUrl = window.location.href;
+  const currenPath = window.location.pathname;
+  const shareUrl = `${import.meta.env.VITE_REDIRECT_URL}${currenPath}`;
 
   const handleCopyLink = () => {
-    copyInClipboard(currentUrl);
+    copyInClipboard(shareUrl);
   };
 
   return (
@@ -37,7 +38,7 @@ const ShareModal = (props: TSharedModal) => {
                 owner: nickname,
                 bookshelfImageUrl: backgroundImageUrl,
                 count: count,
-                link: currentUrl,
+                link: currenPath.slice(1),
               });
             }}>
             <S.KakaoIcon src={kakaoIcon} alt="카카오톡 공유하기" />
