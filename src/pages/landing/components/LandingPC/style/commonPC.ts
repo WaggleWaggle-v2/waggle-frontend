@@ -14,6 +14,8 @@ export const Main = styled.div`
   background-size: contain;
   background-position: left top;
   scroll-snap-align: start;
+  position: relative;
+  background-color: var(--background);
 
   @media ${device.tablet} {
     height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
