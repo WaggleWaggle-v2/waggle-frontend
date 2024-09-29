@@ -16,7 +16,7 @@ interface CreateBookParams {
 // 책 조회
 export const useBookQuery = (id: string | undefined | null, cursor: number | null) => {
   const query = useQuery<TBookItem[], Error>({
-    queryKey: [QUERY_KEY.bookInfo, id],
+    queryKey: [QUERY_KEY.bookInfo, id, cursor],
     queryFn: async () => {
       if (!id) {
         return;
@@ -27,6 +27,7 @@ export const useBookQuery = (id: string | undefined | null, cursor: number | nul
     enabled: !!id,
     gcTime: Infinity,
   });
+
   return query;
 };
 

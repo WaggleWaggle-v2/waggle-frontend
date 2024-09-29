@@ -35,7 +35,7 @@ const Main = () => {
       queryClient.removeQueries({ queryKey: ['bookShelfInfo', id] });
       navigate('/notfound');
     }
-  }, [bookshelfData?.id, id, isLoading, navigate]);
+  }, [bookshelfData?.id, id, isLoading, navigate, queryClient]);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -69,7 +69,12 @@ const Main = () => {
         ) : (
           bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} />
         )}
-        <GuestBooks setIsOpen={setIsOpen} id={id as string} ownerName={bookshelfData?.nickname as string} />
+        <GuestBooks
+          setIsOpen={setIsOpen}
+          id={id as string}
+          ownerName={bookshelfData?.nickname as string}
+          totalCount={bookshelfData?.count as number}
+        />
       </S.Container>
     </ThemeProvider>
   );

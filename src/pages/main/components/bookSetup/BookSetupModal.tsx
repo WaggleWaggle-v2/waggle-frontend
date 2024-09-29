@@ -53,6 +53,10 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
     setStep(prev => prev + 1);
   };
 
+  const triggerResize = () => {
+    window.dispatchEvent(new Event('resize'));
+  };
+
   const handleFinalStep = async () => {
     const formData = {
       file: canvas as File,
@@ -66,6 +70,9 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
     await mutation.mutateAsync(formData);
 
     setIsOpen(false);
+    if (pageWidth <= size.tablet) {
+      triggerResize();
+    }
   };
 
   const handleCanvasUpdateClick = async () => {

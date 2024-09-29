@@ -57,7 +57,7 @@ const S = {
   NameTag: styled.div`
     border: 0.1rem solid var(--brown500);
     color: var(--brown500);
-    background-color: rgba(244, 221, 172, 0.5);
+    background-color: rgba(244, 221, 172, 0.7);
     backdrop-filter: blur(0.1rem);
     display: flex;
     align-items: center;

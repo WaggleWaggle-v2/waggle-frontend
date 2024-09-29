@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { TBookItem } from '@api/book/bookRequest.type';
 import plusImg from '@assets/icons/plus-light.svg';
+import rightArrow from '@assets/icons/right-arrow.svg';
 import shareImg from '@assets/icons/share.svg';
 import { MasonryGrid } from '@egjs/react-grid';
 import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
@@ -14,34 +16,49 @@ interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   id: string;
   ownerName: string;
+  totalCount: number;
 }
 
-const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, ownerName, totalCount }: TGuestBooksProps) => {
   const theme = useTheme();
-  const { data: bookData } = useBookQuery(id, null);
   const pageWidth = usePageWidth();
+  const [cursor, setCursor] = useState<number | null>(null);
+  const { data: bookData, isFetching } = useBookQuery(id, cursor);
+  const [books, setBooks] = useState<TBookItem[]>([]);
+
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
-  const [isAddButtonVisible, setIsAddButtonVisible] = useState(true); // State to track AddBookButton visibility
-  const addButtonRef = useRef<HTMLButtonElement | null>(null); // Ref for AddBookButton
+  const [isAddButtonVisible, setIsAddButtonVisible] = useState(true);
+  const addButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
-  const bookCount = bookData?.length as number;
+
+  const handleNextBooks = () => {
+    if (!bookData || bookData.length === 0 || isFetching) return;
+    const lastBook = bookData[bookData.length - 1];
+    setCursor(lastBook.id);
+  };
+
+  console.log(books.length, totalCount);
+
+  useEffect(() => {
+    if (!bookData) return;
+    setBooks(prevBooks => [...prevBooks, ...bookData]);
+  }, [bookData]);
 
   const handleAddClick = () => {
     setIsOpen(true);
   };
 
-  // Set up IntersectionObserver to track AddBookButton visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          setIsAddButtonVisible(true); // AddBookButton is in view
+          setIsAddButtonVisible(true);
         } else {
-          setIsAddButtonVisible(false); // AddBookButton is out of view
+          setIsAddButtonVisible(false);
         }
       },
-      { threshold: 0.1 }, // Adjust as needed
+      { threshold: 0.1 },
     );
 
     if (addButtonRef.current) {
@@ -56,36 +73,43 @@ const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
   }, []);
 
   useEffect(() => {
-    if (!Array.isArray(bookData)) return;
+    if (!Array.isArray(books) || books.length === 0) return;
 
-    const columnsArray: Array<Array<TBookItem>> = [];
-    let currentColumnHeight = 0;
-    let currentColumn: TBookItem[] = [];
+    setColumns(prevColumns => {
+      const updatedColumns = [...prevColumns];
+      let currentColumnHeight =
+        updatedColumns.length > 0
+          ? updatedColumns[updatedColumns.length - 1].reduce((height, book) => {
+              return height + (book.bookType === 'LONG' ? 460 : 218);
+            }, 0)
+          : 0;
+      let currentColumn = updatedColumns.length > 0 ? updatedColumns.pop() || [] : [];
 
-    bookData.forEach(book => {
-      const height = book.bookType === 'LONG' ? 460 : 218;
-      if (currentColumnHeight + height > 460) {
-        columnsArray.push(currentColumn);
-        currentColumn = [];
-        currentColumnHeight = 0;
+      books.slice(prevColumns.flat().length).forEach(book => {
+        const height = book.bookType === 'LONG' ? 460 : 218;
+        if (currentColumnHeight + height > 460) {
+          updatedColumns.push(currentColumn);
+          currentColumn = [];
+          currentColumnHeight = 0;
+        }
+        currentColumn.push(book);
+        currentColumnHeight += height;
+      });
+
+      if (currentColumn.length > 0) {
+        updatedColumns.push(currentColumn);
       }
-      currentColumn.push({ ...book });
-      currentColumnHeight += height;
+
+      return updatedColumns;
     });
-
-    if (currentColumn.length > 0) {
-      columnsArray.push(currentColumn);
-    }
-
-    setColumns(columnsArray);
-  }, [bookData]);
+  }, [books]);
 
   return (
     <>
       <S.Container>
         {pageWidth <= size.tablet && (
           <S.BookCount>
-            {bookCount > 0 ? `${bookCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
+            {totalCount > 0 ? `${totalCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
           </S.BookCount>
         )}
 
@@ -111,19 +135,26 @@ const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
         )}
 
         {pageWidth > size.tablet ? (
-          bookCount > 0 ? (
-            <S.GuestBookWrapper>
-              {columns.map((column, colIndex) => (
-                <S.ColumnWrapper key={colIndex}>
-                  <S.Column>
-                    {column.map((book, idx) => (
-                      <BookItem data={book} key={idx} ownerName={ownerName} />
-                    ))}
-                  </S.Column>
-                  <S.Graphic src={theme.graphic} />
-                </S.ColumnWrapper>
-              ))}
-            </S.GuestBookWrapper>
+          totalCount > 0 ? (
+            <>
+              <S.GuestBookWrapper>
+                {columns.map((column, colIndex) => (
+                  <S.ColumnWrapper key={colIndex}>
+                    <S.Column>
+                      {column.map((book, idx) => (
+                        <BookItem data={book} key={idx} ownerName={ownerName} />
+                      ))}
+                    </S.Column>
+                    <S.Graphic src={theme.graphic} />
+                  </S.ColumnWrapper>
+                ))}
+              </S.GuestBookWrapper>
+              {books.length < totalCount && (
+                <S.NextButton onClick={handleNextBooks}>
+                  <img src={rightArrow} alt="더보기 버튼" />
+                </S.NextButton>
+              )}
+            </>
           ) : (
             <S.NoBook>
               <img src={theme.noBookImage} />
@@ -131,10 +162,17 @@ const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
               <p>소중한 마음을 여기에 담아보세요.</p>
             </S.NoBook>
           )
-        ) : bookCount > 0 ? (
-          <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-            {bookData?.map((book, idx) => <BookItem data={book} key={idx} ownerName={ownerName} />)}
-          </S.StyledMasonry>
+        ) : totalCount > 0 ? (
+          <>
+            <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
+              {books?.map((book, idx) => <BookItem data={book} key={idx} ownerName={ownerName} />)}
+            </S.StyledMasonry>
+            {books.length < totalCount && (
+              <S.NextButton onClick={handleNextBooks}>
+                <img src={rightArrow} alt="더보기 버튼" />
+              </S.NextButton>
+            )}
+          </>
         ) : (
           <S.NoBook>
             <img src={theme.noBookImage} />
@@ -150,6 +188,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName }: TGuestBooksProps) => {
 export default GuestBooks;
 
 const FloatingButton = css`
+  display: none;
   @media ${device.tablet} {
     z-index: ${zIndex.modal};
     background-color: var(--green600);
@@ -277,6 +316,22 @@ const S = {
   ColumnWrapper: styled.div`
     position: relative;
     width: 100%;
+  `,
+
+  NextButton: styled.div`
+    cursor: pointer;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 5rem;
+    margin: 0 3rem 0 6rem;
+    background-color: var(--brown500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 1.5rem;
+      margin-left: 0.2rem;
+    }
   `,
 
   Graphic: styled.img`
