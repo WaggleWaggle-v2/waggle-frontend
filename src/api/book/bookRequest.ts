@@ -1,6 +1,11 @@
 import axios from '@api/axios';
 import { isAxiosError } from 'axios';
 
+export interface TReceiveSendBookListParams {
+  sortType: 'asc' | 'desc';
+  cursorId?: number;
+}
+
 const bookRequest = {
   //책 조회
   fetchBook: async (id: string, cursor: number | null) => {
@@ -51,11 +56,25 @@ const bookRequest = {
     }
   },
 
-  // 받은 & 남긴 책장 조회
-  fetchReceivedSendBookshelf: async (sortType: 'asc' | 'desc', type: 'receive' | 'send', cursorId?: number) => {
+  // 받은 책장 조회
+  fetchReceiveBookList: async (props: TReceiveSendBookListParams) => {
+    const { sortType, cursorId } = props;
     try {
       const { data } = await axios.get(
-        `member/mybook/${type}?order=${sortType}${cursorId ? `&cursorId=${cursorId}` : ''} `,
+        `member/mybook/receive?order=${sortType}${cursorId ? `&cursorId=${cursorId}` : ''} `,
+      );
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  // 남긴 책장 조회
+  fetchSendBookList: async (props: TReceiveSendBookListParams) => {
+    const { sortType, cursorId } = props;
+    try {
+      const { data } = await axios.get(
+        `member/mybook/send?order=${sortType}${cursorId ? `&cursorId=${cursorId}` : ''} `,
       );
       return data;
     } catch (error) {

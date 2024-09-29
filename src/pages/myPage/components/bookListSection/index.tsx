@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useReceiveSendBookList } from '@hooks/reactQuery/useQueryBook';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { TSetting } from '@pages/myPage/constant/settingList';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,6 +20,7 @@ const BookListSection = ({ settingType }: TBookList) => {
   const navigate = useNavigate();
   const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
   const skeletonArray = new Array(7).fill({});
+  const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.5 });
 
   const handleSelectOption = (option: TSortingOption) => {
     setSortingOption(option);
@@ -28,21 +30,23 @@ const BookListSection = ({ settingType }: TBookList) => {
     data: bookList,
     isFetching,
     refetch,
-  } = useReceiveSendBookList(
-    sortingOption === '책장 목록 오래된 순' ? 'asc' : 'desc',
-    settingType as 'receive' | 'send',
-  );
+  } = useReceiveSendBookList({
+    sortType: sortingOption === '책장 목록 오래된 순' ? 'asc' : 'desc',
+    type: settingType as 'receive' | 'send',
+  });
 
   useEffect(() => {
     refetch();
   }, [sortingOption, refetch]);
 
+  // bookList가 없을 때 스켈레톤 UI
   if (!bookList || isFetching) {
     return (
       <BookListSectionLayout
         settingType={settingType}
         handleSelectOption={handleSelectOption}
-        selectOption={sortingOption}>
+        selectOption={sortingOption}
+        lastTargetRef={targetRef}>
         {skeletonArray.map((el, i) => (
           <SkeletonBookInfo key={i} />
         ))}
@@ -52,6 +56,7 @@ const BookListSection = ({ settingType }: TBookList) => {
 
   return (
     <BookListSectionLayout
+      lastTargetRef={targetRef}
       settingType={settingType}
       handleSelectOption={handleSelectOption}
       selectOption={sortingOption}>

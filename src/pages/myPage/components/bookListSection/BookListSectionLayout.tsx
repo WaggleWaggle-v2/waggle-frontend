@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, RefObject } from 'react';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { TSetting } from '@pages/myPage/constant/settingList';
@@ -12,10 +12,11 @@ interface TBookListSectionLayout {
   children: ReactNode;
   handleSelectOption: (option: TSortingOption) => void;
   selectOption: TSortingOption;
+  lastTargetRef: RefObject<HTMLDivElement>;
 }
 
 const BookListSectionLayout = (props: TBookListSectionLayout) => {
-  const { settingType, children, handleSelectOption, selectOption } = props;
+  const { settingType, children, handleSelectOption, selectOption, lastTargetRef } = props;
   const { targetRef, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.5 });
 
   return (
@@ -30,6 +31,7 @@ const BookListSectionLayout = (props: TBookListSectionLayout) => {
       <S.ListContainer $isScroll={!isVisible}>
         <S.BookObserver ref={targetRef} />
         {children}
+        <S.LastBookObserver ref={lastTargetRef} />
       </S.ListContainer>
     </S.Container>
   );
@@ -102,6 +104,12 @@ const S = {
     min-height: 10rem;
     z-index: -1;
 
+    @media ${device.mobile} {
+      min-height: 8.2rem;
+    }
+  `,
+  LastBookObserver: styled.div`
+    min-height: 1rem;
     @media ${device.mobile} {
       min-height: 8.2rem;
     }
