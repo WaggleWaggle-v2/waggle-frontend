@@ -109,7 +109,7 @@ const S = {
     }
   `,
   LastBookObserver: styled.div`
-    min-height: 1rem;
+    min-height: 10rem;
     @media ${device.mobile} {
       min-height: 8.2rem;
     }

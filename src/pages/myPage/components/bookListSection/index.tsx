@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useReceiveSendBookList } from '@hooks/reactQuery/useQueryBook';
+import { useReceiveSendInfinity } from '@hooks/reactQuery/useQueryBook';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { TSetting } from '@pages/myPage/constant/settingList';
 import { useNavigate } from 'react-router-dom';
@@ -26,28 +26,29 @@ const BookListSection = ({ settingType }: TBookList) => {
     setSortingOption(option);
   };
 
-  const {
-    data: bookList,
-    isFetching,
-    refetch,
-  } = useReceiveSendBookList({
-    sortType: sortingOption === '책장 목록 오래된 순' ? 'asc' : 'desc',
+  const { data, isFetching, hasNextPage, fetchNextPage, refetch } = useReceiveSendInfinity({
     type: settingType as 'receive' | 'send',
+    sortType: sortingOption === '책장 목록 최신 순' ? 'desc' : 'asc',
   });
 
   useEffect(() => {
-    refetch();
-  }, [sortingOption, refetch]);
+    if (isVisible && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [isVisible, hasNextPage, fetchNextPage]);
 
-  // bookList가 없을 때 스켈레톤 UI
-  if (!bookList || isFetching) {
+  useEffect(() => {
+    refetch();
+  }, [refetch, sortingOption]);
+
+  if (!data || isFetching) {
     return (
       <BookListSectionLayout
         settingType={settingType}
         handleSelectOption={handleSelectOption}
         selectOption={sortingOption}
         lastTargetRef={targetRef}>
-        {skeletonArray.map((el, i) => (
+        {skeletonArray.map((_, i) => (
           <SkeletonBookInfo key={i} />
         ))}
       </BookListSectionLayout>
@@ -60,8 +61,8 @@ const BookListSection = ({ settingType }: TBookList) => {
       settingType={settingType}
       handleSelectOption={handleSelectOption}
       selectOption={sortingOption}>
-      {bookList.length === 0 && <S.EmptyText>아직 보낸 책장이 없습니다.</S.EmptyText>}
-      {bookList.map(book => (
+      {data.pages[0].length === 0 && <S.EmptyText>아직 보낸 책장이 없습니다.</S.EmptyText>}
+      {data.pages[0].map(book => (
         <S.BookButton
           type="button"
           onClick={() => {
@@ -98,5 +99,6 @@ const S = {
     transform: translate(-50%, -50%);
     color: var(--gray700);
     font-size: 2.6rem;
+    text-wrap: nowrap;
   `,
 };

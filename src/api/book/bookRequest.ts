@@ -3,7 +3,7 @@ import { isAxiosError } from 'axios';
 
 export interface TReceiveSendBookListParams {
   sortType: 'asc' | 'desc';
-  cursorId?: number;
+  cursorId?: number | unknown;
 }
 
 const bookRequest = {
@@ -61,7 +61,7 @@ const bookRequest = {
     const { sortType, cursorId } = props;
     try {
       const { data } = await axios.get(
-        `member/mybook/receive?order=${sortType}${cursorId ? `&cursorId=${cursorId}` : ''} `,
+        `member/mybook/receive?order=${sortType}${cursorId !== 1 ? `&cursorId=${cursorId}` : ''}`,
       );
       return data;
     } catch (error) {
@@ -74,7 +74,7 @@ const bookRequest = {
     const { sortType, cursorId } = props;
     try {
       const { data } = await axios.get(
-        `member/mybook/send?order=${sortType}${cursorId ? `&cursorId=${cursorId}` : ''} `,
+        `member/mybook/send?order=${sortType}${cursorId !== 1 ? `&cursorId=${cursorId}` : ''}`,
       );
       return data;
     } catch (error) {
