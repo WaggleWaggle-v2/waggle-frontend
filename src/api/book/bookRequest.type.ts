@@ -8,3 +8,9 @@ export interface TBookItem {
   bookType: TBookType;
   open: boolean;
 }
+
+export interface TUseReceiveSendBookList {
+  description: string;
+  id: number;
+  nickname: string;
+}

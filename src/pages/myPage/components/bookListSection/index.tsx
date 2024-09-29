@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { useReceiveSendBookList } from '@hooks/reactQuery/useQueryBook';
 import { TSetting } from '@pages/myPage/constant/settingList';
-import { TBook } from '@pages/myPage/mockData';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookListSectionLayout from './BookListSectionLayout';
@@ -8,7 +8,6 @@ import BookInfo from './components/BookInfo';
 import SkeletonBookInfo from './components/BookInfo/SkeletonBookInfo';
 
 interface TBookList {
-  bookList: TBook[] | undefined;
   settingType: TSetting;
 }
 
@@ -16,21 +15,26 @@ export const SORTING_OPTION = ['책장 목록 오래된 순', '책장 목록 최
 
 export type TSortingOption = (typeof SORTING_OPTION)[number];
 
-const BookListSection = ({ bookList, settingType }: TBookList) => {
+const BookListSection = ({ settingType }: TBookList) => {
   const navigate = useNavigate();
-  const [selectOption, setSelectOption] = useState<TSortingOption>('책장 목록 최신 순');
+  const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
   const skeletonArray = new Array(7).fill({});
 
   const handleSelectOption = (option: TSortingOption) => {
-    setSelectOption(option);
+    setSortingOption(option);
   };
 
-  if (!bookList) {
+  const { data: bookList, isFetching } = useReceiveSendBookList(
+    sortingOption === '책장 목록 오래된 순' ? 'asc' : 'desc',
+    settingType as 'receive' | 'send',
+  );
+
+  if (!bookList || isFetching) {
     return (
       <BookListSectionLayout
         settingType={settingType}
         handleSelectOption={handleSelectOption}
-        selectOption={selectOption}>
+        selectOption={sortingOption}>
         {skeletonArray.map((el, i) => (
           <SkeletonBookInfo key={i} />
         ))}
@@ -42,8 +46,8 @@ const BookListSection = ({ bookList, settingType }: TBookList) => {
     <BookListSectionLayout
       settingType={settingType}
       handleSelectOption={handleSelectOption}
-      selectOption={selectOption}>
-      {(selectOption === '책장 목록 최신 순' ? bookList : [...bookList].reverse()).map(book => (
+      selectOption={sortingOption}>
+      {bookList.map(book => (
         <S.BookButton
           type="button"
           onClick={() => {
@@ -71,5 +75,14 @@ const S = {
       background-color: var(--brown100);
       transition: background-color 0.2s ease;
     }
+  `,
+  EmptyText: styled.div`
+    position: absolute;
+    font-family: 'EBSHunminjeongeum';
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gray700);
+    font-size: 2.6rem;
   `,
 };

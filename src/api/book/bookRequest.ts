@@ -50,6 +50,18 @@ const bookRequest = {
       throw error;
     }
   },
+
+  // 받은 & 남긴 책장 조회
+  fetchReceivedSendBookshelf: async (sortType: 'asc' | 'desc', type: 'receive' | 'send', cursorId?: number) => {
+    try {
+      const { data } = await axios.get(
+        `member/mybook/${type}?order=${sortType}${cursorId ? `&cursorId=${cursorId}` : ''} `,
+      );
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
 } as const;
 
 export default bookRequest;

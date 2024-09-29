@@ -1,4 +1,4 @@
-export type TSetting = 'receive' | 'present' | 'edit' | 'default';
+export type TSetting = 'receive' | 'send' | 'edit' | 'default';
 
 export interface TSettingList {
   title: string;
@@ -8,7 +8,7 @@ export interface TSettingList {
 const SETTING_LIST: TSettingList[] = [
   {
     title: '남긴 방명록',
-    type: 'present',
+    type: 'send',
   },
   { title: '받은 방명록', type: 'receive' },
   { title: '환경 설정', type: 'edit' },

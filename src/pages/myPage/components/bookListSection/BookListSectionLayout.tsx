@@ -39,6 +39,7 @@ export default BookListSectionLayout;
 
 const S = {
   Container: styled.div`
+    position: relative;
     min-height: 55.5rem;
     max-height: 55.5rem;
     display: grid;

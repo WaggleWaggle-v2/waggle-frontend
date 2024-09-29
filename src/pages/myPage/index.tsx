@@ -47,8 +47,8 @@ const MyPage = () => {
           />
           <S.SettingSection>
             {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
-            {settingType === 'receive' && <BookListSection bookList={mockData.list} settingType={'receive'} />}
-            {settingType === 'present' && <BookListSection bookList={mockData.list} settingType={'present'} />}
+            {settingType === 'receive' && <BookListSection settingType={'receive'} />}
+            {settingType === 'send' && <BookListSection settingType={'send'} />}
             {settingType === 'edit' && <EditSection bookshelfData={myBookShelf} />}
           </S.SettingSection>
         </S.Container>

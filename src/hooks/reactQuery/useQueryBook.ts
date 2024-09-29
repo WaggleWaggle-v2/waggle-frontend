@@ -1,8 +1,9 @@
 import { TAxiosError } from '@api/axios';
 import bookRequest from '@api/book/bookRequest';
-import { TBookItem } from '@api/book/bookRequest.type';
+import { TBookItem, TUseReceiveSendBookList } from '@api/book/bookRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getCookie } from '@utils/cookie';
 
 interface CreateBookParams {
   file: File;
@@ -46,4 +47,20 @@ export const useBookCreateMutation = () => {
   });
 
   return mutation;
+};
+
+// 남긴 책장 & 받은 책장 조회
+export const useReceiveSendBookList = (sortType: 'asc' | 'desc', type: 'receive' | 'send') => {
+  const accessToken = getCookie('accessToken');
+
+  const query = useQuery<TUseReceiveSendBookList[], Error>({
+    queryKey: type === 'receive' ? [QUERY_KEY.receiveBook] : [QUERY_KEY.sendBook],
+    queryFn: async () => {
+      if (!accessToken) throw new Error('No access token');
+      return bookRequest.fetchReceivedSendBookshelf(sortType, type);
+    },
+    enabled: !!accessToken,
+    gcTime: Infinity,
+  });
+  return query;
 };
