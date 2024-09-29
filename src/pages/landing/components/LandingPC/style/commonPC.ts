@@ -16,7 +16,7 @@ export const Main = styled.div`
   scroll-snap-align: start;
 
   @media ${device.tablet} {
-    height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
+    height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
     padding-top: ${HEADER_HEIGHT.MOBILE};
   }
 `;
