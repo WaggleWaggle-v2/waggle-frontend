@@ -4,11 +4,12 @@ import styled, { keyframes } from 'styled-components';
 interface TBookScollPaperProps {
   ownerName: string;
   content: string;
+  createdAt?: string;
   sender?: string;
   isPreview?: boolean;
 }
 
-const BookScollPaper = ({ ownerName, content, sender, isPreview }: TBookScollPaperProps) => {
+const BookScollPaper = ({ ownerName, content, createdAt, sender, isPreview }: TBookScollPaperProps) => {
   return (
     <S.Container>
       <S.BookScrollBar>
@@ -24,7 +25,7 @@ const BookScollPaper = ({ ownerName, content, sender, isPreview }: TBookScollPap
         <S.Content>{content}</S.Content>
         {sender && (
           <S.Sender>
-            <p>23년 10월 5일</p>
+            <p>{createdAt}</p>
             <p>{sender}</p>
           </S.Sender>
         )}
@@ -79,7 +80,6 @@ const S = {
     align-items: center;
     width: 100%;
     @media ${device.mobile} {
-      border: 1px solid red;
       width: 94vw;
     }
   `,
@@ -90,15 +90,16 @@ const S = {
     position: relative;
     width: 100%;
 
-    @media ${device.mobile} {
-      border: 1px solid red;
-    }
-
     div:first-child {
       position: absolute;
       display: flex;
       width: 96%;
       background: linear-gradient(to top, #ceb499 0%, #bb9165 100%);
+      background: linear-gradient(
+        to top,
+        ${({ theme }) => theme.bookscrollBarTop} 0%,
+        ${({ theme }) => theme.bookscrollBarBtm} 100%
+      );
       left: calc(2%);
       height: 100%;
       z-index: 1;
@@ -109,7 +110,7 @@ const S = {
       display: flex;
       top: calc(50% - 0.8rem / 2);
       width: 100%;
-      background-color: #513a2a;
+      background-color: ${({ theme }) => theme.bookscrollBarTip};
       height: 0.8rem;
       z-index: 0;
       border-radius: 0.4rem;
@@ -118,14 +119,17 @@ const S = {
 
   BookContent: styled.div<{ $isPreview: boolean }>`
     overflow: hidden;
-    background-color: #fffcf9;
+    background-color: ${({ theme }) => theme.bookscrollBg};
+    color: ${props => props.theme.bookscrollText};
     width: calc(100% - 4rem);
     padding: ${({ $isPreview }) => ($isPreview ? '3rem 2.6rem' : '5.6rem 4rem')};
     animation: ${({ $isPreview }) => ($isPreview ? rollDownMobile : rollDown)} 0.5s
       cubic-bezier(0.51, -0.09, 0.51, 1.03);
+    font-size: ${({ $isPreview }) => ($isPreview ? '1.6rem' : '2rem')};
     @media ${device.mobile} {
       animation: ${rollDownMobile} 0.5s cubic-bezier(0.51, -0.09, 0.51, 1.03);
       padding: 3rem 2.6rem;
+      font-size: 1.6rem;
     }
   `,
 
@@ -134,7 +138,7 @@ const S = {
     font-size: 2.4rem;
     font-weight: 900;
     p:first-child {
-      color: var(--red500);
+      color: ${props => props.theme.bookscrollReceiver};
     }
     @media ${device.mobile} {
       font-size: 1.8rem;
@@ -143,22 +147,18 @@ const S = {
 
   Content: styled.div`
     font-family: 'Pretendard';
-    font-size: 2rem;
     margin: 2.1rem 0;
     padding-right: 1rem;
     line-height: 150%;
     max-height: 25rem;
     overflow-y: auto;
     white-space: pre-wrap;
-    @media ${device.mobile} {
-      font-size: 1.6rem;
-    }
 
     &::-webkit-scrollbar {
       width: 0.4rem;
     }
     &::-webkit-scrollbar-track {
-      background-color: var(--gray200);
+      background-color: ${props => props.theme.scollBar};
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {

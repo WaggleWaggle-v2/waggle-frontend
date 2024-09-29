@@ -1,6 +1,6 @@
 import React, { SetStateAction, useState } from 'react';
+import { TBookItem } from '@api/book/bookRequest.type';
 import closeIcon from '@assets/icons/modal-close-white.svg';
-import { TBookItem, USER_DATA } from '@constants/mock';
 import { device } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import ReactModal from 'react-modal';
@@ -10,11 +10,11 @@ import BookScollPaper from './BookScollPaper';
 interface TBookScrollModalProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   data: TBookItem;
+  ownerName: string;
 }
 
-const BookScrollModal = ({ setIsOpen, data }: TBookScrollModalProps) => {
+const BookScrollModal = ({ setIsOpen, data, ownerName }: TBookScrollModalProps) => {
   const [modalOpen, setModalOpen] = useState(true);
-  const ownerName = USER_DATA.nickname;
 
   return (
     <S.StyledModal
@@ -25,7 +25,7 @@ const BookScrollModal = ({ setIsOpen, data }: TBookScrollModalProps) => {
       }}
       ariaHideApp={false}
       style={customModalStyles}>
-      <BookScollPaper ownerName={ownerName} content={data.content} sender={data.nickname} />
+      <BookScollPaper ownerName={ownerName} content={data.description} sender={data.nickname} />
 
       <S.ModalCloseButton onClick={() => setIsOpen(false)}>
         <img src={closeIcon} alt="모달 닫기 아이콘" />

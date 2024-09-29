@@ -6,6 +6,7 @@ import GuestBooks from '@pages/main/components/bookshelf/GuestBooks';
 import { device } from '@styles/breakpoints';
 import { dark } from '@styles/theme/dark';
 import { light } from '@styles/theme/light';
+import { useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
@@ -18,6 +19,7 @@ const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
 
@@ -29,12 +31,22 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
+    if (isLoading === false && !bookshelfData?.id) {
+      queryClient.removeQueries({ queryKey: ['bookShelfInfo', id] });
+      navigate('/notfound');
+    }
+  }, [bookshelfData?.id, id, isLoading, navigate]);
+
+  useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     const handleScroll = () => {
       const currentScrollX = scrollContainer?.scrollLeft || 0;
       if (currentScrollX >= 0 && currentScrollX <= 200) {
         const colorIntensity = Math.min(currentScrollX / 200, 1);
-        const newColor = `rgba(234, 224, 205, ${colorIntensity})`;
+        const newColor =
+          bookshelfData?.bookshelfType === 'BLACK'
+            ? `rgba(110, 110, 110, ${colorIntensity})`
+            : `rgba(234, 224, 205, ${colorIntensity})`;
         setButtonColor(newColor);
       }
     };
@@ -44,7 +56,7 @@ const Main = () => {
         scrollContainer.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [scrollContainerRef]);
+  }, [bookshelfData?.bookshelfType, scrollContainerRef]);
 
   return (
     <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
@@ -57,7 +69,7 @@ const Main = () => {
         ) : (
           bookshelfData && <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} />
         )}
-        <GuestBooks setIsOpen={setIsOpen} />
+        <GuestBooks setIsOpen={setIsOpen} id={id as string} ownerName={bookshelfData?.nickname as string} />
       </S.Container>
     </ThemeProvider>
   );

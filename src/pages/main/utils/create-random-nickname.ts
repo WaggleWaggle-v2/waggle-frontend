@@ -5,6 +5,6 @@ export function createRandomNickName() {
   const randomAdjective = faker.helpers.arrayElement(ADJECTIVE_DATA);
   const randomNoun = faker.helpers.arrayElement(NOUN_DATA);
 
-  const nickname = `${randomAdjective} ${randomNoun}`;
+  const nickname = `${randomAdjective}${randomNoun}`;
   return nickname;
 }

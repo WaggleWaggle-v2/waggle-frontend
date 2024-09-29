@@ -1,22 +1,24 @@
 import { useState } from 'react';
+import { TBookItem } from '@api/book/bookRequest.type';
 import nameTagImage from '@assets/images/bookshelf/name-tag.png';
-import { TBookItem } from '@constants/mock';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import BookScrollModal from './BookScrollModal';
 
 interface TBookItemprops {
   data: TBookItem;
+  ownerName: string;
 }
 
-const BookItem = ({ data }: TBookItemprops) => {
+const BookItem = ({ data, ownerName }: TBookItemprops) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { type, image, nickname } = data;
+  const { bookType, bookImageUrl, nickname } = data;
+
   return (
     <>
-      {isOpen && <BookScrollModal setIsOpen={setIsOpen} data={data} />}
+      {isOpen && <BookScrollModal setIsOpen={setIsOpen} data={data} ownerName={ownerName} />}
       <S.Book onClick={() => setIsOpen(true)}>
-        <img src={image} alt={`${nickname}-${type}`} />
+        <img src={bookImageUrl} alt={`${nickname}-${bookType}`} />
         <S.NameTag>
           <img src={nameTagImage} alt="sender-nametag" />
           <p>{nickname}</p>
@@ -56,6 +58,7 @@ const S = {
     border: 0.1rem solid var(--brown500);
     color: var(--brown500);
     background-color: rgba(244, 221, 172, 0.5);
+    backdrop-filter: blur(0.1rem);
     display: flex;
     align-items: center;
     font-size: 1.6rem;

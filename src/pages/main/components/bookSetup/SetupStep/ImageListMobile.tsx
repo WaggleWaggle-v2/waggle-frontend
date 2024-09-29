@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { EQUIPMENT_IMAGES, LETTER_IMAGES, PROP_IMAGES } from '@pages/main/constants/book-sticker-images';
+import { DECORATION_IMAGES } from '@pages/main/constants/book-sticker-images';
 import styled from 'styled-components';
 
 interface TImageListMobileProps {
@@ -8,45 +8,30 @@ interface TImageListMobileProps {
 }
 
 const ImageListMobile = ({ handleImageClick }: TImageListMobileProps) => {
-  const [selectedList, setSelectedList] = useState<string>('letter');
+  const [selectedList, setSelectedList] = useState<string>(DECORATION_IMAGES[0].title);
 
   const handleTitleClick = (listName: string) => {
     setSelectedList(listName);
   };
 
+  const selectedImages = DECORATION_IMAGES.find(category => category.title === selectedList);
+
   return (
     <S.Container>
       <S.TitleWrapper>
-        <S.ImageListTitle $selected={selectedList === 'letter'} onClick={() => handleTitleClick('letter')}>
-          {LETTER_IMAGES.title}
-        </S.ImageListTitle>
-        <S.ImageListTitle $selected={selectedList === 'prop'} onClick={() => handleTitleClick('prop')}>
-          {PROP_IMAGES.title}
-        </S.ImageListTitle>
-        <S.ImageListTitle $selected={selectedList === 'equipment'} onClick={() => handleTitleClick('equipment')}>
-          {EQUIPMENT_IMAGES.title}
-        </S.ImageListTitle>
+        {DECORATION_IMAGES.map(category => (
+          <S.ImageListTitle
+            key={category.title}
+            $selected={selectedList === category.title}
+            onClick={() => handleTitleClick(category.title)}>
+            {category.title}
+          </S.ImageListTitle>
+        ))}
       </S.TitleWrapper>
 
-      {selectedList === 'letter' && (
+      {selectedImages && (
         <S.ImageList>
-          {LETTER_IMAGES.imageList.map(url => (
-            <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
-          ))}
-        </S.ImageList>
-      )}
-
-      {selectedList === 'prop' && (
-        <S.ImageList>
-          {PROP_IMAGES.imageList.map(url => (
-            <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
-          ))}
-        </S.ImageList>
-      )}
-
-      {selectedList === 'equipment' && (
-        <S.ImageList>
-          {EQUIPMENT_IMAGES.imageList.map(url => (
+          {selectedImages.imageList.map(url => (
             <img draggable={false} key={url} src={url} alt={`image-${url}`} onClick={() => handleImageClick(url)} />
           ))}
         </S.ImageList>
@@ -63,6 +48,7 @@ const S = {
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
+    width: 100%;
   `,
 
   TitleWrapper: styled.div`
@@ -71,6 +57,9 @@ const S = {
     margin-bottom: 2rem;
     overflow-x: auto;
     white-space: nowrap;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   `,
 
   ImageListTitle: styled.p<{ $selected: boolean }>`
@@ -104,6 +93,7 @@ const S = {
     img {
       cursor: pointer;
       width: 8rem;
+      padding: 0.6rem;
       background-color: var(--gray300);
       border-radius: 0.4rem;
     }

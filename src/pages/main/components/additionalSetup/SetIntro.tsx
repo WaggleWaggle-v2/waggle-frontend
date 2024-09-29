@@ -22,7 +22,7 @@ const SetIntro = ({ setIntro, setIsDisabled }: TSetIntroProps) => {
     } else if (value.length > MAX_LENGTH.BOOKSHELF_INTRODUCTION) {
       setInvalidMsg('최대 100글자만 사용할 수 있습니다.');
       setIsDisabled(true);
-    } else if (isCompleteKoreanWord(value)) {
+    } else if (!isCompleteKoreanWord(value)) {
       setInvalidMsg('한글만 사용할 수 있습니다.');
       setIsDisabled(true);
     } else {
@@ -53,9 +53,11 @@ const S = {
     justify-content: center;
     height: 28.5rem;
     margin-bottom: 14rem;
+    @media ${device.tablet} {
+      width: 100%;
+    }
     @media ${device.mobile} {
       height: auto;
-      width: 100%;
       margin-top: 4rem;
       margin-bottom: 12rem;
     }

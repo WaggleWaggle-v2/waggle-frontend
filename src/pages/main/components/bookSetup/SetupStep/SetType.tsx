@@ -5,12 +5,12 @@ import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 interface TSetTypeProps {
-  setType: React.Dispatch<SetStateAction<'SMALL' | 'BIG'>>;
-  type: 'SMALL' | 'BIG';
+  setType: React.Dispatch<SetStateAction<TBookType>>;
+  type: TBookType;
 }
 
 const SetType = ({ type, setType }: TSetTypeProps) => {
-  const handleBookClick = (type: 'SMALL' | 'BIG') => {
+  const handleBookClick = (type: TBookType) => {
     setType(type);
   };
 
@@ -36,7 +36,7 @@ const S = {
   Container: styled.div`
     display: flex;
     justify-content: center;
-    margin: 5.5rem 0 8.5rem;
+    margin: 5rem 0 8rem;
     gap: 5rem;
     width: 100%;
     @media ${device.mobile} {

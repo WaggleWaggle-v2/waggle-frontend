@@ -99,13 +99,8 @@ const S = {
     align-items: center;
     justify-content: center;
     height: 100vh;
-
     @media ${device.tablet} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
-    }
-    @media ${device.mobile} {
-      height: calc(76vh - ${HEADER_HEIGHT.MOBILE});
-      padding-top: ${HEADER_HEIGHT.MOBILE};
+      height: calc(90vh - ${HEADER_HEIGHT.MOBILE});
     }
   `,
   GoBackIcon: styled.img`

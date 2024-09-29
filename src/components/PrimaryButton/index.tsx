@@ -33,7 +33,8 @@ const S = {
     border-radius: 0.6rem;
 
     &:hover {
-      background-color: var(--green700);
+      background-color: ${({ $backgroundColor, theme }) =>
+        $backgroundColor ? theme.invalidBtnHover : 'var(--green700)'};
     }
 
     &:active {

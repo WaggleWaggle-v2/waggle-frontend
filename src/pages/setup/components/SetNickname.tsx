@@ -20,7 +20,7 @@ const SetNickname = ({ setNickname, setIsDisabled }: TSetNicknameProps) => {
     } else if (value.length > 6) {
       setInvalidMsg('최대 6글자만 사용할 수 있습니다.');
       setIsDisabled(true);
-    } else if (isCompleteKoreanWord(value)) {
+    } else if (!isCompleteKoreanWord(value)) {
       setInvalidMsg('호명은 한글만 사용할 수 있습니다.');
       setIsDisabled(true);
     } else {
@@ -45,5 +45,6 @@ export default SetNickname;
 const S = {
   Container: styled.div`
     margin: 4rem 0 6rem;
+    width: 100%;
   `,
 };

@@ -56,7 +56,7 @@ const S = {
   `,
 
   InitWrapper: styled.div`
-    background-color: var(--background);
+    background-color: ${({ theme }) => theme.modalBg};
     z-index: calc(${zIndex.header} + 1);
     @media ${device.tablet} {
       animation: ${popup} 0.5s forwards;
@@ -74,7 +74,7 @@ const S = {
     @media ${device.tablet} {
       position: absolute;
       inset: 0;
-      background-color: var(--background);
+      background-color: ${({ theme }) => theme.modalBg};
     }
   `,
 };

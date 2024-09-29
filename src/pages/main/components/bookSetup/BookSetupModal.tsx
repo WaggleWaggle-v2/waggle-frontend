@@ -5,13 +5,16 @@ import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
 import { BOOK_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
+import { useBookCreateMutation } from '@hooks/reactQuery/useQueryBook';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import usePageWidth from '@hooks/usePageWidth';
 import { TBookType } from '@pages/main/types/type';
-import { size } from '@styles/breakpoints';
+import { device, size } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
+import { getFormattedDate } from '@utils/getFormattedDate';
 import domtoimage from 'dom-to-image';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import Canvas from './Canvas';
 import Preview from './Preview';
 import SetCanvas from './SetupStep/SetCanvas';
@@ -27,6 +30,7 @@ interface TAdditionalSetupModalProps {
 
 const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const { id } = useParams();
+  const theme = useTheme();
   const { data } = useBookshelfQuery(id);
 
   const canvasRef = useRef<any>(null);
@@ -34,7 +38,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [step, setStep] = useState(1);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const [type, setType] = useState<TBookType>('SMALL');
+  const [type, setType] = useState<TBookType>('SHORT');
   const [canvas, setCanvas] = useState<File | null>(null);
   const [post, setPost] = useState<string>('');
   const [sender, setSender] = useState<string>('');
@@ -43,16 +47,24 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const mutation = useBookCreateMutation();
+
   const handleMoveToNextStep = () => {
-    setStep(step => step + 1);
+    setStep(prev => prev + 1);
   };
 
   const handleFinalStep = async () => {
-    console.log(type);
-    console.log(canvas);
-    console.log(post);
-    console.log(sender);
-    console.log(publicity);
+    const formData = {
+      file: canvas as File,
+      nickname: sender,
+      isOpen: publicity,
+      bookshelfId: id as string,
+      description: post,
+      bookType: type,
+    };
+
+    await mutation.mutateAsync(formData);
+
     setIsOpen(false);
   };
 
@@ -87,6 +99,15 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   return (
     <S.Container>
       <ModalTemplate setIsOpen={setIsOpen} setStep={setStep} step={step}>
+        {pageWidth > size.tablet && step !== 1 && (
+          <S.GoBackIcon
+            src={theme.backBtn}
+            onClick={() => {
+              step === 1 ? setIsOpen(false) : setStep?.(prev => prev - 1);
+            }}
+            alt="뒤로 가기"
+          />
+        )}
         {step === 1 && (
           <SettingTemplate
             step={step}
@@ -100,6 +121,17 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
         {step === 2 && (
           <S.SettingWrapper>
+            {pageWidth > size.mobile && (
+              <Preview>
+                <Canvas
+                  ref={canvasRef}
+                  selectedImage={selectedImage}
+                  setSelectedImage={setSelectedImage}
+                  type={type}
+                  pageWidth={pageWidth}
+                />
+              </Preview>
+            )}
             <SettingTemplate
               step={step}
               titleTop="책장을 꾸며주시오."
@@ -115,20 +147,17 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
                     selectedImage={selectedImage}
                     setSelectedImage={setSelectedImage}
                     type={type}
+                    pageWidth={pageWidth}
                   />
                 </Preview>
               )}
             </SettingTemplate>
-            {pageWidth > size.mobile && (
-              <Preview>
-                <Canvas ref={canvasRef} selectedImage={selectedImage} setSelectedImage={setSelectedImage} type={type} />
-              </Preview>
-            )}
           </S.SettingWrapper>
         )}
 
         {step === 3 && (
           <S.SettingWrapper>
+            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
             <SettingTemplate
               step={step}
               titleTop="마음을 전하시오."
@@ -136,7 +165,6 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
               isDisabled={isDisabled}>
               <SetPost setPost={setPost} setIsDisabled={setIsDisabled} />
             </SettingTemplate>
-            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
           </S.SettingWrapper>
         )}
 
@@ -156,7 +184,15 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
         {step === 5 && (
           <S.SettingWrapper>
             <Preview noTablet>
-              {data && <BookScollPaper isPreview ownerName={data?.nickname} content={post} sender={sender} />}
+              {data && (
+                <BookScollPaper
+                  isPreview
+                  ownerName={data?.nickname}
+                  content={post}
+                  createdAt={getFormattedDate()}
+                  sender={sender}
+                />
+              )}
             </Preview>
             <SettingTemplate
               step={step}
@@ -181,6 +217,19 @@ const S = {
     position: relative;
     display: flex;
     justify-content: center;
+    @media ${device.tablet} {
+      margin-top: ${HEADER_HEIGHT.MOBILE};
+    }
+  `,
+
+  GoBackIcon: styled.img`
+    width: 2.1rem;
+    height: 2.1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 4.4rem;
+    left: 4.6rem;
+    z-index: 9999;
   `,
 
   SettingWrapper: styled.div`

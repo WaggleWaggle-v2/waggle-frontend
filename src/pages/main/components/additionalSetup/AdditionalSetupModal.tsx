@@ -10,6 +10,8 @@ import {
   useBookshelfThemeUpdateMutation,
 } from '@hooks/reactQuery/useQueryBookshelf';
 import { TTheme } from '@pages/main/types/type';
+import { device } from '@styles/breakpoints';
+import { HEADER_HEIGHT } from '@styles/headerHeight';
 import styled from 'styled-components';
 import SetIntro from './SetIntro';
 import SetProfile from './SetProfile';
@@ -107,5 +109,8 @@ const S = {
     position: relative;
     display: flex;
     justify-content: center;
+    @media ${device.tablet} {
+      margin-top: ${HEADER_HEIGHT.MOBILE};
+    }
   `,
 };

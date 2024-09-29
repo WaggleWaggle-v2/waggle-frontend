@@ -54,7 +54,8 @@ const S = {
     gap: 3rem;
 
     @media ${device.tablet} {
-      justify-content: start;
+      width: fit-content;
+      height: 40vh;
     }
   `,
 
@@ -62,6 +63,12 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
+    @media ${device.tablet} {
+      flex-direction: row;
+    }
+    @media ${device.mobile} {
+      flex-direction: column;
+    }
   `,
 
   PublicityButton: styled.li<{ $isSelected: boolean; $hasSelected: boolean }>`
@@ -85,10 +92,16 @@ const S = {
     font-size: 2.2rem;
     color: var(--green700);
     margin-bottom: 1rem;
+    @media ${device.mobile} {
+      font-size: 2rem;
+    }
   `,
 
   DescriptionSub: styled.div`
     font-size: 1.8rem;
     color: gray;
+    @media ${device.mobile} {
+      font-size: 1.6rem;
+    }
   `,
 };

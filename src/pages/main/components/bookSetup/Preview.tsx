@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 interface TPreviewProps {
   children: ReactNode;
@@ -9,6 +9,7 @@ interface TPreviewProps {
 }
 
 const Preview = ({ children, noTablet }: TPreviewProps) => {
+  const theme = useTheme();
   return <S.Container $noTablet={noTablet}>{children}</S.Container>;
 };
 
@@ -16,7 +17,7 @@ export default Preview;
 
 const S = {
   Container: styled.div<{ $noTablet: boolean | undefined }>`
-    background-color: #e5ddcf;
+    background-color: ${props => props.theme.previewBg};
     width: 50vw;
     display: flex;
     flex-direction: column;
@@ -25,9 +26,7 @@ const S = {
     padding: 0 4rem;
 
     @media ${device.tablet} {
-      margin-top: calc(${HEADER_HEIGHT.MOBILE});
       height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
-      width: 50vw;
       display: ${({ $noTablet }) => $noTablet && 'none'};
     }
 
