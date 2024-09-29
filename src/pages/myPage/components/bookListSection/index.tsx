@@ -55,6 +55,7 @@ const BookListSection = ({ settingType }: TBookList) => {
       settingType={settingType}
       handleSelectOption={handleSelectOption}
       selectOption={sortingOption}>
+      {bookList.length === 0 && <S.EmptyText>아직 보낸 책장이 없습니다.</S.EmptyText>}
       {bookList.map(book => (
         <S.BookButton
           type="button"
