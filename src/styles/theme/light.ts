@@ -4,6 +4,7 @@ import leftArrow from '@assets/icons/left-arrow.svg';
 import noBookImage from '@assets/icons/no-book-light.svg';
 import plusImg from '@assets/icons/plus-dark.svg';
 import lightGraphic from '@assets/images/bookshelf/light-graphic.png';
+import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 
 export const light = {
   text: 'var(--gray900)',
@@ -42,4 +43,6 @@ export const light = {
   invalidBtnHover: 'var(--gray500)',
 
   noBookImage: noBookImage,
+
+  skeletonAnimation: skeletonAnimation,
 };

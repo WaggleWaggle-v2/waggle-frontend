@@ -3,6 +3,7 @@ import leftArrowLight from '@assets/icons/left-arrow-light.svg';
 import noBookImage from '@assets/icons/no-book-dark.svg';
 import plusImg from '@assets/icons/plus-light.svg';
 import darkGraphic from '@assets/images/bookshelf/dark-graphic.png';
+import { skeletonAnimationDark } from '@styles/animation/skeletonAnimation';
 
 export const dark = {
   text: '#fffcf1',
@@ -41,4 +42,6 @@ export const dark = {
   invalidBtnHover: 'var(--gray800)',
 
   noBookImage: noBookImage,
+
+  skeletonAnimation: skeletonAnimationDark,
 };

@@ -11,6 +11,7 @@ import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import styled, { css, useTheme } from 'styled-components';
 import BookItem from './BookItem';
+import BookSkeleton from './BookSkeleton';
 
 interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
@@ -130,7 +131,11 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
         )}
 
         {pageWidth > size.tablet ? (
-          totalCount > 0 ? (
+          isFetching ? (
+            <S.GuestBookWrapper>
+              <BookSkeleton totalNum={columns.length} />
+            </S.GuestBookWrapper>
+          ) : totalCount > 0 ? (
             <>
               <S.GuestBookWrapper>
                 {columns.map((column, colIndex) => (
@@ -157,6 +162,8 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
               <p>소중한 마음을 여기에 담아보세요.</p>
             </S.NoBook>
           )
+        ) : isFetching ? (
+          <></>
         ) : totalCount > 0 ? (
           <>
             <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
