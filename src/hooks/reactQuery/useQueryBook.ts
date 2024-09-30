@@ -21,7 +21,7 @@ interface TReceiveSendBookList extends TReceiveSendBookListParams {
 // 책 조회
 export const useBookQuery = (id: string | undefined | null, cursor: number | null) => {
   const query = useQuery<TBookItem[], Error>({
-    queryKey: [QUERY_KEY.bookInfo, id, cursor],
+    queryKey: [QUERY_KEY.bookInfo, id],
     queryFn: async () => {
       if (!id) {
         return;
@@ -44,9 +44,9 @@ export const useBookCreateMutation = () => {
     mutationFn: async ({ file, nickname, isOpen, bookshelfId, description, bookType }: CreateBookParams) => {
       return await bookRequest.createBook(file, nickname, isOpen, bookshelfId, description, bookType);
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo, variables.bookshelfId] });
     },
     onError: (error: TAxiosError) => console.error(error),
   });
