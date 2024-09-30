@@ -66,7 +66,11 @@ const BookListSection = ({ settingType }: TBookList) => {
         <S.BookButton
           type="button"
           onClick={() => {
-            navigate(`/book/${book.id}`);
+            navigate(`/book/${book.id}`, {
+              state: {
+                settingType: settingType,
+              },
+            });
           }}
           key={book.id}>
           <BookInfo bookData={book} settingType={settingType} />

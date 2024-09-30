@@ -17,7 +17,7 @@ import { useSettingType } from './hooks/useSettingType';
 import { mockData } from './mockData';
 
 const MyPage = () => {
-  const { settingType, handleSetType, handleSetDefault } = useSettingType();
+  const { settingType, handleSetType, handleSetDefault, handleRememberType } = useSettingType();
   const { data: userInfo } = useUserQuery();
   const { data: myBookShelf } = useBookshelfQuery(userInfo?.id);
   const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
@@ -30,6 +30,13 @@ const MyPage = () => {
       navigate('/login');
     }
   }, [navigate]);
+
+  useEffect(() => {
+    const returnType = localStorage.getItem('settingType');
+    if (returnType) {
+      handleRememberType(returnType as TSetting);
+    }
+  }, []);
 
   return (
     <>

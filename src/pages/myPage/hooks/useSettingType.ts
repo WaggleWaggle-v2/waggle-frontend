@@ -12,5 +12,9 @@ export const useSettingType = () => {
     setSettingType('default');
   };
 
-  return { settingType, handleSetType, handleSetDefault };
+  const handleRememberType = (value: TSetting) => {
+    setSettingType(value);
+  };
+
+  return { settingType, handleSetType, handleSetDefault, handleRememberType };
 };

@@ -4,25 +4,26 @@ import GoBackButton from '@pages/myPage/components/profileSection/components/GoB
 import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ReadBook = () => {
   const navigate = useNavigate();
   const bookId = useParams();
   const { data } = useBookDetail(Number(bookId.id));
+  const { state } = useLocation();
+  localStorage.setItem('settingType', state.settingType);
 
   return (
     <S.Container>
       <S.ContentBox>
-        <S.BookShelf src={data?.bookImageUrl} />
+        {data?.bookImageUrl ? <S.BookShelf src={data.bookImageUrl} /> : <S.BookImgSkeleton />}
         <S.Book>
           <BookScollPaper
             ownerName={data ? data.receiverNickname : ''}
             content={data ? data.description : ''}
             sender={data ? data.senderNickname : ''}
             isPreview={false}
-            addStyle={S.MobileBookLayout}
           />
         </S.Book>
       </S.ContentBox>
@@ -85,10 +86,10 @@ const S = {
     }
   `,
   BookShelf: styled.img`
-    min-width: 20.9rem;
-    min-height: 44rem;
-    width: 20.9rem;
-    ${skeletonAnimation}
+    min-width: 22rem;
+    min-height: 22rem;
+    width: 22rem;
+    object-fit: contain;
   `,
   Book: styled.div`
     position: static;
@@ -112,9 +113,9 @@ const S = {
   ButtonBox: styled.div`
     margin-right: auto;
   `,
-  MobileBookLayout: `
-    @media ${device.mobile} {
-      width: auto;
-    }
+  BookImgSkeleton: styled.div`
+    min-width: 22rem;
+    min-height: 22rem;
+    ${skeletonAnimation}
   `,
 };

@@ -8,12 +8,11 @@ interface TBookScollPaperProps {
   createdAt?: string;
   sender?: string;
   isPreview?: boolean;
-  addStyle?: string;
 }
 
-const BookScollPaper = ({ ownerName, content, createdAt, sender, isPreview, addStyle }: TBookScollPaperProps) => {
+const BookScollPaper = ({ ownerName, content, createdAt, sender, isPreview }: TBookScollPaperProps) => {
   return (
-    <S.Container $addStyle={addStyle}>
+    <S.Container>
       <S.BookScrollBar>
         <div />
         <div />
@@ -76,7 +75,7 @@ const rollDownMobile = keyframes`
 `;
 
 const S = {
-  Container: styled.div<{ $addStyle?: string }>`
+  Container: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,8 +83,6 @@ const S = {
     @media ${device.mobile} {
       width: 94vw;
     }
-
-    ${({ $addStyle }) => $addStyle}
   `,
 
   BookScrollBar: styled.div`
