@@ -22,6 +22,7 @@ const ReadBook = () => {
             content={data ? data.description : ''}
             sender={data ? data.senderNickname : ''}
             isPreview={false}
+            addStyle={S.MobileBookLayout}
           />
         </S.Book>
       </S.ContentBox>
@@ -80,6 +81,7 @@ const S = {
 
     @media ${device.mobile} {
       height: 100%;
+      justify-content: center;
     }
   `,
   BookShelf: styled.img`
@@ -98,11 +100,9 @@ const S = {
     }
 
     @media ${device.mobile} {
-      margin-right: 10rem;
-      width: 34rem;
-      min-width: 34rem;
-      min-height: 45.5rem;
-      height: 45.5rem;
+      margin: 0 auto;
+      min-width: 32rem;
+      padding: 0 1rem;
     }
   `,
   GoBackButtonLayout: styled.div`
@@ -111,5 +111,10 @@ const S = {
   `,
   ButtonBox: styled.div`
     margin-right: auto;
+  `,
+  MobileBookLayout: `
+    @media ${device.mobile} {
+      width: auto;
+    }
   `,
 };
