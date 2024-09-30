@@ -26,6 +26,7 @@ export const light = {
   previewBg: '#e5ddcf',
   textAreaBg: 'var(--white)',
   textAreaText: 'var(--gray800)',
+  stickerBg: 'var(--gray300)',
 
   scollBar: 'var(--gray200)',
   bookscrollBg: '#fffcf9',

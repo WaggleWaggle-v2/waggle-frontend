@@ -24,8 +24,12 @@ const SetSender = ({ sender, setSender, setIsDisabled }: TSetSenderProps) => {
       setSender(data.nickname);
       handleInputChange(data.nickname);
       setIsDisabled(false);
+    } else if (sender) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
-  }, [data?.nickname, setIsDisabled, setSender]);
+  }, [data?.nickname, setIsDisabled]);
 
   const handleInputChange = (value: string) => {
     setSender(value);
@@ -51,6 +55,7 @@ const SetSender = ({ sender, setSender, setIsDisabled }: TSetSenderProps) => {
   const handleRandomNameClick = () => {
     const newNickName = createRandomNickName();
     setSender(newNickName);
+    setIsDisabled(false);
   };
 
   return (

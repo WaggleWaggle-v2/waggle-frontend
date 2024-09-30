@@ -170,7 +170,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
               titleTop="마음을 전하시오."
               handleButtonClick={handleMoveToNextStep}
               isDisabled={isDisabled}>
-              <SetPost setPost={setPost} setIsDisabled={setIsDisabled} />
+              <SetPost setPost={setPost} setIsDisabled={setIsDisabled} post={post} />
             </SettingTemplate>
           </S.SettingWrapper>
         )}

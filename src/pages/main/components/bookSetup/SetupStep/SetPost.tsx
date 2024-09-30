@@ -8,10 +8,11 @@ import Textarea from '../Textarea';
 
 interface TSetPostProps {
   setPost: React.Dispatch<SetStateAction<string>>;
+  post: string;
   setIsDisabled: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const SetPost = ({ setPost, setIsDisabled }: TSetPostProps) => {
+const SetPost = ({ setPost, post, setIsDisabled }: TSetPostProps) => {
   const [invalidMsg, setInvalidMsg] = useState('함 당당하게 써보구려!');
   const [msgColor, setMsgColor] = useState('#909090');
 
@@ -46,6 +47,7 @@ const SetPost = ({ setPost, setIsDisabled }: TSetPostProps) => {
         placeholder="책장에 들어갈 편지를 작성해보세요!"
         onChange={handleInputChange}
         maxLength={MAX_LENGTH.BOOK_LETTER}
+        value={post}
       />
     </S.Container>
   );

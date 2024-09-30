@@ -25,6 +25,7 @@ export const dark = {
   previewBg: 'var(--gray900)',
   textAreaBg: 'var(--gray900)',
   textAreaText: 'var(--gray500)',
+  stickerBg: 'var(--gray800)',
 
   scollBar: 'var(--gray600)',
   bookscrollBg: 'var(--black)',
