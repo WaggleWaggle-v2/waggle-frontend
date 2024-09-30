@@ -13,6 +13,7 @@ const Router = () => {
           <Route path="auth" element={<Page.Auth />} />
           <Route path="myPage" element={<Page.MyPage />} />
           <Route path="*" element={<Page.NotFound />} />
+          <Route path="/book/:id" element={<Page.ReadBook />} />
         </Route>
       </Routes>
     </BrowserRouter>

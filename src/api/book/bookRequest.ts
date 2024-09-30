@@ -83,6 +83,16 @@ const bookRequest = {
       return error;
     }
   },
+
+  // 방명록 상세보기
+  fetchBookContent: async (bookId: number) => {
+    try {
+      const { data } = await axios.get(`member/book/get/${bookId}`);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
 } as const;
 
 export default bookRequest;
