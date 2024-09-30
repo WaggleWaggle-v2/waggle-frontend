@@ -10,7 +10,7 @@ const OpenScopeSection = ({ open }: { open: boolean | undefined }) => {
   const patchOpenScope = useBookshelfPublicityUpdateMutation();
 
   useEffect(() => {
-    if (open) {
+    if (open !== undefined) {
       handleInitialSetScope(open);
     }
 

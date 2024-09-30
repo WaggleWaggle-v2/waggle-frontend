@@ -5,4 +5,5 @@ export const QUERY_KEY = {
   bookInfo: 'bookInfo',
   receiveBook: 'receiveBook',
   sendBook: 'sendBook',
+  bookDetail: 'bookDetail',
 } as const;

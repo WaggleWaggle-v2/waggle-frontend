@@ -1,4 +1,5 @@
 import { device } from '@styles/breakpoints';
+import { light } from '@styles/theme/light';
 import styled, { keyframes } from 'styled-components';
 
 interface TBookScollPaperProps {
@@ -97,8 +98,8 @@ const S = {
       background: linear-gradient(to top, #ceb499 0%, #bb9165 100%);
       background: linear-gradient(
         to top,
-        ${({ theme }) => theme.bookscrollBarTop} 0%,
-        ${({ theme }) => theme.bookscrollBarBtm} 100%
+        ${({ theme }) => theme.bookscrollBarTop || light.bookscrollBarTop} 0%,
+        ${({ theme }) => theme.bookscrollBarBtm || light.bookscrollBarBtm} 100%
       );
       left: calc(2%);
       height: 100%;
@@ -110,7 +111,7 @@ const S = {
       display: flex;
       top: calc(50% - 0.8rem / 2);
       width: 100%;
-      background-color: ${({ theme }) => theme.bookscrollBarTip};
+      background-color: ${({ theme }) => theme.bookscrollBarTip || light.bookscrollBarTip};
       height: 0.8rem;
       z-index: 0;
       border-radius: 0.4rem;
@@ -119,8 +120,8 @@ const S = {
 
   BookContent: styled.div<{ $isPreview: boolean }>`
     overflow: hidden;
-    background-color: ${({ theme }) => theme.bookscrollBg};
-    color: ${props => props.theme.bookscrollText};
+    background-color: ${({ theme }) => theme.bookscrollBg || light.bookscrollBg};
+    color: ${({ theme }) => theme.bookscrollText || light.bookscrollText};
     width: calc(100% - 4rem);
     padding: ${({ $isPreview }) => ($isPreview ? '3rem 2.6rem' : '5.6rem 4rem')};
     animation: ${({ $isPreview }) => ($isPreview ? rollDownMobile : rollDown)} 0.5s
@@ -138,7 +139,7 @@ const S = {
     font-size: 2.4rem;
     font-weight: 900;
     p:first-child {
-      color: ${props => props.theme.bookscrollReceiver};
+      color: ${({ theme }) => theme.bookscrollReceiver || light.bookscrollReceiver};
     }
     @media ${device.mobile} {
       font-size: 1.8rem;
@@ -158,7 +159,7 @@ const S = {
       width: 0.4rem;
     }
     &::-webkit-scrollbar-track {
-      background-color: ${props => props.theme.scollBar};
+      background-color: ${({ theme }) => theme.scollBar || light.scollBar};
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {

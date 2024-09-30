@@ -8,7 +8,7 @@ import styled from 'styled-components';
 export const Main = styled.div`
   position: relative;
   top: -${HEADER_HEIGHT.PC};
-  height: 100dvh;
+  height: 100vh;
   padding: ${HEADER_HEIGHT.PC} 2rem 3rem;
   background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
   background-size: contain;
@@ -32,6 +32,11 @@ export const Main = styled.div`
       top: calc(4.5rem + ${HEADER_HEIGHT.MOBILE});
       bottom: auto;
     }
+
+    @media ${device.mobile} {
+      min-width: 10rem;
+      min-height: 8rem;
+    }
   }
 
   &::after {
@@ -49,6 +54,12 @@ export const Main = styled.div`
 
     @media ${device.tablet} {
       display: block;
+    }
+
+    @media ${device.mobile} {
+      top: calc(23rem + ${HEADER_HEIGHT.MOBILE});
+      min-width: 6rem;
+      min-height: 9rem;
     }
   }
 

@@ -20,28 +20,28 @@ const BookListSection = ({ settingType }: TBookList) => {
   const navigate = useNavigate();
   const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
   const skeletonArray = new Array(7).fill({});
-  const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.5 });
+  const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0 });
 
   const handleSelectOption = (option: TSortingOption) => {
     setSortingOption(option);
   };
 
-  const { data, isFetching, hasNextPage, fetchNextPage, refetch } = useReceiveSendInfinity({
+  const { data, isLoading, hasNextPage, fetchNextPage, refetch } = useReceiveSendInfinity({
     type: settingType as 'receive' | 'send',
     sortType: sortingOption === '책장 목록 최신 순' ? 'desc' : 'asc',
   });
 
   useEffect(() => {
-    if (isVisible && hasNextPage) {
+    if (isVisible && hasNextPage && !isLoading) {
       fetchNextPage();
     }
-  }, [isVisible, hasNextPage, fetchNextPage]);
+  }, [isVisible, hasNextPage, fetchNextPage, isLoading]);
 
   useEffect(() => {
     refetch();
   }, [refetch, sortingOption]);
 
-  if (!data || isFetching) {
+  if (!data || isLoading) {
     return (
       <BookListSectionLayout
         settingType={settingType}
@@ -66,7 +66,7 @@ const BookListSection = ({ settingType }: TBookList) => {
         <S.BookButton
           type="button"
           onClick={() => {
-            navigate(`/bookshelf/${book.id}`);
+            navigate(`/book/${book.id}`);
           }}
           key={book.id}>
           <BookInfo bookData={book} settingType={settingType} />
