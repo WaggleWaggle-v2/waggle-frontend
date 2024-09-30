@@ -337,6 +337,10 @@ const S = {
       width: 1.5rem;
       margin-left: 0.2rem;
     }
+
+    @media ${device.tablet} {
+      transform: rotate(90deg);
+    }
   `,
 
   Graphic: styled.img`

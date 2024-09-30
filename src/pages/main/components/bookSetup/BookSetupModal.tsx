@@ -196,7 +196,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
                   isPreview
                   ownerName={data?.nickname}
                   content={post}
-                  createdAt={getFormattedDate()}
+                  createdAt={getFormattedDate(undefined)}
                   sender={sender}
                 />
               )}

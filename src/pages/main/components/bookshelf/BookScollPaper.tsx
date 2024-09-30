@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 
 interface TBookScollPaperProps {
   ownerName: string;
-  content: string;
+  content: string | undefined;
   createdAt?: string;
   sender?: string;
   isPreview?: boolean;
@@ -169,6 +169,7 @@ const S = {
   `,
 
   Sender: styled.div`
+    font-family: 'EBSHunminjeongeum';
     text-align: end;
     p:first-child {
       font-size: 1.6rem;

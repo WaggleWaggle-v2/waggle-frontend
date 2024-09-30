@@ -21,7 +21,7 @@ interface TReceiveSendBookList extends TReceiveSendBookListParams {
 // 책 조회
 export const useBookQuery = (id: string | undefined | null, cursor: number | null) => {
   const query = useQuery<TBookItem[], Error>({
-    queryKey: [QUERY_KEY.bookInfo, id],
+    queryKey: [QUERY_KEY.bookInfo, id, cursor],
     queryFn: async () => {
       if (!id) {
         return;
@@ -117,12 +117,24 @@ export const useReceiveSendInfinity = (props: TReceiveSendBookList) => {
 
 // 방명록 상세 보기
 export const useBookDetail = (bookId: number) => {
-  const accessToken = getCookie('accessToken');
-  if (!accessToken) throw new Error('No access token');
-
   const query = useQuery<TBookDetailRes, Error>({
-    queryKey: [QUERY_KEY.bookDetail],
+    queryKey: [QUERY_KEY.bookDetail, bookId],
     queryFn: async () => bookRequest.fetchBookContent(bookId),
   });
   return query;
+};
+
+// 책 삭제
+export const useBookDeleteMutation = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (bookId: number) => await bookRequest.deleteBook(bookId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo] });
+    },
+    onError: (error: TAxiosError) => console.error(error),
+  });
+
+  return mutation;
 };
