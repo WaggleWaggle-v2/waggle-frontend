@@ -87,6 +87,7 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type, pageWidth }:
   /* 2. 생성한 Layer위에 선택한 이미지 객체를 올려주기. */
   const drawImage = useCallback(async () => {
     if (!selectedImage || !layerRef.current) return;
+
     const imageObj = new Image();
     imageObj.src = selectedImage;
 
@@ -96,23 +97,21 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type, pageWidth }:
         imageObj.onerror = reject;
       });
 
-      const imageOpt = {
-        width: imageObj.width / 1.4,
-        height: imageObj.height / 1.4,
-        x: (CANVAS.width - imageObj.width / 1.4) / 2,
-        y: (CANVAS.height - imageObj.height / 1.4) / 2,
+      const scaleFactor = 1.4;
+      const konvaImage = new Konva.Image({
+        width: imageObj.width / scaleFactor,
+        height: imageObj.height / scaleFactor,
+        x: (CANVAS.width - imageObj.width / scaleFactor) / 2,
+        y: (CANVAS.height - imageObj.height / scaleFactor) / 2,
         image: imageObj,
         draggable: true,
-      };
+      });
 
-      const konvaImage = new Konva.Image(imageOpt);
-      layerRef?.current?.add(konvaImage);
-      layerRef?.current?.draw();
-
+      layerRef.current.add(konvaImage);
       transformerRef.current?.nodes([konvaImage]);
       konvaImage.moveToTop();
       transformerRef.current?.moveToTop();
-      layerRef?.current?.draw();
+      layerRef.current.draw();
 
       setActiveImage(konvaImage);
 
@@ -145,14 +144,19 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type, pageWidth }:
   useEffect(() => {
     const stage = stageRef.current;
     if (stage) {
-      stage.on('click touchend', e => {
+      const handleClickOutside = (e: Konva.KonvaEventObject<Event>) => {
         if (e.target === stage) {
           onFocusOut();
           setActiveImage(null);
         }
-      });
+      };
+      stage.on('click', handleClickOutside);
+
+      return () => {
+        stage.off('click', handleClickOutside);
+      };
     }
-  }, []);
+  }, [activeImage]);
 
   const removeImage = () => {
     if (activeImage) {
@@ -192,7 +196,11 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type, pageWidth }:
       <S.Container>
         <S.RemoveAllButton onClick={removeAllImages}>처음부터 다시하기 ↺</S.RemoveAllButton>
         <S.Canvas id="container" ref={canvasRef} $background={CANVAS.background}>
-          {activeImage && <S.RemoveButton onClick={removeImage}>이미지 제거</S.RemoveButton>}
+          {activeImage && (
+            <S.RemoveButton id="remove-button" onClick={removeImage}>
+              이미지 제거
+            </S.RemoveButton>
+          )}
         </S.Canvas>
       </S.Container>
     </>
