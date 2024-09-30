@@ -1,6 +1,6 @@
 import { TAxiosError } from '@api/axios';
 import bookRequest, { TReceiveSendBookListParams } from '@api/book/bookRequest';
-import { TBookItem, TUseReceiveBookListRes, TUserSendBookListRes } from '@api/book/bookRequest.type';
+import { TBookDetailRes, TBookItem, TUseReceiveBookListRes, TUserSendBookListRes } from '@api/book/bookRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@utils/cookie';
@@ -112,5 +112,17 @@ export const useReceiveSendInfinity = (props: TReceiveSendBookList) => {
     },
   });
 
+  return query;
+};
+
+// 방명록 상세 보기
+export const useBookDetail = (bookId: number) => {
+  const accessToken = getCookie('accessToken');
+  if (!accessToken) throw new Error('No access token');
+
+  const query = useQuery<TBookDetailRes, Error>({
+    queryKey: [QUERY_KEY.bookDetail],
+    queryFn: async () => bookRequest.fetchBookContent(bookId),
+  });
   return query;
 };

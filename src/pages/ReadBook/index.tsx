@@ -1,25 +1,26 @@
+import { useBookDetail } from '@hooks/reactQuery/useQueryBook';
 import BookScollPaper from '@pages/main/components/bookshelf/BookScollPaper';
 import GoBackButton from '@pages/myPage/components/profileSection/components/GoBackButton';
 import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ReadBook = () => {
   const navigate = useNavigate();
+  const bookId = useParams();
+  const { data } = useBookDetail(Number(bookId.id));
 
   return (
     <S.Container>
       <S.ContentBox>
-        <S.BookShelf />
+        <S.BookShelf src={data?.bookImageUrl} />
         <S.Book>
           <BookScollPaper
-            ownerName={'여섯글자유저'}
-            content={
-              '아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구아버지를 아버지라 부르지 못하고 어쩌구'
-            }
-            sender={'신나는토끼'}
+            ownerName={data ? data.receiverNickname : ''}
+            content={data ? data.description : ''}
+            sender={data ? data.senderNickname : ''}
             isPreview={false}
           />
         </S.Book>

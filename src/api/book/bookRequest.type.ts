@@ -21,3 +21,12 @@ export interface TUserSendBookListRes {
   nickname: string;
   backgroundImageUrl: string;
 }
+
+export interface TBookDetailRes {
+  bookImageUrl: string;
+  createdAt: string;
+  description: string;
+  lock: boolean;
+  receiverNickname: string;
+  senderNickname: string;
+}
