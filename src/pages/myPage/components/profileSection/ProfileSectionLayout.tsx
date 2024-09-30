@@ -1,17 +1,21 @@
 import { ReactNode } from 'react';
 import { device } from '@styles/breakpoints';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import GoBackButton from './components/GoBackButton';
+import GoBookshelfButton from './components/GoBookshelfButton';
 
 interface TProfileSectionLayout {
   children: ReactNode;
   userNickName: string;
   isNotDefaultSetting: boolean;
   handleSetDefault: () => void;
+  userId: string | undefined;
 }
 
 const ProfileSectionLayout = (props: TProfileSectionLayout) => {
-  const { children, userNickName, isNotDefaultSetting, handleSetDefault } = props;
+  const { children, userNickName, isNotDefaultSetting, handleSetDefault, userId } = props;
+  const navigate = useNavigate();
   return (
     <S.ProfileSection>
       <div>
@@ -20,7 +24,15 @@ const ProfileSectionLayout = (props: TProfileSectionLayout) => {
         </S.TitleText>
         {children}
       </div>
-      {isNotDefaultSetting && <GoBackButton onClick={handleSetDefault} />}
+      {isNotDefaultSetting ? (
+        <GoBackButton onClick={handleSetDefault} />
+      ) : (
+        <GoBookshelfButton
+          onClick={() => {
+            navigate(`/bookshelf/${userId}`);
+          }}
+        />
+      )}
     </S.ProfileSection>
   );
 };
