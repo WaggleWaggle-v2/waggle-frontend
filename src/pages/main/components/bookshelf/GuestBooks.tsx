@@ -100,6 +100,10 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
     });
   }, [books]);
 
+  useEffect(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, [pageWidth]);
+
   return (
     <>
       <S.Container>
