@@ -1,15 +1,16 @@
 import React, { SetStateAction, useState } from 'react';
-import { TBookItem } from '@api/book/bookRequest.type';
 import closeIcon from '@assets/icons/modal-close-white.svg';
-import { useBookDeleteMutation, useBookDetail } from '@hooks/reactQuery/useQueryBook';
+import { useBookDetail } from '@hooks/reactQuery/useQueryBook';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
-import { device } from '@styles/breakpoints';
+import usePageWidth from '@hooks/usePageWidth';
+import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import { getFormattedDate } from '@utils/getFormattedDate';
 import ReactModal from 'react-modal';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BookScollPaper from './BookScollPaper';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 interface TBookScrollModalProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
@@ -18,41 +19,47 @@ interface TBookScrollModalProps {
 }
 
 const BookScrollModal = ({ setIsOpen, bookId, ownerName }: TBookScrollModalProps) => {
+  const pageWidth = usePageWidth();
   const [modalOpen, setModalOpen] = useState(true);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const { data: bookContentData } = useBookDetail(bookId);
   const { data: userData } = useUserQuery();
   const { id: bookshelfId } = useParams();
 
-  const mutation = useBookDeleteMutation();
-
-  const handleDeleteButtonClick = async () => {
-    await mutation.mutateAsync(bookId);
-    location.reload();
-  };
-
   return (
-    <S.StyledModal
-      isOpen={modalOpen}
-      onRequestClose={() => {
-        setModalOpen(false);
-        setIsOpen(false);
-      }}
-      ariaHideApp={false}
-      style={customModalStyles}>
-      <BookScollPaper
-        ownerName={ownerName}
-        content={bookContentData?.description}
-        sender={bookContentData?.senderNickname}
-        createdAt={getFormattedDate(bookContentData?.createdAt)}
-      />
-      {bookshelfId === userData?.id && (
-        <S.BookDeleteButton onClick={handleDeleteButtonClick}>방명록 삭제하기</S.BookDeleteButton>
-      )}
+    <>
+      <S.StyledModal
+        isOpen={modalOpen}
+        onRequestClose={() => {
+          setModalOpen(false);
+          setIsOpen(false);
+        }}
+        ariaHideApp={false}
+        style={customModalStyles}>
+        <BookScollPaper
+          ownerName={ownerName}
+          content={bookContentData?.description}
+          sender={bookContentData?.senderNickname}
+          createdAt={getFormattedDate(bookContentData?.createdAt)}
+        />
+        {bookshelfId === userData?.id && (
+          // <S.BookDeleteButton onClick={handleDeleteButtonClick}>방명록 삭제하기</S.BookDeleteButton>
+          <S.BookDeleteButton onClick={() => setDeleteModalOpen(true)}>방명록 삭제하기</S.BookDeleteButton>
+        )}
 
-      <S.ModalCloseButton onClick={() => setIsOpen(false)}>
-        <img src={closeIcon} alt="모달 닫기 아이콘" />
-      </S.ModalCloseButton>
-    </S.StyledModal>
+        <S.ModalCloseButton onClick={() => setIsOpen(false)}>
+          <img src={closeIcon} alt="모달 닫기 아이콘" />
+        </S.ModalCloseButton>
+        {deleteModalOpen && (
+          <>
+            {pageWidth <= size.tablet && <S.InitBackground></S.InitBackground>}
+            <S.ModalWrapper>
+              <ConfirmDeleteModal setIsOpen={setDeleteModalOpen} bookId={bookId} />
+            </S.ModalWrapper>
+          </>
+        )}
+      </S.StyledModal>
+    </>
   );
 };
 
@@ -67,7 +74,7 @@ const customModalStyles: ReactModal.Styles = {
     backdropFilter: 'blur(0.2rem)',
   },
   content: {
-    position: 'absolute',
+    position: 'fixed',
     display: 'flex',
     flexDirection: 'column',
     top: '50%',
@@ -79,12 +86,36 @@ const customModalStyles: ReactModal.Styles = {
 };
 
 const S = {
+  InitBackground: styled.div`
+    position: fixed;
+    z-index: calc(${zIndex.header});
+    top: -50vh;
+    bottom: 0;
+    left: -50vh;
+    right: -50vh;
+    height: 150vh;
+    backdrop-filter: blur(0.1rem);
+    background-color: rgba(0, 0, 0, 0.4);
+  `,
+
+  ModalWrapper: styled.div`
+    background-color: ${({ theme }) => theme.modalBg};
+    z-index: 1000;
+    @media ${device.tablet} {
+      padding: 4rem 2rem 3rem;
+      width: 86vw;
+      border-radius: 1rem;
+      position: absolute;
+      top: calc(50% - 16rem);
+    }
+  `,
+
   StyledModal: styled(ReactModal)`
     outline: none;
     position: relative;
     width: 65rem;
 
-    @media ${device.tablet} {
+    @media ${device.mobile} {
       width: 100%;
     }
 
