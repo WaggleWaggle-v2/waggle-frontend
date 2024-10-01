@@ -6,6 +6,7 @@ import rightArrow from '@assets/icons/right-arrow.svg';
 import shareImg from '@assets/icons/share.svg';
 import { MasonryGrid } from '@egjs/react-grid';
 import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
@@ -24,6 +25,8 @@ interface TGuestBooksProps {
 const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: TGuestBooksProps) => {
   const theme = useTheme();
   const pageWidth = usePageWidth();
+  const { data: userData } = useUserQuery();
+  const isOwner = userData?.id === id;
   const [cursor, setCursor] = useState<number | null>(null);
   const [nextCursor, setNextCursor] = useState<number | null>(null);
 
@@ -115,7 +118,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
 
         {/* TABLET, MOBILE 공유 버튼 */}
         <S.ShareButton onClick={handleOpenShare}>
-          <p>내 책장 널리 알리기</p>
+          <p>{isOwner ? '내' : '이'} 책장 널리 알리기</p>
           <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
         </S.ShareButton>
 

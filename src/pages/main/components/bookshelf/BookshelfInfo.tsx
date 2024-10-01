@@ -1,4 +1,5 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import styled, { useTheme } from 'styled-components';
 
@@ -10,7 +11,9 @@ interface TBookshelfInfoProps {
 
 const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoProps) => {
   const { backgroundImageUrl, introduction, nickname } = data;
+  const { data: userData } = useUserQuery();
   const theme = useTheme();
+  const isOwner = userData?.id === data.id;
 
   return (
     <S.BookshelfInfo>
@@ -21,7 +24,7 @@ const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoPro
       </S.Name>
       <S.Intro>{introduction || '아직 책장 소개를 작성하지 않았소'}</S.Intro>
       <S.ShareButton onClick={handleOpenShare} style={{ backgroundColor: buttonColor }}>
-        <p>내 책장 널리 알리기</p>
+        <p>{isOwner ? '내' : '이'} 책장 널리 알리기</p>
         <img src={theme.pcCloud} alt="책장 공유 구름 아이콘" />
       </S.ShareButton>
     </S.BookshelfInfo>
