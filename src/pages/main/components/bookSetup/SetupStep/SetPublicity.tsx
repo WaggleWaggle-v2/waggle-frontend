@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import lockerImage from '@assets/images/bookshelf/locker.svg';
+import lockerImage from '@assets/icons/locker.svg';
 import { BOOK_PUBLICITY } from '@constants/publicity';
 import { device } from '@styles/breakpoints';
 import { getCookie } from '@utils/cookie';
@@ -70,18 +70,24 @@ const S = {
       width: fit-content;
       height: 40vh;
     }
+
+    @media ${device.mobile} {
+      width: 100%;
+    }
   `,
 
-  NoTokenUserText: styled.p`
+  NoTokenUserText: styled.div`
+    color: ${({ theme }) => theme.subText};
     font-family: 'Pretendard';
     position: absolute;
     top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
+    gap: 1rem;
+    line-height: 120%;
     img {
-      width: 1.6rem;
+      width: 1.8rem;
     }
   `,
 

@@ -25,7 +25,7 @@ const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps)
 
         <S.SubText>
           <p>회원가입을 하지 않으면&nbsp;</p>
-          <p>작성한 방명록을 다시 확인하기 여럽다네</p>
+          <p>작성한 방명록을 다시 확인하기 어럽다네</p>
         </S.SubText>
 
         <S.ButtonWrapper>
@@ -78,7 +78,7 @@ const S = {
     flex-direction: column;
     justify-content: center;
     gap: 0.6rem;
-    color: var(--gray800);
+    color: ${({ theme }) => theme.subText};
     @media ${device.mobile} {
       margin-bottom: 3.8rem;
       flex-direction: column;

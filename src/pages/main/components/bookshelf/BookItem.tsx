@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TBookItem } from '@api/book/bookRequest.type';
-import lockerImage from '@assets/images/bookshelf/locker.svg';
+import lockerImage from '@assets/icons/locker.svg';
 import nameTagImage from '@assets/images/bookshelf/name-tag.svg';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
@@ -61,7 +61,6 @@ const S = {
       width: calc(100% / 3);
       img {
         width: 100%;
-        height: auto;
       }
     }
 

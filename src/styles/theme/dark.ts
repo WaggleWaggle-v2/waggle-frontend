@@ -7,6 +7,7 @@ import { skeletonAnimationDark } from '@styles/animation/skeletonAnimation';
 
 export const dark = {
   text: '#fffcf1',
+  subText: 'var(--gray500)',
   pageBg: 'var(--gray900)',
 
   graphic: darkGraphic,

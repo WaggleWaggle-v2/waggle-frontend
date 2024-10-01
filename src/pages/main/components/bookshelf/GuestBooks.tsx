@@ -243,6 +243,7 @@ const S = {
     display: flex;
     margin-left: 2rem;
     gap: 2rem;
+    height: 46.4rem;
   `,
 
   NoBook: styled.div`
@@ -325,7 +326,6 @@ const S = {
   ColumnWrapper: styled.div`
     position: relative;
     width: 100%;
-    height: 100%;
   `,
 
   NextButton: styled.div`
@@ -334,7 +334,6 @@ const S = {
     width: 10rem;
     border-radius: 5rem;
     margin: 0 3rem 0 6rem;
-    background-color: var(--brown500);
     background-color: #7b7975;
     display: flex;
     align-items: center;
@@ -365,7 +364,7 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 46rem;
+    height: 100%;
   `,
 
   StyledMasonry: styled(MasonryGrid)`

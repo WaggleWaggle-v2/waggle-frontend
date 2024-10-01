@@ -36,18 +36,7 @@ const S = {
     &::-webkit-scrollbar {
       display: none;
     }
-    /* &::-webkit-scrollbar {
-      width: 0.6rem;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: var(--gray200);
-      border-radius: 0.2rem;
-    }
-    &::-webkit-scrollbar-thumb {
-      cursor: pointer;
-      border-radius: 0.2rem;
-      background-color: var(--brown200);
-    } */
+
     @media ${device.tablet} {
       height: calc(100vh - 28rem);
     }
@@ -56,7 +45,7 @@ const S = {
   ImageListTitle: styled.p`
     margin-bottom: 1rem;
     font-weight: 600;
-    color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.subText};
   `,
 
   ImageList: styled.ul`
