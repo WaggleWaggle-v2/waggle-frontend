@@ -8,8 +8,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import bookShelfLongImage from '@assets/images/bookshelf/bookshelf-long.svg';
-import bookShelfShortImage from '@assets/images/bookshelf/bookshelf-short.svg';
+import bookShelfLongImage from '@assets/images/bookshelf/bookshelf-long.png';
+import bookShelfShortImage from '@assets/images/bookshelf/bookshelf-short.png';
 import { TBookType } from '@pages/main/types/type';
 import { size } from '@styles/breakpoints';
 import Konva from 'konva';
