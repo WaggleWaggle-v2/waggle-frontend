@@ -50,6 +50,7 @@ const S = {
     object-fit: cover;
     @media ${device.tablet} {
       height: 100%;
+      height: calc(100vh - 13rem);
       min-width: 0;
     }
   `,
