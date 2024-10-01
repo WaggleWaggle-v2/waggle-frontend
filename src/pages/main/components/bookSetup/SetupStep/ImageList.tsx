@@ -56,7 +56,7 @@ const S = {
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-      height: 0.4rem;
+      height: 0.8rem;
     }
     &::-webkit-scrollbar-track {
       background-color: ${({ theme }) => theme.scollBar};

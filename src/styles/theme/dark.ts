@@ -29,7 +29,7 @@ export const dark = {
   textAreaText: 'var(--gray500)',
   stickerBg: 'var(--gray800)',
 
-  scollBar: 'var(--gray600)',
+  scollBar: 'var(--gray800)',
   bookscrollBg: 'var(--black)',
   bookscrollText: 'var(--gray400)',
   bookscrollReceiver: 'var(--green600)',
