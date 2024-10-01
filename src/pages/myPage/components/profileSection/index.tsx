@@ -39,6 +39,7 @@ const ProfileSection = (props: TProfileSection) => {
           userNickName={userNickName}
           isNotDefaultSetting={true}>
           <S.TitleText>안녕하시오.</S.TitleText>
+          <RenameButton onClick={handleOpenModal} />
         </ProfileSectionLayout>
       );
     }
