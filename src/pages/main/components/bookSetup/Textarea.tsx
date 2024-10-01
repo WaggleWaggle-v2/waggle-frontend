@@ -6,10 +6,11 @@ interface TTextareaProps {
   placeholder: string;
   onChange: (value: string) => void;
   maxLength: number;
+  value?: string;
 }
 
 const Textarea = (props: TTextareaProps) => {
-  const { placeholder, onChange, maxLength } = props;
+  const { placeholder, onChange, maxLength, value } = props;
   const [legnth, setLength] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -66,6 +67,7 @@ const Textarea = (props: TTextareaProps) => {
         onBlur={onBlur}
         ref={textareaRef}
         maxLength={maxLength}
+        value={value}
       />
       <S.LetterCount>
         ({legnth}/{maxLength})

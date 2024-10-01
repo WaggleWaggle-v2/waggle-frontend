@@ -1,5 +1,10 @@
-export const getFormattedDate = () => {
-  const today = new Date();
+export const getFormattedDate = (timestamp: string | undefined) => {
+  let today;
+  if (timestamp) {
+    today = new Date(timestamp);
+  } else {
+    today = new Date();
+  }
 
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
