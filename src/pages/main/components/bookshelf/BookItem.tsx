@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { TBookItem } from '@api/book/bookRequest.type';
-import nameTagImage from '@assets/images/bookshelf/name-tag.png';
+import lockerImage from '@assets/images/bookshelf/locker.svg';
+import nameTagImage from '@assets/images/bookshelf/name-tag.svg';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BookScrollModal from './BookScrollModal';
 
@@ -12,15 +15,28 @@ interface TBookItemprops {
 
 const BookItem = ({ data, ownerName }: TBookItemprops) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { bookType, bookImageUrl, nickname } = data;
+  const { bookType, bookImageUrl, nickname, open } = data;
+  const { data: userData } = useUserQuery();
+  const { id: bookshelfId } = useParams();
+
+  const isBookshelfOwner = userData?.id === bookshelfId;
+
+  const handleBookClick = () => {
+    // if (open) {
+    //   setIsOpen(true);
+    // } else if (isBookshelfOwner) {
+    //   setIsOpen(true);
+    // }
+    setIsOpen(true);
+  };
 
   return (
     <>
-      {isOpen && <BookScrollModal setIsOpen={setIsOpen} data={data} ownerName={ownerName} />}
-      <S.Book onClick={() => setIsOpen(true)}>
+      {isOpen && <BookScrollModal setIsOpen={setIsOpen} bookId={data.id} ownerName={ownerName} />}
+      <S.Book onClick={handleBookClick}>
         <img src={bookImageUrl} alt={`${nickname}-${bookType}`} />
         <S.NameTag>
-          <img src={nameTagImage} alt="sender-nametag" />
+          {open ? <img src={nameTagImage} alt="sender-nametag" /> : <img src={lockerImage} alt="sender-nametag" />}
           <p>{nickname}</p>
         </S.NameTag>
       </S.Book>
@@ -55,15 +71,16 @@ const S = {
   `,
 
   NameTag: styled.div`
-    border: 0.1rem solid var(--brown500);
-    color: var(--brown500);
-    background-color: rgba(244, 221, 172, 0.7);
+    border: 0.1rem solid var(--brown700);
+    color: #6a5444;
+    background-color: rgba(240, 232, 217, 0.7);
     backdrop-filter: blur(0.1rem);
     display: flex;
     align-items: center;
     font-size: 1.6rem;
     gap: 0.8rem;
-    padding: 0.9rem 1.5rem;
+    padding: 0 1.5rem;
+    height: 3.6rem;
     border-radius: 10rem;
     position: absolute;
     font-weight: 600;

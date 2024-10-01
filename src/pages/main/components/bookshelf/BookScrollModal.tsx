@@ -13,22 +13,20 @@ import BookScollPaper from './BookScollPaper';
 
 interface TBookScrollModalProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
-  data: TBookItem;
+  bookId: number;
   ownerName: string;
 }
 
-const BookScrollModal = ({ setIsOpen, data, ownerName }: TBookScrollModalProps) => {
+const BookScrollModal = ({ setIsOpen, bookId, ownerName }: TBookScrollModalProps) => {
   const [modalOpen, setModalOpen] = useState(true);
-  const { data: bookContentData } = useBookDetail(data.id);
+  const { data: bookContentData } = useBookDetail(bookId);
   const { data: userData } = useUserQuery();
   const { id: bookshelfId } = useParams();
-
-  console.log(bookContentData?.lock);
 
   const mutation = useBookDeleteMutation();
 
   const handleDeleteButtonClick = async () => {
-    await mutation.mutateAsync(data.id);
+    await mutation.mutateAsync(bookId);
     location.reload();
   };
 
@@ -44,7 +42,7 @@ const BookScrollModal = ({ setIsOpen, data, ownerName }: TBookScrollModalProps) 
       <BookScollPaper
         ownerName={ownerName}
         content={bookContentData?.description}
-        sender={data.nickname}
+        sender={bookContentData?.senderNickname}
         createdAt={getFormattedDate(bookContentData?.createdAt)}
       />
       {bookshelfId === userData?.id && (
