@@ -3,6 +3,7 @@ import lockerImage from '@assets/icons/locker.svg';
 import { BOOK_PUBLICITY } from '@constants/publicity';
 import { device } from '@styles/breakpoints';
 import { getCookie } from '@utils/cookie';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface TSetPublicityProps {
@@ -12,6 +13,7 @@ interface TSetPublicityProps {
 
 const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
   const token = getCookie('accessToken');
+  const navigate = useNavigate();
 
   const handlePublicityClick = (publicity: boolean) => {
     if (!token && publicity === false) return;
@@ -23,7 +25,7 @@ const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
   return (
     <S.Container>
       {!token && (
-        <S.NoTokenUserText>
+        <S.NoTokenUserText onClick={() => navigate('/login')}>
           <img src={lockerImage} />
           <p>로그인을 하면 비공개 방명록을 작성할 수 있어요.</p>
         </S.NoTokenUserText>
@@ -77,6 +79,7 @@ const S = {
   `,
 
   NoTokenUserText: styled.div`
+    cursor: pointer;
     color: ${({ theme }) => theme.subText};
     font-family: 'Pretendard';
     position: absolute;
