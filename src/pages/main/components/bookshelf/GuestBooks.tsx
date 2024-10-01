@@ -270,7 +270,7 @@ const S = {
     justify-content: center;
     border: 0.1rem solid ${props => props.theme.addBtnBorder};
     background-color: ${props => props.theme.addBtnBg};
-    height: calc(46.4rem);
+    height: calc(46rem);
     font-size: 7rem;
     color: ${props => props.theme.addBtnText};
     cursor: pointer;
@@ -321,6 +321,7 @@ const S = {
   ColumnWrapper: styled.div`
     position: relative;
     width: 100%;
+    height: 100%;
   `,
 
   NextButton: styled.div`
@@ -330,6 +331,7 @@ const S = {
     border-radius: 5rem;
     margin: 0 3rem 0 6rem;
     background-color: var(--brown500);
+    background-color: #7b7975;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -345,17 +347,15 @@ const S = {
 
   Graphic: styled.img`
     width: 100%;
-    height: 22rem;
     position: absolute;
-    bottom: -0.8rem;
+    bottom: 0;
   `,
 
   Column: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 46.4rem;
-    gap: 1.3rem;
+    height: 46rem;
   `,
 
   StyledMasonry: styled(MasonryGrid)`
