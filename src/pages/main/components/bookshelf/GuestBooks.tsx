@@ -345,7 +345,13 @@ const S = {
     }
 
     @media ${device.tablet} {
+      margin: 3.2rem 0 4.2rem;
+      height: 7.2rem;
+      width: 7.2rem;
       transform: rotate(90deg);
+      img {
+        width: 1rem;
+      }
     }
   `,
 
