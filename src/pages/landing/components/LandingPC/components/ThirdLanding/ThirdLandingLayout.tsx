@@ -4,17 +4,17 @@ import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import LandingButton from '@pages/landing/components/LandingButton';
 import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { ButtonContainer, Layout, Main } from '../../style/commonPC';
 
-interface TThirdSectionLayout {
+interface TThirdLanding {
   children: ReactNode;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const ThirdSectionLayout = (props: TThirdSectionLayout) => {
+const ThirdLandingLayout = (props: TThirdLanding) => {
   const { children, refetch } = props;
+
   return (
-    <S.Main>
+    <S.Container>
       <S.Layout>
         <div>
           <S.Title>누구나 오시오.</S.Title>
@@ -22,35 +22,35 @@ const ThirdSectionLayout = (props: TThirdSectionLayout) => {
         </div>
         <S.RandomCardContainer>{children}</S.RandomCardContainer>
         <S.ButtonContainer>
-          <>
-            <ShelfDecoration>ㅇ</ShelfDecoration>
-            <ShelfDecoration>ㄱ</ShelfDecoration>
-            <LandingButton buttonType={'beige'} icon={restoreIcon} fontSize="2.8rem" onClick={refetch}>
-              다른 책장 <br /> 추천 받겠소
-            </LandingButton>
-            <ShelfDecoration>ㄱ</ShelfDecoration>
-            <ShelfDecoration>ㅇ</ShelfDecoration>
-          </>
+          <ShelfDecoration>ㅇ</ShelfDecoration>
+          <ShelfDecoration>ㄱ</ShelfDecoration>
+          <LandingButton buttonType={'beige'} icon={restoreIcon} fontSize="2.8rem" onClick={refetch}>
+            다른 책장 <br /> 추천 받겠소
+          </LandingButton>
+          <ShelfDecoration>ㄱ</ShelfDecoration>
+          <ShelfDecoration>ㅇ</ShelfDecoration>
         </S.ButtonContainer>
       </S.Layout>
-    </S.Main>
+    </S.Container>
   );
 };
 
-export default ThirdSectionLayout;
+export default ThirdLandingLayout;
 
 const S = {
-  Main: styled(Main)``,
-  Layout: styled(Layout)`
-    grid-row-gap: 3rem;
-    grid-column-gap: 7rem;
-  `,
-  RandomCardContainer: styled.div`
+  Container: styled.div`
+    width: 100dvw;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-    width: 44rem;
-    align-self: start;
+    justify-content: center;
+    align-items: center;
+  `,
+  Layout: styled.div`
+    max-width: 86rem;
+    display: grid;
+    grid-template-columns: 1fr 31rem;
+    grid-column-gap: 11rem;
+    max-height: 67rem;
   `,
   Title: styled.h1`
     color: var(--gray900);
@@ -68,5 +68,22 @@ const S = {
     line-height: 130%;
     letter-spacing: -0.02rem;
   `,
-  ButtonContainer,
+  RandomCardContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    width: 44rem;
+    align-self: start;
+  `,
+  ButtonContainer: styled.div`
+    max-width: 31rem;
+    height: min-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    justify-content: space-between;
+  `,
 };

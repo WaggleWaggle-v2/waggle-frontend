@@ -1,16 +1,21 @@
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
 import arrowIcon from '@assets/icons/right-top-arrow.svg';
 import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import { KING } from '@constants/kingSejong';
 import LandingButton from '@pages/landing/components/LandingButton';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ButtonContainer, Layout, Main } from '../../style/commonPC';
 
-const SecondSectionLayout = ({ children }: PropsWithChildren) => {
+interface TSecondLanding {
+  children: ReactNode;
+}
+
+const SecondLandingLayout = (props: TSecondLanding) => {
+  const { children } = props;
   const navigate = useNavigate();
+
   return (
-    <S.Main>
+    <S.Container>
       <S.Layout>
         {children}
         <S.ButtonContainer>
@@ -31,17 +36,36 @@ const SecondSectionLayout = ({ children }: PropsWithChildren) => {
           </>
         </S.ButtonContainer>
       </S.Layout>
-    </S.Main>
+    </S.Container>
   );
 };
 
-export default SecondSectionLayout;
+export default SecondLandingLayout;
 
 const S = {
-  Main: styled(Main)``,
-  Layout: styled(Layout)`
-    grid-template-rows: 1fr;
+  Container: styled.div`
+    width: 100dvw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
   `,
-  ButtonContainer,
+  Layout: styled.div`
+    max-width: 86rem;
+    max-height: 67rem;
+    display: flex;
+    gap: 8rem;
+    align-items: center;
+  `,
+  ButtonContainer: styled.div`
+    max-width: 31rem;
+    height: min-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    justify-content: space-between;
+  `,
 };

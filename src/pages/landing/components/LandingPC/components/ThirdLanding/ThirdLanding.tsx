@@ -1,17 +1,18 @@
 import { MouseEvent } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import BookshelfCard from '@pages/landing/components/BookshelfCard';
 import SkeletonBookshelfCard from '@pages/landing/components/BookshelfCard/components/SkeletonBookshelfCard';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import ThirdSectionLayout from './ThirdSectionLayout';
-import BookshelfCard from '../../../BookshelfCard';
+import ThirdLandingLayout from './ThirdLandingLayout';
 
-interface TThirdSection {
+interface TThirdLanding {
   randomCardData: TBookshelfFetchRes[] | undefined;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
+const ThirdLanding = (props: TThirdLanding) => {
+  const { randomCardData, refetch } = props;
   const navigate = useNavigate();
   const redirectBookshelf = (event: MouseEvent<HTMLButtonElement>) => {
     navigate(`/bookshelf/${event.currentTarget.id}`);
@@ -19,14 +20,16 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
 
   if (!randomCardData) {
     return (
-      <ThirdSectionLayout refetch={refetch}>
-        <SkeletonBookshelfCard isKing={false} />
-      </ThirdSectionLayout>
+      <ThirdLandingLayout refetch={refetch}>
+        {[...Array(3)].map((_, index) => (
+          <SkeletonBookshelfCard isKing={false} key={index} />
+        ))}
+      </ThirdLandingLayout>
     );
   }
 
   return (
-    <ThirdSectionLayout refetch={refetch}>
+    <ThirdLandingLayout refetch={refetch}>
       {randomCardData.map(book => (
         <button
           type="button"
@@ -37,8 +40,8 @@ const ThirdSection = ({ randomCardData, refetch }: TThirdSection) => {
           <BookshelfCard cardData={book} key={book.id} />
         </button>
       ))}
-    </ThirdSectionLayout>
+    </ThirdLandingLayout>
   );
 };
 
-export default ThirdSection;
+export default ThirdLanding;

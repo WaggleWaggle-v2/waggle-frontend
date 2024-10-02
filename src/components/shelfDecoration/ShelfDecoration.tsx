@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-const shelfDecoration = ({ children }: PropsWithChildren) => {
+const ShelfDecoration = ({ children }: PropsWithChildren) => {
   return (
     <>
       <S.Wrapper>
@@ -14,7 +14,7 @@ const shelfDecoration = ({ children }: PropsWithChildren) => {
   );
 };
 
-export default shelfDecoration;
+export default ShelfDecoration;
 
 const S = {
   Wrapper: styled.div`
