@@ -10,6 +10,7 @@ export const useSettingType = () => {
 
   const handleSetDefault = () => {
     setSettingType('default');
+    localStorage.removeItem('settingType');
   };
 
   const handleRememberType = (value: TSetting) => {
