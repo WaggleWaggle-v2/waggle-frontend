@@ -164,7 +164,9 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
         {step === 3 && (
           <S.SettingWrapper>
-            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
+            <Preview noTablet>
+              {imagePreview && <S.PreviewImg src={imagePreview} $type={type} alt="Canvas Preview" />}
+            </Preview>
             <SettingTemplate
               step={step}
               titleTop="마음을 전하시오."
@@ -242,5 +244,9 @@ const S = {
   SettingWrapper: styled.div`
     display: flex;
     width: 100%;
+  `,
+
+  PreviewImg: styled.img<{ $type: TBookType }>`
+    height: ${({ $type }) => ($type === 'SHORT' ? '40rem' : '54.4rem')};
   `,
 };
