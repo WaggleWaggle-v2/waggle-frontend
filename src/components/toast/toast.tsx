@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { device } from '@styles/breakpoints';
+import usePageWidth from '@hooks/usePageWidth';
+import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import styled, { css, keyframes } from 'styled-components';
 
@@ -9,16 +10,19 @@ interface TToastProps {
 }
 
 function Toast({ children, show }: TToastProps) {
+  const pageWidth = usePageWidth();
   const sentences = typeof children === 'string' ? children.split('. ') : [children];
 
   return (
     <S.Container $show={show}>
-      {sentences.map((sentence, index) => (
-        <div key={index}>
-          {sentence}
-          {index !== sentences.length - 1 && '.'}
-        </div>
-      ))}
+      {pageWidth > size.tablet
+        ? children
+        : sentences.map((sentence, index) => (
+            <div key={index}>
+              {sentence}
+              {index !== sentences.length - 1 && '.'}
+            </div>
+          ))}
     </S.Container>
   );
 }
@@ -58,7 +62,7 @@ const S = {
     justify-content: center;
     background-color: var(--black);
     color: var(--white);
-    opacity: 0.7;
+    opacity: 0.8;
     padding: 1.4rem 2.4rem;
     z-index: ${zIndex.toast};
     border-radius: 0.6rem;
