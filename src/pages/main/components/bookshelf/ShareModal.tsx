@@ -2,6 +2,7 @@ import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import kakaoIcon from '@assets/icons/social-login/symbol-kakao.svg';
 import ModalBaseTemplate from '@components/template/ModalBaseTemplate/ModalBaseTemplate';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
+import { useToast } from '@hooks/useToast';
 import { device } from '@styles/breakpoints';
 import copyInClipboard from '@utils/copyInClipboard';
 import shareKakao from '@utils/shareKakao';
@@ -13,12 +14,14 @@ interface TSharedModal {
 }
 
 const ShareModal = (props: TSharedModal) => {
+  const { toast } = useToast();
   const { handleCloseModal, bookshelfData } = props;
   const currenPath = window.location.pathname;
   const shareUrl = `${import.meta.env.VITE_REDIRECT_URL}${currenPath}`;
 
   const handleCopyLink = () => {
     copyInClipboard(shareUrl);
+    toast(`주소가 복사되었습니다. 소중한 사람들에게 공유해주세요!`);
   };
 
   return (
