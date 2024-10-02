@@ -70,7 +70,7 @@ const S = {
 
     @media ${device.tablet} {
       width: fit-content;
-      height: 40vh;
+      height: 40dvh;
     }
 
     @media ${device.mobile} {

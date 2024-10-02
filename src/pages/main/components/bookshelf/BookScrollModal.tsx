@@ -100,11 +100,11 @@ const S = {
   InitBackground: styled.div`
     position: fixed;
     z-index: calc(${zIndex.header});
-    top: -50vh;
+    top: -50dvh;
     bottom: 0;
-    left: -50vh;
-    right: -50vh;
-    height: 150vh;
+    left: -50dvh;
+    right: -50dvh;
+    height: 150dvh;
     backdrop-filter: blur(0.1rem);
     background-color: rgba(0, 0, 0, 0.4);
   `,

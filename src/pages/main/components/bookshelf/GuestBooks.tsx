@@ -102,10 +102,6 @@ const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare }: TGuestBooksP
     });
   }, [books]);
 
-  useEffect(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, [pageWidth]);
-
   return (
     <>
       <S.Container>
@@ -227,7 +223,7 @@ const S = {
       position: absolute;
       left: 0;
       right: 0;
-      top: calc(100vh - 15rem);
+      top: calc(100dvh - 15rem);
       z-index: 1;
     }
   `,

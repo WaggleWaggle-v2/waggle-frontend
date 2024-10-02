@@ -57,7 +57,7 @@ const LandingPC = ({ randomCardData, kingData, refetch }: TBookShelf) => {
 export default LandingPC;
 const S = {
   Container: styled.div`
-    height: calc(100vh - ${HEADER_HEIGHT.PC});
+    height: calc(100dvh - ${HEADER_HEIGHT.PC});
 
     &::-webkit-scrollbar {
       display: none;

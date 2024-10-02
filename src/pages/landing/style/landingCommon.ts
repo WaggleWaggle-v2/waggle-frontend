@@ -8,7 +8,7 @@ import styled from 'styled-components';
 export const Main = styled.div`
   position: relative;
   top: -${HEADER_HEIGHT.PC};
-  height: 100vh;
+  height: 100dvh;
   padding: ${HEADER_HEIGHT.PC} 2rem 3rem;
   background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
   background-size: contain;

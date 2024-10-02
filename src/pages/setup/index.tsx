@@ -98,9 +98,9 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100dvh;
     @media ${device.tablet} {
-      height: calc(90vh - ${HEADER_HEIGHT.MOBILE});
+      height: calc(90dvh - ${HEADER_HEIGHT.MOBILE});
     }
   `,
   GoBackIcon: styled.img`

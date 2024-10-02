@@ -70,7 +70,7 @@ const S = {
   // layout
   PageContainer: styled.div<{ $settingType: TSetting }>`
     width: 100%;
-    height: calc(100vh - ${HEADER_HEIGHT.PC});
+    height: calc(100dvh - ${HEADER_HEIGHT.PC});
     position: relative;
     top: ${HEADER_HEIGHT.PC};
     align-items: flex-start;
@@ -79,7 +79,7 @@ const S = {
     justify-content: center;
 
     @media ${device.tablet} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+      height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
       position: relative;
       top: ${HEADER_HEIGHT.MOBILE};
       ${({ $settingType }) =>
