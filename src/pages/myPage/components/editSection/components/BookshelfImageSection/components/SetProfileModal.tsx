@@ -33,12 +33,10 @@ const SetProfileModal = (props: TSetProfileModal) => {
           </S.ModalCloseButton>
         </S.ModalHeader>
         <S.ModalBody>
-          <div>
-            <S.ModalTitle>나를 표현할 삽화를 고르시오</S.ModalTitle>
-            <S.ImageContainer>
-              <SetProfile setProfile={setProfileImage} profile={profileImageIdx} />
-            </S.ImageContainer>
-          </div>
+          <S.ModalTitle>나를 표현할 삽화를 고르시오</S.ModalTitle>
+          <S.ImageContainer>
+            <SetProfile setProfile={setProfileImage} profile={profileImageIdx} />
+          </S.ImageContainer>
           <PrimaryButton onClick={handleImageFile}>저장하기</PrimaryButton>
         </S.ModalBody>
       </S.ModalBox>
@@ -73,9 +71,6 @@ const S = {
   `,
   ModalHeader: styled.div`
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
     @media ${device.tablet} {
       height: ${HEADER_HEIGHT.MOBILE};
@@ -84,21 +79,20 @@ const S = {
   `,
   ModalBody: styled.div`
     padding: 7rem 6.2rem 5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    display: grid;
+    grid-template-rows: 3rem 1fr 5.8rem;
+    grid-template-columns: 69rem;
 
     @media ${device.tablet} {
       padding: 8rem 2rem 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
+      margin: 0 auto;
+      grid-template-columns: 1fr;
     }
 
     @media ${device.mobile} {
       align-items: stretch;
       padding-top: 2rem;
+      width: 100%;
     }
   `,
   ImageContainer: styled.div`
@@ -128,7 +122,8 @@ const S = {
 
     @media ${device.mobile} {
       margin-right: 0;
-      max-height: 65rem;
+      min-height: calc(100% - 5.8rem);
+      margin-bottom: 4rem;
     }
   `,
   ModalDim: styled.div`
