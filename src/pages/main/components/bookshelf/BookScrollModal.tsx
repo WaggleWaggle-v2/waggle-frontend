@@ -21,7 +21,6 @@ interface TBookScrollModalProps {
 
 const BookScrollModal = ({ setIsOpen, bookId }: TBookScrollModalProps) => {
   const pageWidth = usePageWidth();
-  const { toast } = useToast();
   const [modalOpen, setModalOpen] = useState(true);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const { data: bookContentData } = useBookDetail(bookId);
@@ -32,6 +31,7 @@ const BookScrollModal = ({ setIsOpen, bookId }: TBookScrollModalProps) => {
     setModalOpen(false);
     setIsOpen(false);
   };
+  // console.log(bookContentData?.lock);
 
   if (!bookContentData) return null;
 
