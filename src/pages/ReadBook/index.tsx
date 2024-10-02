@@ -64,7 +64,7 @@ const S = {
   ContentBox: styled.div`
     max-width: 93rem;
     max-height: 73.2rem;
-    min-height: 43rem;
+    min-height: 62.3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
