@@ -17,7 +17,7 @@ interface TLandingPC {
 
 const LandingPc = (props: TLandingPC) => {
   const { randomCardData, refetch } = props;
-  const { containerRef, currentPage, pageRefs, handleWheel } = usePageNavigation(PAGE_COUNT);
+  const { containerRef, currentPage, pageRefs, handleWheel, handleSetPage } = usePageNavigation(PAGE_COUNT);
 
   return (
     <S.Background>
@@ -34,7 +34,13 @@ const LandingPc = (props: TLandingPC) => {
           </div>
           <S.TransferContainer>
             {[...Array(PAGE_COUNT)].map((_, index) => (
-              <S.PageTransferButton key={index} $isSelect={index === currentPage} />
+              <S.PageTransferButton
+                key={index}
+                $isSelect={index === currentPage}
+                onClick={() => {
+                  handleSetPage(index);
+                }}
+              />
             ))}
           </S.TransferContainer>
         </S.LandingContainer>

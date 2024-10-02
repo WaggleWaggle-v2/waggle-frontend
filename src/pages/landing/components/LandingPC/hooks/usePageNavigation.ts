@@ -50,10 +50,22 @@ export const usePageNavigation = (pageCount: number) => {
     }
   };
 
+  const handleSetPage = (page: number) => {
+    if (containerRef.current) {
+      const scrollAmount = window.innerWidth; // 100dvw
+      containerRef.current.scrollTo({
+        left: scrollAmount * page,
+        behavior: 'smooth',
+      });
+    }
+    setCurrentPage(page);
+  };
+
   return {
     containerRef,
     currentPage,
     pageRefs,
     handleWheel,
+    handleSetPage,
   };
 };
