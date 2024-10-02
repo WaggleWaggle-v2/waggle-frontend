@@ -1,12 +1,12 @@
 import profile01 from '@assets/images/profiles/WGWG-profile-Image-01.jpg';
 import profile02 from '@assets/images/profiles/WGWG-profile-Image-02.jpg';
 import profile03 from '@assets/images/profiles/WGWG-profile-Image-03.jpg';
-import profile04 from '@assets/images/profiles/WGWG-profile-Image-04.jpg';
-import profile05 from '@assets/images/profiles/WGWG-profile-Image-05.jpg';
-import profile06 from '@assets/images/profiles/WGWG-profile-Image-06.jpg';
+import profile04 from '@assets/images/profiles/WGWG-profile-Image-04.png';
+import profile05 from '@assets/images/profiles/WGWG-profile-Image-05.png';
+import profile06 from '@assets/images/profiles/WGWG-profile-Image-06.png';
 import profile07 from '@assets/images/profiles/WGWG-profile-Image-07.jpg';
 import profile08 from '@assets/images/profiles/WGWG-profile-Image-08.jpg';
-import profile09 from '@assets/images/profiles/WGWG-profile-Image-09.jpg';
+import profile09 from '@assets/images/profiles/WGWG-profile-Image-09.png';
 
 export const PROFILE_IMAGES = [
   {
@@ -45,16 +45,4 @@ export const PROFILE_IMAGES = [
     index: 9,
     url: profile09,
   },
-];
-
-export const CANVAS_IMAGES = [
-  profile01,
-  profile02,
-  profile03,
-  profile04,
-  profile05,
-  profile06,
-  profile07,
-  profile08,
-  profile09,
 ];
