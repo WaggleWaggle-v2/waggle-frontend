@@ -1,4 +1,5 @@
 import messageIcon from '@assets/icons/message.svg';
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 type Size = 'normal' | 'large';
@@ -21,6 +22,9 @@ const S = {
     align-items: center;
     margin-left: auto;
     margin-top: auto;
+
+    @media ${device.mobile} {
+    }
   `,
   TotalCount: styled.p<{ $size?: Size }>`
     color: #2b6a1b;
