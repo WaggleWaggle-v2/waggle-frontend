@@ -16,13 +16,14 @@ interface TEditSection {
 
 const EditSection = ({ bookshelfData }: TEditSection) => {
   const { isTrue: isOpenDeleteModal, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
+  const { isTrue: isHover, handleSetTrue: handleSetHover, handleSetFalse: handleDisHover } = useToggle();
 
   return (
     <>
       {isOpenDeleteModal && <DeleteAccountModal handleCloseModal={handleCloseModal} />}
       <S.Container>
-        <S.ImageIntroduction>
-          <BookshelfImageSection backgroundImageUrl={bookshelfData?.backgroundImageUrl} />
+        <S.ImageIntroduction onMouseEnter={handleSetHover} onMouseLeave={handleDisHover}>
+          <BookshelfImageSection backgroundImageUrl={bookshelfData?.backgroundImageUrl} isHover={isHover} />
           <IntroductionSection introduction={bookshelfData?.introduction} />
         </S.ImageIntroduction>
         <OpenScopeSection open={bookshelfData?.open} />
@@ -48,12 +49,14 @@ const S = {
     align-items: center;
     height: 18rem;
     gap: 4rem;
+    position: relative;
 
     @media ${device.mobile} {
       flex-direction: column;
       height: auto;
     }
   `,
+
   SaveButton,
   SettingOne,
   Description,

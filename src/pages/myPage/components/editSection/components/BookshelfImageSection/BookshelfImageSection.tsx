@@ -7,10 +7,11 @@ import SetProfileModal from './components/SetProfileModal';
 
 interface TBookshelfImageSection {
   backgroundImageUrl: string | undefined;
+  isHover: boolean;
 }
 
 const BookshelfImageSection = (props: TBookshelfImageSection) => {
-  const { backgroundImageUrl } = props;
+  const { backgroundImageUrl, isHover } = props;
   const [profileImage, setProfileImage] = useState(1);
   const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
 
@@ -27,7 +28,9 @@ const BookshelfImageSection = (props: TBookshelfImageSection) => {
         <S.EditImgButton type="button" onClick={handleOpenModal}>
           <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
         </S.EditImgButton>
-        <S.ImageBox>
+        <S.ImageBox as="button" type="button" onClick={handleOpenModal}>
+          <S.EditImageText $isHover={isHover}>삽화 수정하기</S.EditImageText>
+          <S.HoverBackground $isHover={isHover} />
           <S.BackgroundImg src={backgroundImageUrl} alt={backgroundImageUrl ? '책장 배경 사진' : ''} />
         </S.ImageBox>
       </div>
@@ -44,6 +47,7 @@ const S = {
     border-radius: 50%;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
     ${skeletonAnimation}
   `,
   EditImgButton: styled.button`
@@ -72,5 +76,28 @@ const S = {
     width: 18rem;
     height: 18rem;
     object-fit: cover;
+  `,
+  HoverBackground: styled.div<{ $isHover: boolean }>`
+    position: absolute;
+    inset: 0;
+    background-color: var(--gray600);
+    opacity: 0.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ${({ $isHover }) => (!$isHover ? 'display : none;' : '')};
+    cursor: pointer;
+  `,
+  EditImageText: styled.div<{ $isHover: boolean }>`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Pretendard';
+    font-size: 1.6rem;
+    color: var(--white);
+    font-weight: 500;
+    z-index: 1;
+    ${({ $isHover }) => (!$isHover ? 'display : none;' : '')};
   `,
 };
