@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
+import lockerImage from '@assets/images/bookshelf/locker.svg';
 import { BOOK_PUBLICITY } from '@constants/publicity';
 import { device } from '@styles/breakpoints';
+import { getCookie } from '@utils/cookie';
 import styled from 'styled-components';
 
 interface TSetPublicityProps {
@@ -9,7 +11,10 @@ interface TSetPublicityProps {
 }
 
 const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
+  const token = getCookie('accessToken');
+
   const handlePublicityClick = (publicity: boolean) => {
+    if (!token && publicity === false) return;
     setPublicity(publicity);
   };
 
@@ -17,6 +22,12 @@ const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
 
   return (
     <S.Container>
+      {!token && (
+        <S.NoTokenUserText>
+          <img src={lockerImage} />
+          <p>로그인을 하면 비공개 방명록을 작성할 수 있어요.</p>
+        </S.NoTokenUserText>
+      )}
       {/* 버튼 리스트 */}
       <S.ButtonListWrapper>
         {BOOK_PUBLICITY.map(pub => (
@@ -24,7 +35,8 @@ const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
             key={pub.text}
             onClick={() => handlePublicityClick(pub.value)}
             $isSelected={publicity === pub.value}
-            $hasSelected={!!publicity}>
+            $hasSelected={!!publicity}
+            $isDisabled={!token && pub.value === false}>
             {pub.text}
           </S.PublicityButton>
         ))}
@@ -45,6 +57,7 @@ export default SetPublicity;
 
 const S = {
   Container: styled.div`
+    position: relative;
     margin: 5rem 0;
     height: 40rem;
     width: 100%;
@@ -56,6 +69,19 @@ const S = {
     @media ${device.tablet} {
       width: fit-content;
       height: 40vh;
+    }
+  `,
+
+  NoTokenUserText: styled.p`
+    font-family: 'Pretendard';
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    img {
+      width: 1.6rem;
     }
   `,
 
@@ -71,9 +97,10 @@ const S = {
     }
   `,
 
-  PublicityButton: styled.li<{ $isSelected: boolean; $hasSelected: boolean }>`
+  PublicityButton: styled.li<{ $isSelected: boolean; $hasSelected: boolean; $isDisabled: boolean }>`
     font-family: 'EBSHunminjeongeum';
-    cursor: pointer;
+    cursor: ${({ $isDisabled }) => ($isDisabled ? 'not-allowed' : 'pointer')};
+    opacity: ${({ $isDisabled }) => ($isDisabled ? 0.4 : 1)};
     padding: 1.2rem 2rem;
     border-radius: 10rem;
     width: fit-content;

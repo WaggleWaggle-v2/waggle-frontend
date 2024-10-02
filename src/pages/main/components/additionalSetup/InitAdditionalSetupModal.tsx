@@ -36,6 +36,9 @@ export default InitAdditionalSetupModal;
 const S = {
   Wrapper: styled.div`
     padding: 5rem 4.8rem 3rem;
+    @media ${device.tablet} {
+      padding: 0;
+    }
   `,
 
   MainText: styled.div`

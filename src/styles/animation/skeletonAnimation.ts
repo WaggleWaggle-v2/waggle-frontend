@@ -22,3 +22,17 @@ export const skeletonAnimation = css`
   animation: ${shining} 1.5s infinite;
   animation-delay: 0s;
 `;
+
+export const skeletonAnimationDark = css`
+  background: linear-gradient(
+    90deg,
+    var(--gray800) 0%,
+    var(--gray800) 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    var(--gray800) 60%,
+    var(--gray800) 100%
+  );
+  background-size: 200% 100%;
+  animation: ${shining} 1.5s infinite;
+  animation-delay: 0s;
+`;

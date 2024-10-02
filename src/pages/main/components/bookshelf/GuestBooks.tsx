@@ -11,6 +11,7 @@ import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import styled, { css, useTheme } from 'styled-components';
 import BookItem from './BookItem';
+import BookSkeleton from './BookSkeleton';
 
 interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
@@ -20,56 +21,52 @@ interface TGuestBooksProps {
   totalCount: number;
 }
 
-const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare}: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: TGuestBooksProps) => {
   const theme = useTheme();
   const pageWidth = usePageWidth();
   const [cursor, setCursor] = useState<number | null>(null);
-  const { data: bookData, isFetching } = useBookQuery(id, cursor);
+  const [nextCursor, setNextCursor] = useState<number | null>(null);
+
+  const { data: bookData, isFetching, refetch } = useBookQuery(id, cursor);
   const [books, setBooks] = useState<TBookItem[]>([]);
 
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
   const [isAddButtonVisible, setIsAddButtonVisible] = useState(true);
   const addButtonRef = useRef<HTMLButtonElement | null>(null);
-
   const masonryColumn = pageWidth <= size.mobile ? 2 : 3;
+
+  const handleAddClick = () => setIsOpen(true);
 
   const handleNextBooks = () => {
     if (!bookData || bookData.length === 0 || isFetching) return;
     const lastBook = bookData[bookData.length - 1];
     setCursor(lastBook.id);
-  };
-
-  console.log(books.length, totalCount);
-
-  useEffect(() => {
-    if (!bookData) return;
     setBooks(prevBooks => [...prevBooks, ...bookData]);
-  }, [bookData]);
-
-  const handleAddClick = () => {
-    setIsOpen(true);
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          setIsAddButtonVisible(true);
-        } else {
-          setIsAddButtonVisible(false);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (addButtonRef.current) {
-      observer.observe(addButtonRef.current);
+    if (cursor === null && bookData && bookData.length > 0) {
+      setCursor(bookData[bookData.length - 1].id);
+      setBooks(bookData);
     }
 
+    refetch();
+    if (bookData && bookData.length > 0) {
+      setNextCursor(bookData[bookData.length - 1].id);
+    } else if (bookData && bookData.length === 0) {
+      setNextCursor(null);
+    }
+  }, [bookData, cursor, refetch]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => setIsAddButtonVisible(entries[0].isIntersecting), {
+      threshold: 0.1,
+    });
+
+    if (addButtonRef.current) observer.observe(addButtonRef.current);
+
     return () => {
-      if (addButtonRef.current) {
-        observer.unobserve(addButtonRef.current);
-      }
+      if (addButtonRef.current) observer.unobserve(addButtonRef.current);
     };
   }, []);
 
@@ -97,13 +94,15 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare}: TG
         currentColumnHeight += height;
       });
 
-      if (currentColumn.length > 0) {
-        updatedColumns.push(currentColumn);
-      }
+      if (currentColumn.length > 0) updatedColumns.push(currentColumn);
 
       return updatedColumns;
     });
   }, [books]);
+
+  useEffect(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, [pageWidth]);
 
   return (
     <>
@@ -113,6 +112,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare}: TG
             {totalCount > 0 ? `${totalCount}개의 방명록이 도착했어요!` : '새로운 책장 만든걸 축하하오!'}
           </S.BookCount>
         )}
+
         {/* TABLET, MOBILE 공유 버튼 */}
         <S.ShareButton onClick={handleOpenShare}>
           <p>내 책장 널리 알리기</p>
@@ -135,21 +135,25 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare}: TG
         )}
 
         {pageWidth > size.tablet ? (
-          totalCount > 0 ? (
+          isFetching ? (
+            <S.GuestBookWrapper>
+              <BookSkeleton totalNum={columns.length} />
+            </S.GuestBookWrapper>
+          ) : totalCount > 0 ? (
             <>
               <S.GuestBookWrapper>
                 {columns.map((column, colIndex) => (
                   <S.ColumnWrapper key={colIndex}>
                     <S.Column>
                       {column.map((book, idx) => (
-                        <BookItem data={book} key={idx} ownerName={ownerName} />
+                        <BookItem data={book} key={book.bookImageUrl + '-' + idx} ownerName={ownerName} />
                       ))}
                     </S.Column>
                     <S.Graphic src={theme.graphic} />
                   </S.ColumnWrapper>
                 ))}
               </S.GuestBookWrapper>
-              {books.length < totalCount && (
+              {nextCursor !== null && (
                 <S.NextButton onClick={handleNextBooks}>
                   <img src={rightArrow} alt="더보기 버튼" />
                 </S.NextButton>
@@ -162,10 +166,14 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare}: TG
               <p>소중한 마음을 여기에 담아보세요.</p>
             </S.NoBook>
           )
+        ) : isFetching ? (
+          <></>
         ) : totalCount > 0 ? (
           <>
             <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-              {books?.map((book, idx) => <BookItem data={book} key={idx} ownerName={ownerName} />)}
+              {books?.map((book, idx) => (
+                <BookItem data={book} key={book.bookImageUrl + '-' + idx} ownerName={ownerName} />
+              ))}
             </S.StyledMasonry>
             {books.length < totalCount && (
               <S.NextButton onClick={handleNextBooks}>
@@ -266,7 +274,7 @@ const S = {
     justify-content: center;
     border: 0.1rem solid ${props => props.theme.addBtnBorder};
     background-color: ${props => props.theme.addBtnBg};
-    height: calc(46.4rem);
+    height: calc(46rem);
     font-size: 7rem;
     color: ${props => props.theme.addBtnText};
     cursor: pointer;
@@ -288,6 +296,7 @@ const S = {
   `,
 
   ShareButton: styled.button`
+    cursor: pointer;
     display: none;
     font-family: 'Pretendard';
     @media ${device.tablet} {
@@ -316,6 +325,7 @@ const S = {
   ColumnWrapper: styled.div`
     position: relative;
     width: 100%;
+    height: 100%;
   `,
 
   NextButton: styled.div`
@@ -325,6 +335,7 @@ const S = {
     border-radius: 5rem;
     margin: 0 3rem 0 6rem;
     background-color: var(--brown500);
+    background-color: #7b7975;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -332,21 +343,23 @@ const S = {
       width: 1.5rem;
       margin-left: 0.2rem;
     }
+
+    @media ${device.tablet} {
+      transform: rotate(90deg);
+    }
   `,
 
   Graphic: styled.img`
     width: 100%;
-    height: 22rem;
     position: absolute;
-    bottom: -0.8rem;
+    bottom: 0;
   `,
 
   Column: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 46.4rem;
-    gap: 1.3rem;
+    height: 46rem;
   `,
 
   StyledMasonry: styled(MasonryGrid)`

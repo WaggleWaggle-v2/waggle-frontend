@@ -23,7 +23,6 @@ const ReadBook = () => {
             ownerName={data ? data.receiverNickname : ''}
             content={data ? data.description : ''}
             sender={data ? data.senderNickname : ''}
-            isPreview={false}
           />
         </S.Book>
       </S.ContentBox>
@@ -96,14 +95,12 @@ const S = {
     min-width: 48.5rem;
     max-width: 48.5rem;
 
-    @media ${device.tablet} {
-      min-width: 41.2rem;
-    }
-
     @media ${device.mobile} {
       margin: 0 auto;
       min-width: 32rem;
       padding: 0 1rem;
+      min-width: 0;
+      max-width: 100rem;
     }
   `,
   GoBackButtonLayout: styled.div`

@@ -12,7 +12,7 @@ import { TBookType } from '@pages/main/types/type';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { getFormattedDate } from '@utils/getFormattedDate';
-import domtoimage from 'dom-to-image';
+import html2canvas from 'html2canvas';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import Canvas from './Canvas';
@@ -53,10 +53,6 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
     setStep(prev => prev + 1);
   };
 
-  const triggerResize = () => {
-    window.dispatchEvent(new Event('resize'));
-  };
-
   const handleFinalStep = async () => {
     const formData = {
       file: canvas as File,
@@ -70,9 +66,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
     await mutation.mutateAsync(formData);
 
     setIsOpen(false);
-    if (pageWidth <= size.tablet) {
-      triggerResize();
-    }
+    location.reload();
   };
 
   const handleCanvasUpdateClick = async () => {
@@ -82,8 +76,14 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
     const canvasElement = document.getElementById('container') as HTMLDivElement;
     if (canvasElement) {
+      const removeButton = document.getElementById('remove-button');
+      if (removeButton) {
+        removeButton.style.display = 'none';
+      }
+
       try {
-        const dataUrl = await domtoimage.toPng(canvasElement);
+        const canvasSnapshot = await html2canvas(canvasElement);
+        const dataUrl = canvasSnapshot.toDataURL('image/png');
         const response = await fetch(dataUrl);
         const blob = await response.blob();
         const file = new File([blob], 'canvas-image.png', { type: 'image/png' });
@@ -170,7 +170,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
               titleTop="마음을 전하시오."
               handleButtonClick={handleMoveToNextStep}
               isDisabled={isDisabled}>
-              <SetPost setPost={setPost} setIsDisabled={setIsDisabled} />
+              <SetPost setPost={setPost} setIsDisabled={setIsDisabled} post={post} />
             </SettingTemplate>
           </S.SettingWrapper>
         )}
@@ -196,7 +196,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
                   isPreview
                   ownerName={data?.nickname}
                   content={post}
-                  createdAt={getFormattedDate()}
+                  createdAt={getFormattedDate(undefined)}
                   sender={sender}
                 />
               )}

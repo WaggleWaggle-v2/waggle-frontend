@@ -34,6 +34,9 @@ const S = {
     overflow-x: hidden;
     width: 40rem;
     &::-webkit-scrollbar {
+      display: none;
+    }
+    /* &::-webkit-scrollbar {
       width: 0.6rem;
     }
     &::-webkit-scrollbar-track {
@@ -44,7 +47,7 @@ const S = {
       cursor: pointer;
       border-radius: 0.2rem;
       background-color: var(--brown200);
-    }
+    } */
     @media ${device.tablet} {
       height: calc(100vh - 28rem);
     }
@@ -53,6 +56,7 @@ const S = {
   ImageListTitle: styled.p`
     margin-bottom: 1rem;
     font-weight: 600;
+    color: ${({ theme }) => theme.text};
   `,
 
   ImageList: styled.ul`
@@ -66,7 +70,7 @@ const S = {
       height: 0.4rem;
     }
     &::-webkit-scrollbar-track {
-      background-color: var(--gray200);
+      background-color: ${({ theme }) => theme.scollBar};
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {
@@ -82,7 +86,7 @@ const S = {
       cursor: pointer;
       width: 8rem;
       padding: 0.6rem;
-      background-color: var(--gray300);
+      background-color: ${({ theme }) => theme.stickerBg};
       border-radius: 0.4rem;
     }
   `,

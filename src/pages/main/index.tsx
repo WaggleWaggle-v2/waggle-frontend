@@ -7,7 +7,6 @@ import GuestBooks from '@pages/main/components/bookshelf/GuestBooks';
 import { device } from '@styles/breakpoints';
 import { dark } from '@styles/theme/dark';
 import { light } from '@styles/theme/light';
-import { useQueryClient } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import AdditionalSetup from './components/additionalSetup/AdditionalSetup';
@@ -21,7 +20,6 @@ const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
   const { isTrue: isShareOpen, handleSetTrue: handleOpenShare, handleSetFalse: handleCloseShare } = useToggle();
@@ -35,10 +33,9 @@ const Main = () => {
 
   useEffect(() => {
     if (isLoading === false && !bookshelfData?.id) {
-      queryClient.removeQueries({ queryKey: ['bookShelfInfo', id] });
       navigate('/notfound');
     }
-  }, [bookshelfData?.id, id, isLoading, navigate, queryClient]);
+  }, [bookshelfData?.id, isLoading]);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;

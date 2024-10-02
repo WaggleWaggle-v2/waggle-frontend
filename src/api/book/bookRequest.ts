@@ -88,8 +88,27 @@ const bookRequest = {
   fetchBookContent: async (bookId: number) => {
     try {
       const { data } = await axios.get(`member/book/get/${bookId}`);
+
       return data;
     } catch (error) {
+      return error;
+    }
+  },
+
+  //책 삭제
+  deleteBook: async (bookId: number) => {
+    try {
+      await axios.delete(`member/book/delete/${bookId}`);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response) {
+          throw {
+            errorMessage: error.response.data.errorMessage || 'errorMessage',
+            errorCode: error.response.data.errorCode || 'UNKNOWN_ERROR',
+            statusCode: error.response.status,
+          };
+        }
+      }
       return error;
     }
   },

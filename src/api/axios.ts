@@ -1,4 +1,4 @@
-import { getCookie } from '@utils/cookie';
+import { deleteCookie, getCookie } from '@utils/cookie';
 import axios from 'axios';
 
 export interface TAxiosError {
@@ -27,6 +27,7 @@ instance.interceptors.request.use(
   error => {
     //인증 오류
     if (error.response.status === 401) {
+      deleteCookie('accessToken');
       window.location.href = '/login';
     }
     //서버 오류
@@ -36,6 +37,7 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
 instance.interceptors.response.use(
   config => {
     const token = getCookie('accessToken');
@@ -47,6 +49,7 @@ instance.interceptors.response.use(
   error => {
     //인증 오류
     if (error.response.status === 401) {
+      deleteCookie('accessToken');
       window.location.href = '/login';
     }
     //서버 오류
