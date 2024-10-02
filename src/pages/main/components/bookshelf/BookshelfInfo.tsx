@@ -1,8 +1,8 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import profileColudImage from '@assets/icons/profile-cloud.svg';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import styled, { useTheme } from 'styled-components';
-
 interface TBookshelfInfoProps {
   buttonColor: string;
   data: TBookshelfFetchRes;
@@ -17,12 +17,16 @@ const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoPro
 
   return (
     <S.BookshelfInfo>
-      <S.ProfileImage src={backgroundImageUrl} />
+      <S.Profile>
+        <S.ProfileImage src={backgroundImageUrl} alt="프로필 이미지" />
+        <img src={profileColudImage} alt="프로필 구름 이미지" />
+        <img src={profileColudImage} alt="프로필 구름 이미지" />
+      </S.Profile>
       <S.Name>
         <p>{nickname}의&nbsp;</p>
         <p>책장이오</p>
       </S.Name>
-      <S.Intro>{introduction || '아직 책장 소개를 작성하지 않았소'}</S.Intro>
+      <S.Intro $introduction={introduction}>{introduction || '아직 책장 소개를 작성하지 않았소'}</S.Intro>
       <S.ShareButton onClick={handleOpenShare} style={{ backgroundColor: buttonColor }}>
         <p>{isOwner ? '내' : '이'} 책장 널리 알리기</p>
         <img src={theme.pcCloud} alt="책장 공유 구름 아이콘" />
@@ -47,13 +51,47 @@ const S = {
     }
   `,
 
+  Profile: styled.div`
+    height: calc(100% - 16rem - 8rem);
+    position: relative;
+
+    & img:nth-child(2) {
+      position: absolute;
+      left: -5rem;
+      bottom: 40%;
+    }
+
+    & img:nth-child(3) {
+      position: absolute;
+      right: 3rem;
+      top: 25%;
+    }
+
+    @media ${device.tablet} {
+      height: calc(100vh - 13rem);
+      min-width: 0;
+
+      & img:nth-child(2) {
+        left: -3rem;
+        bottom: 36%;
+        width: 10rem;
+      }
+
+      & img:nth-child(3) {
+        right: -1rem;
+        top: 44%;
+        width: 10rem;
+      }
+    }
+  `,
+
   ProfileImage: styled.img`
     width: 100%;
-    height: calc(100% - 16rem - 8rem);
+    height: 100%;
     object-fit: cover;
+
     @media ${device.tablet} {
       height: 100%;
-      height: calc(100vh - 13rem);
       min-width: 0;
     }
   `,
@@ -80,12 +118,11 @@ const S = {
     }
   `,
 
-  Intro: styled.div`
+  Intro: styled.div<{ $introduction: string | null }>`
     height: 16rem;
     padding: 1rem;
-    font-size: 1.6rem;
     border-bottom: 0.1rem solid ${props => props.theme.introBorder};
-    color: ${props => props.theme.text};
+    color: ${({ $introduction, theme }) => ($introduction ? theme.text : theme.subText)};
     white-space: wrap;
     display: flex;
     align-items: center;
@@ -93,6 +130,7 @@ const S = {
     line-height: 170%;
 
     @media ${device.tablet} {
+      font-size: 1.4rem;
       height: fit-content;
       position: absolute;
       top: 0;
