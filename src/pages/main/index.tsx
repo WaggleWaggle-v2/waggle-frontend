@@ -101,6 +101,7 @@ const S = {
     }
     @media ${device.tablet} {
       flex-direction: column;
+      overflow-x: hidden;
     }
   `,
 
