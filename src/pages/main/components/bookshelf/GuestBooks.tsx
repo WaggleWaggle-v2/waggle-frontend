@@ -17,12 +17,11 @@ import BookSkeleton from './BookSkeleton';
 interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   id: string;
-  ownerName: string;
   handleOpenShare: () => void;
   totalCount: number;
 }
 
-const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare }: TGuestBooksProps) => {
   const theme = useTheme();
   const pageWidth = usePageWidth();
   const { data: userData } = useUserQuery();
@@ -149,7 +148,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
                   <S.ColumnWrapper key={colIndex}>
                     <S.Column>
                       {column.map((book, idx) => (
-                        <BookItem data={book} key={book.bookImageUrl + '-' + idx} ownerName={ownerName} />
+                        <BookItem data={book} key={book.bookImageUrl + '-' + idx} />
                       ))}
                     </S.Column>
                     <S.Graphic src={theme.graphic} />
@@ -174,9 +173,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
         ) : totalCount > 0 ? (
           <>
             <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-              {books?.map((book, idx) => (
-                <BookItem data={book} key={book.bookImageUrl + '-' + idx} ownerName={ownerName} />
-              ))}
+              {books?.map((book, idx) => <BookItem data={book} key={book.bookImageUrl + '-' + idx} />)}
             </S.StyledMasonry>
             {books.length < totalCount && (
               <S.NextButton onClick={handleNextBooks}>

@@ -15,10 +15,9 @@ import ConfirmDeleteModal from './ConfirmDeleteModal';
 interface TBookScrollModalProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   bookId: number;
-  ownerName: string;
 }
 
-const BookScrollModal = ({ setIsOpen, bookId, ownerName }: TBookScrollModalProps) => {
+const BookScrollModal = ({ setIsOpen, bookId }: TBookScrollModalProps) => {
   const pageWidth = usePageWidth();
   const [modalOpen, setModalOpen] = useState(true);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -26,40 +25,43 @@ const BookScrollModal = ({ setIsOpen, bookId, ownerName }: TBookScrollModalProps
   const { data: userData } = useUserQuery();
   const { id: bookshelfId } = useParams();
 
-  return (
-    <>
-      <S.StyledModal
-        isOpen={modalOpen}
-        onRequestClose={() => {
-          setModalOpen(false);
-          setIsOpen(false);
-        }}
-        ariaHideApp={false}
-        style={customModalStyles}>
-        <BookScollPaper
-          ownerName={ownerName}
-          content={bookContentData?.description}
-          sender={bookContentData?.senderNickname}
-          createdAt={getFormattedDate(bookContentData?.createdAt)}
-        />
-        {bookshelfId === userData?.id && (
-          // <S.BookDeleteButton onClick={handleDeleteButtonClick}>방명록 삭제하기</S.BookDeleteButton>
-          <S.BookDeleteButton onClick={() => setDeleteModalOpen(true)}>방명록 삭제하기</S.BookDeleteButton>
-        )}
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setIsOpen(false);
+  };
 
-        <S.ModalCloseButton onClick={() => setIsOpen(false)}>
-          <img src={closeIcon} alt="모달 닫기 아이콘" />
-        </S.ModalCloseButton>
-        {deleteModalOpen && (
-          <>
-            {pageWidth <= size.tablet && <S.InitBackground></S.InitBackground>}
-            <S.ModalWrapper>
-              <ConfirmDeleteModal setIsOpen={setDeleteModalOpen} bookId={bookId} />
-            </S.ModalWrapper>
-          </>
-        )}
-      </S.StyledModal>
-    </>
+  if (!bookContentData) return null;
+
+  return (
+    <S.StyledModal isOpen={modalOpen} onRequestClose={handleCloseModal} ariaHideApp={false} style={customModalStyles}>
+      {bookContentData.lock === false ? (
+        <>
+          <BookScollPaper
+            ownerName={bookContentData?.receiverNickname}
+            content={bookContentData?.description}
+            sender={bookContentData?.senderNickname}
+            createdAt={getFormattedDate(bookContentData?.createdAt)}
+          />
+          {(bookshelfId === userData?.id || bookContentData?.mine) && (
+            <S.BookDeleteButton onClick={() => setDeleteModalOpen(true)}>방명록 삭제하기</S.BookDeleteButton>
+          )}
+
+          <S.ModalCloseButton onClick={() => setIsOpen(false)}>
+            <img src={closeIcon} alt="모달 닫기 아이콘" />
+          </S.ModalCloseButton>
+          {deleteModalOpen && (
+            <>
+              {pageWidth <= size.tablet && <S.InitBackground></S.InitBackground>}
+              <S.ModalWrapper>
+                <ConfirmDeleteModal setIsOpen={setDeleteModalOpen} bookId={bookId} />
+              </S.ModalWrapper>
+            </>
+          )}
+        </>
+      ) : (
+        <S.LockedBookModal>비공개 방명록 입니다.</S.LockedBookModal>
+      )}
+    </S.StyledModal>
   );
 };
 
@@ -152,5 +154,11 @@ const S = {
     img {
       width: 2.6rem;
     }
+  `,
+
+  LockedBookModal: styled.div`
+    background-color: white;
+    /* width: 30rem;
+    height: 20rem; */
   `,
 };
