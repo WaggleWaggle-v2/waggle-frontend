@@ -25,7 +25,7 @@ const InitBookSetupModal = ({ setDoSetup, setIsOpen }: TInitBookSetupModalProps)
 
         <S.SubText>
           <p>회원가입을 하지 않으면&nbsp;</p>
-          <p>작성한 방명록을 다시 확인하기 어럽다네</p>
+          <p>작성한 방명록을 다시 확인하기 어렵다네</p>
         </S.SubText>
 
         <S.ButtonWrapper>
