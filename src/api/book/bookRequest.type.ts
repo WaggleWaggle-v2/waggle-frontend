@@ -9,17 +9,19 @@ export interface TBookItem {
   open: boolean;
 }
 
-export interface TUseReceiveBookListRes {
+export interface TReceiveBookListRes {
+  bookId: number;
   description: string;
   id: number;
   nickname: string;
 }
 
-export interface TUserSendBookListRes {
+export interface TSendBookListRes {
+  backgroundImageUrl: string;
+  bookId: number;
   description: string;
   id: number;
   nickname: string;
-  backgroundImageUrl: string;
 }
 
 export interface TBookDetailRes {

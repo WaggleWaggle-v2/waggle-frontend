@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TSendBookListRes } from '@api/book/bookRequest.type';
 import { useReceiveSendInfinity } from '@hooks/reactQuery/useQueryBook';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { TSetting } from '@pages/myPage/constant/settingList';
@@ -62,11 +63,15 @@ const BookListSection = ({ settingType }: TBookList) => {
       handleSelectOption={handleSelectOption}
       selectOption={sortingOption}>
       {data.pages[0].length === 0 && <S.EmptyText>아직 보낸 책장이 없습니다.</S.EmptyText>}
-      {data.pages[0].map(book => (
+      {data.pages[0].map((book: TSendBookListRes) => (
         <S.BookButton
           type="button"
           onClick={() => {
-            navigate(`/book/${book.id}`);
+            navigate(`/book/${book.bookId}`, {
+              state: {
+                settingType: settingType,
+              },
+            });
           }}
           key={book.id}>
           <BookInfo bookData={book} settingType={settingType} />

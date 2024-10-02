@@ -22,6 +22,7 @@ const ProfileSection = (props: TProfileSection) => {
     case 'default': {
       return (
         <ProfileSectionLayout
+          userId={userInfo?.id}
           isNotDefaultSetting={false}
           handleSetDefault={handleSetDefault}
           userNickName={userNickName}>
@@ -33,16 +34,19 @@ const ProfileSection = (props: TProfileSection) => {
     case 'edit': {
       return (
         <ProfileSectionLayout
+          userId={userInfo?.id}
           handleSetDefault={handleSetDefault}
           userNickName={userNickName}
           isNotDefaultSetting={true}>
           <S.TitleText>안녕하시오.</S.TitleText>
+          <RenameButton onClick={handleOpenModal} />
         </ProfileSectionLayout>
       );
     }
     case 'send': {
       return (
         <ProfileSectionLayout
+          userId={userInfo?.id}
           handleSetDefault={handleSetDefault}
           userNickName={userNickName}
           isNotDefaultSetting={true}>
@@ -59,6 +63,7 @@ const ProfileSection = (props: TProfileSection) => {
     case 'receive': {
       return (
         <ProfileSectionLayout
+          userId={userInfo?.id}
           handleSetDefault={handleSetDefault}
           userNickName={userNickName}
           isNotDefaultSetting={true}>

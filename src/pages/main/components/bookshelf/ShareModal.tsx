@@ -17,7 +17,7 @@ const ShareModal = (props: TSharedModal) => {
   const { toast } = useToast();
   const { handleCloseModal, bookshelfData } = props;
   const currenPath = window.location.pathname;
-  const shareUrl = `${import.meta.env.VITE_REDIRECT_URL}${currenPath}`;
+  const shareUrl = `https://wagglewaggle.netlify.app${currenPath}`;
 
   const handleCopyLink = () => {
     copyInClipboard(shareUrl);
