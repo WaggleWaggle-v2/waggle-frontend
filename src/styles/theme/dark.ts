@@ -9,6 +9,7 @@ export const dark = {
   text: '#fffcf1',
   subText: 'var(--gray500)',
   pageBg: 'var(--gray900)',
+  buttonBorder: 'var(--gray900)',
 
   graphic: darkGraphic,
   addBtnBg: 'var(--gray800)',
