@@ -7,7 +7,9 @@ import { skeletonAnimationDark } from '@styles/animation/skeletonAnimation';
 
 export const dark = {
   text: '#fffcf1',
+  subText: 'var(--gray500)',
   pageBg: 'var(--gray900)',
+  buttonBorder: 'var(--gray900)',
 
   graphic: darkGraphic,
   addBtnBg: 'var(--gray800)',
@@ -28,7 +30,7 @@ export const dark = {
   textAreaText: 'var(--gray500)',
   stickerBg: 'var(--gray800)',
 
-  scollBar: 'var(--gray600)',
+  scollBar: 'var(--gray800)',
   bookscrollBg: 'var(--black)',
   bookscrollText: 'var(--gray400)',
   bookscrollReceiver: 'var(--green600)',

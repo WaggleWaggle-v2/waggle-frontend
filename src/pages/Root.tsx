@@ -1,4 +1,5 @@
 import Header from '@components/header';
+import Toaster from '@components/toast/toaster';
 import { Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,6 +13,7 @@ const Root = () => {
     <S.Container>
       {isSubSection && <Header />}
       <S.Main>
+        <Toaster />
         <Outlet />
       </S.Main>
     </S.Container>

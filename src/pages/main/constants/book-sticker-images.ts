@@ -1,7 +1,49 @@
+import apply1 from '@assets/icons/decoration/apply/apply1.svg';
+import apply10 from '@assets/icons/decoration/apply/apply10.svg';
+import apply11 from '@assets/icons/decoration/apply/apply11.svg';
+import apply12 from '@assets/icons/decoration/apply/apply12.svg';
+import apply13 from '@assets/icons/decoration/apply/apply13.svg';
+import apply14 from '@assets/icons/decoration/apply/apply14.svg';
+import apply15 from '@assets/icons/decoration/apply/apply15.svg';
+import apply16 from '@assets/icons/decoration/apply/apply16.svg';
+import apply17 from '@assets/icons/decoration/apply/apply17.svg';
+import apply18 from '@assets/icons/decoration/apply/apply18.svg';
+import apply19 from '@assets/icons/decoration/apply/apply19.svg';
+import apply2 from '@assets/icons/decoration/apply/apply2.svg';
+import apply20 from '@assets/icons/decoration/apply/apply20.svg';
+import apply3 from '@assets/icons/decoration/apply/apply3.svg';
+import apply4 from '@assets/icons/decoration/apply/apply4.svg';
+import apply5 from '@assets/icons/decoration/apply/apply5.svg';
+import apply6 from '@assets/icons/decoration/apply/apply6.svg';
+import apply7 from '@assets/icons/decoration/apply/apply7.svg';
+import apply8 from '@assets/icons/decoration/apply/apply8.svg';
+import apply9 from '@assets/icons/decoration/apply/apply9.svg';
+
+import basic1 from '@assets/icons/decoration/basic/basic1.svg';
+import basic2 from '@assets/icons/decoration/basic/basic2.svg';
+import basic3 from '@assets/icons/decoration/basic/basic3.svg';
+import basic4 from '@assets/icons/decoration/basic/basic4.svg';
+import basic5 from '@assets/icons/decoration/basic/basic5.svg';
+import basic6 from '@assets/icons/decoration/basic/basic6.svg';
+import basic7 from '@assets/icons/decoration/basic/basic7.svg';
+import basic8 from '@assets/icons/decoration/basic/basic8.svg';
+import basic9 from '@assets/icons/decoration/basic/basic9.svg';
+
+import bubble1 from '@assets/icons/decoration/bubble/bubble1.svg';
+import bubble2 from '@assets/icons/decoration/bubble/bubble2.svg';
+import bubble3 from '@assets/icons/decoration/bubble/bubble3.svg';
+import bubble4 from '@assets/icons/decoration/bubble/bubble4.svg';
+import bubble5 from '@assets/icons/decoration/bubble/bubble5.svg';
+import bubble6 from '@assets/icons/decoration/bubble/bubble6.svg';
+import bubble7 from '@assets/icons/decoration/bubble/bubble7.svg';
+import bubble8 from '@assets/icons/decoration/bubble/bubble8.svg';
+import bubble9 from '@assets/icons/decoration/bubble/bubble9.svg';
+
 import ceramic1 from '@assets/icons/decoration/ceramic/ceramic1.svg';
 import ceramic2 from '@assets/icons/decoration/ceramic/ceramic2.svg';
 import ceramic3 from '@assets/icons/decoration/ceramic/ceramic3.svg';
 import ceramic4 from '@assets/icons/decoration/ceramic/ceramic4.svg';
+
 import hangul1 from '@assets/icons/decoration/hangul/hangul1.svg';
 import hangul10 from '@assets/icons/decoration/hangul/hangul10.svg';
 import hangul11 from '@assets/icons/decoration/hangul/hangul11.svg';
@@ -42,6 +84,23 @@ import hangul6 from '@assets/icons/decoration/hangul/hangul6.svg';
 import hangul7 from '@assets/icons/decoration/hangul/hangul7.svg';
 import hangul8 from '@assets/icons/decoration/hangul/hangul8.svg';
 import hangul9 from '@assets/icons/decoration/hangul/hangul9.svg';
+
+import heart1 from '@assets/icons/decoration/heart/heart1.svg';
+import heart10 from '@assets/icons/decoration/heart/heart10.svg';
+import heart11 from '@assets/icons/decoration/heart/heart11.svg';
+import heart12 from '@assets/icons/decoration/heart/heart12.svg';
+import heart13 from '@assets/icons/decoration/heart/heart13.svg';
+import heart14 from '@assets/icons/decoration/heart/heart14.svg';
+import heart15 from '@assets/icons/decoration/heart/heart15.svg';
+import heart16 from '@assets/icons/decoration/heart/heart16.svg';
+import heart2 from '@assets/icons/decoration/heart/heart2.svg';
+import heart3 from '@assets/icons/decoration/heart/heart3.svg';
+import heart4 from '@assets/icons/decoration/heart/heart4.svg';
+import heart5 from '@assets/icons/decoration/heart/heart5.svg';
+import heart6 from '@assets/icons/decoration/heart/heart6.svg';
+import heart7 from '@assets/icons/decoration/heart/heart7.svg';
+import heart8 from '@assets/icons/decoration/heart/heart8.svg';
+import heart9 from '@assets/icons/decoration/heart/heart9.svg';
 
 import long1 from '@assets/icons/decoration/long/long1.svg';
 import long10 from '@assets/icons/decoration/long/long10.svg';
@@ -148,6 +207,64 @@ const DECO_CERAMIC = {
   imageList: [ceramic1, ceramic2, ceramic3, ceramic4],
 };
 
+const DECO_BASIC = {
+  title: '기본 도형',
+  imageList: [basic1, basic2, basic3, basic4, basic5, basic6, basic7, basic8, basic9],
+};
+
+const DECO_APPLY = {
+  title: '응용 도형',
+  imageList: [
+    apply1,
+    apply2,
+    apply3,
+    apply4,
+    apply5,
+    apply6,
+    apply7,
+    apply8,
+    apply9,
+    apply10,
+    apply11,
+    apply12,
+    apply13,
+    apply14,
+    apply15,
+    apply16,
+    apply17,
+    apply18,
+    apply19,
+    apply20,
+  ],
+};
+
+const DECO_HEART = {
+  title: '하트',
+  imageList: [
+    heart1,
+    heart2,
+    heart3,
+    heart4,
+    heart5,
+    heart6,
+    heart7,
+    heart8,
+    heart9,
+    heart10,
+    heart11,
+    heart12,
+    heart13,
+    heart14,
+    heart15,
+    heart16,
+  ],
+};
+
+const DECO_BUBBLE = {
+  title: '말풍선',
+  imageList: [bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7, bubble8, bubble9],
+};
+
 export const DECORATION_IMAGES = [
   DECO_CONSONANTS,
   DECO_VOWELS,
@@ -155,4 +272,8 @@ export const DECORATION_IMAGES = [
   DECO_LONG_PROP,
   DECO_WRAPPER,
   DECO_CERAMIC,
+  DECO_BASIC,
+  DECO_APPLY,
+  DECO_HEART,
+  DECO_BUBBLE,
 ];

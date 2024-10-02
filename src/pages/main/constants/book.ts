@@ -1,5 +1,5 @@
-import bigBookImage from '@assets/images/bookshelf/bookshelf-long.svg';
-import smallBookImage from '@assets/images/bookshelf/bookshelf-short.svg';
+import bigBookImage from '@assets/images/bookshelf/bookshelf-long.png';
+import smallBookImage from '@assets/images/bookshelf/bookshelf-short.png';
 
 export const BOOK = [
   {

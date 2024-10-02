@@ -82,7 +82,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
       }
 
       try {
-        const canvasSnapshot = await html2canvas(canvasElement);
+        const canvasSnapshot = await html2canvas(canvasElement, { backgroundColor: null });
         const dataUrl = canvasSnapshot.toDataURL('image/png');
         const response = await fetch(dataUrl);
         const blob = await response.blob();

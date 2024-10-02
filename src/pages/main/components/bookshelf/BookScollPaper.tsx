@@ -3,7 +3,7 @@ import { light } from '@styles/theme/light';
 import styled, { keyframes } from 'styled-components';
 
 interface TBookScollPaperProps {
-  ownerName: string;
+  ownerName: string | undefined;
   content: string | undefined;
   createdAt?: string;
   sender?: string;

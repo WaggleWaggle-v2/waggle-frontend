@@ -39,7 +39,7 @@ const Canvas = forwardRef(({ selectedImage, setSelectedImage, type, pageWidth }:
 
   const CANVAS =
     type === 'SHORT'
-      ? { width: isPC ? 400 : 316, height: isPC ? 398 : 316, background: bookShelfShortImage }
+      ? { width: isPC ? 400 : 316, height: isPC ? 400 : 316, background: bookShelfShortImage }
       : { width: isPC ? 258 : 220, height: isPC ? 544 : 464, background: bookShelfLongImage };
 
   function onFocusOut() {
@@ -232,8 +232,6 @@ const S = {
     position: relative;
     background-image: ${({ $background }) => `url(${$background})`};
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
   `,
 
   ImageList: styled.div`

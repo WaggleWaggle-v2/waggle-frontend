@@ -8,7 +8,9 @@ import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 
 export const light = {
   text: 'var(--gray900)',
+  subText: 'var(--gray800)',
   pageBg: 'var(--background)',
+  buttonBorder: 'var(--gray300)',
 
   graphic: lightGraphic,
   addBtnBg: '#ece9e2',

@@ -29,4 +29,5 @@ export interface TBookDetailRes {
   lock: boolean;
   receiverNickname: string;
   senderNickname: string;
+  mine: boolean;
 }

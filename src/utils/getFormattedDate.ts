@@ -6,6 +6,9 @@ export const getFormattedDate = (timestamp: string | undefined) => {
     today = new Date();
   }
 
+  const kstOffset = 9 * 60;
+  today.setMinutes(today.getMinutes() + kstOffset);
+
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
   const year = String(today.getFullYear()).slice(-2);

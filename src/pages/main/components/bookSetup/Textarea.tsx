@@ -113,7 +113,7 @@ const S = {
       width: 0.6rem;
     }
     &::-webkit-scrollbar-track {
-      background-color: var(--gray200);
+      background-color: ${({ theme }) => theme.scollBar};
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {

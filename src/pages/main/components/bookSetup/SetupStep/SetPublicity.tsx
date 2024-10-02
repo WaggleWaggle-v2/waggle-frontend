@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
-import lockerImage from '@assets/images/bookshelf/locker.svg';
+import lockerImage from '@assets/icons/locker.svg';
 import { BOOK_PUBLICITY } from '@constants/publicity';
 import { device } from '@styles/breakpoints';
 import { getCookie } from '@utils/cookie';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface TSetPublicityProps {
@@ -12,6 +13,7 @@ interface TSetPublicityProps {
 
 const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
   const token = getCookie('accessToken');
+  const navigate = useNavigate();
 
   const handlePublicityClick = (publicity: boolean) => {
     if (!token && publicity === false) return;
@@ -23,7 +25,7 @@ const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
   return (
     <S.Container>
       {!token && (
-        <S.NoTokenUserText>
+        <S.NoTokenUserText onClick={() => navigate('/login')}>
           <img src={lockerImage} />
           <p>로그인을 하면 비공개 방명록을 작성할 수 있어요.</p>
         </S.NoTokenUserText>
@@ -70,18 +72,25 @@ const S = {
       width: fit-content;
       height: 40vh;
     }
+
+    @media ${device.mobile} {
+      width: 100%;
+    }
   `,
 
-  NoTokenUserText: styled.p`
+  NoTokenUserText: styled.div`
+    cursor: pointer;
+    color: ${({ theme }) => theme.subText};
     font-family: 'Pretendard';
     position: absolute;
     top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
+    gap: 1rem;
+    line-height: 120%;
     img {
-      width: 1.6rem;
+      width: 1.8rem;
     }
   `,
 

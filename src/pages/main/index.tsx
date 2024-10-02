@@ -76,7 +76,6 @@ const Main = () => {
           <GuestBooks
             setIsOpen={setIsOpen}
             id={id as string}
-            ownerName={bookshelfData?.nickname as string}
             totalCount={bookshelfData?.count as number}
             handleOpenShare={handleOpenShare}
           />

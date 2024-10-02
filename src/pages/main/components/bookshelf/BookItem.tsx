@@ -1,38 +1,26 @@
 import { useState } from 'react';
 import { TBookItem } from '@api/book/bookRequest.type';
-import lockerImage from '@assets/images/bookshelf/locker.svg';
+import lockerImage from '@assets/icons/locker.svg';
 import nameTagImage from '@assets/images/bookshelf/name-tag.svg';
-import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BookScrollModal from './BookScrollModal';
 
 interface TBookItemprops {
   data: TBookItem;
-  ownerName: string;
 }
 
-const BookItem = ({ data, ownerName }: TBookItemprops) => {
+const BookItem = ({ data }: TBookItemprops) => {
   const [isOpen, setIsOpen] = useState(false);
   const { bookType, bookImageUrl, nickname, open } = data;
-  const { data: userData } = useUserQuery();
-  const { id: bookshelfId } = useParams();
-
-  const isBookshelfOwner = userData?.id === bookshelfId;
 
   const handleBookClick = () => {
-    // if (open) {
-    //   setIsOpen(true);
-    // } else if (isBookshelfOwner) {
-    //   setIsOpen(true);
-    // }
     setIsOpen(true);
   };
 
   return (
     <>
-      {isOpen && <BookScrollModal setIsOpen={setIsOpen} bookId={data.id} ownerName={ownerName} />}
+      {isOpen && <BookScrollModal setIsOpen={setIsOpen} bookId={data.id} />}
       <S.Book onClick={handleBookClick}>
         <img src={bookImageUrl} alt={`${nickname}-${bookType}`} />
         <S.NameTag>
@@ -61,7 +49,6 @@ const S = {
       width: calc(100% / 3);
       img {
         width: 100%;
-        height: auto;
       }
     }
 
@@ -90,9 +77,11 @@ const S = {
       width: 1.8rem;
     }
     @media ${device.tablet} {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       gap: 0.6rem;
-      padding: 0.7rem 1rem;
+      padding: 0 1rem;
+      height: 2.8rem;
+      line-height: 150%;
       img {
         width: 1.4rem;
       }

@@ -31,7 +31,7 @@ const ModalTemplate = ({ children, setIsOpen, setStep, step, isInit }: TModalTem
       backdropFilter: 'blur(0.2rem)',
     },
     content: {
-      position: 'absolute',
+      position: 'fixed',
       top: '50%',
       left: '50%',
       height: 'fit-content',

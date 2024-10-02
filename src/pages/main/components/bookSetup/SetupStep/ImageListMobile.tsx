@@ -79,10 +79,10 @@ const S = {
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-      height: 0.4rem;
+      height: 0.8rem;
     }
     &::-webkit-scrollbar-track {
-      background-color: var(--gray200);
+      background-color: ${({ theme }) => theme.scollBar};
       border-radius: 0.2rem;
     }
     &::-webkit-scrollbar-thumb {
@@ -94,7 +94,7 @@ const S = {
       cursor: pointer;
       width: 8rem;
       padding: 0.6rem;
-      background-color: var(--gray300);
+      background-color: ${({ theme }) => theme.stickerBg};
       border-radius: 0.4rem;
     }
   `,

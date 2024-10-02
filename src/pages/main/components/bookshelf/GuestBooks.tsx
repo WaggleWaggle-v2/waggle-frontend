@@ -6,6 +6,7 @@ import rightArrow from '@assets/icons/right-arrow.svg';
 import shareImg from '@assets/icons/share.svg';
 import { MasonryGrid } from '@egjs/react-grid';
 import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
@@ -16,14 +17,15 @@ import BookSkeleton from './BookSkeleton';
 interface TGuestBooksProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   id: string;
-  ownerName: string;
   handleOpenShare: () => void;
   totalCount: number;
 }
 
-const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare }: TGuestBooksProps) => {
   const theme = useTheme();
   const pageWidth = usePageWidth();
+  const { data: userData } = useUserQuery();
+  const isOwner = userData?.id === id;
   const [cursor, setCursor] = useState<number | null>(null);
   const [nextCursor, setNextCursor] = useState<number | null>(null);
 
@@ -115,7 +117,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
 
         {/* TABLET, MOBILE 공유 버튼 */}
         <S.ShareButton onClick={handleOpenShare}>
-          <p>내 책장 널리 알리기</p>
+          <p>{isOwner ? '내' : '이'} 책장 널리 알리기</p>
           <img src={theme.mobileCloud} alt="책장 공유 구름 아이콘" />
         </S.ShareButton>
 
@@ -146,7 +148,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
                   <S.ColumnWrapper key={colIndex}>
                     <S.Column>
                       {column.map((book, idx) => (
-                        <BookItem data={book} key={book.bookImageUrl + '-' + idx} ownerName={ownerName} />
+                        <BookItem data={book} key={book.bookImageUrl + '-' + idx} />
                       ))}
                     </S.Column>
                     <S.Graphic src={theme.graphic} />
@@ -171,9 +173,7 @@ const GuestBooks = ({ setIsOpen, id, ownerName, totalCount, handleOpenShare }: T
         ) : totalCount > 0 ? (
           <>
             <S.StyledMasonry className="container" gap={12} column={masonryColumn}>
-              {books?.map((book, idx) => (
-                <BookItem data={book} key={book.bookImageUrl + '-' + idx} ownerName={ownerName} />
-              ))}
+              {books?.map((book, idx) => <BookItem data={book} key={book.bookImageUrl + '-' + idx} />)}
             </S.StyledMasonry>
             {books.length < totalCount && (
               <S.NextButton onClick={handleNextBooks}>
@@ -243,6 +243,7 @@ const S = {
     display: flex;
     margin-left: 2rem;
     gap: 2rem;
+    height: 46.4rem;
   `,
 
   NoBook: styled.div`
@@ -325,7 +326,6 @@ const S = {
   ColumnWrapper: styled.div`
     position: relative;
     width: 100%;
-    height: 100%;
   `,
 
   NextButton: styled.div`
@@ -334,7 +334,6 @@ const S = {
     width: 10rem;
     border-radius: 5rem;
     margin: 0 3rem 0 6rem;
-    background-color: var(--brown500);
     background-color: #7b7975;
     display: flex;
     align-items: center;
@@ -345,7 +344,13 @@ const S = {
     }
 
     @media ${device.tablet} {
+      margin: 3.2rem 0 4.2rem;
+      height: 7.2rem;
+      width: 7.2rem;
       transform: rotate(90deg);
+      img {
+        width: 1rem;
+      }
     }
   `,
 
@@ -359,7 +364,7 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 46rem;
+    height: 100%;
   `,
 
   StyledMasonry: styled(MasonryGrid)`

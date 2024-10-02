@@ -2,13 +2,16 @@ import titleImage from '@assets/images/title.png';
 import typographyImage from '@assets/images/typography.png';
 import SocialLoginButtonList from '@pages/Login/components/SocialLoginButtonList';
 import { device } from '@styles/breakpoints';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <S.Container $background={typographyImage}>
       <S.BannerWrapper>
-        <S.TitleImage src={titleImage} />
+        <S.TitleImage src={titleImage} onClick={() => navigate('/')} />
         <S.Description>- 한글 기념 소통창 -</S.Description>
       </S.BannerWrapper>
       <SocialLoginButtonList />
@@ -42,6 +45,7 @@ const S = {
   `,
 
   TitleImage: styled.img`
+    cursor: pointer;
     min-width: 60rem;
     width: 60rem;
     aspect-ratio: 2.3 / 1;
