@@ -35,7 +35,7 @@ const Landing = () => {
   }
 
   return (
-    <>
+    <S.Background>
       <S.Main>
         <S.Layout>
           <TitleSection />
@@ -47,7 +47,7 @@ const Landing = () => {
         </S.Layout>
       </S.Main>
       <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
-    </>
+    </S.Background>
   );
 };
 
@@ -55,6 +55,11 @@ export default Landing;
 
 const S = {
   // Layout
+  Background: styled.div`
+    width: 100dvw;
+    height: 100dvh;
+    background-color: var(--background);
+  `,
   Main,
   Layout: styled(BaseLayout)`
     display: flex;
