@@ -51,7 +51,7 @@ const S = {
     width: 100%;
     font-size: 1.8rem;
     font-weight: 600;
-    padding: 2.15rem 0.6rem;
+    padding: 2.15rem 0.6rem 1rem;
     &:focus {
       border-bottom: ${({ $isInvalid }) => ($isInvalid ? 'var(--red400)' : 'var(--green600)')} 0.1rem solid;
     }
