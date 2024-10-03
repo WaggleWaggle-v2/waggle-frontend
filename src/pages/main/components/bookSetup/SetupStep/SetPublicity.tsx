@@ -25,7 +25,7 @@ const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
   return (
     <S.Container>
       {!token && (
-        <S.NoTokenUserText onClick={() => navigate('/login')}>
+        <S.NoTokenUserText>
           <img src={lockerImage} />
           <p>
             비회원은 <u>방명록 삭제 / 비공개 기능</u>을 <br />
@@ -82,7 +82,6 @@ const S = {
   `,
 
   NoTokenUserText: styled.div`
-    cursor: pointer;
     color: ${({ theme }) => theme.subText};
     font-family: 'Pretendard';
     position: absolute;
