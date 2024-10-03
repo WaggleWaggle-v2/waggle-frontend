@@ -1,17 +1,19 @@
+import { KING } from '@constants/kingSejong';
+import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import KingSejongCard from '@pages/landing/components/LandingPC/components/KingSejongCard/KingSejongCard';
-import { KingSejong } from '@pages/landing/mockData';
 import SecondLandingLayout from './SecondLandingLayout';
-// import SecondSectionLayout from '@pages/landing/components/LandingPC/components/SecondSection/SecondSectionLayout';
-// import SkeletonKingSejongCard from '@pages/landing/components/LandingPC/components/KingSejongCard/SkeletonKingSejongCard';
+import SkeletonKingSejongCard from '../KingSejongCard/SkeletonKingSejongCard';
 
 const SecondLanding = () => {
-  // if (!kingData) {
-  //   return (
-  //     <SecondSectionLayout>
-  //       <SkeletonKingSejongCard />
-  //     </SecondSectionLayout>
-  //   );
-  // }
+  const { data: KingSejong } = useBookshelfQuery(KING.uuid);
+
+  if (!KingSejong) {
+    return (
+      <SecondLandingLayout>
+        <SkeletonKingSejongCard />
+      </SecondLandingLayout>
+    );
+  }
 
   return (
     <SecondLandingLayout>

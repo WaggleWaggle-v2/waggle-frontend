@@ -56,7 +56,7 @@ const IntroductionSection = ({ introduction }: { introduction: string | null | u
         </S.TextLength>
         <S.SaveButton
           type="button"
-          disabled={introduction === value}
+          disabled={introduction === value || isError}
           onClick={() => {
             handleFetchIntroduction.mutate(value);
           }}>

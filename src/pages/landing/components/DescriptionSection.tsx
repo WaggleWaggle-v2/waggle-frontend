@@ -9,6 +9,10 @@ const DescriptionSection = () => {
       <S.SubText>
         이라는 의미를 담고있어 이곳에서 많은 사람들이 한글날을 기억하며, '와글와글' 떠들기 바랍니다.
       </S.SubText>
+      <S.InfoTextBox>
+        <S.InfoText>* 와글와글 서비스는 10월 4일부터 10월 13일까지 운영합니다.</S.InfoText>
+        <S.InfoText style={{ marginLeft: '0.8rem' }}>서비스 이용 시 참고 부탁드립니다.</S.InfoText>
+      </S.InfoTextBox>
     </S.Container>
   );
 };
@@ -49,6 +53,23 @@ const S = {
 
     @media ${device.tablet} {
       font-size: 1.6rem;
+    }
+  `,
+  InfoTextBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+  `,
+
+  InfoText: styled.div`
+    font-family: 'Pretendard';
+    font-size: 1.7rem;
+    color: #18316f;
+    line-height: 130%;
+    font-weight: 600;
+
+    @media ${device.tablet} {
+      font-size: 1.4rem;
     }
   `,
 };

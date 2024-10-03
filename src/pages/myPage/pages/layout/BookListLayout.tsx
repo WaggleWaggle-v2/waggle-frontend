@@ -34,7 +34,7 @@ const BookListLayout = (props: TBookListLayout) => {
               <S.NickNameText>{nickName}</S.NickNameText> 님,
             </S.TitleText>
             <S.TitleText>
-              책장을 이만큼 <br />
+              방명록을 이만큼 <br />
               {bookType === 'send' ? '보냈다오' : '받았다오.'}
             </S.TitleText>
             <S.SubText>
@@ -50,7 +50,7 @@ const BookListLayout = (props: TBookListLayout) => {
         <S.EditContainer>
           <S.Header>
             <S.HeaderTextContainer>
-              마이페이지 <RightArrowIcon width={10} height={9} color={'#999999'} />
+              내 정보 <RightArrowIcon width={10} height={9} color={'#999999'} />
               {bookType === 'send' ? '남긴 방명록' : '받은 방명록'}
             </S.HeaderTextContainer>
             <SortingBox handleSelectOption={handleSelectOption} selectOption={sortingOption} />

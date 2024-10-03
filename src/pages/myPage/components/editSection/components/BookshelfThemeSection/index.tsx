@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useBookshelfThemeUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
 import { TTheme } from '@pages/main/types/type';
+import { debounce } from 'lodash';
 import styled from 'styled-components';
 import ThemeToggleButton from './components/ThemeToggleButton';
 import { Description, SettingOne, SettingTitle } from '../../style/commStyle';
@@ -9,14 +10,17 @@ const BookshelfThemeSection = ({ bookshelfType }: { bookshelfType: TTheme | unde
   const [theme, setTheme] = useState<TTheme>('WHITE');
   const themeUpdateMutation = useBookshelfThemeUpdateMutation();
 
-  const handleToggleTheme = () => {
-    const newTheme = theme === 'WHITE' ? 'BLACK' : 'WHITE';
+  const handleToggleTheme = useCallback(
+    debounce(() => {
+      const newTheme = theme === 'WHITE' ? 'BLACK' : 'WHITE';
 
-    setTheme(prevTheme => {
-      themeUpdateMutation.mutate(newTheme);
-      return newTheme;
-    });
-  };
+      setTheme(prevTheme => {
+        themeUpdateMutation.mutate(newTheme);
+        return newTheme;
+      });
+    }, 200),
+    [theme, themeUpdateMutation],
+  );
 
   useEffect(() => {
     if (bookshelfType) {

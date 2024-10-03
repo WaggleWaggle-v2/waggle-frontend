@@ -1,22 +1,24 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import { KING } from '@constants/kingSejong';
+import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookshelfSectionLayout from './BookshelfSectionLayout';
+import BookshelfCard from '../BookshelfCard';
 import KingCardSectionLayout from './components/KingCardSection';
 import RandomCardSectionLayout from './components/RandomCardSection';
-import BookshelfCard from '../BookshelfCard';
 import SkeletonBookshelfCard from '../BookshelfCard/components/SkeletonBookshelfCard';
 
 interface TBookShelf {
   randomCardData: TBookshelfFetchRes[] | undefined;
-  kingData: TBookshelfFetchRes | undefined;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const BookshelfSection = ({ randomCardData, kingData, refetch }: TBookShelf) => {
+const BookshelfSection = ({ randomCardData, refetch }: TBookShelf) => {
   const navigate = useNavigate();
   const skeletonArray = new Array(3).fill({});
+  const { data: kingData } = useBookshelfQuery(KING.uuid);
 
   if (!kingData || !randomCardData) {
     return (

@@ -9,14 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BookListLayout from '../BookListLayout';
 
-export const SORTING_OPTION = ['책장 목록 오래된 순', '책장 목록 최신 순'] as const;
+export const SORTING_OPTION = ['방명록 오래된 순', '방명록 최신 순'] as const;
 
 export type TSortingOption = (typeof SORTING_OPTION)[number];
 
 const SendBookList = () => {
   const { data: userInfo } = useUserQuery();
   const navigate = useNavigate();
-  const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
+  const [sortingOption, setSortingOption] = useState<TSortingOption>('방명록 최신 순');
   const { isVisible, targetRef: lastCardRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0 });
 
   const handleSelectOption = (option: TSortingOption) => {
@@ -31,7 +31,7 @@ const SendBookList = () => {
     refetch,
   } = useReceiveSendInfinity({
     type: 'send',
-    sortType: sortingOption === '책장 목록 최신 순' ? 'desc' : 'asc',
+    sortType: sortingOption === '방명록 최신 순' ? 'desc' : 'asc',
   });
   const { data: totalCount } = useSendBookCount();
 
@@ -69,7 +69,7 @@ const SendBookList = () => {
       sortingOption={sortingOption}
       lastCardRef={lastCardRef}
       totalCount={totalCount.sendCount}>
-      {sendBookList.pages[0].length === 0 && <S.EmptyText>아직 보낸 책장이 없습니다.</S.EmptyText>}
+      {sendBookList.pages[0].length === 0 && <S.EmptyText>아직 보낸 방명록이 없습니다.</S.EmptyText>}
       {sendBookList.pages[0].map((book: TSendBookListRes) => (
         <S.BookButton
           type="button"

@@ -22,7 +22,6 @@ const S = {
     width: 15rem;
     aspect-ratio: 1 / 1;
     border: 0.1rem solid #d3c2a5;
-    cursor: pointer;
 
     &::after {
       content: '';

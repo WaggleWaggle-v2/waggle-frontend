@@ -9,6 +9,7 @@ export const Main = styled.div`
   position: relative;
   top: -${HEADER_HEIGHT.PC};
   height: 100dvh;
+  width: 100%;
   padding: ${HEADER_HEIGHT.PC} 2rem 3rem;
   background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
   background-size: contain;
@@ -36,7 +37,7 @@ export const Main = styled.div`
 
     @media ${device.mobile} {
       min-width: 10rem;
-      min-height: 8rem;
+      min-height: 10rem;
     }
   }
 
@@ -72,4 +73,5 @@ export const Main = styled.div`
 export const Layout = styled.div`
   margin: 0 auto;
   height: calc(100% - 17rem);
+  width: 100%;
 `;
