@@ -45,7 +45,7 @@ export const popup = keyframes`
 const S = {
   InitBackground: styled.div`
     --nav-width: -9.6rem;
-    position: absolute;
+    position: fixed;
     z-index: calc(${zIndex.header});
     top: calc(var(--nav-width));
     bottom: 0;
@@ -62,7 +62,7 @@ const S = {
       animation: ${popup} 0.5s forwards;
       padding: 6.4rem 2rem 4rem 2rem;
       border-radius: 1rem 1rem 0 0;
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       right: 0;

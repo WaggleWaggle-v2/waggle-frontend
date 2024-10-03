@@ -71,7 +71,7 @@ const S = {
       animation: ${popup} 0.5s forwards;
       padding: 6.4rem 2rem 4rem 2rem;
       border-radius: 1rem 1rem 0 0;
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
