@@ -83,6 +83,8 @@ const S = {
 
     @media ${device.mobile} {
       min-width: 12rem;
+      font-size: 1.2rem;
+      font-weight: 500;
     }
   `,
   SettingTitle,

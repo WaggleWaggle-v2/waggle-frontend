@@ -1,3 +1,4 @@
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 
 export const SaveButton = styled.button`
@@ -39,6 +40,11 @@ export const SettingTitle = styled.h3`
   font-family: Pretendard;
   font-size: 2.4rem;
   font-weight: 500;
+
+  @media ${device.mobile} {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
 `;
 
 export const SettingOne = styled.div`
@@ -53,6 +59,6 @@ export const Description = styled.p`
   color: var(--gray700);
   font-family: Pretendard;
   font-size: 1.4rem;
-  line-height: 180%;
+  line-height: 150%;
   letter-spacing: -0.07px;
 `;

@@ -1,6 +1,6 @@
 import { TAxiosError } from '@api/axios';
 import bookRequest, { TReceiveSendBookListParams } from '@api/book/bookRequest';
-import { TBookDetailRes, TBookItem, TUseReceiveBookListRes, TUserSendBookListRes } from '@api/book/bookRequest.type';
+import { TBookDetailRes, TBookItem, TReceiveBookListRes, TSendBookListRes } from '@api/book/bookRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@utils/cookie';
@@ -59,7 +59,7 @@ export const useReceiveSendBookList = (props: TReceiveSendBookList) => {
   const { type, sortType, cursorId } = props;
   const accessToken = getCookie('accessToken');
 
-  const query = useQuery<TUseReceiveBookListRes[] | TUserSendBookListRes[], Error>({
+  const query = useQuery<TReceiveBookListRes[] | TSendBookListRes[], Error>({
     queryKey: type === 'receive' ? [QUERY_KEY.receiveBook] : [QUERY_KEY.sendBook],
     queryFn: async () => {
       if (!accessToken) throw new Error('No access token');

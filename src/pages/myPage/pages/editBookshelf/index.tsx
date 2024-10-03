@@ -159,6 +159,7 @@ const S = {
     height: 18rem;
     gap: 4rem;
     position: relative;
+    margin-bottom: 2rem;
 
     @media ${device.mobile} {
       flex-direction: column;
