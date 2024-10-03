@@ -31,7 +31,7 @@ const Landing = () => {
   };
 
   if (isPc) {
-    return <LandingPC randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />;
+    return <LandingPC randomCardData={randomCardData} refetch={refetch} />;
   }
 
   return (
