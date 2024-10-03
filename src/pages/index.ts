@@ -1,16 +1,20 @@
-import Auth from '@pages/auth';
-import Home from '@pages/home';
-import Landing from '@pages/landing';
-import Login from '@pages/Login';
-import Main from '@pages/main';
-import MyPage from '@pages/myPage';
-import EditBookshelf from '@pages/myPage/pages/editBookshelf';
-import ReceiveBookList from '@pages/myPage/pages/layout/receiveBookList';
-import SendBookList from '@pages/myPage/pages/layout/sendBookList';
-import ReadBook from '@pages/myPage/pages/ReadBook';
-import NotFound from '@pages/notFound';
-import Root from '@pages/Root';
-import SetUp from '@pages/setup';
+import { lazy } from 'react';
+
+const Auth = lazy(() => import('@pages/auth'));
+const Home = lazy(() => import('@pages/home'));
+const Landing = lazy(() => import('@pages/landing'));
+const Login = lazy(() => import('@pages/Login'));
+const Main = lazy(() => import('@pages/main'));
+const MyPage = lazy(() => import('@pages/myPage'));
+const EditBookshelf = lazy(() => import('@pages/myPage/pages/editBookshelf'));
+const ReceiveBookList = lazy(() => import('@pages/myPage/pages/layout/receiveBookList'));
+const SendBookList = lazy(() => import('@pages/myPage/pages/layout/sendBookList'));
+const ReadBook = lazy(() => import('@pages/myPage/pages/ReadBook'));
+const NotFound = lazy(() => import('@pages/notFound'));
+const Root = lazy(() => import('@pages/Root'));
+const SetUp = lazy(() => import('@pages/setup'));
+
+
 
 export {
   Home,

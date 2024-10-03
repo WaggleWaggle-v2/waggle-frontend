@@ -12,11 +12,6 @@ interface TBookSetupProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 }
 
-// 비로그인 유저일 시 init 모달 먼저 보여주기
-//      - 로그인 선택 -> 로그인 페이지로 redirect
-//      - 그냥 작성 선택 -> setup 모달 보여주기
-// 로그인 유저일 시 setup 모달 바로 보여주기
-
 const BookSetup = ({ setIsOpen }: TBookSetupProps) => {
   const accessToken = getCookie('accessToken');
   const pageWidth = usePageWidth();
