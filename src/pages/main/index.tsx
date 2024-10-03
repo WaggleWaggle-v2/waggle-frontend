@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { KING } from '@constants/kingSejong';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
+import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useSmoothScroll from '@hooks/useSmoothScrooll';
 import useToggle from '@hooks/useToggle';
 import BookshelfInfo from '@pages/main/components/bookshelf/BookshelfInfo';
@@ -23,6 +25,9 @@ const Main = () => {
   const { id } = useParams();
   const { data: bookshelfData, isLoading } = useBookshelfQuery(id as string);
   const { isTrue: isShareOpen, handleSetTrue: handleOpenShare, handleSetFalse: handleCloseShare } = useToggle();
+  const { data: userData } = useUserQuery();
+  const isOwner = userData?.id === id;
+  const isKing = id === KING.uuid;
 
   useEffect(() => {
     if (location.state === 'setup') {
@@ -60,7 +65,9 @@ const Main = () => {
 
   return (
     <>
-      {isShareOpen && bookshelfData && <ShareModal handleCloseModal={handleCloseShare} bookshelfData={bookshelfData} />}
+      {isShareOpen && bookshelfData && (
+        <ShareModal handleCloseModal={handleCloseShare} bookshelfData={bookshelfData} isOwner={isOwner} />
+      )}
       <ThemeProvider theme={bookshelfData?.bookshelfType === 'BLACK' ? dark : light}>
         {isNewUser && <AdditionalSetup />}
         {isOpen && <BookSetup setIsOpen={setIsOpen} />}
@@ -70,10 +77,17 @@ const Main = () => {
             <S.SkeletonWrapper />
           ) : (
             bookshelfData && (
-              <BookshelfInfo buttonColor={buttonColor} data={bookshelfData} handleOpenShare={handleOpenShare} />
+              <BookshelfInfo
+                isKing={isKing}
+                isOwner={isOwner}
+                buttonColor={buttonColor}
+                data={bookshelfData}
+                handleOpenShare={handleOpenShare}
+              />
             )
           )}
           <GuestBooks
+            isOwner={isOwner}
             setIsOpen={setIsOpen}
             id={id as string}
             totalCount={bookshelfData?.count as number}

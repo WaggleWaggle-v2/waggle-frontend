@@ -6,7 +6,6 @@ import plusImg from '@assets/icons/plus-light.svg';
 import rightArrow from '@assets/icons/right-arrow.svg';
 import { MasonryGrid } from '@egjs/react-grid';
 import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
-import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
 import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
@@ -19,13 +18,12 @@ interface TGuestBooksProps {
   id: string;
   handleOpenShare: () => void;
   totalCount: number;
+  isOwner: boolean;
 }
 
-const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare }: TGuestBooksProps) => {
+const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare, isOwner }: TGuestBooksProps) => {
   const theme = useTheme();
   const pageWidth = usePageWidth();
-  const { data: userData } = useUserQuery();
-  const isOwner = userData?.id === id;
   const [cursor, setCursor] = useState<number | null>(null);
   const [nextCursor, setNextCursor] = useState<number | null>(null);
 

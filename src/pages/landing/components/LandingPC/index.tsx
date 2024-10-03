@@ -38,13 +38,13 @@ const LandingPc = (props: TLandingPC) => {
     <S.Background>
       <S.Container ref={containerRef} onWheel={handleWheel}>
         <S.LandingContainer>
-          <div ref={el => (pageRefs.current[0] = el)}>
+          <div ref={el => (pageRefs.current[0] = el)} className="snap-start">
             <FirstLanding />
           </div>
-          <div ref={el => (pageRefs.current[1] = el)}>
+          <div ref={el => (pageRefs.current[1] = el)} className="snap-start">
             <SecondLanding />
           </div>
-          <div ref={el => (pageRefs.current[2] = el)}>
+          <div ref={el => (pageRefs.current[2] = el)} className="snap-start">
             <ThirdLanding randomCardData={randomCardData} refetch={refetch} />
           </div>
           <S.TransferContainer>
@@ -79,6 +79,7 @@ const S = {
     background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
     background-size: contain;
     background-position: left top;
+    scroll-snap-type: x mandatory;
 
     &::-webkit-scrollbar {
       display: none;
@@ -89,6 +90,7 @@ const S = {
     height: calc(94dvh - ${HEADER_HEIGHT.PC});
     margin-top: ${HEADER_HEIGHT.PC};
     display: flex;
+    scroll-snap-align: start;
   `,
   TransferContainer: styled.div`
     position: fixed;
