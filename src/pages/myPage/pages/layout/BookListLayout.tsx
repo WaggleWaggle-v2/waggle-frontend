@@ -50,7 +50,7 @@ const BookListLayout = (props: TBookListLayout) => {
         <S.EditContainer>
           <S.Header>
             <S.HeaderTextContainer>
-              마이페이지 <RightArrowIcon width={10} height={9} color={'#999999'} />
+              내 정보 <RightArrowIcon width={10} height={9} color={'#999999'} />
               {bookType === 'send' ? '남긴 방명록' : '받은 방명록'}
             </S.HeaderTextContainer>
             <SortingBox handleSelectOption={handleSelectOption} selectOption={sortingOption} />

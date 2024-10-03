@@ -18,7 +18,7 @@ const NavCategory = ({ isLogin, handleCloseMenu }: { isLogin: boolean; handleClo
               navigate('/myPage');
               handleCloseMenu();
             }}>
-            마이페이지
+            내 정보
           </S.MenuTitle>
           <S.MenuTitle as="button" type="button">
             <Link to="https://www.notion.so/Intro-1db7a52c5a9f4e899f17ef620c63678b" target="_blank">
