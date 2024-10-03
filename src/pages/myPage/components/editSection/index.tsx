@@ -2,10 +2,8 @@ import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import useToggle from '@hooks/useToggle';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import BookshelfImageSection from './components/BookshelfImageSection/BookshelfImageSection';
+import BookshelfImageSection from './components/BookshelfImageSection';
 import BookshelfThemeSection from './components/BookshelfThemeSection';
-import DeleteAccountButton from './components/DeleteAccountButton';
-import DeleteAccountModal from './components/DeleteAccountModal';
 import IntroductionSection from './components/IntroductionSection';
 import OpenScopeSection from './components/OpenScopeSection';
 import { Description, SaveButton, SettingOne, SettingTitle } from './style/commStyle';
@@ -15,12 +13,10 @@ interface TEditSection {
 }
 
 const EditSection = ({ bookshelfData }: TEditSection) => {
-  const { isTrue: isOpenDeleteModal, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
   const { isTrue: isHover, handleSetTrue: handleSetHover, handleSetFalse: handleDisHover } = useToggle();
 
   return (
     <>
-      {isOpenDeleteModal && <DeleteAccountModal handleCloseModal={handleCloseModal} />}
       <S.Container>
         <S.ImageIntroduction onMouseEnter={handleSetHover} onMouseLeave={handleDisHover}>
           <BookshelfImageSection backgroundImageUrl={bookshelfData?.backgroundImageUrl} isHover={isHover} />
@@ -28,7 +24,6 @@ const EditSection = ({ bookshelfData }: TEditSection) => {
         </S.ImageIntroduction>
         <OpenScopeSection open={bookshelfData?.open} />
         <BookshelfThemeSection bookshelfType={bookshelfData?.bookshelfType} />
-        <DeleteAccountButton onClick={handleOpenModal} />
       </S.Container>
     </>
   );

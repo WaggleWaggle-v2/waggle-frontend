@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import closeIcon from '@assets/icons/modal-close.svg';
 import PrimaryButton from '@components/PrimaryButton';
 import { ModalTitle } from '@components/template/ModalBaseTemplate/style/commonModalStyle';
 import Portal from '@components/template/Portal';
 import { useBookshelfBackgroundUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
+import useOutsideClick from '@hooks/useOutsideClick';
 import SetProfile from '@pages/main/components/additionalSetup/SetProfile';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
@@ -19,6 +20,8 @@ interface TSetProfileModal {
 const SetProfileModal = (props: TSetProfileModal) => {
   const { setProfileImage, profileImageIdx, handleCloseModal } = props;
   const fetchImageMutation = useBookshelfBackgroundUpdateMutation();
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  useOutsideClick(modalRef, handleCloseModal);
 
   const handleImageFile = () => {
     fetchImageMutation.mutate(profileImageIdx);
@@ -26,7 +29,7 @@ const SetProfileModal = (props: TSetProfileModal) => {
   };
   return (
     <Portal>
-      <S.ModalBox>
+      <S.ModalBox ref={modalRef}>
         <S.ModalHeader>
           <S.ModalCloseButton type="button" onClick={handleCloseModal}>
             <img src={closeIcon} alt="모달 닫기" />

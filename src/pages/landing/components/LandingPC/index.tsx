@@ -1,83 +1,81 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import typography from '@assets/images/typography-short.png';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
-import FirstSection from './components/FirstSection';
-import SecondSection from './components/SecondSection';
-import ThirdSection from './components/ThirdSection';
-import useSwapPage from './hooks/useSwapPage';
+import FirstLanding from './components/FirstLanding';
+import SecondLanding from './components/SecondLanding';
+import ThirdLanding from './components/ThirdLanding/ThirdLanding';
+import { usePageNavigation } from './hooks/usePageNavigation';
 
-interface TBookShelf {
+const PAGE_COUNT = 3;
+
+interface TLandingPC {
   randomCardData: TBookshelfFetchRes[] | undefined;
-  kingData: TBookshelfFetchRes | undefined;
   refetch: () => Promise<QueryObserverResult<Error>>;
 }
 
-const LandingPC = ({ randomCardData, kingData, refetch }: TBookShelf) => {
-  const { sectionRefs, buttonRefs, handlePageTransfer } = useSwapPage();
+const LandingPc = (props: TLandingPC) => {
+  const { randomCardData, refetch } = props;
+  const { containerRef, currentPage, pageRefs, handleWheel, handleSetPage } = usePageNavigation(PAGE_COUNT);
 
   return (
-    <S.Container>
-      <S.SectionContainer>
-        <S.Section ref={el => (sectionRefs.current[0] = el)}>
-          <FirstSection />
-        </S.Section>
-        <S.Section ref={el => (sectionRefs.current[1] = el)}>
-          <SecondSection kingData={kingData} />
-        </S.Section>
-        <S.Section ref={el => (sectionRefs.current[2] = el)}>
-          <ThirdSection randomCardData={randomCardData} refetch={refetch} />
-        </S.Section>
-      </S.SectionContainer>
-      <S.PageTransferContainer>
-        <S.PageTransferButton
-          type="button"
-          ref={el => (buttonRefs.current[0] = el)}
-          value={1}
-          onClick={handlePageTransfer}
-          style={{ backgroundColor: '#c0aa87' }}
-        />
-        <S.PageTransferButton
-          type="button"
-          ref={el => (buttonRefs.current[1] = el)}
-          value={2}
-          onClick={handlePageTransfer}
-        />
-        <S.PageTransferButton
-          type="button"
-          ref={el => (buttonRefs.current[2] = el)}
-          value={3}
-          onClick={handlePageTransfer}
-        />
-      </S.PageTransferContainer>
-    </S.Container>
+    <S.Background>
+      <S.Container ref={containerRef} onWheel={handleWheel}>
+        <S.LandingContainer>
+          <div ref={el => (pageRefs.current[0] = el)}>
+            <FirstLanding />
+          </div>
+          <div ref={el => (pageRefs.current[1] = el)}>
+            <SecondLanding />
+          </div>
+          <div ref={el => (pageRefs.current[2] = el)}>
+            <ThirdLanding randomCardData={randomCardData} refetch={refetch} />
+          </div>
+          <S.TransferContainer>
+            {[...Array(PAGE_COUNT)].map((_, index) => (
+              <S.PageTransferButton
+                key={index}
+                $isSelect={index === currentPage}
+                onClick={() => {
+                  handleSetPage(index);
+                }}
+              />
+            ))}
+          </S.TransferContainer>
+        </S.LandingContainer>
+      </S.Container>
+    </S.Background>
   );
 };
 
-export default LandingPC;
+export default LandingPc;
+
 const S = {
+  Background: styled.div`
+    background-color: var(--background);
+  `,
   Container: styled.div`
-    height: calc(100vh - ${HEADER_HEIGHT.PC});
+    width: 100dvw;
+    height: 100dvh;
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    background: url(${typography}), linear-gradient(180deg, rgba(231, 221, 204, 0.75) 85%, #f6f3ee 100%);
+    background-size: contain;
+    background-position: left top;
 
     &::-webkit-scrollbar {
       display: none;
     }
   `,
-  Section: styled.div`
-    scroll-snap-align: start;
+  LandingContainer: styled.div`
+    width: calc(100dvw * ${PAGE_COUNT});
+    height: calc(94dvh - ${HEADER_HEIGHT.PC});
+    margin-top: ${HEADER_HEIGHT.PC};
     display: flex;
   `,
-  SectionContainer: styled.div`
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  `,
-  PageTransferContainer: styled.div`
+  TransferContainer: styled.div`
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
@@ -86,10 +84,11 @@ const S = {
     gap: 2rem;
     align-items: center;
   `,
-  PageTransferButton: styled.button`
+  PageTransferButton: styled.button<{ $isSelect: boolean }>`
     cursor: pointer;
     min-width: 1rem;
     min-height: 1rem;
     border: 0.1rem solid #c0aa87;
+    ${({ $isSelect }) => ($isSelect ? 'background-color : #c0aa87' : '')};
   `,
 };

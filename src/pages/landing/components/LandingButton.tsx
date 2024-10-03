@@ -38,7 +38,7 @@ const S = {
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 100%;
+      width: 95%;
       height: 1px;
       background-color: ${({ $type }) => ($type === 'green' ? 'var(--white)' : 'var(--green600)')};
       transform: rotate(-31deg);
