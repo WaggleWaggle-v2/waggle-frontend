@@ -1,6 +1,7 @@
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent, useCallback, useEffect } from 'react';
 import { useBookshelfPublicityUpdateMutation } from '@hooks/reactQuery/useQueryBookshelf';
 import { device } from '@styles/breakpoints';
+import _ from 'lodash';
 import styled from 'styled-components';
 import useScopeValue from '../hooks/useScopeValue';
 import { Description, SaveButton, SettingOne, SettingTitle } from '../style/commStyle';
@@ -15,19 +16,22 @@ const OpenScopeSection = ({ open }: { open: boolean | undefined }) => {
     }
   }, [open, handleInitialSetScope]);
 
-  const handleSetScopeValue = (event: MouseEvent<HTMLButtonElement>) => {
-    handleSetScope(event, patchOpenScope.mutate);
-  };
+  const throttledSetScope = useCallback(
+    _.throttle((event: MouseEvent<HTMLButtonElement>) => {
+      handleSetScope(event, patchOpenScope.mutate);
+    }, 500), // 0.5초 쓰로틀링
+    [],
+  );
 
   return (
     <S.SettingOne>
       <S.OpenOption>
         <S.SettingTitle>공개여부</S.SettingTitle>
         <S.OpenOptionContainer>
-          <S.OpenButton $isSelect={isEnterScope === true} type="button" data-scope="1" onClick={handleSetScopeValue}>
+          <S.OpenButton $isSelect={isEnterScope === true} type="button" data-scope="1" onClick={throttledSetScope}>
             모두 보길 원하오
           </S.OpenButton>
-          <S.OpenButton $isSelect={isEnterScope === false} type="button" data-scope="0" onClick={handleSetScopeValue}>
+          <S.OpenButton $isSelect={isEnterScope === false} type="button" data-scope="0" onClick={throttledSetScope}>
             주인장만 보길 원하오
           </S.OpenButton>
         </S.OpenOptionContainer>

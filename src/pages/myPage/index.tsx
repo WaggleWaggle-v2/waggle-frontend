@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
-import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useToggle from '@hooks/useToggle';
 import { device } from '@styles/breakpoints';
@@ -74,17 +73,13 @@ const S = {
         align-items : flex-start;
       `}
     }
-
-    @media ${device.mobile} {
-    }
   `,
   Container: styled.div<{ $settingType: TSetting }>`
     max-width: 110rem;
     display: flex;
     justify-content: space-between;
-    gap: 3rem;
     padding: 0 2rem;
-    width: 100%;
+    gap: 3rem;
 
     @media ${device.tablet} {
       max-width: 59rem;
@@ -107,7 +102,7 @@ const S = {
     }
   `,
   SettingSection: styled.div`
-    width: 58.2rem;
+    width: 52rem;
     display: flex;
     flex-direction: column;
 

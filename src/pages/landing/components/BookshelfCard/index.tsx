@@ -49,6 +49,7 @@ const S = {
   CardImg: styled.img<{ $isKing?: boolean }>`
     border-radius: 0.6rem;
     object-fit: cover;
+    object-position: ${({ $isKing }) => ($isKing ? 'bottom' : 'center')};
     max-width: 10rem;
     width: 10rem;
     height: ${({ $isKing }) => ($isKing ? '12rem' : '10rem')};
@@ -76,7 +77,7 @@ const S = {
     margin-top: 0.8rem;
 
     @media ${device.mobile} {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       margin-top: 0.3rem;
       margin-bottom: 0;
     }
@@ -94,7 +95,7 @@ const S = {
     text-overflow: ellipsis;
 
     @media ${device.mobile} {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
   `,
 };

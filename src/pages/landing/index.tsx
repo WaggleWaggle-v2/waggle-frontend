@@ -56,7 +56,7 @@ export default Landing;
 const S = {
   // Layout
   Background: styled.div`
-    width: 100dvw;
+    width: 100%;
     height: 100dvh;
     background-color: var(--background);
   `,
