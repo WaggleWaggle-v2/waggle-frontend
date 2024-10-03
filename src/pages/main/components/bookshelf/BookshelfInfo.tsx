@@ -68,7 +68,7 @@ const S = {
     }
 
     @media ${device.tablet} {
-      height: calc(100vh - 13rem);
+      height: calc(100dvh - 13rem);
       min-width: 0;
 
       & img:nth-child(2) {

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import RightArrowIcon from '@components/icons/RightArrowIcon';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useToggle from '@hooks/useToggle';
@@ -7,57 +8,41 @@ import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { getCookie } from '@utils/cookie';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import BookListSection from './components/bookListSection';
-import EditSection from './components/editSection';
 import ProfileSection from './components/profileSection';
 import RenameModal from './components/renameModal';
-import SettingListSection from './components/settingListSection';
-import { TSetting } from './constant/settingList';
-import { useSettingType } from './hooks/useSettingType';
-import { mockData } from './mockData';
+import SETTING_LIST, { TSetting } from './constant/settingList';
 
 const MyPage = () => {
-  const { settingType, handleSetType, handleSetDefault, handleRememberType } = useSettingType();
   const { data: userInfo } = useUserQuery();
-  const { data: myBookShelf } = useBookshelfQuery(userInfo?.id);
   const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
   const navigate = useNavigate();
 
   useEffect(() => {
     const accessToken = getCookie('accessToken');
-
     if (!accessToken) {
       navigate('/login');
     }
   }, [navigate]);
-
-  useEffect(() => {
-    const returnType = localStorage.getItem('settingType');
-    if (returnType) {
-      handleRememberType(returnType as TSetting);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>
       {isOpen && (
         <RenameModal handleCloseModal={handleCloseModal} beforeNickName={userInfo?.nickname ? userInfo.nickname : ''} />
       )}
-      <S.PageContainer $settingType={settingType}>
-        <S.Container $settingType={settingType}>
-          <ProfileSection
-            handleOpenModal={handleOpenModal}
-            handleSetDefault={handleSetDefault}
-            userInfo={userInfo}
-            settingType={settingType}
-            kingData={mockData}
-          />
+      <S.PageContainer $settingType={'default'}>
+        <S.Container $settingType={'default'}>
+          <ProfileSection handleOpenModal={handleOpenModal} userInfo={userInfo} />
           <S.SettingSection>
-            {settingType === 'default' && <SettingListSection handleSetType={handleSetType} />}
-            {settingType === 'receive' && <BookListSection settingType={'receive'} />}
-            {settingType === 'send' && <BookListSection settingType={'send'} />}
-            {settingType === 'edit' && <EditSection bookshelfData={myBookShelf} />}
+            {SETTING_LIST.map((menu, index) => (
+              <S.SettingButton
+                key={menu.title}
+                onClick={() => {
+                  navigate(`/myPage/${menu.url}`);
+                }}>
+                <S.SettingText $num={index + 1}>{menu.title}</S.SettingText>
+                <RightArrowIcon color={'#222'} width={11} height={26} />
+              </S.SettingButton>
+            ))}
           </S.SettingSection>
         </S.Container>
       </S.PageContainer>
@@ -71,7 +56,7 @@ const S = {
   // layout
   PageContainer: styled.div<{ $settingType: TSetting }>`
     width: 100%;
-    height: calc(100vh - ${HEADER_HEIGHT.PC});
+    height: calc(100dvh - ${HEADER_HEIGHT.PC});
     position: relative;
     top: ${HEADER_HEIGHT.PC};
     align-items: flex-start;
@@ -80,7 +65,7 @@ const S = {
     justify-content: center;
 
     @media ${device.tablet} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+      height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
       position: relative;
       top: ${HEADER_HEIGHT.MOBILE};
       ${({ $settingType }) =>
@@ -123,9 +108,56 @@ const S = {
   `,
   SettingSection: styled.div`
     width: 58.2rem;
+    display: flex;
+    flex-direction: column;
 
     @media ${device.tablet} {
       width: 100%;
+    }
+  `,
+  SettingButton: styled.button`
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.7rem 1rem;
+    width: 100%;
+    cursor: pointer;
+
+    &:not(&:last-child) {
+      padding-bottom: 3.5rem;
+    }
+
+    &::after {
+      content: '';
+      min-width: 100%;
+      min-height: 0.1rem;
+      background-color: var(--gray300);
+      position: absolute;
+      bottom: 0;
+    }
+
+    &:active {
+      background-color: var(--brown100);
+    }
+  `,
+  SettingText: styled.p<{ $num: number }>`
+    color: var(--gray900);
+    font-family: 'EBSHunminjeongeum';
+    font-size: 4.2rem;
+
+    @media ${device.mobile} {
+      font-size: 2.4rem;
+    }
+
+    &::before {
+      content: '0${({ $num }) => $num}. ';
+      color: var(--gray900);
+      font-size: 2.8rem;
+
+      @media ${device.mobile} {
+        font-size: 1.8rem;
+      }
     }
   `,
 };

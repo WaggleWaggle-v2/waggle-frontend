@@ -4,7 +4,6 @@ import closeIcon from '@assets/icons/modal-close-white.svg';
 import { useBookDetail } from '@hooks/reactQuery/useQueryBook';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import usePageWidth from '@hooks/usePageWidth';
-import { useToast } from '@hooks/useToast';
 import { device, size } from '@styles/breakpoints';
 import { zIndex } from '@styles/zIndex';
 import { getFormattedDate } from '@utils/getFormattedDate';
@@ -31,7 +30,6 @@ const BookScrollModal = ({ setIsOpen, bookId }: TBookScrollModalProps) => {
     setModalOpen(false);
     setIsOpen(false);
   };
-  // console.log(bookContentData?.lock);
 
   if (!bookContentData) return null;
 
@@ -100,11 +98,11 @@ const S = {
   InitBackground: styled.div`
     position: fixed;
     z-index: calc(${zIndex.header});
-    top: -50vh;
+    top: -50dvh;
     bottom: 0;
-    left: -50vh;
-    right: -50vh;
-    height: 150vh;
+    left: -50dvh;
+    right: -50dvh;
+    height: 150dvh;
     backdrop-filter: blur(0.1rem);
     background-color: rgba(0, 0, 0, 0.4);
   `,
@@ -145,6 +143,14 @@ const S = {
     bottom: 16rem;
     left: 5rem;
     z-index: 1;
+    opacity: 0;
+    animation: fadeIn 0.2s forwards 0.2s;
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
     @media ${device.mobile} {
       left: 6rem;
     }

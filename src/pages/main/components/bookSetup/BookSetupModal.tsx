@@ -32,6 +32,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const { id } = useParams();
   const theme = useTheme();
   const { data } = useBookshelfQuery(id);
+  const isSejong = id === '세종대왕ID';
 
   const canvasRef = useRef<any>(null);
   const pageWidth = usePageWidth();
@@ -164,7 +165,9 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
 
         {step === 3 && (
           <S.SettingWrapper>
-            <Preview noTablet>{imagePreview && <img src={imagePreview} alt="Canvas Preview" />}</Preview>
+            <Preview noTablet>
+              {imagePreview && <S.PreviewImg src={imagePreview} $type={type} alt="Canvas Preview" />}
+            </Preview>
             <SettingTemplate
               step={step}
               titleTop="마음을 전하시오."
@@ -181,8 +184,9 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
             <SettingTemplate
               step={step}
               titleTop="이름을 남겨주시오."
-              handleButtonClick={handleMoveToNextStep}
-              isDisabled={isDisabled}>
+              handleButtonClick={isSejong ? handleFinalStep : handleMoveToNextStep}
+              isDisabled={isDisabled}
+              buttonText={isSejong ? '방명록 남기기' : undefined}>
               <SetSender sender={sender} setSender={setSender} setIsDisabled={setIsDisabled} />
             </SettingTemplate>
           </S.SettingWrapper>
@@ -242,5 +246,9 @@ const S = {
   SettingWrapper: styled.div`
     display: flex;
     width: 100%;
+  `,
+
+  PreviewImg: styled.img<{ $type: TBookType }>`
+    height: ${({ $type }) => ($type === 'SHORT' ? '40rem' : '54.4rem')};
   `,
 };

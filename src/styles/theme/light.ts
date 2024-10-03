@@ -48,4 +48,6 @@ export const light = {
   noBookImage: noBookImage,
 
   skeletonAnimation: skeletonAnimation,
+
+  floatButtonBg: ' var(--green600)',
 };

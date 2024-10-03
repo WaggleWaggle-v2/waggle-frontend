@@ -59,6 +59,7 @@ const S = {
     height: 20.8rem;
     overflow: hidden;
     list-style: none;
+    background-color: var(--gray400);
     @media ${device.mobile} {
       width: 100%;
       aspect-ratio: 1 / 1;

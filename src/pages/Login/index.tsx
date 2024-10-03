@@ -28,7 +28,7 @@ const S = {
     background-size: cover;
     background-position: center;
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
