@@ -1,12 +1,21 @@
+import { useEffect } from 'react';
 import titleImage from '@assets/images/title.png';
 import typographyImage from '@assets/images/typography.png';
 import SocialLoginButtonList from '@pages/Login/components/SocialLoginButtonList';
 import { device } from '@styles/breakpoints';
+import { getCookie } from '@utils/cookie';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Login = () => {
+  const accessToken = getCookie('accessToken');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      window.history.back();
+    }
+  }, [accessToken]);
 
   return (
     <S.Container $background={typographyImage}>

@@ -4,6 +4,7 @@ import { Dispatch, useRef, useState } from 'react';
 import ModalTemplate from '@components/template/ModalTemplate';
 import ProgressBar from '@components/template/ProgressBar';
 import SettingTemplate from '@components/template/SettingTemplate';
+import { KING } from '@constants/kingSejong';
 import { BOOK_SETUP_TOTAL_STEP } from '@constants/setupTotalStep';
 import { useBookCreateMutation } from '@hooks/reactQuery/useQueryBook';
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
@@ -32,7 +33,7 @@ const BookSetupModal = ({ setIsOpen }: TAdditionalSetupModalProps) => {
   const { id } = useParams();
   const theme = useTheme();
   const { data } = useBookshelfQuery(id);
-  const isSejong = id === '세종대왕ID';
+  const isSejong = id === KING.uuid;
 
   const canvasRef = useRef<any>(null);
   const pageWidth = usePageWidth();

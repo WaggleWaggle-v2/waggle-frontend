@@ -71,13 +71,13 @@ const S = {
     margin-bottom: 0.6rem;
   `,
   SubTitle: styled.h2`
-    color: var(--gray700);
     font-family: 'Pretendard';
     font-size: 2rem;
     font-weight: 500;
     line-height: 130%;
     letter-spacing: -0.02rem;
-    margin-bottom: 2.8rem;
+    color: var(--gray700);
+    margin-bottom: 2rem;
   `,
   RandomCardContainer: styled.div`
     display: flex;
