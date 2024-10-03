@@ -76,7 +76,7 @@ const S = {
     margin-top: 0.8rem;
 
     @media ${device.mobile} {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       margin-top: 0.3rem;
       margin-bottom: 0;
     }
@@ -94,7 +94,7 @@ const S = {
     text-overflow: ellipsis;
 
     @media ${device.mobile} {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
   `,
 };
