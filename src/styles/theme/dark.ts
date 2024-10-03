@@ -9,7 +9,6 @@ export const dark = {
   text: '#fffcf1',
   subText: 'var(--gray500)',
   pageBg: 'var(--gray900)',
-  buttonBorder: 'var(--gray900)',
 
   graphic: darkGraphic,
   addBtnBg: 'var(--gray800)',
@@ -19,12 +18,14 @@ export const dark = {
   pcCloud: cloudWhite,
   mobileCloud: cloudWhite,
   shareBtnBg: 'linear-gradient(to right, #121212 0%, #373737 100%)',
-  introBg: 'var(--gray800)',
+  introBg: 'var(--gray900)',
   introBorder: 'var(--white)',
 
   shareBtnText: '#fffcf1',
 
   modalBg: 'var(--black)',
+  subModalBg: 'var(--gray900)',
+  buttonBorder: 'var(--gray800)',
   previewBg: 'var(--gray900)',
   textAreaBg: 'var(--gray900)',
   textAreaText: 'var(--gray500)',

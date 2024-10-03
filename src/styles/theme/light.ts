@@ -10,7 +10,6 @@ export const light = {
   text: 'var(--gray900)',
   subText: 'var(--gray800)',
   pageBg: 'var(--background)',
-  buttonBorder: 'var(--gray300)',
 
   graphic: lightGraphic,
   addBtnBg: '#ece9e2',
@@ -26,6 +25,8 @@ export const light = {
   shareBtnText: '#316920',
 
   modalBg: 'var(--background)',
+  subModalBg: 'var(--background)',
+  buttonBorder: 'var(--gray300)',
   previewBg: '#e5ddcf',
   textAreaBg: 'var(--white)',
   textAreaText: 'var(--gray800)',

@@ -110,7 +110,7 @@ const S = {
   `,
 
   ModalWrapper: styled.div`
-    background-color: ${({ theme }) => theme.modalBg};
+    background-color: ${({ theme }) => theme.subModalBg};
     z-index: 1000;
     @media ${device.tablet} {
       padding: 4rem 2rem 3rem;
@@ -169,7 +169,7 @@ const S = {
     font-family: 'Pretendard';
     overflow: hidden;
     color: ${({ theme }) => theme.text};
-    background-color: ${({ theme }) => theme.modalBg};
+    background-color: ${({ theme }) => theme.subModalBg};
     border-radius: 0.6rem;
     width: 34rem;
 
