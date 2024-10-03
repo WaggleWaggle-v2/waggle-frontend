@@ -62,6 +62,7 @@ const S = {
     background-image: url(${navBottomImg});
     background-size: cover;
     position: relative;
+    margin-top: -0.06rem;
 
     &::after {
       content: '';
@@ -69,7 +70,7 @@ const S = {
       min-height: 2rem;
       background-color: #071b34;
       position: absolute;
-      z-index: -1;
+      z-index: -2;
       top: -1.5rem;
     }
   `,
