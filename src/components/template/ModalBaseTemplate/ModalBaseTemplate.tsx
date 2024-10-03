@@ -44,7 +44,7 @@ const S = {
     transform: translate(-50%, -50%);
     z-index: ${zIndex.modal + 1};
     background-color: var(--background);
-    padding: 7rem 6.2rem 6rem;
+    padding: 4.5rem 3rem;
     border-radius: 1rem;
     min-width: 46.4rem;
 
