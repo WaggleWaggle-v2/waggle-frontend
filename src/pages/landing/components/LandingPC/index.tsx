@@ -31,6 +31,7 @@ const LandingPc = (props: TLandingPC) => {
     if (rememberPage) {
       handleSetPage(rememberPage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import restoreIcon from '@assets/icons/restore.svg';
 import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import LandingButton from '@pages/landing/components/LandingButton';
 import { QueryObserverResult } from '@tanstack/react-query';
+import _ from 'lodash';
 import styled from 'styled-components';
 
 interface TThirdLanding {
@@ -12,6 +13,15 @@ interface TThirdLanding {
 
 const ThirdLandingLayout = (props: TThirdLanding) => {
   const { children, refetch } = props;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const throttledRefetch = useCallback(
+    _.throttle(() => {
+      refetch();
+    }, 1000), // 1초 안에 연타해도 1번
+
+    [refetch],
+  );
 
   return (
     <S.Container>
@@ -24,7 +34,7 @@ const ThirdLandingLayout = (props: TThirdLanding) => {
         <S.ButtonContainer>
           <ShelfDecoration>ㅇ</ShelfDecoration>
           <ShelfDecoration>ㄱ</ShelfDecoration>
-          <LandingButton buttonType={'beige'} icon={restoreIcon} fontSize="2.8rem" onClick={refetch}>
+          <LandingButton buttonType={'beige'} icon={restoreIcon} fontSize="2.8rem" onClick={throttledRefetch}>
             다른 책장 <br /> 추천 받겠소
           </LandingButton>
           <ShelfDecoration>ㄱ</ShelfDecoration>
