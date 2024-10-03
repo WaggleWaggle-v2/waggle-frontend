@@ -6,6 +6,7 @@ import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useAnimationClose from '@hooks/useAnimationClose';
 import usePageWidth from '@hooks/usePageWidth';
 import useToggle from '@hooks/useToggle';
+import usePageStore from '@stores/useStore';
 import { device, size } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
@@ -25,6 +26,7 @@ const Header = () => {
   });
   const headerRef = useRef<HTMLElement | null>(null);
   const { data: userInfo } = useUserQuery();
+  const setInitialPage = usePageStore(state => state.setInitialPage); // 전역 상태 랜딩 페이지 초기화
 
   return (
     <>
@@ -41,6 +43,7 @@ const Header = () => {
           type="button"
           onClick={() => {
             navigate('/');
+            setInitialPage();
           }}
           style={{ cursor: 'pointer' }}>
           <SymbolLogoIcon width={isPc ? 162 : 110} color={!isPc ? '#44523f' : ''} />

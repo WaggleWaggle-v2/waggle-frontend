@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import typography from '@assets/images/typography-short.png';
+import usePageStore from '@stores/useStore';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { QueryObserverResult } from '@tanstack/react-query';
 import styled from 'styled-components';
@@ -18,6 +20,19 @@ interface TLandingPC {
 const LandingPc = (props: TLandingPC) => {
   const { randomCardData, refetch } = props;
   const { containerRef, currentPage, pageRefs, handleWheel, handleSetPage } = usePageNavigation(PAGE_COUNT);
+  const rememberPage = usePageStore(state => state.currentPage);
+  const updatePage = usePageStore(state => state.updatePage);
+
+  useEffect(() => {
+    updatePage(currentPage);
+  }, [currentPage, updatePage]);
+
+  useEffect(() => {
+    if (rememberPage) {
+      handleSetPage(rememberPage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <S.Background>

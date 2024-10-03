@@ -25,7 +25,7 @@ const BookshelfSection = ({ randomCardData, kingData, refetch }: TBookShelf) => 
           <SkeletonBookshelfCard isKing={true} />
         </KingCardSectionLayout>
         <RandomCardSectionLayout refetch={refetch}>
-          {skeletonArray.map((el, i) => (
+          {skeletonArray.map((_, i) => (
             <SkeletonBookshelfCard key={i} isKing={false} />
           ))}
         </RandomCardSectionLayout>
