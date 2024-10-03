@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { debounce } from 'lodash';
 
 export const usePageNavigation = (pageCount: number) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -38,7 +39,7 @@ export const usePageNavigation = (pageCount: number) => {
     };
   }, [pageCount]);
 
-  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+  const handleWheel = debounce((event: React.WheelEvent<HTMLDivElement>) => {
     if (containerRef.current) {
       const scrollAmount = window.innerWidth; // 100dvw
       const direction = event.deltaY > 0 ? 1 : -1;
@@ -48,7 +49,7 @@ export const usePageNavigation = (pageCount: number) => {
         behavior: 'smooth',
       });
     }
-  };
+  }, 150);
 
   const handleSetPage = (page: number) => {
     if (containerRef.current) {

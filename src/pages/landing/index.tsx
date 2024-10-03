@@ -10,7 +10,6 @@ import BookshelfSection from './components/BookshelfSection';
 import DescriptionSection from './components/DescriptionSection';
 import LandingPC from './components/LandingPC';
 import TitleSection from './components/TitleSection';
-import { KingSejong } from './mockData';
 import { Layout as BaseLayout, Main } from './style/landingCommon';
 import { shakeAndBlink } from './style/shakeAndFlashAnimation';
 
@@ -46,7 +45,7 @@ const Landing = () => {
           <S.ArrowIcon src={doubleArrowIcon} alt="아래로 스크롤 해보세요" />
         </S.Layout>
       </S.Main>
-      <BookshelfSection randomCardData={randomCardData} kingData={KingSejong} refetch={refetch} />
+      <BookshelfSection randomCardData={randomCardData} refetch={refetch} />
     </S.Background>
   );
 };
