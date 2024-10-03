@@ -64,19 +64,20 @@ const S = {
   `,
   Title: styled.h1`
     color: var(--gray900);
-    font-family: 'EBSHMJESaeron';
+    font-family: 'EBSHunminjeongeum';
     font-size: 3.2rem;
     line-height: 130%;
     font-weight: 700;
     margin-bottom: 0.6rem;
   `,
   SubTitle: styled.h2`
-    color: var(--gray7002);
+    color: var(--gray700);
     font-family: 'Pretendard';
     font-size: 2rem;
     font-weight: 500;
     line-height: 130%;
     letter-spacing: -0.02rem;
+    margin-bottom: 2.8rem;
   `,
   RandomCardContainer: styled.div`
     display: flex;
