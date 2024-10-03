@@ -38,7 +38,7 @@ const S = {
     }
 
     @media ${device.tablet} {
-      height: calc(100vh - 28rem);
+      height: calc(100dvh - 28rem);
     }
   `,
 

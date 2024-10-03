@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
+
 const usePageWidth = () => {
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
-      const newPageWidth = window.innerWidth;
-      if (newPageWidth !== pageWidth) setPageWidth(newPageWidth);
+      setPageWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+
+    resizeObserver.observe(document.documentElement);
+
     return () => {
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
     };
   }, []);
 

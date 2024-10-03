@@ -50,7 +50,7 @@ export default MobileNav;
 const S = {
   Container: styled.nav<{ $isClose: boolean }>`
     position: fixed;
-    height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+    height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
     bottom: 0;
     right: 0;
     background-color: var(--white);

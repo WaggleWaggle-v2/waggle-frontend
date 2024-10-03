@@ -32,25 +32,25 @@ const S = {
     left: 0;
     right: 0;
     height: 1rem;
-    background: var(--button-disabled);
+    background: var(--green100);
     z-index: ${zIndex.modal + 1};
     @media ${device.tablet} {
       position: fixed;
       top: ${HEADER_HEIGHT.MOBILE};
 
       bottom: none;
-      height: 0.5rem;
+      height: 0.2rem;
     }
   `,
 
   CurrentStep: styled.div<{ $width: number }>`
-    background: var(--button-active);
+    background: var(--green600);
     width: ${({ $width }) => $width}%;
     transition: width 0.5s ease-in-out;
     height: 1rem;
 
     @media ${device.tablet} {
-      height: 0.5rem;
+      height: 0.2rem;
     }
   `,
 };

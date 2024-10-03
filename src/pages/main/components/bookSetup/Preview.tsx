@@ -26,7 +26,7 @@ const S = {
     padding: 0 4rem;
 
     @media ${device.tablet} {
-      height: calc(100vh - ${HEADER_HEIGHT.MOBILE});
+      height: calc(100dvh - ${HEADER_HEIGHT.MOBILE});
       display: ${({ $noTablet }) => $noTablet && 'none'};
     }
 

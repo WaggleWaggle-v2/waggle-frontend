@@ -46,4 +46,6 @@ export const dark = {
   noBookImage: noBookImage,
 
   skeletonAnimation: skeletonAnimationDark,
+
+  floatButtonBg: 'var(--black)',
 };
