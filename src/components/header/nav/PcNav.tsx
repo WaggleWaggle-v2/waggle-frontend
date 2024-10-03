@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import closeIcon from '@assets/icons/cross-line.svg';
 import kebabIcon from '@assets/icons/kebab.svg';
+import navBottomImg from '@assets/images/nav-bottom.svg';
 import useOutsideClick from '@hooks/useOutsideClick';
 import useToggle from '@hooks/useToggle';
 import styled from 'styled-components';
@@ -54,29 +55,22 @@ const S = {
     z-index: 1;
     background-color: #071b34;
     min-height: 7rem;
-
-    &:before {
-      content: '';
-      position: absolute;
-      bottom: calc(-4rem);
-      border-width: 4rem 8rem 0 8rem;
-      border-style: solid;
-      border-color: #071b34 transparent transparent;
-    }
   `,
   LabelBottom: styled.div`
-    position: absolute;
-    width: 16.2rem;
-    background-color: #486080;
-    height: 1rem;
+    min-width: 16.2rem;
+    height: 3.6rem;
+    background-image: url(${navBottomImg});
+    background-size: cover;
+    position: relative;
 
-    &:before {
+    &::after {
       content: '';
+      min-width: 16.2rem;
+      min-height: 2rem;
+      background-color: #071b34;
       position: absolute;
-      bottom: calc(-4rem);
-      border-width: 4rem 8rem 0 8rem;
-      border-style: solid;
-      border-color: #486080 transparent transparent;
+      z-index: -1;
+      top: -1.5rem;
     }
   `,
   Container: styled.ul<{ $isLogin?: boolean }>`
