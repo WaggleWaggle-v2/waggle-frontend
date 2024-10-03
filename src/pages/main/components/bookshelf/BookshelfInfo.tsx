@@ -25,7 +25,9 @@ const BookshelfInfo = ({ buttonColor, data, handleOpenShare, isOwner, isKing }: 
         <p>{nickname}의&nbsp;</p>
         <p>책장이오</p>
       </S.Name>
-      <S.Intro $introduction={introduction}>{introduction || '아직 책장 소개를 작성하지 않았소'}</S.Intro>
+      <S.Intro $isKing={isKing} $introduction={introduction}>
+        {introduction || '아직 책장 소개를 작성하지 않았소'}
+      </S.Intro>
       <S.ShareButton onClick={handleOpenShare} style={{ backgroundColor: buttonColor }}>
         <p>{isOwner ? '내' : '이'} 책장 널리 알리기</p>
         <img src={theme.pcCloud} alt="책장 공유 구름 아이콘" />
@@ -102,7 +104,7 @@ const S = {
     flex-direction: column;
     position: absolute;
     top: 0;
-    color: ${({ $isKing }) => ($isKing ? '#071B34' : 'var(--white)')};
+    color: ${({ $isKing }) => ($isKing ? '#071B34' : 'var(--brown50)')};
     font-size: 3.8rem;
     top: 11rem;
     left: 4rem;
@@ -118,7 +120,7 @@ const S = {
     }
   `,
 
-  Intro: styled.div<{ $introduction: string | null }>`
+  Intro: styled.div<{ $introduction: string | null; $isKing: boolean }>`
     height: 16rem;
     padding: 1rem;
     border-bottom: 0.1rem solid ${props => props.theme.introBorder};
@@ -135,7 +137,7 @@ const S = {
       position: absolute;
       top: 0;
       border: none;
-      color: var(--brown50);
+      color: ${({ $isKing }) => ($isKing ? '#071B34' : 'var(--brown50)')};
       padding: 0 2rem;
       top: 14rem;
       left: 0rem;
