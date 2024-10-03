@@ -37,7 +37,7 @@ export const Main = styled.div`
 
     @media ${device.mobile} {
       min-width: 10rem;
-      min-height: 8rem;
+      min-height: 10rem;
     }
   }
 
