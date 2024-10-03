@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
-import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useToggle from '@hooks/useToggle';
 import { device } from '@styles/breakpoints';
@@ -55,7 +54,7 @@ export default MyPage;
 const S = {
   // layout
   PageContainer: styled.div<{ $settingType: TSetting }>`
-    width: 100%;
+    width: 100dvw;
     height: calc(100dvh - ${HEADER_HEIGHT.PC});
     position: relative;
     top: ${HEADER_HEIGHT.PC};
