@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { HTMLAttributes, useState } from 'react';
 import editIcon from '@assets/icons/rewrite.svg';
 import useToggle from '@hooks/useToggle';
 import { skeletonAnimation } from '@styles/animation/skeletonAnimation';
 import styled from 'styled-components';
 import SetProfileModal from './components/SetProfileModal';
 
-interface TBookshelfImageSection {
+interface TBookshelfImageSection extends HTMLAttributes<HTMLDivElement> {
   backgroundImageUrl: string | undefined;
   isHover: boolean;
 }
@@ -24,7 +24,7 @@ const BookshelfImageSection = (props: TBookshelfImageSection) => {
           setProfileImage={setProfileImage}
         />
       )}
-      <div style={{ position: 'relative', flexShrink: '0' }}>
+      <div style={{ position: 'relative', flexShrink: '0' }} {...props}>
         <S.EditImgButton type="button" onClick={handleOpenModal}>
           <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
         </S.EditImgButton>
