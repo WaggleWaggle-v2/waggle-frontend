@@ -64,7 +64,7 @@ const S = {
   `,
   Title: styled.h1`
     color: var(--gray900);
-    font-family: 'EBSHMJESaeron';
+    font-family: 'EBSHunminjeongeum';
     font-size: 3.2rem;
     line-height: 130%;
     font-weight: 700;
@@ -77,6 +77,8 @@ const S = {
     font-weight: 500;
     line-height: 130%;
     letter-spacing: -0.02rem;
+    color: var(--gray700);
+    margin-bottom: 2rem;
   `,
   RandomCardContainer: styled.div`
     display: flex;
