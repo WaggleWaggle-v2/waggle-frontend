@@ -11,11 +11,12 @@ import styled from 'styled-components';
 interface TSharedModal {
   handleCloseModal: () => void;
   bookshelfData: TBookshelfFetchRes;
+  isOwner: boolean;
 }
 
 const ShareModal = (props: TSharedModal) => {
+  const { handleCloseModal, bookshelfData, isOwner } = props;
   const { toast } = useToast();
-  const { handleCloseModal, bookshelfData } = props;
   const currenPath = window.location.pathname;
   const shareUrl = `https://wagglewaggle.netlify.app${currenPath}`;
 
@@ -28,7 +29,7 @@ const ShareModal = (props: TSharedModal) => {
     <ModalBaseTemplate handleCloseModal={handleCloseModal}>
       <S.Container>
         <S.ModalTitle>
-          <span>나의 책장을 </span>
+          <span>{isOwner ? '나의' : '이'} 책장을 </span>
           <span>널리 알리시오!</span>
         </S.ModalTitle>
         <S.ButtonContainer>

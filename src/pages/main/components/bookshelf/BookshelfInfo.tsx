@@ -1,19 +1,18 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import profileColudImage from '@assets/icons/profile-cloud.svg';
-import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import { device } from '@styles/breakpoints';
 import styled, { useTheme } from 'styled-components';
 interface TBookshelfInfoProps {
   buttonColor: string;
   data: TBookshelfFetchRes;
   handleOpenShare: () => void;
+  isOwner: boolean;
+  isKing: boolean;
 }
 
-const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoProps) => {
+const BookshelfInfo = ({ buttonColor, data, handleOpenShare, isOwner, isKing }: TBookshelfInfoProps) => {
   const { backgroundImageUrl, introduction, nickname } = data;
-  const { data: userData } = useUserQuery();
   const theme = useTheme();
-  const isOwner = userData?.id === data.id;
 
   return (
     <S.BookshelfInfo>
@@ -22,7 +21,7 @@ const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoPro
         <img src={profileColudImage} alt="프로필 구름 이미지" />
         <img src={profileColudImage} alt="프로필 구름 이미지" />
       </S.Profile>
-      <S.Name>
+      <S.Name $isKing={isKing}>
         <p>{nickname}의&nbsp;</p>
         <p>책장이오</p>
       </S.Name>
@@ -36,6 +35,7 @@ const BookshelfInfo = ({ buttonColor, data, handleOpenShare }: TBookshelfInfoPro
 };
 
 export default BookshelfInfo;
+
 const S = {
   BookshelfInfo: styled.div`
     position: relative;
@@ -96,13 +96,13 @@ const S = {
     }
   `,
 
-  Name: styled.div`
+  Name: styled.div<{ $isKing: boolean }>`
     font-family: 'EBSHunminjeongeum';
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 0;
-    color: var(--brown50);
+    color: ${({ $isKing }) => ($isKing ? '#071B34' : 'var(--white)')};
     font-size: 3.8rem;
     top: 11rem;
     left: 4rem;
