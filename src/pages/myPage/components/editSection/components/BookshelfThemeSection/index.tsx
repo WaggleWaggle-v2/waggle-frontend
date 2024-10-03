@@ -22,9 +22,7 @@ const BookshelfThemeSection = ({ bookshelfType }: { bookshelfType: TTheme | unde
     if (bookshelfType) {
       setTheme(bookshelfType);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [bookshelfType, setTheme]);
 
   return (
     <S.SettingOne style={{ marginTop: '-3rem' }}>

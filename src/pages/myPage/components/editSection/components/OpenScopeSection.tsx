@@ -13,9 +13,7 @@ const OpenScopeSection = ({ open }: { open: boolean | undefined }) => {
     if (open !== undefined) {
       handleInitialSetScope(open);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [open, handleInitialSetScope]);
 
   const handleSetScopeValue = (event: MouseEvent<HTMLButtonElement>) => {
     handleSetScope(event, patchOpenScope.mutate);
