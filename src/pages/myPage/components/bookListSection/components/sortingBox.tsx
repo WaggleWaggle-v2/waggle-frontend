@@ -72,6 +72,7 @@ const S = {
     width: 100%;
     padding: 0.8rem 1rem;
     background-color: var(--background);
+    cursor: pointer;
     &:hover,
     &:active {
       background-color: var(--brown100);
