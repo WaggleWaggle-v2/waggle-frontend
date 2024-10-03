@@ -21,7 +21,9 @@ const NavCategory = ({ isLogin, handleCloseMenu }: { isLogin: boolean; handleClo
             마이페이지
           </S.MenuTitle>
           <S.MenuTitle as="button" type="button">
-            유니어스
+            <Link to="https://www.notion.so/Intro-1db7a52c5a9f4e899f17ef620c63678b" target="_blank">
+              팀 소개
+            </Link>
           </S.MenuTitle>
           <S.MenuTitle as="button" type="button">
             <Link to="https://forms.gle/B7YEc53PPeFGSJZb6" target="_blank">
@@ -33,7 +35,7 @@ const NavCategory = ({ isLogin, handleCloseMenu }: { isLogin: boolean; handleClo
       {isLogin && (
         <S.NavItem>
           <S.MenuTitle
-            style={{ color: '#BDBDBD' }}
+            style={{ color: 'var(--gray600)' }}
             onClick={() => {
               deleteCookie('accessToken');
               navigate('/login');

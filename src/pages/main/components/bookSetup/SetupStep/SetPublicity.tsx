@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import lockerImage from '@assets/icons/locker.svg';
+import lockerImage from '@assets/icons/locker-red.svg';
 import { BOOK_PUBLICITY } from '@constants/publicity';
 import { device } from '@styles/breakpoints';
 import { getCookie } from '@utils/cookie';
@@ -27,7 +27,10 @@ const SetPublicity = ({ publicity, setPublicity }: TSetPublicityProps) => {
       {!token && (
         <S.NoTokenUserText onClick={() => navigate('/login')}>
           <img src={lockerImage} />
-          <p>로그인을 하면 비공개 방명록을 작성할 수 있어요.</p>
+          <p>
+            비회원은 <u>방명록 삭제 / 비공개 기능</u>을 <br />
+            제공하지 않습니다!
+          </p>
         </S.NoTokenUserText>
       )}
       {/* 버튼 리스트 */}
@@ -70,7 +73,7 @@ const S = {
 
     @media ${device.tablet} {
       width: fit-content;
-      height: 40vh;
+      height: 40dvh;
     }
 
     @media ${device.mobile} {
@@ -88,9 +91,9 @@ const S = {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    line-height: 120%;
+    line-height: 140%;
     img {
-      width: 1.8rem;
+      width: 2.6rem;
     }
   `,
 
@@ -126,6 +129,7 @@ const S = {
 
   DescriptionMain: styled.div`
     font-size: 2.2rem;
+    font-weight: 600;
     color: var(--green700);
     margin-bottom: 1rem;
     @media ${device.mobile} {

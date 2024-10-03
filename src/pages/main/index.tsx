@@ -91,7 +91,7 @@ const S = {
   Container: styled.div`
     display: flex;
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     width: 100%;
     overflow-y: auto;
     background-color: ${props => props.theme.pageBg};
@@ -101,6 +101,7 @@ const S = {
     }
     @media ${device.tablet} {
       flex-direction: column;
+      overflow-x: hidden;
     }
   `,
 

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { TBookItem } from '@api/book/bookRequest.type';
+import shareImg from '@assets/icons/cloud/cloud-white.svg';
 import plusImg from '@assets/icons/plus-light.svg';
 import rightArrow from '@assets/icons/right-arrow.svg';
-import shareImg from '@assets/icons/share.svg';
 import { MasonryGrid } from '@egjs/react-grid';
 import { useBookQuery } from '@hooks/reactQuery/useQueryBook';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
@@ -102,10 +102,6 @@ const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare }: TGuestBooksP
     });
   }, [books]);
 
-  useEffect(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, [pageWidth]);
-
   return (
     <>
       <S.Container>
@@ -197,18 +193,31 @@ export default GuestBooks;
 
 const FloatingButton = css`
   display: none;
+  border-radius: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: ${zIndex.modal};
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.floatButtonBg};
+
   @media ${device.tablet} {
-    z-index: ${zIndex.modal};
-    background-color: var(--green600);
+    position: fixed;
     width: 7.2rem;
     height: 7.2rem;
-    position: fixed;
     left: 2rem;
-    border-radius: 7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    img {
+      width: 3.2rem;
+    }
+  }
+
+  @media ${device.mobile} {
+    width: 6rem;
+    height: 6rem;
+    left: 1.4rem;
+    img {
+      width: 2.6rem;
+    }
   }
 `;
 
@@ -227,7 +236,7 @@ const S = {
       position: absolute;
       left: 0;
       right: 0;
-      top: calc(100vh - 15rem);
+      top: calc(100dvh - 15rem);
       z-index: 1;
     }
   `,
@@ -289,6 +298,9 @@ const S = {
   FloatingAddBookButton: styled.button`
     ${FloatingButton}
     bottom: 11rem;
+    @media ${device.mobile} {
+      bottom: 9rem;
+    }
   `,
 
   FloatingShareButton: styled.button`
