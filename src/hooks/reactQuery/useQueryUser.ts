@@ -1,6 +1,6 @@
 import { TAxiosError } from '@api/axios';
 import userRequest from '@api/user/userRequest';
-import { TUserFetchRes } from '@api/user/userRequest.type';
+import { TReceiveBookCountRes, TSendBookCountRes, TUserFetchRes } from '@api/user/userRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
 import { useToast } from '@hooks/useToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -53,4 +53,34 @@ export const useUsernameAndPublicityCreateMutation = () => {
   });
 
   return mutation;
+};
+
+// 받은 책장 개수 조회
+export const useReceiveBookCount = () => {
+  const accessToken = getCookie('accessToken');
+  const query = useQuery<TReceiveBookCountRes, Error>({
+    queryKey: [QUERY_KEY.receiveBookCount],
+    queryFn: async () => {
+      if (!accessToken) throw new Error('No access token');
+      return await userRequest.fetchReceiveBookCount();
+    },
+    enabled: !!accessToken,
+    gcTime: Infinity,
+  });
+  return query;
+};
+
+// 보낸 책장 개수 조회
+export const useSendBookCount = () => {
+  const accessToken = getCookie('accessToken');
+  const query = useQuery<TSendBookCountRes, Error>({
+    queryKey: [QUERY_KEY.sendBookCount],
+    queryFn: async () => {
+      if (!accessToken) throw new Error('No access token');
+      return await userRequest.fetchSendBookCount();
+    },
+    enabled: !!accessToken,
+    gcTime: Infinity,
+  });
+  return query;
 };

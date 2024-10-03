@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TSendBookListRes } from '@api/book/bookRequest.type';
 import { useReceiveSendInfinity } from '@hooks/reactQuery/useQueryBook';
-import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
+import { useReceiveBookCount, useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import BookInfo from '@pages/myPage/components/bookListSection/components/BookInfo';
 import SkeletonBookInfo from '@pages/myPage/components/bookListSection/components/BookInfo/SkeletonBookInfo';
@@ -30,6 +30,7 @@ const ReceiveBookList = () => {
     type: 'receive',
     sortType: sortingOption === '책장 목록 최신 순' ? 'desc' : 'asc',
   });
+  const { data: totalCount } = useReceiveBookCount();
 
   useEffect(() => {
     if (isVisible && hasNextPage && !isLoading) {
@@ -41,7 +42,7 @@ const ReceiveBookList = () => {
     refetch();
   }, [refetch, sortingOption]);
 
-  if (!receiveBookList) {
+  if (!receiveBookList || !totalCount) {
     return (
       <BookListLayout
         bookType="receive"
@@ -49,7 +50,7 @@ const ReceiveBookList = () => {
         handleSelectOption={handleSelectOption}
         sortingOption={sortingOption}
         lastCardRef={lastCardRef}
-        totalCount={9}>
+        totalCount={0}>
         {[...Array(7)].map((_, index) => (
           <SkeletonBookInfo key={index} />
         ))}
@@ -64,7 +65,7 @@ const ReceiveBookList = () => {
       handleSelectOption={handleSelectOption}
       sortingOption={sortingOption}
       lastCardRef={lastCardRef}
-      totalCount={9}>
+      totalCount={totalCount.receiveCount}>
       {receiveBookList.pages[0].length === 0 && <S.EmptyText>아직 받은 책장이 없습니다.</S.EmptyText>}
       {receiveBookList.pages[0].map((book: TSendBookListRes) => (
         <S.BookButton

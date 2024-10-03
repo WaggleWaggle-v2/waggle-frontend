@@ -49,6 +49,26 @@ const userRequest = {
       throw error;
     }
   },
+
+  // 받은 책 개수 조회
+  fetchReceiveBookCount: async () => {
+    try {
+      const { data } = await axios.get(`member/info/get/receiveBookCount`);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  // 작성 책 개수 조회
+  fetchSendBookCount: async () => {
+    try {
+      const { data } = await axios.get(`member/info/get/sendBookCount`);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
 } as const;
 
 export default userRequest;

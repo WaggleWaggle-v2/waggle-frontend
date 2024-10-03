@@ -3,3 +3,11 @@ export interface TUserFetchRes {
   userState: 'INCOMPLETE' | 'VERIFIED';
   nickname: string | undefined;
 }
+
+export interface TSendBookCountRes {
+  sendCount: number;
+}
+
+export interface TReceiveBookCountRes {
+  receiveCount: number;
+}
