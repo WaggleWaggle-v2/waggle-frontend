@@ -14,6 +14,7 @@ const Router = () => {
           <Route path="myPage" element={<Page.MyPage />} />
           <Route path="*" element={<Page.NotFound />} />
           <Route path="/book/:id" element={<Page.ReadBook />} />
+          <Route path="myPage/editBookshelf" element={<Page.EditBookshelf />} />
         </Route>
       </Routes>
     </BrowserRouter>

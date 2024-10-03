@@ -1,4 +1,5 @@
 import Auth from '@pages/auth';
+import EditBookshelf from '@pages/editBookshelf';
 import Home from '@pages/home';
 import Landing from '@pages/landing';
 import Login from '@pages/Login';
@@ -9,4 +10,4 @@ import ReadBook from '@pages/ReadBook';
 import Root from '@pages/Root';
 import SetUp from '@pages/setup';
 
-export { Home, Root, Login, SetUp, Main, Auth, Landing, MyPage, NotFound, ReadBook };
+export { Home, Root, Login, SetUp, Main, Auth, Landing, MyPage, NotFound, ReadBook, EditBookshelf };
