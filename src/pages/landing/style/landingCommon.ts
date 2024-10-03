@@ -16,6 +16,7 @@ export const Main = styled.div`
 
   @media ${device.tablet} {
     top: -${HEADER_HEIGHT.MOBILE};
+    background-color: var(--background);
   }
 
   &::before {
