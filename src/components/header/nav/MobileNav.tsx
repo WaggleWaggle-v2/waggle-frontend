@@ -1,12 +1,14 @@
 import { RefObject, useRef } from 'react';
 import kingHatImage from '@assets/images/king-hat.png';
 import RightArrowIcon from '@components/icons/RightArrowIcon';
+import { KING } from '@constants/kingSejong';
 import { TCloseHandler } from '@hooks/useAnimationClose';
 import useOutsideClick from '@hooks/useOutsideClick';
 import { XSlideIn, XSlideOut } from '@styles/animation/slideAnimation';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { zIndex } from '@styles/zIndex';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NavCategory, { MenuTitle } from './components/NavCategory';
 import UserInfo from './components/UserInfo';
@@ -27,12 +29,17 @@ const MobileNav = (props: TMobileNav) => {
   } = props;
   const navRef = useRef<HTMLElement | null>(null);
   useOutsideClick(navRef, handleClosing, headerRef);
+  const navigate = useNavigate();
 
   return (
     <S.Container $isClose={isClose} ref={navRef} onAnimationEnd={handleAnimationEnd}>
       <UserInfo nickName={nickName} handleCloseMenu={handleClosing} />
       <NavCategory isLogin={nickName ? true : false} handleCloseMenu={handleClosing} />
-      <S.KingContainer>
+      <S.KingContainer
+        type="button"
+        onClick={() => {
+          navigate(`/bookshelf/${KING.uuid}`);
+        }}>
         <S.KingImg src={kingHatImage} alt={'세종대왕 모자'} />
         <S.KingBody>
           <MenuTitle>
@@ -69,7 +76,7 @@ const S = {
       width: 19rem;
     }
   `,
-  KingContainer: styled.div`
+  KingContainer: styled.button`
     cursor: pointer;
     @media ${device.tablet} {
       width: 21rem;

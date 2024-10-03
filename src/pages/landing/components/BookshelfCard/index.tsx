@@ -49,6 +49,7 @@ const S = {
   CardImg: styled.img<{ $isKing?: boolean }>`
     border-radius: 0.6rem;
     object-fit: cover;
+    object-position: ${({ $isKing }) => ($isKing ? 'bottom' : 'center')};
     max-width: 10rem;
     width: 10rem;
     height: ${({ $isKing }) => ($isKing ? '12rem' : '10rem')};
