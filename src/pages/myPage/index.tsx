@@ -36,6 +36,7 @@ const MyPage = () => {
     if (returnType) {
       handleRememberType(returnType as TSetting);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

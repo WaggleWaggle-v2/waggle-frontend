@@ -2,6 +2,7 @@ import { TAxiosError } from '@api/axios';
 import userRequest from '@api/user/userRequest';
 import { TUserFetchRes } from '@api/user/userRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
+import { useToast } from '@hooks/useToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@utils/cookie';
 
@@ -22,6 +23,7 @@ export const useUserQuery = () => {
 
 // 유저 닉네임 변경
 export const useUserNicknameUpdateMutation = () => {
+  const { toast } = useToast();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (nickname: string) => await userRequest.updateUserNickname(nickname),
@@ -29,6 +31,7 @@ export const useUserNicknameUpdateMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.userInfo] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] });
+      toast('호명이 성공적으로 변경되었습니다.');
     },
     onError: (error: TAxiosError) => console.error(error.errorMessage),
   });

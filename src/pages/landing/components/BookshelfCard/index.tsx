@@ -1,4 +1,5 @@
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
+import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
 import TotalCount from './components/TotalCount';
 
@@ -38,6 +39,12 @@ const S = {
       background-color: var(--white);
       box-shadow: 0.4rem 0.8rem 2rem 0 rgba(222, 210, 192, 0.8);
     }
+
+    @media ${device.mobile} {
+      grid-template-columns: 8rem 1fr;
+      padding: 1rem;
+      gap: 1.2rem;
+    }
   `,
   CardImg: styled.img<{ $isKing?: boolean }>`
     border-radius: 0.6rem;
@@ -45,6 +52,12 @@ const S = {
     max-width: 10rem;
     width: 10rem;
     height: ${({ $isKing }) => ($isKing ? '12rem' : '10rem')};
+
+    @media ${device.mobile} {
+      max-width: 8rem;
+      width: 8rem;
+      height: ${({ $isKing }) => ($isKing ? '10rem' : '8rem')};
+    }
   `,
   CardContentBox: styled.div`
     display: flex;
@@ -61,6 +74,12 @@ const S = {
     line-height: 2rem;
     margin-bottom: 1rem;
     margin-top: 0.8rem;
+
+    @media ${device.mobile} {
+      font-size: 1.4rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0;
+    }
   `,
   CardDescription: styled.p`
     color: #000;
@@ -73,5 +92,9 @@ const S = {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @media ${device.mobile} {
+      font-size: 1.2rem;
+    }
   `,
 };
