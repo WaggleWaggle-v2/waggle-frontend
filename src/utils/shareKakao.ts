@@ -47,11 +47,6 @@ const shareKakao = (props: TShareKakao) => {
         },
       },
     ],
-    itemContent: {
-      titleImageUrl: 'https://i.ibb.co/0JPcLFr/image.png',
-      titleImageText: '세종대왕님의 책장',
-      titleImageCategory: '감사한 마음 전하기👋',
-    },
   });
 };
 

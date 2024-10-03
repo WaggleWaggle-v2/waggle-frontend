@@ -12,7 +12,6 @@ const ReadBook = () => {
   const bookId = useParams();
   const { data } = useBookDetail(Number(bookId.id));
   const { state } = useLocation();
-  localStorage.setItem('settingType', state.settingType);
 
   return (
     <S.Container>
@@ -30,7 +29,7 @@ const ReadBook = () => {
         <S.ButtonBox>
           <GoBackButton
             onClick={() => {
-              navigate('/myPage');
+              navigate(`/myPage/${state}`);
             }}
           />
         </S.ButtonBox>

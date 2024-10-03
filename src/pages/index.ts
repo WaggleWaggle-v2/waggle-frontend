@@ -4,9 +4,26 @@ import Landing from '@pages/landing';
 import Login from '@pages/Login';
 import Main from '@pages/main';
 import MyPage from '@pages/myPage';
+import EditBookshelf from '@pages/myPage/pages/editBookshelf';
+import ReceiveBookList from '@pages/myPage/pages/layout/receiveBookList';
+import SendBookList from '@pages/myPage/pages/layout/sendBookList';
+import ReadBook from '@pages/myPage/pages/ReadBook';
 import NotFound from '@pages/notFound';
-import ReadBook from '@pages/ReadBook';
 import Root from '@pages/Root';
 import SetUp from '@pages/setup';
 
-export { Home, Root, Login, SetUp, Main, Auth, Landing, MyPage, NotFound, ReadBook };
+export {
+  Home,
+  Root,
+  Login,
+  SetUp,
+  Main,
+  Auth,
+  Landing,
+  MyPage,
+  NotFound,
+  ReadBook,
+  EditBookshelf,
+  SendBookList,
+  ReceiveBookList,
+};

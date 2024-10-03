@@ -9,13 +9,13 @@ interface TProfileSectionLayout {
   children: ReactNode;
   userNickName: string;
   isNotDefaultSetting: boolean;
-  handleSetDefault: () => void;
   userId: string | undefined;
 }
 
 const ProfileSectionLayout = (props: TProfileSectionLayout) => {
-  const { children, userNickName, isNotDefaultSetting, handleSetDefault, userId } = props;
+  const { children, userNickName, isNotDefaultSetting, userId } = props;
   const navigate = useNavigate();
+
   return (
     <S.ProfileSection>
       <div>
@@ -25,7 +25,11 @@ const ProfileSectionLayout = (props: TProfileSectionLayout) => {
         {children}
       </div>
       {isNotDefaultSetting ? (
-        <GoBackButton onClick={handleSetDefault} />
+        <GoBackButton
+          onClick={() => {
+            navigate('/myPage');
+          }}
+        />
       ) : (
         <GoBookshelfButton
           onClick={() => {
