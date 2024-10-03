@@ -13,13 +13,13 @@ interface TBookList {
   settingType: TSetting;
 }
 
-export const SORTING_OPTION = ['책장 목록 오래된 순', '책장 목록 최신 순'] as const;
+export const SORTING_OPTION = ['방명록 오래된 순', '방명록 최신 순'] as const;
 
 export type TSortingOption = (typeof SORTING_OPTION)[number];
 
 const BookListSection = ({ settingType }: TBookList) => {
   const navigate = useNavigate();
-  const [sortingOption, setSortingOption] = useState<TSortingOption>('책장 목록 최신 순');
+  const [sortingOption, setSortingOption] = useState<TSortingOption>('방명록 최신 순');
   const skeletonArray = new Array(7).fill({});
   const { isVisible, targetRef } = useIntersectionObserver<HTMLDivElement>({ threshold: 0 });
 
@@ -29,7 +29,7 @@ const BookListSection = ({ settingType }: TBookList) => {
 
   const { data, isLoading, hasNextPage, fetchNextPage, refetch } = useReceiveSendInfinity({
     type: settingType as 'receive' | 'send',
-    sortType: sortingOption === '책장 목록 최신 순' ? 'desc' : 'asc',
+    sortType: sortingOption === '방명록 최신 순' ? 'desc' : 'asc',
   });
 
   useEffect(() => {

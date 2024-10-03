@@ -34,7 +34,7 @@ const BookListLayout = (props: TBookListLayout) => {
               <S.NickNameText>{nickName}</S.NickNameText> 님,
             </S.TitleText>
             <S.TitleText>
-              책장을 이만큼 <br />
+              방명록을 이만큼 <br />
               {bookType === 'send' ? '보냈다오' : '받았다오.'}
             </S.TitleText>
             <S.SubText>
