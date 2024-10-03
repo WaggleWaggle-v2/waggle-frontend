@@ -91,7 +91,6 @@ const S = {
     transform: translate(-50%, -50%);
     color: var(--gray700);
     font-size: 2.6rem;
-    text-wrap: nowrap;
   `,
   BookButton: styled.button`
     cursor: pointer;
