@@ -41,7 +41,7 @@ const ShareModal = (props: TSharedModal) => {
                 owner: nickname,
                 bookshelfImageUrl: backgroundImageUrl,
                 count: count,
-                link: currenPath.slice(1),
+                link: shareUrl,
               });
             }}>
             <S.KakaoIcon src={kakaoIcon} alt="카카오톡 공유하기" />
