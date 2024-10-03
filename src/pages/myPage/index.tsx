@@ -54,7 +54,7 @@ export default MyPage;
 const S = {
   // layout
   PageContainer: styled.div<{ $settingType: TSetting }>`
-    width: 100dvw;
+    width: 100%;
     height: calc(100dvh - ${HEADER_HEIGHT.PC});
     position: relative;
     top: ${HEADER_HEIGHT.PC};
@@ -73,17 +73,13 @@ const S = {
         align-items : flex-start;
       `}
     }
-
-    @media ${device.mobile} {
-    }
   `,
   Container: styled.div<{ $settingType: TSetting }>`
     max-width: 110rem;
     display: flex;
     justify-content: space-between;
-    gap: 3rem;
     padding: 0 2rem;
-    width: 100%;
+    gap: 3rem;
 
     @media ${device.tablet} {
       max-width: 59rem;
@@ -106,7 +102,7 @@ const S = {
     }
   `,
   SettingSection: styled.div`
-    width: 58.2rem;
+    width: 52rem;
     display: flex;
     flex-direction: column;
 
