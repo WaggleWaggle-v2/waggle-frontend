@@ -8,7 +8,6 @@ export interface TShareKakao {
 
 const shareKakao = (props: TShareKakao) => {
   const { owner, description, count, link, bookshelfImageUrl } = props;
-  console.log(description);
 
   // Kakao 객체 가져오기
   const Kakao = window.Kakao;

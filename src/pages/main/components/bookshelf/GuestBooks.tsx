@@ -28,7 +28,6 @@ const GuestBooks = ({ setIsOpen, id, totalCount, handleOpenShare, isOwner }: TGu
   const [nextCursor, setNextCursor] = useState<number | null>(null);
 
   const { data: bookData, isFetching, refetch } = useBookQuery(id, cursor);
-  console.log(id, bookData);
   const [books, setBooks] = useState<TBookItem[]>([]);
 
   const [columns, setColumns] = useState<Array<Array<TBookItem>>>([]);
