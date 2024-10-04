@@ -40,7 +40,9 @@ const SetProfileModal = (props: TSetProfileModal) => {
           <S.ImageContainer>
             <SetProfile setProfile={setProfileImage} profile={profileImageIdx} />
           </S.ImageContainer>
-          <PrimaryButton onClick={handleImageFile}>저장하기</PrimaryButton>
+          <S.ButtonContainer>
+            <PrimaryButton onClick={handleImageFile}>저장하기</PrimaryButton>
+          </S.ButtonContainer>
         </S.ModalBody>
       </S.ModalBox>
       <S.ModalDim />
@@ -87,9 +89,11 @@ const S = {
     grid-template-columns: 69rem;
 
     @media ${device.tablet} {
-      padding: 8rem 2rem 4rem;
+      padding: 8rem 2rem 0;
       margin: 0 auto;
       grid-template-columns: 1fr;
+      grid-template-rows: 3rem 1fr 9rem;
+      min-height: 0;
     }
 
     @media ${device.mobile} {
@@ -125,8 +129,7 @@ const S = {
 
     @media ${device.mobile} {
       margin-right: 0;
-      min-height: calc(100% - 5.8rem);
-      margin-bottom: 4rem;
+      min-height: 100%;
     }
   `,
   ModalDim: styled.div`
@@ -150,6 +153,17 @@ const S = {
 
     @media ${device.mobile} {
       font-size: 2.3rem;
+    }
+  `,
+  ButtonContainer: styled.div`
+    padding: 1rem 0;
+    background-color: var(--background);
+    height: 7rem;
+    z-index: 2;
+
+    @media ${device.tablet} {
+      height: 9rem;
+      padding: 2rem 0 5rem;
     }
   `,
 };
