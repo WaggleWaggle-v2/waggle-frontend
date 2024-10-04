@@ -8,6 +8,7 @@ export interface TShareKakao {
 
 const shareKakao = (props: TShareKakao) => {
   const { owner, description, count, link, bookshelfImageUrl } = props;
+  console.log(description);
 
   // Kakao 객체 가져오기
   const Kakao = window.Kakao;
@@ -42,8 +43,8 @@ const shareKakao = (props: TShareKakao) => {
       {
         title: '세종대왕 책장',
         link: {
-          mobileWebUrl: 'https://wagglewaggle.netlify.app/bookshelf/4eb1ab36rc9d2x4e15kbb3fv03cc4214e69f',
-          webUrl: 'https://wagglewaggle.netlify.app/bookshelf/4eb1ab36rc9d2x4e15kbb3fv03cc4214e69f',
+          mobileWebUrl: 'https://wagglewaggle.netlify.app/bookshelf/sejong',
+          webUrl: 'https://wagglewaggle.netlify.app/bookshelf/sejong',
         },
       },
     ],
