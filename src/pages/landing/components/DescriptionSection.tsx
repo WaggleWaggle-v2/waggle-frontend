@@ -69,7 +69,7 @@ const S = {
     font-weight: 600;
 
     @media ${device.tablet} {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
   `,
 };
