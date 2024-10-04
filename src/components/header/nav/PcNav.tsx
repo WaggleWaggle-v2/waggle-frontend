@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import closeIcon from '@assets/icons/cross-line.svg';
 import kebabIcon from '@assets/icons/kebab.svg';
-import navBottomImg from '@assets/images/nav-bottom.svg';
 import useOutsideClick from '@hooks/useOutsideClick';
 import useToggle from '@hooks/useToggle';
 import styled from 'styled-components';
@@ -59,7 +58,7 @@ const S = {
   LabelBottom: styled.div`
     min-width: 16.2rem;
     height: 3.6rem;
-    background-image: url(${navBottomImg});
+    background-image: url('/nav-bottom.svg');
     background-size: cover;
     position: relative;
     margin-top: -0.06rem;
