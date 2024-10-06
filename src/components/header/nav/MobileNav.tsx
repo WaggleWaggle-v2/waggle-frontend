@@ -43,7 +43,7 @@ const MobileNav = (props: TMobileNav) => {
         <S.KingImg src={kingHatImage} alt={'세종대왕 모자'} />
         <S.KingBody>
           <MenuTitle>
-            새종대왕님께 <br /> 감사의 말 전하기
+            세종대왕님께 <br /> 감사의 말 전하기
           </MenuTitle>
           <RightArrowIcon color={'#000'} />
         </S.KingBody>
