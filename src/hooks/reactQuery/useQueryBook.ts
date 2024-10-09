@@ -1,9 +1,10 @@
 import { TAxiosError } from '@api/axios';
 import bookRequest, { TReceiveSendBookListParams } from '@api/book/bookRequest';
-import { TBookDetailRes, TBookItem, TReceiveBookListRes, TSendBookListRes } from '@api/book/bookRequest.type';
+import { TBookDetailRes, TBookItem } from '@api/book/bookRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@utils/cookie';
+import { createMutationHook, createQueryHook } from './utils/factory';
 
 interface CreateBookParams {
   file: File;
@@ -20,63 +21,46 @@ interface TReceiveSendBookList extends TReceiveSendBookListParams {
 
 // 책 조회
 export const useBookQuery = (id: string | undefined | null, cursor: number | null) => {
-  const query = useQuery<TBookItem[], Error>({
-    queryKey: [QUERY_KEY.bookInfo, id, cursor],
-    queryFn: async () => {
-      if (!id) {
-        return;
-      } else {
-        return await bookRequest.fetchBook(id, cursor);
-      }
-    },
-    enabled: !!id,
-    gcTime: Infinity,
-  });
-
-  return query;
+  return createQueryHook<TBookItem[], Error>(
+    [QUERY_KEY.bookInfo, id, cursor],
+    () => bookRequest.fetchBook(id as string, cursor),
+    !!id,
+  );
 };
 
 // 책 생성
 export const useBookCreateMutation = () => {
   const queryClient = useQueryClient();
+  return createMutationHook<CreateBookParams, CreateBookParams>(
+    ({ file, nickname, isOpen, bookshelfId, description, bookType }) =>
+      bookRequest.createBook(file, nickname, isOpen, bookshelfId, description, bookType),
+    [
+      () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] }),
+      () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo] }),
+    ],
+  );
+};
+
+// 방명록 상세 보기
+export const useBookDetail = (bookId: number) => {
+  return createQueryHook<TBookDetailRes, Error>([QUERY_KEY.bookDetail, bookId], () =>
+    bookRequest.fetchBookContent(bookId),
+  );
+};
+
+// 책 삭제
+export const useBookDeleteMutation = () => {
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async ({ file, nickname, isOpen, bookshelfId, description, bookType }: CreateBookParams) => {
-      return await bookRequest.createBook(file, nickname, isOpen, bookshelfId, description, bookType);
-    },
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo, variables.bookshelfId] });
+    mutationFn: async (bookId: number) => await bookRequest.deleteBook(bookId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo] });
     },
     onError: (error: TAxiosError) => console.error(error),
   });
 
   return mutation;
-};
-
-// 남긴 책장 & 받은 책장 조회
-export const useReceiveSendBookList = (props: TReceiveSendBookList) => {
-  const { type, sortType, cursorId } = props;
-  const accessToken = getCookie('accessToken');
-
-  const query = useQuery<TReceiveBookListRes[] | TSendBookListRes[], Error>({
-    queryKey: type === 'receive' ? [QUERY_KEY.receiveBook] : [QUERY_KEY.sendBook],
-    queryFn: async () => {
-      if (!accessToken) throw new Error('No access token');
-
-      switch (type) {
-        case 'receive': {
-          return bookRequest.fetchReceiveBookList({ sortType, cursorId });
-        }
-        case 'send': {
-          return bookRequest.fetchSendBookList({ sortType, cursorId });
-        }
-      }
-    },
-    enabled: !!accessToken,
-    gcTime: Infinity,
-  });
-  return query;
 };
 
 // 남긴 책장 & 받은 책장 조회
@@ -113,28 +97,4 @@ export const useReceiveSendInfinity = (props: TReceiveSendBookList) => {
   });
 
   return query;
-};
-
-// 방명록 상세 보기
-export const useBookDetail = (bookId: number) => {
-  const query = useQuery<TBookDetailRes, Error>({
-    queryKey: [QUERY_KEY.bookDetail, bookId],
-    queryFn: async () => bookRequest.fetchBookContent(bookId),
-  });
-  return query;
-};
-
-// 책 삭제
-export const useBookDeleteMutation = () => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: async (bookId: number) => await bookRequest.deleteBook(bookId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookInfo] });
-    },
-    onError: (error: TAxiosError) => console.error(error),
-  });
-
-  return mutation;
 };

@@ -1,86 +1,56 @@
-import { TAxiosError } from '@api/axios';
 import userRequest from '@api/user/userRequest';
 import { TReceiveBookCountRes, TSendBookCountRes, TUserFetchRes } from '@api/user/userRequest.type';
 import { QUERY_KEY } from '@constants/queryKey';
-import { useToast } from '@hooks/useToast';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@utils/cookie';
+import { createMutationHook, createQueryHook } from './utils/factory';
+
+const accessToken = getCookie('accessToken');
 
 // 유저 정보 조회
 export const useUserQuery = () => {
-  const accessToken = getCookie('accessToken');
-  const query = useQuery<TUserFetchRes, Error>({
-    queryKey: [QUERY_KEY.userInfo],
-    queryFn: async () => {
-      if (!accessToken) throw new Error('No access token');
-      return await userRequest.fetchUser();
-    },
-    enabled: !!accessToken,
-    gcTime: Infinity,
-  });
-  return query;
+  return createQueryHook<TUserFetchRes, Error>([QUERY_KEY.userInfo], userRequest.fetchUser, !!accessToken);
 };
 
 // 유저 닉네임 변경
 export const useUserNicknameUpdateMutation = () => {
-  const { toast } = useToast();
   const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async (nickname: string) => await userRequest.updateUserNickname(nickname),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.userInfo] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] });
-      toast('호명이 성공적으로 변경되었습니다.');
-    },
-    onError: (error: TAxiosError) => console.error(error.errorMessage),
-  });
-
-  return mutation;
+  return createMutationHook<string, string>(
+    nickname => userRequest.updateUserNickname(nickname),
+    [
+      () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.userInfo] }),
+      () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] }),
+    ],
+    '호명이 성공적으로 변경되었습니다.',
+  );
 };
 
 // 추가 정보 입력
 export const useUsernameAndPublicityCreateMutation = () => {
   const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async ({ nickname, isOpen }: { nickname: string; isOpen: boolean }) =>
-      await userRequest.createUsernameAndPublicity(nickname, isOpen),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.userInfo] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] });
-    },
-    onError: (error: TAxiosError) => console.error(error.errorMessage),
-  });
-
-  return mutation;
+  return createMutationHook<{ nickname: string; isOpen: boolean }, { nickname: string; isOpen: boolean }>(
+    ({ nickname, isOpen }) => userRequest.createUsernameAndPublicity(nickname, isOpen),
+    [
+      () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.userInfo] }),
+      () => queryClient.invalidateQueries({ queryKey: [QUERY_KEY.bookShelfInfo] }),
+    ],
+  );
 };
 
 // 받은 책장 개수 조회
 export const useReceiveBookCount = () => {
-  const accessToken = getCookie('accessToken');
-  const query = useQuery<TReceiveBookCountRes, Error>({
-    queryKey: [QUERY_KEY.receiveBookCount],
-    queryFn: async () => {
-      if (!accessToken) throw new Error('No access token');
-      return await userRequest.fetchReceiveBookCount();
-    },
-    enabled: !!accessToken,
-    gcTime: Infinity,
-  });
-  return query;
+  return createQueryHook<TReceiveBookCountRes, Error>(
+    [QUERY_KEY.receiveBookCount],
+    userRequest.fetchReceiveBookCount,
+    !!accessToken,
+  );
 };
 
 // 보낸 책장 개수 조회
 export const useSendBookCount = () => {
-  const accessToken = getCookie('accessToken');
-  const query = useQuery<TSendBookCountRes, Error>({
-    queryKey: [QUERY_KEY.sendBookCount],
-    queryFn: async () => {
-      if (!accessToken) throw new Error('No access token');
-      return await userRequest.fetchSendBookCount();
-    },
-    enabled: !!accessToken,
-    gcTime: Infinity,
-  });
-  return query;
+  return createQueryHook<TSendBookCountRes, Error>(
+    [QUERY_KEY.sendBookCount],
+    userRequest.fetchSendBookCount,
+    !!accessToken,
+  );
 };
