@@ -2,13 +2,13 @@ import { ReactNode, useCallback } from 'react';
 import restoreIcon from '@assets/icons/restore.svg';
 import ShelfDecoration from '@components/shelfDecoration/ShelfDecoration';
 import LandingButton from '@pages/landing/components/LandingButton';
-import { QueryObserverResult } from '@tanstack/react-query';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import _ from 'lodash';
 import styled from 'styled-components';
 
 interface TThirdLanding {
   children: ReactNode;
-  refetch: () => Promise<QueryObserverResult<Error>>;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, unknown>>;
 }
 
 const ThirdLandingLayout = (props: TThirdLanding) => {

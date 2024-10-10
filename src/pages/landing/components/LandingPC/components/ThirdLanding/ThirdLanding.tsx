@@ -2,13 +2,13 @@ import { MouseEvent } from 'react';
 import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import BookshelfCard from '@pages/landing/components/BookshelfCard';
 import SkeletonBookshelfCard from '@pages/landing/components/BookshelfCard/components/SkeletonBookshelfCard';
-import { QueryObserverResult } from '@tanstack/react-query';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import ThirdLandingLayout from './ThirdLandingLayout';
 
 interface TThirdLanding {
   randomCardData: TBookshelfFetchRes[] | undefined;
-  refetch: () => Promise<QueryObserverResult<Error>>;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, unknown>>;
 }
 
 const ThirdLanding = (props: TThirdLanding) => {

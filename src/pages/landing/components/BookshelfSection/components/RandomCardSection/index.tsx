@@ -1,13 +1,13 @@
 import { ReactNode, useCallback } from 'react';
 import restore from '@assets/icons/restore.svg';
-import { QueryObserverResult } from '@tanstack/react-query';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import _ from 'lodash';
 import styled from 'styled-components';
 import { BookShelfSection, BookShelfTitle, FigureContainer } from '../../style/commonStyle';
 
 interface TRandomCardSectionLayout {
   children: ReactNode;
-  refetch: () => Promise<QueryObserverResult<Error>>;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, unknown>>;
 }
 
 const RandomCardSectionLayout = (props: TRandomCardSectionLayout) => {

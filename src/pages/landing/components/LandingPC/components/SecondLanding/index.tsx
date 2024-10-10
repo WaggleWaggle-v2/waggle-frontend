@@ -5,9 +5,9 @@ import SecondLandingLayout from './SecondLandingLayout';
 import SkeletonKingSejongCard from '../KingSejongCard/SkeletonKingSejongCard';
 
 const SecondLanding = () => {
-  const { data: KingSejong } = useBookshelfQuery(KING.uuid);
+  const { data: KingSejong, isLoading } = useBookshelfQuery(KING.uuid);
 
-  if (!KingSejong) {
+  if (!KingSejong || isLoading) {
     return (
       <SecondLandingLayout>
         <SkeletonKingSejongCard />

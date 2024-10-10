@@ -3,7 +3,7 @@ import { TBookshelfFetchRes } from '@api/bookshelf/bookshelfRequest.type';
 import typography from '@assets/images/typography-short.png';
 import usePageStore from '@stores/useStore';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
-import { QueryObserverResult } from '@tanstack/react-query';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import styled from 'styled-components';
 import FirstLanding from './components/FirstLanding';
 import SecondLanding from './components/SecondLanding';
@@ -14,7 +14,7 @@ const PAGE_COUNT = 3;
 
 interface TLandingPC {
   randomCardData: TBookshelfFetchRes[] | undefined;
-  refetch: () => Promise<QueryObserverResult<Error>>;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, unknown>>;
 }
 
 const LandingPc = (props: TLandingPC) => {
