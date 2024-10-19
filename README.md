@@ -11,7 +11,7 @@
 다른사람의 책장에 책거리를 장식하여 나의 마음을 전하세요 !
 <br/><br/>
 
-▶ 서비스 바로가기: https://andchill.netlify.app 
+▶ 서비스 바로가기: https://wagglewaggle.netlify.app/
 </br>
 
 - 누적 사용자 : 약 100명
