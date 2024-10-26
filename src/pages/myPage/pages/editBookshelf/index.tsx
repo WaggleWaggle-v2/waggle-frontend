@@ -51,8 +51,8 @@ const EditBookshelf = () => {
           <S.EditContainer>
             <S.ImageIntroduction>
               <BookshelfImageSection
-                backgroundImageUrl={myBookShelf?.backgroundImageUrl}
-                isHover={isHover}
+                backgroundimageurl={myBookShelf?.backgroundImageUrl}
+                ishover={isHover}
                 onMouseEnter={handleSetHover}
                 onMouseLeave={handleDisHover}
               />

@@ -6,12 +6,11 @@ import styled from 'styled-components';
 import SetProfileModal from './components/SetProfileModal';
 
 interface TBookshelfImageSection extends HTMLAttributes<HTMLDivElement> {
-  backgroundImageUrl: string | undefined;
-  isHover: boolean;
+  backgroundimageurl: string | undefined;
+  ishover: boolean;
 }
 
-const BookshelfImageSection = (props: TBookshelfImageSection) => {
-  const { backgroundImageUrl, isHover } = props;
+const BookshelfImageSection = ({ backgroundimageurl, ishover, ...rest }: TBookshelfImageSection) => {
   const [profileImage, setProfileImage] = useState(1);
   const { isTrue: isOpen, handleSetTrue: handleOpenModal, handleSetFalse: handleCloseModal } = useToggle();
 
@@ -24,14 +23,14 @@ const BookshelfImageSection = (props: TBookshelfImageSection) => {
           setProfileImage={setProfileImage}
         />
       )}
-      <div style={{ position: 'relative', flexShrink: '0' }} {...props}>
+      <div style={{ position: 'relative', flexShrink: '0' }} {...rest}>
         <S.EditImgButton type="button" onClick={handleOpenModal}>
           <S.EditIcon src={editIcon} alt="책장 배경사진 변경" />
         </S.EditImgButton>
         <S.ImageBox as="button" type="button" onClick={handleOpenModal}>
-          <S.EditImageText $isHover={isHover}>삽화 수정하기</S.EditImageText>
-          <S.HoverBackground $isHover={isHover} />
-          <S.BackgroundImg src={backgroundImageUrl} alt={backgroundImageUrl ? '책장 배경 사진' : ''} />
+          <S.EditImageText $isHover={ishover}>삽화 수정하기</S.EditImageText>
+          <S.HoverBackground $isHover={ishover} />
+          <S.BackgroundImg src={backgroundimageurl} alt={backgroundimageurl ? '책장 배경 사진' : ''} />
         </S.ImageBox>
       </div>
     </>
@@ -85,7 +84,7 @@ const S = {
     display: flex;
     justify-content: center;
     align-items: center;
-    ${({ $isHover }) => (!$isHover ? 'display : none;' : '')};
+    ${({ $isHover }) => ($isHover ? '' : 'display : none;')};
     cursor: pointer;
   `,
   EditImageText: styled.div<{ $isHover: boolean }>`
@@ -98,6 +97,6 @@ const S = {
     color: var(--white);
     font-weight: 500;
     z-index: 1;
-    ${({ $isHover }) => (!$isHover ? 'display : none;' : '')};
+    ${({ $isHover }) => ($isHover ? '' : 'display : none;')};
   `,
 };
