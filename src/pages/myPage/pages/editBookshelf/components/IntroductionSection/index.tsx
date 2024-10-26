@@ -5,7 +5,7 @@ import { useBookshelfIntroductionUpdateMutation } from '@hooks/reactQuery/useQue
 import { isCompleteKoreanWord } from '@pages/setup/utils/isCompleteKoreanWord';
 import { device } from '@styles/breakpoints';
 import styled from 'styled-components';
-import { SaveButton } from '../style/commStyle';
+import { SaveButton } from '../../style/commStyle';
 
 const IntroductionSection = ({ introduction }: { introduction: string | null | undefined }) => {
   const [value, setValue] = useState('');

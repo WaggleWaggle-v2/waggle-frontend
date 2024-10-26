@@ -1,17 +1,17 @@
 import { useBookshelfQuery } from '@hooks/reactQuery/useQueryBookshelf';
 import { useUserQuery } from '@hooks/reactQuery/useQueryUser';
 import useToggle from '@hooks/useToggle';
-import BookshelfImageSection from '@pages/myPage/components/editSection/components/BookshelfImageSection';
-import BookshelfThemeSection from '@pages/myPage/components/editSection/components/BookshelfThemeSection';
-import IntroductionSection from '@pages/myPage/components/editSection/components/IntroductionSection';
-import OpenScopeSection from '@pages/myPage/components/editSection/components/OpenScopeSection';
 import GoBackButton from '@pages/myPage/components/profileSection/components/GoBackButton';
 import RenameButton from '@pages/myPage/components/profileSection/components/RenameButton';
 import RenameModal from '@pages/myPage/components/renameModal';
+import BookshelfThemeSection from '@pages/myPage/pages/editBookshelf/components/BookshelfThemeSection';
 import { device } from '@styles/breakpoints';
 import { HEADER_HEIGHT } from '@styles/headerHeight';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import BookshelfImageSection from './components/BookshelfImageSection';
+import IntroductionSection from './components/IntroductionSection';
+import OpenScopeSection from './components/OpenScopeSection';
 
 const EditBookshelf = () => {
   const navigate = useNavigate();
