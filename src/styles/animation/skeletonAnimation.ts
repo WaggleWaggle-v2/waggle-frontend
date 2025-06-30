@@ -18,6 +18,7 @@ export const skeletonAnimation = css`
     var(--gray300) 60%,
     var(--gray300) 100%
   );
+  
   background-size: 200% 100%;
   animation: ${shining} 1.5s infinite;
   animation-delay: 0s;
